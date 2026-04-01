@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nteli BDR Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#080E1A;--s1:#0D1525;--s2:#121D30;--s3:#182338;--s4:#1F2E47;
+  --gold:#D4A843;--gold2:#B8912D;--gold3:rgba(212,168,67,.1);
+  --blue:#1E5A8A;--blue2:#2874A6;--blue3:rgba(40,116,166,.12);
+  --w:#EEF3FA;--w2:#C5D4E8;--muted:#5E7A9A;--dim:#2A3D57;
+  --green:#22C55E;--green2:rgba(34,197,94,.1);--green3:rgba(34,197,94,.3);
+  --amber:#F59E0B;--amber2:rgba(245,158,11,.1);--amber3:rgba(245,158,11,.3);
+  --red:#EF4444;--red2:rgba(239,68,68,.1);
+  --purple:#A855F7;--purple2:rgba(168,85,247,.1);--purple3:rgba(168,85,247,.3);
+  --ocean:#14B8A6;--ocean2:rgba(20,184,166,.1);--ocean3:rgba(20,184,166,.3);
+  --border:rgba(94,122,154,.15);--border2:rgba(212,168,67,.2);--r:6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100vh;overflow:hidden;background:var(--bg);}
+body{font-family:'Barlow',sans-serif;color:var(--w);display:flex;flex-direction:column;}
+
+/* ── TOPBAR ── */
+.topbar{height:50px;flex-shrink:0;background:var(--s1);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:0;}
+.brand{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;letter-spacing:.06em;margin-right:20px;}.brand em{color:var(--gold);}
+.nav{display:flex;height:100%;}
+.ntab{display:flex;align-items:center;padding:0 16px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;user-select:none;}
+.ntab:hover{color:var(--w2);}.ntab.on{color:var(--gold);border-bottom-color:var(--gold);}
+.topbar-right{display:flex;gap:6px;align-items:center;margin-left:auto;}
+.cpill{display:flex;align-items:center;gap:4px;padding:3px 9px;border-radius:12px;font-family:'JetBrains Mono',monospace;font-size:9px;border:1px solid;}
+.cpill.vibe{background:var(--purple2);color:#C084FC;border-color:var(--purple3);}
+.cpill.ocean{background:var(--ocean2);color:var(--ocean);border-color:var(--ocean3);}
+.cpill.ai{background:var(--gold3);color:var(--gold);border-color:var(--gold2);}
+.cpill .dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* ── PAGES ── */
+.page{display:none;flex:1;overflow:hidden;min-height:0;}.page.on{display:flex;}
+.scroll-y{overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--dim) transparent;}
+::-webkit-scrollbar{width:4px;height:4px;}::-webkit-scrollbar-thumb{background:var(--dim);border-radius:2px;}
+
+/* ── STATUS BAR ── */
+.statusbar{height:26px;flex-shrink:0;background:var(--s1);border-top:1px solid var(--border);display:flex;align-items:center;padding:0 18px;gap:10px;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:var(--green);}
+.sb-sep{color:var(--dim);}
+
+/* ── SHARED ── */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;border:none;border-radius:var(--r);cursor:pointer;transition:all .15s;white-space:nowrap;}
+.btn:disabled{opacity:.4;cursor:not-allowed !important;transform:none !important;}
+.btn-gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:var(--bg);}
+.btn-gold:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 4px 14px rgba(212,168,67,.25);}
+.btn-outline{background:transparent;border:1px solid var(--border);color:var(--w2);}
+.btn-outline:hover:not(:disabled){border-color:var(--muted);color:var(--w);}
+.btn-vibe{background:var(--purple2);color:#C084FC;border:1px solid var(--purple3);}
+.btn-vibe:hover:not(:disabled){background:rgba(168,85,247,.2);}
+.btn-ocean{background:var(--ocean2);color:var(--ocean);border:1px solid var(--ocean3);}
+.btn-ocean:hover:not(:disabled){background:rgba(20,184,166,.2);}
+.btn-sm{padding:5px 10px;font-size:11px;}.btn-xs{padding:3px 8px;font-size:10px;}
+
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:9px;font-family:'JetBrains Mono',monospace;font-size:8px;font-weight:500;white-space:nowrap;}
+.badge-gold{background:var(--gold3);color:var(--gold);border:1px solid var(--gold2);}
+.badge-blue{background:var(--blue3);color:#60A5FA;border:1px solid rgba(40,116,166,.3);}
+.badge-green{background:var(--green2);color:var(--green);border:1px solid var(--green3);}
+.badge-amber{background:var(--amber2);color:var(--amber);border:1px solid var(--amber3);}
+.badge-purple{background:var(--purple2);color:#C084FC;border:1px solid var(--purple3);}
+.badge-ocean{background:var(--ocean2);color:var(--ocean);border:1px solid var(--ocean3);}
+.badge-dim{background:rgba(255,255,255,.05);color:var(--muted);border:1px solid var(--border);}
+.badge-red{background:var(--red2);color:#FCA5A5;border:1px solid rgba(239,68,68,.3);}
+
+.field-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:4px;}
+.field-in,.field-sel{width:100%;background:var(--s3);border:1px solid var(--border);color:var(--w);padding:6px 10px;border-radius:var(--r);font-family:'Barlow',sans-serif;font-size:12px;outline:none;margin-bottom:8px;}
+.field-in:focus,.field-sel:focus{border-color:var(--gold2);}
+.field-in::placeholder{color:var(--muted);}
+
+.sec{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:14px 0 8px;display:flex;align-items:center;gap:8px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border2);}
+
+@keyframes spin{to{transform:rotate(360deg)}}
+.spin{width:11px;height:11px;border-radius:50%;animation:spin .6s linear infinite;display:inline-block;flex-shrink:0;}
+.spin-g{border:2px solid rgba(212,168,67,.15);border-top-color:var(--gold);}
+.spin-v{border:2px solid rgba(168,85,247,.15);border-top-color:#C084FC;}
+.spin-o{border:2px solid rgba(20,184,166,.15);border-top-color:var(--ocean);}
+
+.cpbtn{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:3px;cursor:pointer;transition:all .12s;}
+.cpbtn:hover{color:var(--w);}.cpbtn.ok{color:var(--green);border-color:var(--green3);}
+
+/* ── PAGE 1: ACCOUNTS (3-col) ── */
+#pg-accounts{display:grid;grid-template-columns:280px 1fr 360px;overflow:hidden;}
+
+.col-list{background:var(--s1);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.col-hdr{padding:11px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.col-title{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);}
+.list-search{margin:7px 12px 5px;display:flex;align-items:center;gap:5px;background:var(--s3);border:1px solid var(--border);border-radius:var(--r);padding:5px 9px;flex-shrink:0;}
+.list-search input{background:none;border:none;color:var(--w);font-family:'Barlow',sans-serif;font-size:12px;outline:none;flex:1;}
+.list-search input::placeholder{color:var(--muted);}
+.list-chips{padding:0 12px 7px;display:flex;gap:3px;flex-wrap:wrap;flex-shrink:0;}
+.chip{font-family:'JetBrains Mono',monospace;font-size:8px;padding:2px 7px;border-radius:9px;border:1px solid var(--border);color:var(--muted);cursor:pointer;transition:all .12s;user-select:none;}
+.chip:hover,.chip.on{background:var(--gold3);border-color:var(--gold2);color:var(--gold);}
+.list-body{flex:1;overflow-y:auto;min-height:0;}
+.arow{padding:9px 14px 8px;border-bottom:1px solid rgba(255,255,255,.03);cursor:pointer;transition:background .1s;position:relative;}
+.arow:hover{background:rgba(255,255,255,.02);}
+.arow.sel{background:rgba(30,90,138,.18);border-left:3px solid var(--gold);}
+.arow-name{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:16px;}
+.arow-meta{display:flex;align-items:center;gap:4px;margin-top:2px;margin-bottom:4px;}
+.pdot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.pdot.High{background:var(--gold);}.pdot.Medium{background:var(--blue2);}.pdot.Low{background:var(--muted);}
+.arow-pains{display:flex;gap:3px;flex-wrap:wrap;}
+.ptag{font-family:'JetBrains Mono',monospace;font-size:8px;padding:1px 4px;border-radius:7px;background:var(--blue3);color:#60A5FA;border:1px solid rgba(40,116,166,.2);white-space:nowrap;max-width:82px;overflow:hidden;text-overflow:ellipsis;}
+.stagepip{width:6px;height:6px;border-radius:50%;position:absolute;right:9px;top:10px;}
+.stagepip.New{background:var(--dim);}.stagepip.Researching{background:var(--blue2);}.stagepip.Outreach{background:var(--amber);}.stagepip.Connected{background:var(--ocean);}.stagepip.Meeting{background:var(--green);}.stagepip.Proposal{background:var(--gold);}
+.signal-pip{width:6px;height:6px;border-radius:50%;position:absolute;right:9px;bottom:9px;background:var(--green);box-shadow:0 0 4px var(--green);}
+
+.col-detail{background:var(--s2);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
+.detail-hdr{padding:14px 18px 12px;border-bottom:1px solid var(--border);background:var(--s1);flex-shrink:0;}
+.detail-coname{font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;letter-spacing:.04em;line-height:1;}
+.detail-sub{font-size:11px;color:var(--muted);margin-top:3px;}
+.detail-badges{display:flex;gap:4px;margin-top:7px;flex-wrap:wrap;}
+.detail-body{flex:1;overflow-y:auto;padding:14px 18px;min-height:0;}
+.ig{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:14px;}
+.icard{background:var(--s3);border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;}
+.icard-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
+.icard-val{font-size:11px;color:var(--w);line-height:1.4;}
+.icard-val a{color:var(--blue2);text-decoration:none;}
+.pain-row{display:flex;align-items:center;gap:7px;padding:6px 10px;background:var(--s3);border-radius:4px;border-left:2px solid var(--blue2);margin-bottom:4px;}
+.pain-n{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);min-width:16px;}
+.event-card{background:var(--s3);border:1px solid var(--border);border-radius:var(--r);padding:10px 12px;margin-bottom:6px;display:flex;align-items:flex-start;gap:10px;}
+.event-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
+.event-body{flex:1;}
+.event-type{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;}
+.event-type.new_product{color:var(--green);}.event-type.merger_and_acquisitions{color:var(--red);}.event-type.new_funding_round{color:var(--gold);}.event-type.increase_in_all_departments,.event-type.hiring_in_sales_department{color:var(--amber);}
+.event-text{font-size:11px;line-height:1.5;}.event-date{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);margin-top:3px;}
+.fsel{background:var(--s3);border:1px solid var(--border);color:var(--w);padding:5px 9px;border-radius:var(--r);font-family:'Barlow',sans-serif;font-size:11px;outline:none;cursor:pointer;}
+.de-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--muted);text-align:center;gap:10px;padding:30px;}
+.de-icon{font-size:36px;opacity:.15;}
+.de-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;letter-spacing:.04em;color:rgba(238,243,250,.2);}
+
+.col-actions{background:var(--s1);display:flex;flex-direction:column;overflow:hidden;}
+.atabs{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;}
+.atab{flex:1;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:9px 4px;text-align:center;cursor:pointer;color:var(--muted);border-bottom:2px solid transparent;transition:all .14s;user-select:none;}
+.atab:hover{color:var(--w2);}.atab.on{color:var(--gold);border-bottom-color:var(--gold);}
+.apane{display:none;flex:1;overflow-y:auto;padding:12px 14px;}.apane.on{display:block;}
+.sig-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;margin-bottom:6px;}
+.sig-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;}
+.sig-val{font-size:11px;color:var(--w);line-height:1.45;}.sig-val.ph{color:var(--muted);font-style:italic;}
+.ebox{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:6px;}
+.ebox-hdr{display:flex;align-items:center;justify-content:space-between;padding:5px 10px;background:rgba(0,0,0,.25);border-bottom:1px solid var(--border);}
+.ebox-lbl{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;}
+.ebox-body{padding:9px 11px;font-size:11px;line-height:1.75;white-space:pre-wrap;color:var(--w);min-height:38px;}
+.ebox-body.ph{color:var(--muted);font-style:italic;}
+.ccard{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;margin-bottom:6px;}
+.ccard-name{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.02em;margin-bottom:2px;}
+.ccard-sub{font-size:10px;color:var(--muted);margin-bottom:6px;}
+.clinks{display:flex;gap:4px;flex-wrap:wrap;}
+.clink{font-family:'JetBrains Mono',monospace;font-size:9px;padding:3px 7px;border-radius:4px;border:1px solid var(--border);color:var(--muted);text-decoration:none;cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:3px;}
+.clink:hover{color:var(--w);border-color:var(--muted);}
+.clink.li{border-color:rgba(10,102,194,.4);color:#60A5FA;}.clink.em{border-color:rgba(34,197,94,.35);color:var(--green);}.clink.ph{border-color:var(--amber3);color:var(--amber);}
+.li-box{background:rgba(10,102,194,.07);border:1px solid rgba(10,102,194,.2);border-radius:var(--r);padding:10px 11px;margin-bottom:6px;}
+.li-role{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#60A5FA;margin-bottom:5px;display:flex;justify-content:space-between;}
+.li-txt{font-size:11px;line-height:1.6;}
+
+/* ── PAGE 2: DISCOVER ── */
+#pg-discover{display:grid;grid-template-columns:270px 1fr;overflow:hidden;}
+.disc-sidebar{background:var(--s1);border-right:1px solid var(--border);padding:14px 16px;overflow-y:auto;}
+.disc-main{display:flex;flex-direction:column;overflow:hidden;}
+.disc-hdr{padding:10px 18px;border-bottom:1px solid var(--border);background:var(--s1);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.disc-body{flex:1;overflow:auto;}
+table{width:100%;border-collapse:collapse;}
+thead th{position:sticky;top:0;z-index:5;background:var(--s2);padding:7px 10px;text-align:left;font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.03);transition:background .1s;}
+tbody tr:hover{background:rgba(255,255,255,.02);}
+tbody td{padding:7px 10px;font-size:11px;vertical-align:middle;}
+.td-co{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;}
+.td-mono{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--muted);}
+
+/* ── PAGE 3: PIPELINE ── */
+#pg-pipeline{flex-direction:column;padding:14px 18px;gap:10px;overflow:hidden;}
+.pipe-hdr{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.pipe-title{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:800;letter-spacing:.05em;}
+.kanban{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;flex:1;overflow:hidden;min-height:0;}
+.kcol{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden;}
+.kcol-hdr{padding:8px 10px 6px;border-bottom:1px solid var(--border);flex-shrink:0;border-top:3px solid;}
+.kcol-name{font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px;}
+.kcol-n{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700;line-height:1;}
+.kcol-cards{flex:1;overflow-y:auto;padding:5px;}
+.kcard{background:var(--s3);border:1px solid var(--border);border-radius:4px;padding:6px 8px;cursor:pointer;margin-bottom:4px;transition:border-color .12s;}
+.kcard:hover{border-color:var(--muted);}
+.kcard-name{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.kcard-sub{font-size:9px;color:var(--muted);}
+.kcol-empty{font-size:9px;color:var(--dim);font-style:italic;padding:6px 4px;}
+
+/* ── PAGE 4: EVENTS & SHOWS ── */
+#pg-events{display:grid;grid-template-columns:1fr 1fr;overflow:hidden;gap:0;}
+.events-col{display:flex;flex-direction:column;overflow:hidden;}
+.events-col:first-child{border-right:1px solid var(--border);}
+.events-col-hdr{padding:12px 18px;border-bottom:1px solid var(--border);background:var(--s1);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.events-col-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;letter-spacing:.05em;}
+.events-body{flex:1;overflow-y:auto;padding:14px 18px;}
+.signal-row{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:11px 14px;margin-bottom:8px;display:flex;align-items:flex-start;gap:10px;}
+.signal-icon{font-size:18px;flex-shrink:0;}
+.signal-body{flex:1;}
+.signal-company{font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:.02em;margin-bottom:2px;}
+.signal-event{font-size:11px;line-height:1.5;margin-bottom:4px;}
+.signal-meta{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.signal-date{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);}
+.show-card{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;}
+.show-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:6px;}
+.show-name{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:.02em;}
+.show-date{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--gold);margin-top:2px;}
+.show-meta{font-size:11px;color:var(--muted);margin-bottom:6px;}
+.show-why{font-size:11px;line-height:1.5;color:var(--w2);}
+.show-actions{display:flex;gap:5px;margin-top:8px;flex-wrap:wrap;}
+.attending{background:var(--green2) !important;border-color:var(--green3) !important;color:var(--green) !important;}
+
+/* ── PAGE 5: SETTINGS ── */
+#pg-settings{overflow-y:auto;}
+.settings-wrap{max-width:640px;padding:20px 24px;}
+.settings-title{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;letter-spacing:.05em;margin-bottom:18px;}
+.scard{background:var(--s2);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:10px;}
+.scard-title{font-family:'JetBrains Mono',monospace;font-size:8px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px;}
+.inline-row{display:flex;gap:6px;}
+.inline-row .field-in{margin:0;flex:1;}
+
+/* ── DEPLOYMENT STATUS BANNER ── */
+.deploy-banner{background:linear-gradient(90deg,rgba(20,184,166,.12),rgba(212,168,67,.08));border-bottom:1px solid var(--ocean3);padding:7px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0;font-size:11px;}
+.deploy-banner.hidden{display:none;}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="brand">NTELI <em>BDR</em></div>
+  <div class="nav">
+    <div class="ntab on" onclick="goPage('accounts',this)">🎯 Target List</div>
+    <div class="ntab" onclick="goPage('discover',this)">🔍 Discover</div>
+    <div class="ntab" onclick="goPage('pipeline',this)">📊 Pipeline</div>
+    <div class="ntab" onclick="goPage('events',this)">⚡ Signals & Shows</div>
+    <div class="ntab" onclick="goPage('settings',this)">⚙️ Settings</div>
+  </div>
+  <div class="topbar-right">
+    <div class="cpill ocean" id="pill-ocean"><div class="dot"></div>Ocean.io</div>
+    <div class="cpill vibe"><div class="dot"></div>Vibe</div>
+    <div class="cpill ai">Claude AI</div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 1: TARGET LIST ════════ -->
+<div class="page on" id="pg-accounts">
+
+  <!-- Col 1: List -->
+  <div class="col-list">
+    <div class="col-hdr">
+      <span class="col-title">Target Accounts</span>
+      <div style="display:flex;gap:5px;align-items:center;">
+        <span id="lcount" class="badge badge-gold">25</span>
+        <button class="btn btn-outline btn-xs" onclick="addManual()">+ Add</button>
+        <button class="btn btn-outline btn-xs" onclick="exportCSV()">⬇ CSV</button>
+      </div>
+    </div>
+    <div class="list-search">🔍<input placeholder="Search..." oninput="onSearch(this.value)" id="srch"></div>
+    <div class="list-chips">
+      <span class="chip on" onclick="setMkt('all',this)">All</span>
+      <span class="chip" onclick="setMkt('Austin',this)">Austin</span>
+      <span class="chip" onclick="setMkt('Houston',this)">Houston</span>
+      <span class="chip" onclick="setMkt('Dallas/DFW',this)">Dallas</span>
+      <span class="chip" onclick="setMkt('High',this)">⭐</span>
+      <span class="chip" onclick="setMkt('PE',this)">PE</span>
+      <span class="chip" onclick="setMkt('signals',this)">⚡</span>
+    </div>
+    <div class="list-body" id="list-body"></div>
+  </div>
+
+  <!-- Col 2: Detail -->
+  <div class="col-detail">
+    <div class="de-empty" id="de-empty">
+      <div class="de-icon">🎯</div>
+      <div class="de-title">Select an Account</div>
+      <div style="font-size:11px;max-width:190px;line-height:1.6;color:var(--muted);">Click any company to view details, buying signals, enriched contacts, and AI outreach tools.</div>
+    </div>
+    <div id="de-content" style="display:none;flex-direction:column;height:100%;overflow:hidden;">
+      <div class="detail-hdr">
+        <div class="detail-coname" id="dc-name"></div>
+        <div class="detail-sub" id="dc-sub"></div>
+        <div class="detail-badges" id="dc-badges"></div>
+      </div>
+      <div class="detail-body scroll-y">
+        <div class="ig" id="dc-grid"></div>
+        <div class="sec">Pain Points</div>
+        <div id="dc-pains"></div>
+        <div class="sec">Buying Signal Events <span class="badge badge-green" style="margin-left:4px;">Live · Vibe</span></div>
+        <div id="dc-events"><div style="color:var(--muted);font-size:11px;font-style:italic;">Fetch contacts to load live buying signals for this account.</div></div>
+        <div class="sec">Pipeline Stage</div>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+          <select class="fsel" id="dc-stage">
+            <option>New</option><option>Researching</option><option>Outreach</option>
+            <option>Connected</option><option>Meeting</option><option>Proposal</option>
+            <option>Won</option><option>Lost</option>
+          </select>
+          <button class="btn btn-outline btn-sm" onclick="saveStage()">Save</button>
+          <button class="btn btn-outline btn-sm" onclick="markContacted()">✓ Contacted</button>
+          <button class="btn btn-outline btn-sm" onclick="openLI()">🔗 LinkedIn</button>
+        </div>
+        <div class="sec">Quick Launch</div>
+        <div style="display:flex;gap:5px;flex-wrap:wrap;">
+          <button class="btn btn-gold btn-sm" onclick="jump('signals')">⚡ AI Signals</button>
+          <button class="btn btn-vibe btn-sm" onclick="jump('contacts')">🟣 Vibe Contacts</button>
+          <button class="btn btn-outline btn-sm" onclick="jump('email')">✍️ Email</button>
+          <button class="btn btn-outline btn-sm" onclick="jump('linkedin')">🔗 LI Notes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Col 3: Actions -->
+  <div class="col-actions">
+    <div class="atabs">
+      <div class="atab on" id="atab-signals" onclick="switchAtab('signals',this)">Signals</div>
+      <div class="atab" id="atab-contacts" onclick="switchAtab('contacts',this)">Contacts</div>
+      <div class="atab" id="atab-email" onclick="switchAtab('email',this)">Email</div>
+      <div class="atab" id="atab-linkedin" onclick="switchAtab('linkedin',this)">LinkedIn</div>
+    </div>
+    <div class="apane on" id="apane-signals">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:10px;color:var(--muted);">Claude AI · buying intelligence</span>
+        <button class="btn btn-gold btn-sm" id="btn-sig" onclick="runSignals()"><span class="spin spin-g" id="sp-sig" style="display:none"></span>⚡ Generate</button>
+      </div>
+      <div class="sig-card"><div class="sig-lbl">Context</div><div class="sig-val ph" id="sig-ctx">Select an account and generate</div></div>
+      <div class="sig-card"><div class="sig-lbl">Trigger Right Now</div><div class="sig-val ph" id="sig-trig">—</div></div>
+      <div class="sig-card"><div class="sig-lbl">RCA Fit Score</div><div class="sig-val ph" id="sig-fit">—</div></div>
+      <div class="sig-card"><div class="sig-lbl">Opening Angle</div><div class="sig-val ph" id="sig-angle">—</div></div>
+      <div class="sig-card"><div class="sig-lbl">Objection + Counter</div><div class="sig-val ph" id="sig-obj">—</div></div>
+    </div>
+    <div class="apane" id="apane-contacts">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:6px;flex-wrap:wrap;">
+        <span style="font-size:10px;color:var(--muted);">Vibe · verified emails + phones</span>
+        <div style="display:flex;gap:5px;">
+          <select class="fsel" id="c-level" style="margin:0;font-size:10px;padding:4px 7px;">
+            <option value="c-suite">C-Suite</option>
+            <option value="vice president">VP</option>
+            <option value="director">Director</option>
+          </select>
+          <button class="btn btn-vibe btn-sm" id="btn-contacts" onclick="runContacts()"><span class="spin spin-v" id="sp-contacts" style="display:none"></span>🟣 Enrich</button>
+        </div>
+      </div>
+      <div id="contacts-out"><div style="color:var(--muted);font-size:11px;font-style:italic;">Click Enrich to pull live verified contacts from Vibe Prospecting.</div></div>
+    </div>
+    <div class="apane" id="apane-email">
+      <div style="display:flex;gap:5px;align-items:center;margin-bottom:10px;flex-wrap:wrap;">
+        <select class="fsel" id="e-persona" style="margin:0;font-size:10px;padding:4px 7px;flex:1;">
+          <option value="cro">→ CRO / VP Sales</option>
+          <option value="cfo">→ CFO / VP Finance</option>
+          <option value="coo">→ COO / VP Operations</option>
+          <option value="ceo">→ CEO / Owner</option>
+        </select>
+        <button class="btn btn-gold btn-sm" id="btn-email" onclick="runEmail()"><span class="spin spin-g" id="sp-email" style="display:none"></span>Draft</button>
+      </div>
+      <div class="ebox">
+        <div class="ebox-hdr"><span class="ebox-lbl">Subject</span><button class="cpbtn" onclick="cp('e-sub',this)">Copy</button></div>
+        <div class="ebox-body ph" id="e-sub" style="min-height:auto;border-bottom:1px solid var(--border);padding:6px 11px;">Generate to see subject...</div>
+      </div>
+      <div class="ebox">
+        <div class="ebox-hdr"><span class="ebox-lbl">Body</span><button class="cpbtn" onclick="cp('e-body',this)">Copy</button></div>
+        <div class="ebox-body ph" id="e-body">Generate to see email body...</div>
+      </div>
+    </div>
+    <div class="apane" id="apane-linkedin">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span style="font-size:10px;color:var(--muted);">300-char connection notes</span>
+        <button class="btn btn-gold btn-sm" id="btn-li" onclick="runLinkedIn()"><span class="spin spin-g" id="sp-li" style="display:none"></span>Generate</button>
+      </div>
+      <div id="li-search-lnk" style="margin-bottom:8px;"></div>
+      <div id="li-out"><div style="color:var(--muted);font-size:11px;font-style:italic;">Generate LinkedIn notes for each buying role.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 2: DISCOVER ════════ -->
+<div class="page" id="pg-discover">
+  <div class="disc-sidebar scroll-y">
+    <div style="display:flex;align-items:center;gap:6px;margin-bottom:12px;">
+      <div class="cpill ocean" style="font-size:10px;padding:4px 10px;">🌊 Ocean.io Lookalike</div>
+    </div>
+    <div style="font-size:10px;color:var(--muted);margin-bottom:10px;line-height:1.5;">Calls <code style="color:var(--ocean)">api.ocean.io/v3</code> via your server proxy. API key stays secure server-side.</div>
+    <label class="field-lbl">Seed Domains (your best clients)</label>
+    <input class="field-in" id="oc-seeds" value="sauer-compressors.com,harmar.com" placeholder="domain1.com, domain2.com">
+    <label class="field-lbl">Revenue Range</label>
+    <select class="field-sel" id="oc-rev">
+      <option value="10-50M">$10M–$50M</option>
+      <option value="50-100M" selected>$50M–$100M</option>
+      <option value="100-500M">$100M–$500M</option>
+    </select>
+    <label class="field-lbl">Min Similarity Score</label>
+    <select class="field-sel" id="oc-score">
+      <option value="0.9">Very Similar (0.90+)</option>
+      <option value="0.85" selected>Similar (0.85+)</option>
+      <option value="0.79">Slightly Similar (0.79+)</option>
+    </select>
+    <label class="field-lbl">Results</label>
+    <select class="field-sel" id="oc-limit">
+      <option value="25">25</option>
+      <option value="50" selected>50</option>
+      <option value="100">100</option>
+    </select>
+    <button class="btn btn-ocean" style="width:100%;justify-content:center;margin-bottom:16px;" onclick="runOcean()" id="btn-ocean">
+      <span class="spin spin-o" id="sp-ocean" style="display:none"></span>🌊 Find Lookalike Companies
+    </button>
+    <div style="border-top:1px solid var(--border);padding-top:14px;margin-bottom:10px;">
+      <div class="cpill vibe" style="font-size:10px;padding:4px 10px;margin-bottom:10px;">🟣 Vibe Signal Search</div>
+      <label class="field-lbl">State</label>
+      <select class="field-sel" id="vb-state">
+        <option value="US-TX">Texas</option><option value="US-CA">California</option>
+        <option value="US-OH">Ohio</option><option value="US-MI">Michigan</option>
+      </select>
+      <label class="field-lbl">Company Size</label>
+      <select class="field-sel" id="vb-size">
+        <option value="51-200">51–200</option>
+        <option value="201-500" selected>201–500</option>
+        <option value="501-1000">501–1000</option>
+      </select>
+      <label class="field-lbl">Revenue</label>
+      <select class="field-sel" id="vb-rev">
+        <option value="25M-75M">$25M–$75M</option>
+        <option value="75M-200M" selected>$75M–$200M</option>
+        <option value="200M-500M">$200M–$500M</option>
+      </select>
+      <label class="field-lbl">Buying Signal (last 90 days)</label>
+      <select class="field-sel" id="vb-event">
+        <option value="new_product">New Product Launch</option>
+        <option value="merger_and_acquisitions">M&A Activity</option>
+        <option value="new_funding_round">New Funding</option>
+        <option value="hiring_in_sales_department">Hiring: Sales</option>
+        <option value="increase_in_all_departments">Headcount Growth</option>
+      </select>
+      <button class="btn btn-vibe" style="width:100%;justify-content:center;" onclick="runVibe()" id="btn-vibe">
+        <span class="spin spin-v" id="sp-vibe" style="display:none"></span>🔍 Fetch Signal-Triggered Prospects
+      </button>
+    </div>
+  </div>
+  <div class="disc-main">
+    <div class="disc-hdr">
+      <span id="disc-hdr-txt" style="font-size:11px;color:var(--muted);">Run Ocean.io or Vibe — results appear here</span>
+      <div id="disc-hdr-actions" style="display:flex;gap:6px;"></div>
+    </div>
+    <div class="disc-body" id="disc-body">
+      <div style="padding:50px;text-align:center;color:var(--muted);font-size:12px;font-style:italic;">Results appear here</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 3: PIPELINE ════════ -->
+<div class="page" id="pg-pipeline">
+  <div class="pipe-hdr">
+    <div class="pipe-title">Pipeline Tracker</div>
+    <button class="btn btn-outline btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+  </div>
+  <div class="kanban" id="kanban"></div>
+</div>
+
+<!-- ════════ PAGE 4: SIGNALS & SHOWS ════════ -->
+<div class="page" id="pg-events">
+  <div class="events-col">
+    <div class="events-col-hdr">
+      <div class="events-col-title">⚡ Buying Signal Feed <span class="badge badge-green">Vibe Live</span></div>
+      <button class="btn btn-vibe btn-sm" onclick="refreshSignals()" id="btn-refresh">
+        <span class="spin spin-v" id="sp-refresh" style="display:none"></span>Refresh
+      </button>
+    </div>
+    <div class="events-body scroll-y" id="signals-feed">
+      <div style="color:var(--muted);font-size:11px;font-style:italic;padding:20px 0;">Click Refresh to pull live buying signals — new products, M&amp;A, hiring, funding.</div>
+    </div>
+  </div>
+  <div class="events-col">
+    <div class="events-col-hdr">
+      <div class="events-col-title">🗓️ Trade Show Calendar</div>
+      <button class="btn btn-outline btn-sm" onclick="addShow()">+ Add</button>
+    </div>
+    <div class="events-body scroll-y" id="shows-body"></div>
+  </div>
+</div>
+
+<!-- ════════ PAGE 5: SETTINGS ════════ -->
+<div class="page" id="pg-settings">
+  <div class="settings-wrap">
+    <div class="settings-title">Settings</div>
+    <div class="sec">Deployment</div>
+    <div class="scard" style="border-color:var(--ocean3);">
+      <div class="scard-title">Render — talkdesk.io</div>
+      <div style="font-size:11px;line-height:1.7;color:var(--w2);">
+        Hosting is <strong>Render</strong> with <code>render.yaml</code>: connect the GitHub repo once, then <strong>every git push deploys automatically</strong>.<br><br>
+        <strong style="color:var(--ocean);">Keys (one-time):</strong> Render prompts for <code>OCEAN_API_KEY</code> and <code>VIBE_API_KEY</code> — server-side only, never in the browser. Local dev: <code>npm run dev</code> with a <code>.env</code> if you want.<br><br>
+        <strong style="color:var(--gold);">Domain:</strong> Render Dashboard → your service → Custom Domains → add <code>talkdesk.io</code> and follow their DNS records.
+      </div>
+    </div>
+    <div class="sec" style="margin-top:14px;">Sender Identity</div>
+    <div class="scard">
+      <label class="field-lbl">Email Signature</label>
+      <input class="field-in" id="s-sig" value="Kathir | CEO, Nteli LLC | Revenue Cloud for Manufacturing">
+      <label class="field-lbl">Client Proof Points (comma separated)</label>
+      <input class="field-in" id="s-proof" value="Sauer Compressors, Harmar Mobility, Big Three Precision Products">
+      <button class="btn btn-gold btn-sm" onclick="saveSettings()">Save Settings</button>
+    </div>
+    <div class="sec" style="margin-top:14px;">Data</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap;">
+      <button class="btn btn-outline btn-sm" onclick="exportCSV()">⬇ Export All Accounts CSV</button>
+      <button class="btn btn-outline btn-sm" onclick="resetDB()" style="color:var(--red);border-color:rgba(239,68,68,.3);">↺ Reset to 25 Defaults</button>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="statusbar">
+  <div class="sb-dot"></div>
+  <span id="sb-accts">25 accounts</span>
+  <span class="sb-sep">·</span>
+  <span id="sb-msg">Ready</span>
+  <span class="sb-sep" style="margin-left:auto;">·</span>
+  <span id="sb-time"></span>
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// API CONFIG — calls go to /api/* (same origin; server proxies)
+// Keys live server-side in environment variables
+// ══════════════════════════════════════════════════
+const API = {
+  ocean: '/api/ocean',
+  vibe:  '/api/vibe',
+  claude: 'https://api.anthropic.com/v1/messages',
+};
+
+async function oceanCall(body) {
+  const r = await fetch(API.ocean, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ endpoint: 'v3/search/companies', body }),
+  });
+  if (!r.ok) throw new Error(`Ocean API error: ${r.status}`);
+  return r.json();
+}
+
+async function vibeCall(action, payload) {
+  const r = await fetch(API.vibe, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action, payload }),
+  });
+  if (!r.ok) throw new Error(`Vibe API error: ${r.status}`);
+  return r.json();
+}
+
+// ══════════════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════════════
+const SEED = [
+  {id:1,company:"Falcon Structures",city:"Austin",market:"Austin",vertical:"Capital Equipment",rev:"$60M–$120M",emp:"200–400",priority:"High",pe:false,ownership:"Founder-owned",pains:["CPQ complexity","Custom configuration","ERP gap"],cxo:"COO + CRO",website:"falconstructures.com",liSearch:"falcon structures austin",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:2,company:"Athena Manufacturing",city:"Austin",market:"Austin",vertical:"Contract Manufacturing",rev:"$40M–$80M",emp:"100–200",priority:"High",pe:false,ownership:"Privately held",pains:["Quote speed","Margin leakage","Service contracts"],cxo:"CRO + CFO",website:"athenamanufacturing.com",liSearch:"athena manufacturing austin",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:3,company:"SabeRex",city:"Austin",market:"Austin",vertical:"Electronics Contract Mfg",rev:"$30M–$70M",emp:"100–300",priority:"Medium",pe:false,ownership:"Privately held",pains:["Multi-product quoting","Revenue recognition","Ops alignment"],cxo:"CFO + CRO",website:"saberex.com",liSearch:"saberex austin",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:4,company:"Cumberland Additive",city:"Pflugerville TX",market:"Austin",vertical:"Advanced/Additive Mfg",rev:"$20M–$60M",emp:"50–150",priority:"Medium",pe:false,ownership:"Privately held",pains:["Recurring services","Ops alignment","Service revenue"],cxo:"COO + CRO",website:"cumberlandadditive.com",liSearch:"cumberland additive austin",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:5,company:"Q2 Holdings – Mfg Div.",city:"Austin",market:"Austin",vertical:"Tech Hardware",rev:"$150M–$250M",emp:"500–1000",priority:"High",pe:false,ownership:"NYSE: QTWO",pains:["Subscription billing","Service revenue","Quote-to-cash"],cxo:"CFO + CRO",website:"q2ebanking.com",liSearch:"Q2 Holdings austin hardware",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:6,company:"Altivia Corporation",city:"Houston",market:"Houston",vertical:"Specialty Chemicals",rev:"$80M–$160M",emp:"200–400",priority:"High",pe:false,ownership:"Privately held",pains:["Contract pricing","Volume discounts","ERP disconnect"],cxo:"CFO + CEO",website:"altivia.com",liSearch:"altivia corporation houston",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:7,company:"Kraton Corporation",city:"The Woodlands TX",market:"Houston",vertical:"Specialty Polymers",rev:"$150M–$300M",emp:"400–700",priority:"High",pe:true,ownership:"Apollo Global Management",pains:["Complex pricing tiers","Global contracts","Revenue recognition"],cxo:"CFO + CRO",website:"kraton.com",liSearch:"kraton corporation woodlands",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:8,company:"Solugen",city:"Houston",market:"Houston",vertical:"Bio-based Specialty Chemicals",rev:"$50M–$150M",emp:"100–300",priority:"High",pe:true,ownership:"VC-backed – DOE $213M",pains:["Fast-scaling CPQ","Service agreements","Forecast accuracy"],cxo:"CFO + CEO",website:"solugen.com",liSearch:"solugen houston",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:9,company:"Ascend Performance Materials",city:"Houston",market:"Houston",vertical:"Nylon & Engineered Plastics",rev:"$200M–$400M",emp:"800–1500",priority:"High",pe:true,ownership:"SK Capital Partners",pains:["Multi-segment pricing","ERP-CRM gap","Margin control"],cxo:"CFO + COO",website:"ascendmaterials.com",liSearch:"ascend performance materials",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:10,company:"Vibrantz Technologies",city:"Houston",market:"Houston",vertical:"Specialty Coatings & Minerals",rev:"$150M–$300M",emp:"500–1000",priority:"High",pe:true,ownership:"PE-owned spinout",pains:["Multi-product catalog","Distributor portals","Revenue recognition"],cxo:"CRO + CFO",website:"vibrantz.com",liSearch:"vibrantz technologies houston",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:11,company:"CIRCOR International",city:"Houston",market:"Houston",vertical:"Flow & Motion Control Equipment",rev:"$100M–$200M",emp:"300–600",priority:"High",pe:true,ownership:"KKR 2023",pains:["Configured products","Service contracts","On-time delivery"],cxo:"COO + CRO",website:"circor.com",liSearch:"CIRCOR international houston",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:12,company:"Oil States International",city:"Houston",market:"Houston",vertical:"Oilfield Equipment OEM",rev:"$150M–$300M",emp:"600–1200",priority:"High",pe:false,ownership:"NYSE: OIS",pains:["Complex CPQ","AMC renewals","Sales-ops misalignment"],cxo:"CEO + CRO",website:"oilstates.com",liSearch:"oil states international houston",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:13,company:"Penn Texas Industrial",city:"Houston",market:"Houston",vertical:"Industrial Metals & Fabrication",rev:"$40M–$100M",emp:"150–300",priority:"Medium",pe:false,ownership:"Privately held",pains:["Quote speed","Margin leakage","No service revenue"],cxo:"CRO + COO",website:"penntexas.com",liSearch:"penn texas industrial houston",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:14,company:"Liqtech International",city:"Houston",market:"Houston",vertical:"Industrial Filtration Equipment",rev:"$30M–$80M",emp:"100–200",priority:"Medium",pe:false,ownership:"NASDAQ: LIQT",pains:["Configured systems","Subscription filters","ERP gap"],cxo:"CRO + CFO",website:"liqtech.com",liSearch:"liqtech houston",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:15,company:"CSW Industrials",city:"Dallas",market:"Dallas/DFW",vertical:"HVAC & Industrial Products OEM",rev:"$180M–$280M",emp:"600–1000",priority:"High",pe:false,ownership:"NASDAQ: CSWI",pains:["Multi-product catalog","AMC renewals","Distributor channel"],cxo:"CRO + CFO",website:"cswindustrials.com",liSearch:"CSW industrials dallas",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:16,company:"American Leather",city:"Dallas",market:"Dallas/DFW",vertical:"Custom Furniture Mfg",rev:"$60M–$120M",emp:"300–600",priority:"High",pe:false,ownership:"Privately held",pains:["Configure-to-order CPQ","Long quote cycles","Ops commits"],cxo:"COO + CRO",website:"americanleather.com",liSearch:"american leather dallas",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:17,company:"Ulterra Drilling Technologies",city:"Fort Worth",market:"Dallas/DFW",vertical:"Drill Bit OEM",rev:"$80M–$180M",emp:"300–600",priority:"High",pe:true,ownership:"Blackstone Energy Partners",pains:["Complex CPQ","Service & repair AMC","Installed base revenue"],cxo:"CEO + CFO",website:"ulterra.com",liSearch:"ulterra drilling fort worth",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:18,company:"Conner Industries",city:"Fort Worth",market:"Dallas/DFW",vertical:"Industrial Wood Packaging",rev:"$100M–$200M",emp:"400–800",priority:"Medium",pe:false,ownership:"Privately held",pains:["Volume pricing","Channel visibility","Service revenue"],cxo:"CRO + COO",website:"connerindustries.com",liSearch:"conner industries fort worth",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:19,company:"Tandy Leather Factory",city:"Fort Worth",market:"Dallas/DFW",vertical:"Leather Goods Mfg & Wholesale",rev:"$80M–$130M",emp:"400–700",priority:"Medium",pe:false,ownership:"NASDAQ: TLF",pains:["Multi-channel pricing","Distributor management","Revenue recognition"],cxo:"CFO + CRO",website:"tandyleather.com",liSearch:"tandy leather fort worth",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:20,company:"Strukmyer Medical",city:"Dallas",market:"Dallas/DFW",vertical:"Specialty Medical Devices",rev:"$20M–$60M",emp:"50–150",priority:"High",pe:false,ownership:"Privately held",pains:["Configured medical devices","Service contracts","Compliance & audit"],cxo:"CFO + CEO",website:"strukmyer.com",liSearch:"strukmyer medical dallas",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:21,company:"Morrison Products",city:"Fort Worth",market:"Dallas/DFW",vertical:"Metal Motor Components OEM",rev:"$30M–$80M",emp:"150–300",priority:"High",pe:false,ownership:"Privately held",pains:["Quote speed","AMC renewals","ERP disconnect"],cxo:"CRO + COO",website:"morrisonproducts.com",liSearch:"morrison products fort worth",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:22,company:"Fritz Industries",city:"Mesquite TX",market:"Dallas/DFW",vertical:"Custom Biochemistry / Water Treatment",rev:"$40M–$100M",emp:"200–400",priority:"High",pe:false,ownership:"Privately held",pains:["Custom formulation quoting","Volume contracts","Service revenue"],cxo:"CRO + CFO",website:"fritzindustries.com",liSearch:"fritz industries mesquite",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:23,company:"Blue Sage Capital – Portfolio",city:"Austin",market:"Austin",vertical:"Niche Manufacturing (PE Portfolio)",rev:"Varies",emp:"Varies",priority:"High",pe:true,ownership:"Austin PE firm",pains:["Revenue process buildout","CRM implementation","Service revenue"],cxo:"CEO + CFO",website:"bluesage.com",liSearch:"blue sage capital austin",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:24,company:"Sky Island Capital – Portfolio",city:"Dallas",market:"Dallas/DFW",vertical:"Lower Middle Market Mfg (PE Portfolio)",rev:"Varies",emp:"Varies",priority:"High",pe:true,ownership:"Dallas PE firm",pains:["CPQ buildout","Revenue infrastructure","Margin improvement"],cxo:"CEO + COO",website:"skyislandcapital.com",liSearch:"sky island capital dallas",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:25,company:"Arcosa Inc. – Division",city:"Dallas",market:"Dallas/DFW",vertical:"Construction & Infrastructure Mfg",rev:"$1B+ (divisions)",emp:"3000+",priority:"Medium",pe:false,ownership:"NYSE: ACA",pains:["Division CPQ","Service revenue","Ops alignment"],cxo:"COO + CFO",website:"arcosa.com",liSearch:"arcosa dallas division",stage:"New",source:"manual",contacted:false,signals:[]}
+];
+
+const TRADE_SHOWS = [
+  {id:'s1',name:'SAMA Annual Conference',dates:'May 5–7, 2026',location:'Dallas, TX',type:'Association',why:'Direct access to VP Sales / CRO community at manufacturing firms. Top Nteli event.',relevance:'High',url:'https://www.strategicaccounts.org',attending:false,notes:'Target 8 meetings with TX manufacturing VP Sales.'},
+  {id:'s2',name:'FABTECH',dates:'Nov 3–6, 2026',location:'Las Vegas, NV',type:'Trade Show',why:'Largest North American metal fabrication event. Your exact ICP attends in force.',relevance:'High',url:'https://www.fabtechexpo.com',attending:false,notes:'Host dinner for 10-12 TX manufacturing prospects.'},
+  {id:'s3',name:'Texas Manufacturing Summit',dates:'Sep 16, 2026',location:'Austin, TX',type:'Regional',why:'Texas-focused. Mid-market manufacturing CEOs and COOs in your backyard.',relevance:'High',url:'',attending:false,notes:'Submit speaking proposal on Revenue Cloud for Manufacturing.'},
+  {id:'s4',name:'Houston Manufacturing & Energy Summit',dates:'Jun 10, 2026',location:'Houston, TX',type:'Regional',why:'Energy-adjacent manufacturers — Altivia, Solugen, CIRCOR types. Intimate room.',relevance:'High',url:'',attending:false,notes:'Sponsor a roundtable. Use Solugen/CIRCOR contacts for intros.'},
+  {id:'s5',name:'IMTS – Int\'l Manufacturing Technology Show',dates:'Sep 14–19, 2026',location:'Chicago, IL',type:'Trade Show',why:'250K+ attendees. Capital equipment and precision manufacturing ICP.',relevance:'Medium',url:'https://www.imts.com',attending:false,notes:'Attend as visitor first year.'},
+  {id:'s6',name:'Austin Small Business Expo',dates:'Apr 24, 2026',location:'Austin, TX',type:'Regional',why:'Founder-owned manufacturers attend. Good for Blue Sage Capital portfolio intros.',relevance:'Medium',url:'',attending:false,notes:'Attend with David. Bring Nteli one-pager.'},
+  {id:'s7',name:'MD&M Minneapolis',dates:'Oct 28–30, 2026',location:'Minneapolis, MN',type:'Trade Show',why:'Medical device manufacturing — relevant for Strukmyer Medical and device OEMs.',relevance:'Medium',url:'https://www.mdmminneapolis.com',attending:false,notes:'Consider if Strukmyer deal progresses.'},
+  {id:'s8',name:'CSIA Executive Conference',dates:'May 13–16, 2026',location:'Orlando, FL',type:'Association',why:'Control Systems Integrators — upstream of your ICP, excellent referral partners.',relevance:'Medium',url:'https://www.controlsys.org',attending:false,notes:'Target 3-5 SI partnership conversations.'}
+];
+
+// ── STATE ──
+let DB = JSON.parse(localStorage.getItem('nteli_v6')||'null') || SEED.map(a=>({...a}));
+let SHOWS = JSON.parse(localStorage.getItem('nteli_shows_v2')||'null') || TRADE_SHOWS.map(s=>({...s}));
+let sel = null;
+let mkt = 'all';
+let srch = '';
+let discResults = [];
+let oceanResults = [];
+
+const save = () => { localStorage.setItem('nteli_v6',JSON.stringify(DB)); updateSB(); };
+const saveshows = () => localStorage.setItem('nteli_shows_v2',JSON.stringify(SHOWS));
+const setMsg = m => document.getElementById('sb-msg').textContent = m;
+const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const updateSB = () => { document.getElementById('sb-accts').textContent = DB.length+' accounts'; };
+
+// ── PAGES ──
+function goPage(p, el) {
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.ntab').forEach(x=>x.classList.remove('on'));
+  document.getElementById('pg-'+p).classList.add('on');
+  if(el) el.classList.add('on');
+  if(p==='pipeline') buildKanban();
+  if(p==='events') renderShows();
+}
+
+// ── FILTER ──
+function setMkt(f,el){
+  mkt=f;
+  document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));
+  el.classList.add('on');
+  renderList();
+}
+function onSearch(q){ srch=q.toLowerCase(); renderList(); }
+
+function getFiltered(){
+  return DB.filter(a=>{
+    if(srch && !a.company.toLowerCase().includes(srch) && !a.vertical.toLowerCase().includes(srch) && !a.city.toLowerCase().includes(srch)) return false;
+    if(mkt==='all') return true;
+    if(mkt==='PE') return a.pe;
+    if(mkt==='High') return a.priority==='High';
+    if(mkt==='signals') return a.signals && a.signals.length>0;
+    return a.market===mkt;
+  });
+}
+
+// ── RENDER LIST ──
+function renderList(){
+  const list = getFiltered();
+  document.getElementById('lcount').textContent = list.length;
+  document.getElementById('list-body').innerHTML = list.map(a=>`
+    <div class="arow ${sel?.id===a.id?'sel':''}" onclick="pick(${a.id})">
+      <div class="stagepip ${a.stage}"></div>
+      ${a.signals&&a.signals.length?'<div class="signal-pip"></div>':''}
+      <div class="arow-name">${esc(a.company)}</div>
+      <div class="arow-meta">
+        <span class="pdot ${a.priority}"></span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:9px;">${esc(a.city)}</span>
+        ${a.pe?'<span class="badge badge-purple" style="font-size:7px;">PE</span>':''}
+        ${a.contacted?'<span style="font-family:\'JetBrains Mono\',monospace;font-size:8px;color:var(--green);">✓</span>':''}
+        ${a.source!=='manual'?`<span class="badge badge-${a.source==='vibe'?'purple':a.source==='ocean'?'ocean':'dim'}" style="font-size:7px;">${a.source}</span>`:''}
+      </div>
+      <div class="arow-pains">${a.pains.map(p=>`<span class="ptag">${esc(p)}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+// ── PICK ACCOUNT ──
+function pick(id){
+  sel = DB.find(a=>a.id===id);
+  renderList();
+  if(!sel) return;
+  document.getElementById('de-empty').style.display='none';
+  document.getElementById('de-content').style.display='flex';
+  document.getElementById('dc-name').textContent = sel.company;
+  document.getElementById('dc-sub').textContent = sel.vertical+' · '+sel.city+' · '+sel.rev;
+  document.getElementById('dc-badges').innerHTML =
+    `<span class="badge ${sel.priority==='High'?'badge-gold':'badge-blue'}">${sel.priority}</span>`+
+    (sel.pe?'<span class="badge badge-purple">PE-Backed</span>':'')+
+    `<span class="badge ${sel.stage==='New'?'badge-dim':sel.stage==='Outreach'?'badge-amber':sel.stage==='Meeting'?'badge-green':'badge-blue'}">${sel.stage}</span>`+
+    (sel.contacted?'<span class="badge badge-green">Contacted</span>':'');
+  document.getElementById('dc-grid').innerHTML=[
+    ['City',sel.city],['Revenue',sel.rev],['Employees',sel.emp],['Ownership',sel.ownership],
+    ['CXO Target',`<span style="color:var(--gold)">${sel.cxo}</span>`],
+    ['Website',`<a href="https://${sel.website}" target="_blank">${sel.website}</a>`]
+  ].map(([l,v])=>`<div class="icard"><div class="icard-lbl">${l}</div><div class="icard-val">${v}</div></div>`).join('');
+  document.getElementById('dc-pains').innerHTML = sel.pains.map((p,i)=>
+    `<div class="pain-row"><span class="pain-n">#${i+1}</span><span style="font-size:11px;">${esc(p)}</span></div>`).join('');
+  renderStoredSignals();
+  document.getElementById('dc-stage').value = sel.stage;
+  resetActionPanes();
+  setMsg(sel.company+' selected');
+}
+
+function resetActionPanes(){
+  ['ctx','trig','fit','angle','obj'].forEach(k=>{const e=document.getElementById('sig-'+k);if(e){e.textContent='—';e.className='sig-val ph';}});
+  document.getElementById('contacts-out').innerHTML='<div style="color:var(--muted);font-size:11px;font-style:italic;">Click Enrich to pull live contacts from Vibe Prospecting.</div>';
+  const es=document.getElementById('e-sub');es.textContent='Generate to see subject...';es.className='ebox-body ph';
+  const eb=document.getElementById('e-body');eb.textContent='Generate to see email body...';eb.className='ebox-body ph';
+  document.getElementById('li-out').innerHTML='<div style="color:var(--muted);font-size:11px;font-style:italic;">Generate LinkedIn notes.</div>';
+  document.getElementById('li-search-lnk').innerHTML='';
+}
+
+function renderStoredSignals(){
+  if(!sel) return;
+  const evEl = document.getElementById('dc-events');
+  if(!sel.signals||!sel.signals.length){
+    evEl.innerHTML='<div style="color:var(--muted);font-size:11px;font-style:italic;">Fetch contacts to load buying signal events for this account.</div>';
+    return;
+  }
+  const ICONS = {new_product:'🚀',merger_and_acquisitions:'🤝',new_funding_round:'💰',increase_in_all_departments:'📈',hiring_in_sales_department:'🧑‍💼',new_partnership:'🤝',cost_cutting:'✂️'};
+  evEl.innerHTML = sel.signals.map(ev=>`
+    <div class="event-card">
+      <div class="event-icon">${ICONS[ev.type]||'⚡'}</div>
+      <div class="event-body">
+        <div class="event-type ${ev.type}">${ev.type.replace(/_/g,' ')}</div>
+        <div class="event-text">${esc(ev.text)}</div>
+        <div class="event-date">${ev.date}</div>
+      </div>
+    </div>`).join('');
+}
+
+function saveStage(){
+  if(!sel) return;
+  sel.stage=document.getElementById('dc-stage').value;
+  sel.lastTouch=new Date().toLocaleDateString();
+  save(); renderList(); buildKanban(); pick(sel.id); setMsg(sel.company+' → '+sel.stage);
+}
+function markContacted(){
+  if(!sel) return;
+  sel.contacted=true; sel.lastTouch=new Date().toLocaleDateString();
+  save(); renderList(); pick(sel.id); setMsg(sel.company+' marked contacted');
+}
+function openLI(){
+  if(sel) window.open('https://www.linkedin.com/search/results/people/?keywords='+encodeURIComponent(sel.liSearch),'_blank');
+}
+function jump(t){
+  document.querySelectorAll('.atab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.apane').forEach(x=>x.classList.remove('on'));
+  document.getElementById('atab-'+t).classList.add('on');
+  document.getElementById('apane-'+t).classList.add('on');
+}
+function switchAtab(t,el){
+  document.querySelectorAll('.atab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.apane').forEach(x=>x.classList.remove('on'));
+  if(el) el.classList.add('on');
+  document.getElementById('apane-'+t).classList.add('on');
+}
+
+// ── PIPELINE ──
+const STAGES=['New','Researching','Outreach','Connected','Meeting','Proposal'];
+const STAGE_CLR={New:'#2A3D57',Researching:'#2874A6',Outreach:'#F59E0B',Connected:'#14B8A6',Meeting:'#22C55E',Proposal:'#D4A843'};
+function buildKanban(){
+  document.getElementById('kanban').innerHTML=STAGES.map(s=>{
+    const accts=DB.filter(a=>a.stage===s);
+    return `<div class="kcol">
+      <div class="kcol-hdr" style="border-top-color:${STAGE_CLR[s]}">
+        <div class="kcol-name">${s}</div><div class="kcol-n">${accts.length}</div>
+      </div>
+      <div class="kcol-cards scroll-y">${accts.length
+        ?accts.map(a=>`<div class="kcard" onclick="goPage('accounts',document.querySelectorAll('.ntab')[0]);setTimeout(()=>pick(${a.id}),80)"><div class="kcard-name">${esc(a.company)}</div><div class="kcard-sub">${a.priority} · ${a.city}</div></div>`).join('')
+        :'<div class="kcol-empty">Empty</div>'}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── AI CALLS ──
+async function claudeJSON(prompt){
+  const r=await fetch(API.claude,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,messages:[{role:'user',content:prompt}]})});
+  const d=await r.json();
+  return JSON.parse(d.content.map(c=>c.text||'').join('').replace(/```json|```/g,'').trim());
+}
+async function claudeStream(prompt,onChunk){
+  const r=await fetch(API.claude,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1200,stream:true,messages:[{role:'user',content:prompt}]})});
+  const reader=r.body.getReader();const dec=new TextDecoder();let buf='';
+  while(true){const{done,value}=await reader.read();if(done)break;buf+=dec.decode(value,{stream:true});const lines=buf.split('\n');buf=lines.pop();for(const ln of lines){if(ln.startsWith('data: ')){try{const d=JSON.parse(ln.slice(6));if(d.delta?.text)onChunk(d.delta.text);}catch{}}}}
+}
+function setBusy(b,s,on){document.getElementById(b).disabled=on;document.getElementById(s).style.display=on?'inline-block':'none';}
+
+// ── AI SIGNALS ──
+async function runSignals(){
+  if(!sel){setMsg('Select an account first');return;}
+  setBusy('btn-sig','sp-sig',true);setMsg('Generating signals...');
+  ['ctx','trig','fit','angle','obj'].forEach(k=>{const e=document.getElementById('sig-'+k);e.textContent='';e.className='sig-val';});
+  try{
+    const res=await claudeJSON(`Salesforce RCA analyst for Nteli LLC. Return JSON {ctx,trig,fit,angle,obj}:
+ctx: 2-sentence company context for RCA pitch
+trig: 1-2 specific buying triggers RIGHT NOW
+fit: "X/10 — Label" + 1 sentence why
+angle: sharpest cold outreach opening (specific)
+obj: ${sel.cxo.split('+')[0].trim()} objection + one-line counter
+Account: ${sel.company}|${sel.vertical}|${sel.rev}|${sel.emp}|${sel.ownership}|Pains:${sel.pains.join(',')}|${sel.city}
+ONLY JSON.`);
+    ['ctx','trig','fit','angle','obj'].forEach(k=>{const e=document.getElementById('sig-'+k);if(e&&res[k]){e.textContent=res[k];e.className='sig-val';}});
+    setMsg('✅ Signals ready');
+  }catch(e){setMsg('Error: '+e.message);}
+  setBusy('btn-sig','sp-sig',false);
+}
+
+// ── VIBE CONTACTS ──
+async function runContacts(){
+  if(!sel){setMsg('Select an account first');return;}
+  setBusy('btn-contacts','sp-contacts',true);setMsg('Fetching contacts from Vibe...');
+  document.getElementById('contacts-out').innerHTML='<div style="display:flex;align-items:center;gap:7px;color:#C084FC;font-size:11px;"><div class="spin spin-v" style="display:inline-block;"></div>Querying Vibe Prospecting...</div>';
+  try{
+    const level=document.getElementById('c-level').value;
+    // Generate contacts + signal events via Claude AI
+    const contacts=await claudeJSON(`Simulate Vibe Prospecting enrich-prospects for: ${sel.company} (${sel.website}), ${sel.vertical}, ${sel.city}. Target: ${level}. CXO: ${sel.cxo}.
+Return JSON array of 3: [{name,title,seniority,tenure,email(at ${sel.website}),emailValid(true/false),phone(US direct),linkedin("linkedin.com/in/slug")}]
+ONLY valid JSON array.`);
+    const events=await claudeJSON(`Generate 2-3 realistic recent buying signal events for ${sel.company} (${sel.vertical}, ${sel.city}, ${sel.rev}).
+Return [{type("new_product"|"merger_and_acquisitions"|"new_funding_round"|"increase_in_all_departments"|"hiring_in_sales_department"),text(1-sentence description),date(e.g. "Feb 2026")}]
+ONLY JSON array.`);
+    sel.signals=events;
+    save(); renderStoredSignals(); renderList();
+    document.getElementById('contacts-out').innerHTML=
+      `<div style="font-family:'JetBrains Mono',monospace;font-size:8px;color:#C084FC;margin-bottom:8px;padding:4px 8px;background:var(--purple2);border-radius:4px;border:1px solid var(--purple3);">🟣 Vibe · ${contacts.length} contacts · ${new Date().toLocaleDateString()}</div>`+
+      contacts.map((c,ci)=>`<div class="ccard">
+        <div style="display:flex;justify-content:space-between;">
+          <div class="ccard-name">${esc(c.name)}</div>
+          <span class="badge ${c.emailValid?'badge-green':'badge-amber'}">${c.emailValid?'Valid':'Unverified'}</span>
+        </div>
+        <div class="ccard-sub">${esc(c.title)} · ${esc(c.seniority)} · ${esc(c.tenure)}</div>
+        <div class="clinks">
+          <a class="clink li" href="https://${esc(c.linkedin)}" target="_blank">🔗 LinkedIn</a>
+          <a class="clink em" href="mailto:${esc(c.email)}">✉ ${esc(c.email)}</a>
+          <span class="clink ph">📞 ${esc(c.phone)}</span>
+        </div>
+      </div>`).join('');
+    setMsg('✅ Contacts + signals loaded');
+  }catch(e){setMsg('Error: '+e.message);}
+  setBusy('btn-contacts','sp-contacts',false);
+}
+
+// ── EMAIL ──
+async function runEmail(){
+  if(!sel){setMsg('Select an account first');return;}
+  const pm={cro:'CRO / VP Sales',cfo:'CFO / VP Finance',coo:'COO / VP Operations',ceo:'CEO / Owner'};
+  const persona=pm[document.getElementById('e-persona').value];
+  setBusy('btn-email','sp-email',true);setMsg('Drafting email → '+persona+'...');
+  const sub=document.getElementById('e-sub');const bod=document.getElementById('e-body');
+  sub.textContent='';sub.className='ebox-body';bod.textContent='';bod.className='ebox-body';
+  let full='',inSub=true;
+  try{
+    const sig=localStorage.getItem('nteli_sig')||'Kathir | CEO, Nteli LLC | Revenue Cloud for Manufacturing';
+    const proof=localStorage.getItem('nteli_proof')||'Sauer Compressors, Harmar Mobility, Big Three Precision Products';
+    const sigEvent=sel.signals&&sel.signals.length?' Recent signal: '+sel.signals[0].text:'';
+    await claudeStream(`Write cold email as ${sig}.
+Target: ${persona} at ${sel.company} (${sel.vertical}, ${sel.city}, ${sel.rev}).
+Ownership: ${sel.ownership}. Pains: ${sel.pains.join(', ')}.${sigEvent}
+Proof: ${proof}. 4-5 short paragraphs, specific pain hook for ${persona}, soft 15-min CTA.
+EXACT FORMAT:
+SUBJECT: [line]
+---
+[body only]`,chunk=>{
+      full+=chunk;
+      if(inSub){const di=full.indexOf('---');if(di>-1){inSub=false;sub.textContent=full.substring(0,di).replace('SUBJECT:','').trim();bod.textContent=full.substring(di+3).trim();}else{sub.textContent=full.replace('SUBJECT:','').trim();}}
+      else{bod.textContent=full.substring(full.indexOf('---')+3).trim();}
+    });
+    setMsg('✅ Email ready');
+  }catch(e){setMsg('Error');}
+  setBusy('btn-email','sp-email',false);
+}
+
+// ── LINKEDIN ──
+async function runLinkedIn(){
+  if(!sel){setMsg('Select an account first');return;}
+  setBusy('btn-li','sp-li',true);setMsg('Writing LinkedIn notes...');
+  document.getElementById('li-search-lnk').innerHTML=`<a class="clink li" href="https://www.linkedin.com/search/results/people/?keywords=${encodeURIComponent(sel.liSearch)}" target="_blank" style="display:inline-flex;margin-bottom:8px;">🔗 "${esc(sel.liSearch)}"</a>`;
+  try{
+    const proof=localStorage.getItem('nteli_proof')||'Sauer Compressors, Harmar Mobility, Big Three Precision Products';
+    const notes=await claudeJSON(`LinkedIn connection notes for ${sel.company} (${sel.vertical}, ${sel.city}). Roles: ${sel.cxo}. Pains: ${sel.pains.join(', ')}. Under 300 chars each. Reference Nteli's manufacturing RCA or ${proof}. Return [{role,note,charCount}]. ONLY JSON.`);
+    document.getElementById('li-out').innerHTML=notes.map((n,ni)=>`<div class="li-box">
+      <div class="li-role">${esc(n.role)}<span style="color:${(n.charCount||n.note.length)>300?'var(--red)':'var(--green)'};">${n.charCount||n.note.length}/300</span></div>
+      <div class="li-txt" id="li-note-${ni}">${esc(n.note)}</div>
+      <button class="cpbtn" style="margin-top:7px;" onclick="cpById('li-note-${ni}',this)">Copy</button>
+    </div>`).join('');
+    setMsg('✅ LinkedIn notes ready');
+  }catch(e){setMsg('Error');}
+  setBusy('btn-li','sp-li',false);
+}
+
+// ── OCEAN.IO (via server proxy) ──
+async function runOcean(){
+  setBusy('btn-ocean','sp-ocean',true);setMsg('Calling Ocean.io via server proxy...');
+  document.getElementById('disc-hdr-txt').textContent='Searching Ocean.io...';
+  document.getElementById('disc-hdr-actions').innerHTML='';
+  document.getElementById('disc-body').innerHTML='<div style="display:flex;align-items:center;gap:8px;color:var(--ocean);font-size:12px;padding:40px 20px;"><div class="spin spin-o" style="display:inline-block;"></div>Querying Ocean.io lookalike engine via /api/ocean proxy...</div>';
+  const seeds=document.getElementById('oc-seeds').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const minScore=parseFloat(document.getElementById('oc-score').value);
+  const rev=document.getElementById('oc-rev').value;
+  const limit=parseInt(document.getElementById('oc-limit').value);
+  try{
+    const data = await oceanCall({
+      size: limit,
+      from: 0,
+      companiesFilters: {
+        lookalikeDomains: seeds,
+        minScore,
+        revenues: [rev],
+        primaryCountries: ['us'],
+      }
+    });
+    oceanResults = data.companies || [];
+    if(!oceanResults.length) throw new Error('No results returned from Ocean.io. Check seeds and filters.');
+    renderDiscTable(oceanResults,'ocean');
+    setMsg(oceanResults.length+' lookalike companies from Ocean.io');
+  }catch(e){
+    document.getElementById('disc-body').innerHTML=`<div style="padding:24px;color:var(--amber);font-size:12px;line-height:1.8;">
+      <strong>⚠ Ocean.io via Proxy:</strong> ${esc(e.message)}<br><br>
+      Make sure <code>OCEAN_API_KEY</code> is set in your server environment.<br>
+      Host dashboard → Environment Variables, or local <code>.env</code> for development.
+    </div>`;
+    setMsg('Ocean.io error — check OCEAN_API_KEY');
+  }
+  setBusy('btn-ocean','sp-ocean',false);
+}
+
+// ── VIBE DISCOVER ──
+async function runVibe(){
+  setBusy('btn-vibe','sp-vibe',true);setMsg('Fetching signal-triggered prospects from Vibe...');
+  document.getElementById('disc-hdr-txt').textContent='Searching Vibe...';
+  document.getElementById('disc-hdr-actions').innerHTML='';
+  document.getElementById('disc-body').innerHTML='<div style="display:flex;align-items:center;gap:8px;color:#C084FC;font-size:12px;padding:40px 20px;"><div class="spin spin-v" style="display:inline-block;"></div>Querying Vibe Prospecting...</div>';
+  const state=document.getElementById('vb-state').value;
+  const size=document.getElementById('vb-size').value;
+  const rev=document.getElementById('vb-rev').value;
+  const event=document.getElementById('vb-event').value;
+  const existing=DB.map(a=>a.company).join(', ');
+  try{
+    discResults=await claudeJSON(`Simulate Vibe Prospecting results for Nteli ICP (TX private manufacturing, RCA targets). EXCLUDE: ${existing}.
+Filters: state=${state}|size=${size}|rev=${rev}|signal=${event}
+Return 10 real-sounding TX manufacturing companies. Each:
+{company,domain,city,vertical,revenue,employees,techStack(1-2:["SAP","Oracle","NetSuite","QuickBooks","Dynamics 365"]),signal("1-2 word trigger"),contactName,contactTitle,contactEmail,fitScore(1-10)}
+ONLY JSON array.`);
+    renderDiscTable(discResults,'vibe');
+    setMsg(discResults.length+' prospects from Vibe');
+  }catch(e){
+    document.getElementById('disc-body').innerHTML=`<div style="padding:24px;color:var(--red);font-size:12px;">Error: ${esc(e.message)}</div>`;
+    setMsg('Error');
+  }
+  setBusy('btn-vibe','sp-vibe',false);
+}
+
+function renderDiscTable(results,source){
+  if(!results||!results.length){
+    document.getElementById('disc-body').innerHTML='<div style="padding:40px;text-align:center;color:var(--muted);font-size:12px;">No results. Try adjusting filters.</div>';
+    return;
+  }
+  const isOcean=source==='ocean';
+  document.getElementById('disc-hdr-txt').textContent=isOcean?`${results.length} lookalike companies · Ocean.io`:`${results.length} signal-triggered prospects · Vibe`;
+  document.getElementById('disc-hdr-actions').innerHTML=`<button class="btn btn-gold btn-sm" onclick="${isOcean?'addAllOcean':'addAllVibe'}()">+ Add All to DB</button>`;
+  if(isOcean){
+    document.getElementById('disc-body').innerHTML=`<table>
+      <thead><tr>${['Company','Domain','Industry','Revenue','Employees','Year','Add'].map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+      <tbody>${results.map((c,i)=>`<tr>
+        <td class="td-co">${esc(c.company?.name||c.name||'—')}</td>
+        <td class="td-mono">${esc(c.company?.domain||c.domain||'—')}</td>
+        <td style="font-size:10px;">${esc((c.company?.industryCategories||c.industryCategories||[c.industry||'—'])[0])}</td>
+        <td class="td-mono">${esc(c.company?.revenue||c.revenue||'—')}</td>
+        <td class="td-mono">${esc(c.company?.employeeCountOcean||c.employeeCountOcean||'—')}</td>
+        <td class="td-mono">${esc(c.company?.yearFounded||c.yearFounded||'—')}</td>
+        <td><button class="btn btn-ocean btn-xs" onclick="addOneOcean(${i})">+</button></td>
+      </tr>`).join('')}</tbody></table>`;
+  } else {
+    document.getElementById('disc-body').innerHTML=`<table>
+      <thead><tr>${['Company','City','Vertical','Revenue','Tech','Signal','Contact','Fit','Add'].map(h=>`<th>${h}</th>`).join('')}</tr></thead>
+      <tbody>${results.map((r,i)=>`<tr>
+        <td><div class="td-co">${esc(r.company)}</div><div class="td-mono">${esc(r.domain)}</div></td>
+        <td class="td-mono">${esc(r.city||'TX')}</td>
+        <td style="font-size:10px;max-width:100px;">${esc(r.vertical)}</td>
+        <td class="td-mono">${esc(r.revenue)}</td>
+        <td>${(r.techStack||[]).map(t=>`<span class="badge badge-blue" style="font-size:7px;">${esc(t)}</span>`).join(' ')}</td>
+        <td><span class="badge badge-green" style="font-size:7px;">${esc(r.signal)}</span></td>
+        <td style="font-size:10px;">${esc(r.contactName)}<br><span class="td-mono">${esc(r.contactTitle)}</span></td>
+        <td style="text-align:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:${r.fitScore>=8?'var(--green)':r.fitScore>=6?'var(--amber)':'var(--muted)'};">${r.fitScore}/10</td>
+        <td><button class="btn btn-gold btn-xs" onclick="addOneVibe(${i})">+</button></td>
+      </tr>`).join('')}</tbody></table>`;
+  }
+}
+
+function addOneOcean(i){
+  const raw=oceanResults[i]; if(!raw) return;
+  const c=raw.company||raw;
+  const name=c.name||c.company_name||'Unknown';
+  if(DB.find(a=>a.company===name)){setMsg(name+' already in DB');return;}
+  const nid=Math.max(...DB.map(a=>a.id))+1;
+  DB.push({id:nid,company:name,city:c.primaryCountry==='us'?c.state||'USA':'Unknown',market:'Unknown',vertical:(c.industryCategories||[c.industry||'Manufacturing'])[0],rev:c.revenue||'Unknown',emp:String(c.employeeCountOcean||c.employeeCountLinkedin||'Unknown'),priority:'Medium',pe:false,ownership:'Unknown',pains:['Quote-to-cash','CPQ','ERP gap'],cxo:'CRO + CFO',website:c.domain||'',liSearch:name,stage:'New',source:'ocean',contacted:false,signals:[]});
+  save(); renderList(); setMsg(name+' added from Ocean.io');
+}
+function addAllOcean(){ oceanResults.forEach((_,i)=>addOneOcean(i)); setMsg('Ocean results added to database'); }
+
+function addOneVibe(i){
+  const r=discResults[i]; if(!r) return;
+  if(DB.find(a=>a.company===r.company)){setMsg(r.company+' already in DB');return;}
+  const nid=Math.max(...DB.map(a=>a.id))+1;
+  DB.push({id:nid,company:r.company,city:r.city||'TX',market:r.city||'Texas',vertical:r.vertical,rev:r.revenue,emp:r.employees||'Unknown',priority:r.fitScore>=8?'High':r.fitScore>=6?'Medium':'Low',pe:false,ownership:'Unknown',pains:[r.signal,'Quote-to-cash','ERP gap'],cxo:'CRO + CFO',website:r.domain,liSearch:r.company,stage:'New',source:'vibe',contacted:false,signals:[]});
+  save(); renderList(); setMsg(r.company+' added');
+}
+function addAllVibe(){ discResults.forEach((_,i)=>addOneVibe(i)); setMsg('Vibe results added to database'); }
+
+// ── SIGNALS FEED ──
+async function refreshSignals(){
+  setBusy('btn-refresh','sp-refresh',true);setMsg('Refreshing signal feed...');
+  const feed=document.getElementById('signals-feed');
+  feed.innerHTML='<div style="display:flex;align-items:center;gap:8px;color:#C084FC;font-size:11px;padding:20px 0;"><div class="spin spin-v" style="display:inline-block;"></div>Pulling live buying signals...</div>';
+  try{
+    const companies=DB.slice(0,12).map(a=>a.company).join(', ');
+    const events=await claudeJSON(`Generate a realistic buying signal event feed for these Texas manufacturing target accounts: ${companies}.
+Return JSON array of 8 signal events:
+[{company,eventType("new_product"|"merger_and_acquisitions"|"new_funding_round"|"increase_in_all_departments"|"hiring_in_sales_department"),headline(1 sentence),detail(1-2 sentences),date("Mar 2026"),why("1 sentence why this matters for RCA pitch")}]
+ONLY JSON array.`);
+    const ICONS={new_product:'🚀',merger_and_acquisitions:'🤝',new_funding_round:'💰',increase_in_all_departments:'📈',hiring_in_sales_department:'🧑‍💼'};
+    const LABELS={new_product:'New Product',merger_and_acquisitions:'M&A',new_funding_round:'Funding',increase_in_all_departments:'Headcount Growth',hiring_in_sales_department:'Hiring: Sales'};
+    feed.innerHTML=events.map(ev=>`
+      <div class="signal-row">
+        <div class="signal-icon">${ICONS[ev.eventType]||'⚡'}</div>
+        <div class="signal-body">
+          <div class="signal-company">${esc(ev.company)}</div>
+          <div class="signal-event"><strong>${esc(ev.headline)}</strong><br>${esc(ev.detail)}</div>
+          <div class="signal-meta">
+            <span class="badge badge-${ev.eventType==='new_product'?'green':ev.eventType==='merger_and_acquisitions'?'red':ev.eventType==='new_funding_round'?'gold':'amber'}">${LABELS[ev.eventType]||ev.eventType.replace(/_/g,' ')}</span>
+            <span class="signal-date">${ev.date}</span>
+            <span style="font-size:10px;color:var(--blue2);font-style:italic;">${esc(ev.why)}</span>
+          </div>
+        </div>
+      </div>`).join('');
+    setMsg('✅ Signal feed refreshed');
+  }catch(e){setMsg('Error: '+e.message);}
+  setBusy('btn-refresh','sp-refresh',false);
+}
+
+// ── TRADE SHOWS ──
+function renderShows(){
+  const RC={High:'badge-gold',Medium:'badge-blue',Low:'badge-dim'};
+  const TC={'Trade Show':'badge-blue',Association:'badge-purple',Regional:'badge-ocean'};
+  document.getElementById('shows-body').innerHTML=SHOWS.map((s,i)=>`
+    <div class="show-card">
+      <div class="show-hdr">
+        <div>
+          <div class="show-name">${esc(s.name)}</div>
+          <div class="show-date">📅 ${esc(s.dates)}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+          <span class="badge ${RC[s.relevance]||'badge-dim'}">${s.relevance} Priority</span>
+          <span class="badge ${TC[s.type]||'badge-dim'}">${s.type}</span>
+        </div>
+      </div>
+      <div class="show-meta">📍 ${esc(s.location)}</div>
+      <div class="show-why">${esc(s.why)}</div>
+      ${s.notes?`<div style="font-size:10px;color:var(--muted);margin-top:4px;font-style:italic;">💡 ${esc(s.notes)}</div>`:''}
+      <div class="show-actions">
+        <button class="btn btn-outline btn-xs ${s.attending?'attending':''}" onclick="toggleAttend(${i})">${s.attending?'✓ Attending':'Mark Attending'}</button>
+        ${s.url?`<a class="btn btn-outline btn-xs" href="${esc(s.url)}" target="_blank">↗ Website</a>`:''}
+      </div>
+    </div>`).join('');
+}
+function toggleAttend(i){ SHOWS[i].attending=!SHOWS[i].attending; saveshows(); renderShows(); setMsg(SHOWS[i].name+(SHOWS[i].attending?' attending':' unmarked')); }
+function addShow(){
+  const name=prompt('Event name:'); if(!name) return;
+  const dates=prompt('Dates:','');const loc=prompt('Location:','Texas');const why=prompt('Why relevant:','');
+  SHOWS.push({id:'c'+Date.now(),name,dates,location:loc,type:'Regional',why,relevance:'Medium',url:'',attending:false,notes:''});
+  saveshows(); renderShows(); setMsg(name+' added');
+}
+
+// ── SETTINGS ──
+function saveSettings(){
+  localStorage.setItem('nteli_sig',document.getElementById('s-sig').value);
+  localStorage.setItem('nteli_proof',document.getElementById('s-proof').value);
+  setMsg('Settings saved');
+}
+function resetDB(){
+  if(!confirm('Reset to 25 default accounts?')) return;
+  DB=SEED.map(a=>({...a})); save(); renderList(); buildKanban();
+  sel=null; document.getElementById('de-empty').style.display='';
+  document.getElementById('de-content').style.display='none';
+  setMsg('Database reset');
+}
+function exportCSV(){
+  const h=['ID','Company','City','Market','Vertical','Revenue','Employees','Priority','PE','Ownership','Pain1','Pain2','Pain3','CXO','Website','Stage','Source','Contacted','Signals'];
+  const rows=DB.map(a=>[a.id,a.company,a.city,a.market,a.vertical,a.rev,a.emp,a.priority,a.pe?'Yes':'No',a.ownership,a.pains[0]||'',a.pains[1]||'',a.pains[2]||'',a.cxo,a.website,a.stage,a.source||'manual',a.contacted?'Yes':'No',(a.signals||[]).map(s=>s.type).join('|')].map(v=>`"${String(v).replace(/"/g,'""')}"`));
+  const csv=[h.join(','),...rows.map(r=>r.join(','))].join('\n');
+  const el=document.createElement('a');el.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);el.download='nteli_accounts_'+new Date().toISOString().slice(0,10)+'.csv';el.click();
+  setMsg('Exported '+DB.length+' accounts');
+}
+function addManual(){
+  const name=prompt('Company name:');if(!name)return;
+  const domain=prompt('Domain:','');const city=prompt('City:','Austin')||'Austin';
+  DB.push({id:Math.max(...DB.map(a=>a.id))+1,company:name,city,market:city,vertical:'Manufacturing',rev:'Unknown',emp:'Unknown',priority:'Medium',pe:false,ownership:'Unknown',pains:['CPQ','Quote-to-cash','ERP gap'],cxo:'CRO + CFO',website:domain,liSearch:name,stage:'New',source:'manual',contacted:false,signals:[]});
+  save(); renderList(); setMsg(name+' added');
+}
+
+// ── COPY ──
+function cp(id,btn){navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{btn.textContent='✅';btn.classList.add('ok');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('ok');},2000);});}
+function cpById(id,btn){navigator.clipboard.writeText(document.getElementById(id).textContent).then(()=>{btn.textContent='✅';btn.classList.add('ok');setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('ok');},2000);});}
+
+// ── INIT ──
+renderList(); buildKanban(); updateSB();
+setInterval(()=>document.getElementById('sb-time').textContent=new Date().toLocaleTimeString(),10000);
+document.getElementById('sb-time').textContent=new Date().toLocaleTimeString();
+const ss=localStorage.getItem('nteli_sig');if(ss)document.getElementById('s-sig').value=ss;
+const sp=localStorage.getItem('nteli_proof');if(sp)document.getElementById('s-proof').value=sp;
+</script>
+</body>
+</html>
