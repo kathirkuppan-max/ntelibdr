@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "builds": [
-    { "src": "api/*.js", "use": "@vercel/node" },
-    { "src": "public/**", "use": "@vercel/static" }
-  ],
+  "functions": {
+    "api/ocean.js": { "runtime": "@vercel/node" },
+    "api/vibe.js": { "runtime": "@vercel/node" }
+  },
   "routes": [
     { "src": "/api/ocean", "dest": "/api/ocean.js" },
     { "src": "/api/vibe", "dest": "/api/vibe.js" },
-    { "src": "/(.*)", "dest": "/public/$1" }
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
