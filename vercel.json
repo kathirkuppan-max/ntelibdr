@@ -4,6 +4,6 @@
     { "src": "/api/ocean",  "dest": "/api/ocean.js"  },
     { "src": "/api/vibe",   "dest": "/api/vibe.js"   },
     { "src": "/api/claude", "dest": "/api/claude.js" },
-    { "src": "/(.*)",       "dest": "/index.html"    }
+    { "src": "/(.*)",       "dest": "/public/$1"     }
   ]
 }
