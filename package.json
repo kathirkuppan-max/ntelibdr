@@ -1,5 +1,5 @@
 {
-  "name": "nteli-bdr-hub",
+  "name": "ntelibdr",
   "version": "1.0.0",
   "private": true,
   "engines": { "node": "20.x" }
