@@ -1,9 +1,5 @@
 {
   "version": 2,
-  "functions": {
-    "api/ocean.js": { "runtime": "@vercel/node" },
-    "api/vibe.js": { "runtime": "@vercel/node" }
-  },
   "routes": [
     { "src": "/api/ocean", "dest": "/api/ocean.js" },
     { "src": "/api/vibe", "dest": "/api/vibe.js" },
