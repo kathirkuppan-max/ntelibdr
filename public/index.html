@@ -172,6 +172,18 @@ body{display:flex;flex-direction:column;}
 .clink:hover{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue);}
 .clink.valid{border-color:var(--green-border);color:var(--green);}
 
+/* OUTREACH TASKS */
+.task-row{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:var(--r);border-left:3px solid var(--border2);cursor:pointer;transition:all .12s;margin-bottom:4px;}
+.task-row:hover{background:var(--surface2);}
+.task-row.done{border-left-color:var(--green);opacity:.7;}
+.task-row.next{border-left-color:var(--blue);background:var(--blue-bg);}
+.task-check{width:20px;height:20px;border-radius:4px;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;transition:all .12s;}
+.task-check.done{background:var(--green);border-color:var(--green);color:#fff;}
+.task-label{font-size:13px;font-weight:500;flex:1;}
+.task-label.done{text-decoration:line-through;color:var(--text3);}
+.task-date{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono','JetBrains Mono','SF Mono',Consolas,monospace;}
+.task-icon{font-size:15px;flex-shrink:0;width:22px;text-align:center;}
+
 /* EMAIL BOX */
 .email-box{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:8px;}
 .email-box-hdr{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--blue-bg);border-bottom:1px solid var(--blue-border);}
@@ -220,6 +232,8 @@ body{display:flex;flex-direction:column;}
 .show-note{font-size:12px;color:var(--text3);font-style:italic;margin-bottom:8px;}
 .show-actions{display:flex;gap:6px;flex-wrap:wrap;}
 .attending{background:var(--green-bg) !important;border-color:var(--green-border) !important;color:var(--green) !important;}
+.badge-teal{background:#0A2A2A;color:#2DD4BF;border:1px solid #1A4A4A;}
+.badge-pink{background:#2A0A1A;color:#F472B6;border:1px solid #4A1A3A;}
 
 /* ── PAGE 4: DISCOVER ── */
 .disc-sidebar{background:var(--surface);border-right:1px solid var(--border);padding:16px;overflow-y:auto;min-height:0;height:100%;box-sizing:border-box;}
@@ -369,7 +383,18 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
           </div>
         </div>
 
-        <!-- SECTION 4: OUTREACH -->
+        <!-- SECTION 4: OUTREACH SEQUENCE -->
+        <div class="gtm-card">
+          <div class="gtm-card-hdr">
+            <div class="gtm-card-title">📋 Outreach Sequence <span class="badge badge-blue" id="dc-task-progress" style="font-size:10px;">0/5</span></div>
+            <button class="btn btn-outline btn-sm" onclick="copyTaskSummary()">📋 Copy for Slack</button>
+          </div>
+          <div class="gtm-card-body">
+            <div id="dc-tasks"></div>
+          </div>
+        </div>
+
+        <!-- SECTION 5: OUTREACH -->
         <div class="gtm-card">
           <div class="gtm-card-hdr">
             <div class="gtm-card-title">✍️ Outreach Tools</div>
@@ -432,10 +457,20 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
   </div>
   <div class="events-col">
     <div class="events-col-hdr">
-      <div class="events-col-title">🗓️ Trade Show Calendar</div>
-      <button class="btn btn-outline btn-sm" onclick="addShow()">+ Add</button>
+      <div class="events-col-title">🗓️ Events & Meetups</div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <select class="fsel" id="evt-filter" style="font-size:12px;padding:4px 8px;" onchange="renderEvents()">
+          <option value="all">All Events</option>
+          <option value="trade_show">Trade Shows</option>
+          <option value="conference">Conferences</option>
+          <option value="meetup">Meetups</option>
+          <option value="coworking">Co-working</option>
+          <option value="dinner">Dinners</option>
+        </select>
+        <button class="btn btn-outline btn-sm" onclick="addEvent()">+ Add</button>
+      </div>
     </div>
-    <div class="events-body scroll" id="shows-body"></div>
+    <div class="events-body scroll" id="events-body"></div>
   </div>
 </div>
 
@@ -642,27 +677,55 @@ const SEED = [
   {id:25,company:"Arcosa Inc. – Division",city:"Dallas",market:"Dallas/DFW",vertical:"Construction & Infrastructure Mfg",rev:"$1B+ (divisions)",emp:"3000+",priority:"Medium",pe:false,ownership:"NYSE: ACA",pains:["Division CPQ","Service revenue","Ops alignment"],cxo:"COO + CFO",website:"arcosa.com",liSearch:"arcosa dallas division",stage:"New",source:"manual",contacted:false,signals:[]}
 ];
 
-const TRADE_SHOWS = [
-  {id:'ts1',name:'SAMA Annual Conference',dates:'May 5–7, 2026',location:'Dallas, TX',type:'Association',why:'Direct access to VP Sales and CRO community at manufacturing firms. Top Nteli event.',relevance:'High',url:'https://www.strategicaccounts.org',attending:false,notes:'Target 8 meetings with TX manufacturing VP Sales.'},
-  {id:'ts2',name:'FABTECH',dates:'Nov 3–6, 2026',location:'Las Vegas, NV',type:'Trade Show',why:'Largest North American metal fabrication event. Your exact ICP attends in force.',relevance:'High',url:'https://www.fabtechexpo.com',attending:false,notes:'Host dinner for 10-12 TX manufacturing prospects.'},
-  {id:'ts3',name:'Texas Manufacturing Summit',dates:'Sep 16, 2026',location:'Austin, TX',type:'Regional',why:'Texas-focused. Mid-market manufacturing CEOs and COOs in your backyard.',relevance:'High',url:'',attending:false,notes:'Submit speaking proposal on Revenue Cloud for Manufacturing.'},
-  {id:'ts4',name:'Houston Manufacturing & Energy Summit',dates:'Jun 10, 2026',location:'Houston, TX',type:'Regional',why:'Energy-adjacent manufacturers — Altivia, Solugen, CIRCOR types. Intimate room.',relevance:'High',url:'',attending:false,notes:'Sponsor a roundtable.'},
-  {id:'ts5',name:'IMTS',dates:'Sep 14–19, 2026',location:'Chicago, IL',type:'Trade Show',why:'250K+ attendees. Capital equipment and precision manufacturing focus.',relevance:'Medium',url:'https://www.imts.com',attending:false,notes:'Attend as visitor first year.'},
-  {id:'ts6',name:'Austin Small Business Expo',dates:'Apr 24, 2026',location:'Austin, TX',type:'Regional',why:'Founder-owned manufacturers. Good for Blue Sage Capital portfolio intros.',relevance:'Medium',url:'',attending:false,notes:'Attend with David.'},
-  {id:'ts7',name:'MD&M Minneapolis',dates:'Oct 28–30, 2026',location:'Minneapolis, MN',type:'Trade Show',why:'Medical device manufacturing — relevant for Strukmyer Medical.',relevance:'Medium',url:'https://www.mdmminneapolis.com',attending:false,notes:'Consider if Strukmyer deal progresses.'},
-  {id:'ts8',name:'CSIA Executive Conference',dates:'May 13–16, 2026',location:'Orlando, FL',type:'Association',why:'Control Systems Integrators — excellent referral partners for RCA deals.',relevance:'Medium',url:'https://www.controlsys.org',attending:false,notes:'Target 3-5 SI partnership conversations.'}
+const OUTREACH_SEQUENCE = [
+  {key:'li_connect', label:'LinkedIn connection request', icon:'🔗'},
+  {key:'intro_msg',  label:'Send intro message',         icon:'✉️'},
+  {key:'case_study', label:'Send case study',             icon:'📄'},
+  {key:'webinar',    label:'Invite to webinar',           icon:'🎥'},
+  {key:'event_meet', label:'Request to meet at event',    icon:'🤝'},
+];
+
+const DEFAULT_EVENTS = [
+  // Trade Shows
+  {id:'ts1',name:'SAMA Annual Conference',dates:'May 5–7, 2026',location:'Dallas, TX',type:'Association',category:'conference',why:'Direct access to VP Sales and CRO community at manufacturing firms. Top Nteli event.',relevance:'High',url:'https://www.strategicaccounts.org',attending:false,notes:'Target 8 meetings with TX manufacturing VP Sales.'},
+  {id:'ts2',name:'FABTECH',dates:'Nov 3–6, 2026',location:'Las Vegas, NV',type:'Trade Show',category:'trade_show',why:'Largest North American metal fabrication event. Your exact ICP attends in force.',relevance:'High',url:'https://www.fabtechexpo.com',attending:false,notes:'Host dinner for 10-12 TX manufacturing prospects.'},
+  {id:'ts3',name:'Texas Manufacturing Summit',dates:'Sep 16, 2026',location:'Austin, TX',type:'Regional',category:'conference',why:'Texas-focused. Mid-market manufacturing CEOs and COOs in your backyard.',relevance:'High',url:'',attending:false,notes:'Submit speaking proposal on Revenue Cloud for Manufacturing.'},
+  {id:'ts4',name:'Houston Manufacturing & Energy Summit',dates:'Jun 10, 2026',location:'Houston, TX',type:'Regional',category:'conference',why:'Energy-adjacent manufacturers — Altivia, Solugen, CIRCOR types. Intimate room.',relevance:'High',url:'',attending:false,notes:'Sponsor a roundtable.'},
+  {id:'ts5',name:'IMTS',dates:'Sep 14–19, 2026',location:'Chicago, IL',type:'Trade Show',category:'trade_show',why:'250K+ attendees. Capital equipment and precision manufacturing focus.',relevance:'Medium',url:'https://www.imts.com',attending:false,notes:'Attend as visitor first year.'},
+  {id:'ts6',name:'Austin Small Business Expo',dates:'Apr 24, 2026',location:'Austin, TX',type:'Regional',category:'conference',why:'Founder-owned manufacturers. Good for Blue Sage Capital portfolio intros.',relevance:'Medium',url:'',attending:false,notes:'Attend with David.'},
+  {id:'ts7',name:'MD&M Minneapolis',dates:'Oct 28–30, 2026',location:'Minneapolis, MN',type:'Trade Show',category:'trade_show',why:'Medical device manufacturing — relevant for Strukmyer Medical.',relevance:'Medium',url:'https://www.mdmminneapolis.com',attending:false,notes:'Consider if Strukmyer deal progresses.'},
+  {id:'ts8',name:'CSIA Executive Conference',dates:'May 13–16, 2026',location:'Orlando, FL',type:'Association',category:'conference',why:'Control Systems Integrators — excellent referral partners for RCA deals.',relevance:'Medium',url:'https://www.controlsys.org',attending:false,notes:'Target 3-5 SI partnership conversations.'},
+  // Co-working Events
+  {id:'cw1',name:'Capital Factory — Mfg Founders Mixer',dates:'Monthly · 2nd Thursday',location:'Austin, TX (Domain)',type:'Co-working',category:'coworking',why:'Austin tech-meets-manufacturing crowd. Great for Falcon Structures, Athena, SabeRex intros.',relevance:'High',url:'https://www.capitalfactory.com',attending:false,notes:'Bring 10 business cards. Ask about Mfg cohort.'},
+  {id:'cw2',name:'Station Houston — Industrial Meetup',dates:'Monthly · 3rd Wednesday',location:'Houston, TX (Midtown)',type:'Co-working',category:'coworking',why:'Energy and chemical manufacturing startups. Solugen, Altivia adjacent network.',relevance:'High',url:'https://www.stationhouston.com',attending:false,notes:'Sponsor coffee. Pitch 5-min lightning talk.'},
+  {id:'cw3',name:'Common Desk — DFW Business Builders',dates:'Bi-weekly · Fridays',location:'Dallas, TX (Deep Ellum)',type:'Co-working',category:'coworking',why:'Mid-market business owners in DFW. Sky Island Capital portfolio companies attend.',relevance:'Medium',url:'https://www.commondesk.com',attending:false,notes:'Attend 2x to build presence.'},
+  {id:'cw4',name:'Worksuites — Woodlands Networking Hour',dates:'Monthly · 1st Tuesday',location:'The Woodlands, TX',type:'Co-working',category:'coworking',why:'Kraton, Ascend Performance execs frequent The Woodlands business community.',relevance:'Medium',url:'https://www.worksuites.com',attending:false,notes:'Low-key networking. Bring Kraton case angle.'},
+  // Meetups
+  {id:'mu1',name:'Austin Manufacturing Meetup',dates:'Quarterly · Next: May 20, 2026',location:'Austin, TX',type:'Meetup',category:'meetup',why:'30-50 local manufacturing leaders. High signal, low noise.',relevance:'High',url:'',attending:false,notes:'Volunteer to present on revenue ops trends.'},
+  {id:'mu2',name:'DFW Manufacturers Alliance',dates:'Monthly · Last Thursday',location:'Dallas, TX (Las Colinas)',type:'Meetup',category:'meetup',why:'Arcosa, Sky Island portfolio companies, regional mfg leaders.',relevance:'Medium',url:'',attending:false,notes:'Attend with Dallas-based champion.'},
+  // Industry Dinners
+  {id:'id1',name:'Houston Industrial Roundtable',dates:'Quarterly · Next: Jun 5, 2026',location:'Houston, TX (River Oaks)',type:'Industry Dinner',category:'dinner',why:'Intimate 20-person dinners. CIRCOR, Kraton, Ascend-level execs. High-touch selling.',relevance:'High',url:'',attending:false,notes:'Request invitation. Prepare 1-pager for table.'},
+  {id:'id2',name:'Texas CEO Manufacturing Dinner',dates:'Sep 10, 2026',location:'Austin, TX (Lakeway)',type:'Industry Dinner',category:'dinner',why:'CEO-level only. Founder-owned mid-market. Perfect for Cumberland, Q2 Holdings.',relevance:'High',url:'',attending:false,notes:'Sponsor a table. Invite 3 existing champions.'}
 ];
 
 // ══════════════════════════════════════
 // STATE
 // ══════════════════════════════════════
 let DB = JSON.parse(localStorage.getItem('nteli_v8') || 'null') || SEED.map(a => ({...a}));
-let SHOWS = JSON.parse(localStorage.getItem('nteli_shows_v4') || 'null') || TRADE_SHOWS.map(s => ({...s}));
+let EVENTS = JSON.parse(localStorage.getItem('nteli_events_v1') || 'null') || DEFAULT_EVENTS.map(e => ({...e}));
 let sel = null, mkt = 'all', srch = '';
 let discResults = [], oceanResults = [];
 
+// Migrate: ensure all accounts have tasks
+DB.forEach(a => {
+  if (!a.tasks) {
+    a.tasks = {};
+    OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false, doneAt:null}; });
+  }
+});
+
 const save = () => { localStorage.setItem('nteli_v8', JSON.stringify(DB)); updateSB(); };
-const saveshows = () => localStorage.setItem('nteli_shows_v4', JSON.stringify(SHOWS));
+const saveEvents = () => localStorage.setItem('nteli_events_v1', JSON.stringify(EVENTS));
 const setMsg = m => document.getElementById('sb-msg').textContent = m;
 const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const updateSB = () => { document.getElementById('sb-accts').textContent = DB.length + ' accounts'; };
@@ -678,7 +741,7 @@ function goPage(p, el) {
   document.getElementById('pg-' + p).classList.add('on');
   if (el) el.classList.add('on');
   if (p === 'pipeline') buildKanban();
-  if (p === 'events') renderShows();
+  if (p === 'events') renderEvents();
 }
 
 // ══════════════════════════════════════
@@ -756,6 +819,7 @@ function pick(id) {
     `<div class="pain-item"><span class="pain-num">#${i + 1}</span><span style="font-size:13px;">${esc(p)}</span></div>`).join('');
 
   renderPersonaSignals();
+  renderTasks();
 
   document.getElementById('dc-contacts').innerHTML = '<div style="color:var(--text3);font-size:13px;font-style:italic;">Click "Enrich Contacts" to pull verified emails, phones, and LinkedIn profiles.</div>';
   const es = document.getElementById('e-sub'); es.textContent = 'Draft an email to see the subject line...'; es.className = 'email-box-body ph';
@@ -1104,13 +1168,57 @@ function goToAccount(companyName) {
 }
 
 // ══════════════════════════════════════
-// TRADE SHOWS
+// OUTREACH TASKS
 // ══════════════════════════════════════
-function renderShows() {
+function renderTasks() {
+  if (!sel) return;
+  let foundNext = false;
+  const done = OUTREACH_SEQUENCE.filter(t => sel.tasks[t.key] && sel.tasks[t.key].done).length;
+  document.getElementById('dc-task-progress').textContent = done + '/' + OUTREACH_SEQUENCE.length;
+  document.getElementById('dc-tasks').innerHTML = OUTREACH_SEQUENCE.map(t => {
+    const st = sel.tasks[t.key] || {done:false, doneAt:null};
+    const isNext = !st.done && !foundNext;
+    if (isNext) foundNext = true;
+    return `<div class="task-row ${st.done ? 'done' : ''} ${isNext ? 'next' : ''}" onclick="toggleTask('${t.key}')">
+      <div class="task-icon">${t.icon}</div>
+      <div class="task-check ${st.done ? 'done' : ''}">${st.done ? '✓' : ''}</div>
+      <div class="task-label ${st.done ? 'done' : ''}">${esc(t.label)}</div>
+      ${st.doneAt ? `<div class="task-date">${st.doneAt}</div>` : ''}
+    </div>`;
+  }).join('');
+}
+
+function toggleTask(key) {
+  if (!sel) return;
+  const t = sel.tasks[key];
+  t.done = !t.done;
+  t.doneAt = t.done ? new Date().toLocaleDateString() : null;
+  save(); renderTasks();
+  setMsg(sel.company + ' — ' + (t.done ? '✓' : '↩') + ' ' + OUTREACH_SEQUENCE.find(s => s.key === key).label);
+}
+
+function copyTaskSummary() {
+  if (!sel) return;
+  const done = OUTREACH_SEQUENCE.filter(t => sel.tasks[t.key] && sel.tasks[t.key].done).length;
+  const lines = OUTREACH_SEQUENCE.map(t => {
+    const st = sel.tasks[t.key] || {done:false, doneAt:null};
+    return (st.done ? '✅' : '⬜') + ' ' + t.label + (st.doneAt ? ' (' + st.doneAt + ')' : '');
+  });
+  const text = '📋 *' + sel.company + '* — Outreach Progress (' + done + '/' + OUTREACH_SEQUENCE.length + ')\n' + lines.join('\n');
+  navigator.clipboard.writeText(text).then(() => setMsg('Copied to clipboard — paste in Slack'));
+}
+
+// ══════════════════════════════════════
+// EVENTS & MEETUPS
+// ══════════════════════════════════════
+function renderEvents() {
+  const filter = document.getElementById('evt-filter').value;
+  const filtered = filter === 'all' ? EVENTS : EVENTS.filter(e => e.category === filter);
   const RC = {High:'badge-gold', Medium:'badge-blue', Low:'badge-gray'};
-  const TC = {'Trade Show':'badge-blue', Association:'badge-purple', Regional:'badge-green'};
-  document.getElementById('shows-body').innerHTML = SHOWS.map((s, i) => `
-    <div class="show-card">
+  const TC = {'Trade Show':'badge-blue', Association:'badge-purple', Regional:'badge-green', 'Co-working':'badge-teal', Meetup:'badge-amber', 'Industry Dinner':'badge-pink'};
+  document.getElementById('events-body').innerHTML = filtered.length ? filtered.map((s, i) => {
+    const idx = EVENTS.indexOf(s);
+    return `<div class="show-card">
       <div class="show-card-hdr">
         <div>
           <div class="show-name">${esc(s.name)}</div>
@@ -1125,26 +1233,36 @@ function renderShows() {
       <div class="show-why">${esc(s.why)}</div>
       ${s.notes ? `<div class="show-note">💡 ${esc(s.notes)}</div>` : ''}
       <div class="show-actions">
-        <button class="btn btn-outline btn-sm ${s.attending ? 'attending' : ''}" onclick="toggleAttend(${i})">${s.attending ? '✓ Attending' : 'Mark Attending'}</button>
+        <button class="btn btn-outline btn-sm ${s.attending ? 'attending' : ''}" onclick="toggleAttend(${idx})">${s.attending ? '✓ Attending' : 'Mark Attending'}</button>
         ${s.url ? `<a class="btn btn-outline btn-sm" href="${esc(s.url)}" target="_blank">↗ Website</a>` : ''}
+        <button class="btn btn-outline btn-sm" onclick="copyEventToSlack(${idx})">📋 Slack</button>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('') : '<div style="color:var(--text3);font-size:13px;font-style:italic;padding:20px 0;text-align:center;">No events in this category.</div>';
 }
 
 function toggleAttend(i) {
-  SHOWS[i].attending = !SHOWS[i].attending;
-  saveshows(); renderShows();
-  setMsg(SHOWS[i].name + (SHOWS[i].attending ? ' — attending' : ' — unmarked'));
+  EVENTS[i].attending = !EVENTS[i].attending;
+  saveEvents(); renderEvents();
+  setMsg(EVENTS[i].name + (EVENTS[i].attending ? ' — attending' : ' — unmarked'));
 }
 
-function addShow() {
+function addEvent() {
   const name = prompt('Event name:');
   if (!name) return;
   const dates = prompt('Dates:', '');
   const loc = prompt('Location:', 'Texas');
   const why = prompt('Why relevant:', '');
-  SHOWS.push({id: 'c' + Date.now(), name, dates, location: loc, type: 'Regional', why, relevance: 'Medium', url: '', attending: false, notes: ''});
-  saveshows(); renderShows(); setMsg(name + ' added');
+  const cat = prompt('Category (trade_show, conference, meetup, coworking, dinner):', 'meetup') || 'meetup';
+  const typeMap = {trade_show:'Trade Show', conference:'Association', meetup:'Meetup', coworking:'Co-working', dinner:'Industry Dinner'};
+  EVENTS.push({id:'c'+Date.now(), name, dates, location:loc, type:typeMap[cat]||'Meetup', category:cat, why, relevance:'Medium', url:'', attending:false, notes:''});
+  saveEvents(); renderEvents(); setMsg(name + ' added');
+}
+
+function copyEventToSlack(i) {
+  const e = EVENTS[i]; if (!e) return;
+  const text = '🗓️ *' + e.name + '*\n📅 ' + e.dates + '\n📍 ' + e.location + '\n💡 ' + e.why + (e.notes ? '\n📝 ' + e.notes : '');
+  navigator.clipboard.writeText(text).then(() => setMsg('Event copied — paste in Slack'));
 }
 
 // ══════════════════════════════════════
@@ -1269,7 +1387,8 @@ function addOneOcean(i) {
   const name = c.name || 'Unknown';
   if (DB.find(a => a.company === name)) { setMsg(name + ' already in accounts'); return; }
   const nid = Math.max(...DB.map(a => a.id)) + 1;
-  DB.push({id:nid, company:name, city:c.state||c.country||'USA', market:'Unknown', vertical:c.industry||(c.industryCategories||['Manufacturing'])[0], rev:typeof c.revenue==='number'?'$'+(c.revenue/1e6).toFixed(0)+'M':(c.revenue||'Unknown'), emp:String(c.employee_count||c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[]});
+  const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
+  DB.push({id:nid, company:name, city:c.state||c.country||'USA', market:'Unknown', vertical:c.industry||(c.industryCategories||['Manufacturing'])[0], rev:typeof c.revenue==='number'?'$'+(c.revenue/1e6).toFixed(0)+'M':(c.revenue||'Unknown'), emp:String(c.employee_count||c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[], tasks});
   save(); renderList(); setMsg(name + ' added from Ocean.io');
 }
 function addAllOcean() { oceanResults.forEach((_, i) => addOneOcean(i)); setMsg('Ocean results added to accounts'); }
@@ -1278,7 +1397,8 @@ function addOneVibe(i) {
   const r = discResults[i]; if (!r) return;
   if (DB.find(a => a.company === r.company)) { setMsg(r.company + ' already in accounts'); return; }
   const nid = Math.max(...DB.map(a => a.id)) + 1;
-  DB.push({id:nid, company:r.company, city:r.city||'TX', market:r.city||'Texas', vertical:r.vertical, rev:r.revenue, emp:'Unknown', priority:r.fitScore>=8?'High':r.fitScore>=6?'Medium':'Low', pe:false, ownership:'Unknown', pains:[r.signal,'Quote-to-cash','ERP gap'], cxo:'CRO + CFO', website:r.domain, liSearch:r.company, stage:'New', source:'vibe', contacted:false, signals:[]});
+  const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
+  DB.push({id:nid, company:r.company, city:r.city||'TX', market:r.city||'Texas', vertical:r.vertical, rev:r.revenue, emp:'Unknown', priority:r.fitScore>=8?'High':r.fitScore>=6?'Medium':'Low', pe:false, ownership:'Unknown', pains:[r.signal,'Quote-to-cash','ERP gap'], cxo:'CRO + CFO', website:r.domain, liSearch:r.company, stage:'New', source:'vibe', contacted:false, signals:[], tasks});
   save(); renderList(); setMsg(r.company + ' added');
 }
 function addAllVibe() { discResults.forEach((_, i) => addOneVibe(i)); setMsg('Vibe results added to accounts'); }
@@ -1295,6 +1415,7 @@ function saveSettings() {
 function resetDB() {
   if (!confirm('Reset to 25 default accounts? This cannot be undone.')) return;
   DB = SEED.map(a => ({...a}));
+  DB.forEach(a => { if (!a.tasks) { a.tasks = {}; OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false, doneAt:null}; }); } });
   save(); renderList(); buildKanban();
   sel = null;
   document.getElementById('de-empty').style.display = '';
@@ -1318,7 +1439,8 @@ function addManual() {
   if (!name) return;
   const domain = prompt('Domain:', '');
   const city = prompt('City:', 'Austin') || 'Austin';
-  DB.push({id: Math.max(...DB.map(a => a.id)) + 1, company: name, city, market: city, vertical: 'Manufacturing', rev: 'Unknown', emp: 'Unknown', priority: 'Medium', pe: false, ownership: 'Unknown', pains: ['CPQ', 'Quote-to-cash', 'ERP gap'], cxo: 'CRO + CFO', website: domain, liSearch: name, stage: 'New', source: 'manual', contacted: false, signals: []});
+  const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
+  DB.push({id: Math.max(...DB.map(a => a.id)) + 1, company: name, city, market: city, vertical: 'Manufacturing', rev: 'Unknown', emp: 'Unknown', priority: 'Medium', pe: false, ownership: 'Unknown', pains: ['CPQ', 'Quote-to-cash', 'ERP gap'], cxo: 'CRO + CFO', website: domain, liSearch: name, stage: 'New', source: 'manual', contacted: false, signals: [], tasks});
   save(); renderList(); setMsg(name + ' added');
 }
 
