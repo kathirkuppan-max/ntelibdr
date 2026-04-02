@@ -191,6 +191,29 @@ body{display:flex;flex-direction:column;}
 .email-box-body{padding:10px 12px;font-size:13px;line-height:1.75;white-space:pre-wrap;color:var(--text);}
 .email-box-body.ph{color:var(--text3);font-style:italic;}
 
+/* EMAIL COMPOSER */
+.email-composer{background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px;}
+.email-field{padding:8px 12px;border-bottom:1px solid var(--border);}
+.email-field-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:4px;}
+.email-field-input{background:transparent;border:none;color:var(--text);width:100%;font-size:13px;outline:none;font-family:inherit;}
+.email-body-edit{padding:12px;font-size:13px;line-height:1.75;min-height:120px;white-space:pre-wrap;color:var(--text);outline:none;}
+.email-body-edit[contenteditable="true"]{background:var(--surface3);border-radius:var(--r);cursor:text;}
+.email-body-edit.ph{color:var(--text3);font-style:italic;min-height:60px;}
+.email-actions{display:flex;gap:6px;padding:10px 12px;border-top:1px solid var(--border);flex-wrap:wrap;align-items:center;}
+.email-history{margin-top:12px;}
+.email-hist-item{display:flex;align-items:center;gap:8px;padding:8px 12px;font-size:12px;border-bottom:1px solid var(--border);background:var(--surface2);border-radius:var(--r);margin-bottom:4px;}
+.email-hist-item .email-hist-icon{font-size:14px;flex-shrink:0;}
+.email-hist-item .email-hist-date{font-size:11px;color:var(--text3);font-family:'IBM Plex Mono','JetBrains Mono','SF Mono',Consolas,monospace;flex-shrink:0;}
+.email-hist-item .email-hist-subj{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text2);}
+.estatus{font-size:10px;font-weight:600;padding:2px 6px;border-radius:3px;flex-shrink:0;}
+.estatus.draft{background:var(--surface3);color:var(--text3);}
+.estatus.sent{background:var(--green-bg);color:var(--green);}
+.estatus.replied{background:var(--blue-bg);color:var(--blue);}
+.estatus.rejected{background:var(--red-bg);color:var(--red);}
+.gmail-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;padding:2px 8px;border-radius:10px;}
+.gmail-badge.on{background:var(--green-bg);color:var(--green);border:1px solid var(--green-border);}
+.gmail-badge.off{background:var(--red-bg);color:var(--red);border:1px solid var(--red-border);cursor:pointer;}
+
 /* ── PAGE 2: PIPELINE ── */
 .pipe-hdr{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .pipe-title{font-size:20px;font-weight:700;}
@@ -397,7 +420,7 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
         <!-- SECTION 5: OUTREACH -->
         <div class="gtm-card">
           <div class="gtm-card-hdr">
-            <div class="gtm-card-title">✍️ Outreach Tools</div>
+            <div class="gtm-card-title">✍️ Outreach Tools <span class="gmail-badge off" id="gmail-badge" onclick="connectGmail()" title="Click to connect Gmail">Gmail: Not Connected</span></div>
             <div style="display:flex;gap:6px;align-items:center;">
               <select class="fsel" id="e-persona" style="font-size:12px;padding:4px 8px;">
                 <option value="CRO">CRO / VP Sales</option>
@@ -409,22 +432,36 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
                 <span class="spin spin-blue" id="sp-email" style="display:none"></span>
                 Draft Email
               </button>
-              <button class="btn btn-outline btn-sm" id="btn-li" onclick="runLinkedIn()">
+              <button class="btn btn-outline btn-sm" id="btn-li" onclick="runLinkedInAndMark()">
                 <span class="spin spin-blue" id="sp-li" style="display:none"></span>
                 LI Note
               </button>
             </div>
           </div>
           <div class="gtm-card-body">
-            <div class="email-box">
-              <div class="email-box-hdr"><span class="email-box-lbl">Subject</span><button class="cpbtn" onclick="cp('e-sub',this)">Copy</button></div>
-              <div class="email-box-body ph" id="e-sub" style="padding:8px 12px;min-height:auto;border-bottom:1px solid var(--border);">Draft an email to see the subject line...</div>
+            <!-- Email Composer -->
+            <div class="email-composer" id="email-composer">
+              <div class="email-field">
+                <div class="email-field-label">To</div>
+                <input class="email-field-input" id="e-to" type="email" placeholder="Enrich contacts to auto-fill recipient...">
+              </div>
+              <div class="email-field">
+                <div class="email-field-label">Subject</div>
+                <input class="email-field-input" id="e-sub" placeholder="Draft an email to see the subject line...">
+              </div>
+              <div class="email-body-edit ph" id="e-body" contenteditable="false">Draft an email to see the body...</div>
+              <div class="email-actions" id="e-actions">
+                <button class="btn btn-primary btn-sm" id="btn-send" onclick="approveAndSend()" disabled>✅ Approve & Send</button>
+                <button class="btn btn-outline btn-sm" id="btn-edit" onclick="editDraft()" disabled>✏️ Edit</button>
+                <button class="btn btn-outline btn-sm" id="btn-revise" onclick="reviseDraft()" disabled>🔄 Revise</button>
+                <button class="btn btn-outline btn-sm" id="btn-reject" onclick="rejectDraft()" disabled>❌ Reject</button>
+                <button class="cpbtn" onclick="cp('e-body',this)" style="margin-left:auto;">Copy</button>
+              </div>
             </div>
-            <div class="email-box">
-              <div class="email-box-hdr"><span class="email-box-lbl">Email Body</span><button class="cpbtn" onclick="cp('e-body',this)">Copy</button></div>
-              <div class="email-box-body ph" id="e-body">Draft an email to see the body...</div>
-            </div>
+            <!-- LinkedIn Notes -->
             <div id="li-out"></div>
+            <!-- Email History -->
+            <div class="email-history" id="email-history"></div>
           </div>
         </div>
       </div>
@@ -555,6 +592,24 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
       <label class="sec-lbl">Client Proof Points</label>
       <input class="input" id="s-proof" value="Sauer Compressors, Harmar Mobility, Big Three Precision Products">
       <button class="btn btn-primary btn-sm" onclick="saveSettings()">Save Settings</button>
+    </div>
+    <span class="sec-lbl" style="margin-top:16px;display:block;">Gmail Integration</span>
+    <div class="scard">
+      <div class="scard-title">Gmail API Connection</div>
+      <div id="gmail-settings-status" style="margin-bottom:12px;font-size:13px;color:var(--text2);">Checking connection...</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+        <button class="btn btn-primary btn-sm" onclick="connectGmail()">Connect Gmail</button>
+        <button class="btn btn-outline btn-sm" onclick="checkGmailStatus()">Check Status</button>
+      </div>
+      <div style="font-size:12px;line-height:1.7;color:var(--text3);">
+        <strong>Setup steps:</strong><br>
+        1. Go to <a href="https://console.cloud.google.com" target="_blank" style="color:var(--blue);">Google Cloud Console</a> and create a project<br>
+        2. Enable the Gmail API<br>
+        3. Create OAuth 2.0 credentials (Web application)<br>
+        4. Set redirect URI to your Vercel domain + <code>/api/gmail?action=callback</code><br>
+        5. Add <code>GMAIL_CLIENT_ID</code>, <code>GMAIL_CLIENT_SECRET</code>, <code>GMAIL_REDIRECT_URI</code> to Vercel env vars<br>
+        6. Click "Connect Gmail" above, authorize, then save the refresh token as <code>GMAIL_REFRESH_TOKEN</code>
+      </div>
     </div>
     <span class="sec-lbl" style="margin-top:16px;display:block;">Data</span>
     <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -716,13 +771,65 @@ let EVENTS = JSON.parse(localStorage.getItem('nteli_events_v1') || 'null') || DE
 let sel = null, mkt = 'all', srch = '';
 let discResults = [], oceanResults = [];
 
-// Migrate: ensure all accounts have tasks
+// Migrate: ensure all accounts have tasks and emails
 DB.forEach(a => {
   if (!a.tasks) {
     a.tasks = {};
     OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false, doneAt:null}; });
   }
+  if (!a.emails) a.emails = [];
 });
+
+// Gmail connection state
+let gmailConnected = false;
+let gmailEmail = '';
+let currentDraft = null; // {subject, body, to, persona}
+
+async function checkGmailStatus() {
+  try {
+    const r = await fetch('/api/gmail?action=status', {method:'POST'});
+    const d = await r.json();
+    gmailConnected = d.connected;
+    gmailEmail = d.email || '';
+    const badge = document.getElementById('gmail-badge');
+    if (badge) {
+      if (gmailConnected) {
+        badge.className = 'gmail-badge on';
+        badge.textContent = 'Gmail: ' + gmailEmail;
+        badge.onclick = null;
+        badge.title = 'Connected to Gmail';
+      } else {
+        badge.className = 'gmail-badge off';
+        badge.textContent = 'Gmail: Not Connected';
+        badge.onclick = connectGmail;
+        badge.title = 'Click to connect Gmail';
+      }
+    }
+    updateSendButton();
+    // Update settings page status
+    const settingsEl = document.getElementById('gmail-settings-status');
+    if (settingsEl) {
+      settingsEl.innerHTML = gmailConnected
+        ? '<span style="color:var(--green);">✅ Connected as ' + gmailEmail + '</span>'
+        : '<span style="color:var(--red);">❌ Not connected. Follow setup steps below.</span>';
+    }
+  } catch { gmailConnected = false; }
+}
+
+function connectGmail() { window.open('/api/gmail?action=auth', '_blank'); }
+
+function updateSendButton() {
+  const btn = document.getElementById('btn-send');
+  if (!btn) return;
+  if (gmailConnected) {
+    btn.textContent = '✅ Approve & Send';
+  } else {
+    btn.textContent = '📧 Connect Gmail to Send';
+  }
+}
+
+// Check Gmail on load
+setTimeout(checkGmailStatus, 500);
 
 const save = () => { localStorage.setItem('nteli_v8', JSON.stringify(DB)); updateSB(); };
 const saveEvents = () => localStorage.setItem('nteli_events_v1', JSON.stringify(EVENTS));
@@ -822,9 +929,12 @@ function pick(id) {
   renderTasks();
 
   document.getElementById('dc-contacts').innerHTML = '<div style="color:var(--text3);font-size:13px;font-style:italic;">Click "Enrich Contacts" to pull verified emails, phones, and LinkedIn profiles.</div>';
-  const es = document.getElementById('e-sub'); es.textContent = 'Draft an email to see the subject line...'; es.className = 'email-box-body ph';
-  const eb = document.getElementById('e-body'); eb.textContent = 'Draft an email to see the body...'; eb.className = 'email-box-body ph';
+  // Reset email composer and render history
+  resetComposer();
+  document.getElementById('e-to').value = '';
   document.getElementById('li-out').innerHTML = '';
+  renderEmailHistory();
+  autoFillRecipient();
   setMsg(sel.company + ' selected');
 }
 
@@ -1035,8 +1145,8 @@ async function runEmail() {
   setMsg('Drafting email → ' + P.label + '...');
   const sub = document.getElementById('e-sub');
   const bod = document.getElementById('e-body');
-  sub.textContent = ''; sub.className = 'email-box-body';
-  bod.textContent = ''; bod.className = 'email-box-body';
+  sub.value = ''; bod.textContent = ''; bod.className = 'email-body-edit';
+  bod.contentEditable = 'false';
   let full = '', inSub = true;
   try {
     const sig = localStorage.getItem('nteli_sig') || 'Kathir | CEO, Nteli LLC | Revenue Cloud for Manufacturing';
@@ -1049,18 +1159,203 @@ async function runEmail() {
         const di = full.indexOf('---');
         if (di > -1) {
           inSub = false;
-          sub.textContent = full.substring(0, di).replace('SUBJECT:', '').trim();
+          sub.value = full.substring(0, di).replace('SUBJECT:', '').trim();
           bod.textContent = full.substring(di + 3).trim();
         } else {
-          sub.textContent = full.replace('SUBJECT:', '').trim();
+          sub.value = full.replace('SUBJECT:', '').trim();
         }
       } else {
         bod.textContent = full.substring(full.indexOf('---') + 3).trim();
       }
     });
-    setMsg('✅ Email ready');
+    // Store as current draft
+    currentDraft = {
+      subject: sub.value,
+      body: bod.textContent,
+      persona: personaKey,
+      to: document.getElementById('e-to').value || '',
+    };
+    // Enable action buttons
+    document.getElementById('btn-send').disabled = false;
+    document.getElementById('btn-edit').disabled = false;
+    document.getElementById('btn-revise').disabled = false;
+    document.getElementById('btn-reject').disabled = false;
+    setMsg('✅ Email ready — Approve, Edit, or Revise');
   } catch (e) { bod.textContent = 'Error: ' + e.message; setMsg('Error'); }
   setBusy('btn-email', 'sp-email', false);
+}
+
+// ══════════════════════════════════════
+// EMAIL ACTIONS
+// ══════════════════════════════════════
+async function approveAndSend() {
+  if (!sel || !currentDraft) return;
+  const to = document.getElementById('e-to').value;
+  const subject = document.getElementById('e-sub').value;
+  const body = document.getElementById('e-body').textContent;
+  if (!to) { setMsg('Enter a recipient email address'); return; }
+  if (!subject || !body) { setMsg('Draft an email first'); return; }
+
+  if (!gmailConnected) {
+    connectGmail();
+    setMsg('Connect Gmail first, then try again');
+    return;
+  }
+
+  const emailId = 'e_' + Date.now();
+  const emailRecord = {
+    id: emailId, to, subject, body,
+    persona: currentDraft.persona,
+    status: 'sending',
+    createdAt: new Date().toLocaleDateString(),
+    sentAt: null, threadId: null, messageId: null,
+  };
+
+  document.getElementById('btn-send').disabled = true;
+  document.getElementById('btn-send').textContent = '⏳ Sending...';
+  setMsg('Sending via Gmail...');
+
+  try {
+    const sig = localStorage.getItem('nteli_sig') || 'Kathir';
+    const fromName = sig.split('|')[0].trim();
+    const r = await fetch('/api/gmail?action=send', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ to, subject, body, fromName, emailId }),
+    });
+    const d = await r.json();
+    if (!r.ok || !d.success) throw new Error(d.error || 'Send failed');
+
+    emailRecord.status = 'sent';
+    emailRecord.sentAt = new Date().toLocaleDateString();
+    emailRecord.threadId = d.threadId;
+    emailRecord.messageId = d.messageId;
+    sel.emails.push(emailRecord);
+
+    // Auto-mark intro_msg task done
+    if (sel.tasks.intro_msg && !sel.tasks.intro_msg.done) {
+      sel.tasks.intro_msg.done = true;
+      sel.tasks.intro_msg.doneAt = new Date().toLocaleDateString();
+      renderTasks();
+    }
+
+    save();
+    renderEmailHistory();
+    resetComposer();
+    setMsg('✅ Sent to ' + to + ' via Gmail');
+  } catch (e) {
+    emailRecord.status = 'failed';
+    setMsg('❌ Send failed: ' + e.message);
+    document.getElementById('btn-send').disabled = false;
+    updateSendButton();
+  }
+}
+
+function editDraft() {
+  const bod = document.getElementById('e-body');
+  const btn = document.getElementById('btn-edit');
+  if (bod.contentEditable === 'true') {
+    bod.contentEditable = 'false';
+    bod.style.background = '';
+    btn.textContent = '✏️ Edit';
+    if (currentDraft) currentDraft.body = bod.textContent;
+  } else {
+    bod.contentEditable = 'true';
+    bod.focus();
+    btn.textContent = '💾 Save';
+    setMsg('Editing — make your changes, then click Save');
+  }
+}
+
+async function reviseDraft() {
+  if (!sel || !currentDraft) return;
+  const feedback = prompt('What should be changed?');
+  if (!feedback) return;
+
+  setBusy('btn-email', 'sp-email', true);
+  setMsg('Revising draft...');
+  const sub = document.getElementById('e-sub');
+  const bod = document.getElementById('e-body');
+  const original = 'SUBJECT: ' + sub.value + '\n---\n' + bod.textContent;
+
+  try {
+    let full = '', inSub = true;
+    sub.value = ''; bod.textContent = ''; bod.className = 'email-body-edit';
+    const prompt2 = 'Revise this cold sales email based on this feedback: "' + feedback + '"\n\nOriginal email:\n' + original + '\n\nKeep the same FORMAT:\nSUBJECT: [line]\n---\n[body]';
+    await claudeStream(prompt2, chunk => {
+      full += chunk;
+      if (inSub) {
+        const di = full.indexOf('---');
+        if (di > -1) { inSub = false; sub.value = full.substring(0, di).replace('SUBJECT:', '').trim(); bod.textContent = full.substring(di + 3).trim(); }
+        else { sub.value = full.replace('SUBJECT:', '').trim(); }
+      } else { bod.textContent = full.substring(full.indexOf('---') + 3).trim(); }
+    });
+    currentDraft.subject = sub.value;
+    currentDraft.body = bod.textContent;
+    setMsg('✅ Email revised — Approve, Edit, or Revise again');
+  } catch (e) { setMsg('Error: ' + e.message); }
+  setBusy('btn-email', 'sp-email', false);
+}
+
+function rejectDraft() {
+  if (!sel) return;
+  const reason = prompt('Rejection reason (optional):') || 'No reason given';
+  sel.emails.push({
+    id: 'e_' + Date.now(),
+    to: document.getElementById('e-to').value || '',
+    subject: document.getElementById('e-sub').value || '',
+    body: '', persona: currentDraft ? currentDraft.persona : '',
+    status: 'rejected', reason,
+    createdAt: new Date().toLocaleDateString(),
+    sentAt: null, threadId: null, messageId: null,
+  });
+  save();
+  resetComposer();
+  renderEmailHistory();
+  setMsg('❌ Draft rejected — ' + reason);
+}
+
+function resetComposer() {
+  currentDraft = null;
+  const sub = document.getElementById('e-sub');
+  const bod = document.getElementById('e-body');
+  sub.value = '';
+  bod.textContent = 'Draft an email to see the body...';
+  bod.className = 'email-body-edit ph';
+  bod.contentEditable = 'false';
+  document.getElementById('btn-send').disabled = true;
+  document.getElementById('btn-edit').disabled = true;
+  document.getElementById('btn-revise').disabled = true;
+  document.getElementById('btn-reject').disabled = true;
+  updateSendButton();
+}
+
+function renderEmailHistory() {
+  if (!sel) return;
+  const el = document.getElementById('email-history');
+  if (!sel.emails.length) { el.innerHTML = ''; return; }
+  const statusClass = {draft:'draft', sent:'sent', replied:'replied', rejected:'rejected', failed:'rejected', sending:'draft'};
+  const statusLabel = {draft:'Draft', sent:'Sent', replied:'Replied', rejected:'Rejected', failed:'Failed', sending:'Sending'};
+  const statusIcon = {draft:'📝', sent:'✅', replied:'💬', rejected:'❌', failed:'⚠️', sending:'⏳'};
+  el.innerHTML = '<div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-top:8px;">Email History</div>' +
+    sel.emails.slice().reverse().map(e =>
+      `<div class="email-hist-item">
+        <span class="email-hist-icon">${statusIcon[e.status] || '📧'}</span>
+        <span class="email-hist-date">${e.createdAt}</span>
+        <span class="email-hist-subj">${esc(e.subject || 'No subject')}</span>
+        <span class="estatus ${statusClass[e.status] || 'draft'}">${statusLabel[e.status] || e.status}</span>
+      </div>`
+    ).join('');
+}
+
+// Auto-fill recipient from enriched contacts
+function autoFillRecipient() {
+  const contactsEl = document.getElementById('dc-contacts');
+  if (!contactsEl || !sel) return;
+  const emailEl = document.getElementById('e-to');
+  if (emailEl.value) return; // Don't overwrite manual entry
+  const match = contactsEl.innerHTML.match(/mailto:([^"]+)/);
+  if (match) emailEl.value = match[1];
 }
 
 // ══════════════════════════════════════
@@ -1081,11 +1376,36 @@ async function runLinkedIn() {
             <span style="font-size:11px;font-family:'IBM Plex Mono','JetBrains Mono','SF Mono',Consolas,monospace;color:${(n.charCount || n.note.length) > 300 ? 'var(--red)' : 'var(--green)'};">${n.charCount || n.note.length}/300</span>
           </div>
           <div style="font-size:13px;line-height:1.6;" id="li-note-${ni}">${esc(n.note)}</div>
-          <button class="cpbtn" style="margin-top:8px;" onclick="cpById('li-note-${ni}',this)">Copy</button>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <button class="cpbtn" onclick="cpById('li-note-${ni}',this)">Copy</button>
+            <button class="btn btn-outline btn-sm" onclick="copyAndOpenLI(${ni})">🔗 Copy & Open LinkedIn</button>
+          </div>
         </div>`).join('');
     setMsg('✅ LinkedIn notes ready');
   } catch (e) { setMsg('Error: ' + e.message); }
   setBusy('btn-li', 'sp-li', false);
+}
+
+async function runLinkedInAndMark() {
+  await runLinkedIn();
+}
+
+function copyAndOpenLI(noteIndex) {
+  const el = document.getElementById('li-note-' + noteIndex);
+  if (el) {
+    navigator.clipboard.writeText(el.textContent).then(() => {
+      setMsg('Copied — LinkedIn opening...');
+      if (sel) {
+        // Auto-mark li_connect task
+        if (sel.tasks.li_connect && !sel.tasks.li_connect.done) {
+          sel.tasks.li_connect.done = true;
+          sel.tasks.li_connect.doneAt = new Date().toLocaleDateString();
+          save(); renderTasks();
+        }
+        openLI();
+      }
+    });
+  }
 }
 
 // ══════════════════════════════════════
@@ -1388,7 +1708,7 @@ function addOneOcean(i) {
   if (DB.find(a => a.company === name)) { setMsg(name + ' already in accounts'); return; }
   const nid = Math.max(...DB.map(a => a.id)) + 1;
   const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
-  DB.push({id:nid, company:name, city:c.state||c.country||'USA', market:'Unknown', vertical:c.industry||(c.industryCategories||['Manufacturing'])[0], rev:typeof c.revenue==='number'?'$'+(c.revenue/1e6).toFixed(0)+'M':(c.revenue||'Unknown'), emp:String(c.employee_count||c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[], tasks});
+  DB.push({id:nid, company:name, city:c.state||c.country||'USA', market:'Unknown', vertical:c.industry||(c.industryCategories||['Manufacturing'])[0], rev:typeof c.revenue==='number'?'$'+(c.revenue/1e6).toFixed(0)+'M':(c.revenue||'Unknown'), emp:String(c.employee_count||c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[], tasks, emails:[]});
   save(); renderList(); setMsg(name + ' added from Ocean.io');
 }
 function addAllOcean() { oceanResults.forEach((_, i) => addOneOcean(i)); setMsg('Ocean results added to accounts'); }
@@ -1398,7 +1718,7 @@ function addOneVibe(i) {
   if (DB.find(a => a.company === r.company)) { setMsg(r.company + ' already in accounts'); return; }
   const nid = Math.max(...DB.map(a => a.id)) + 1;
   const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
-  DB.push({id:nid, company:r.company, city:r.city||'TX', market:r.city||'Texas', vertical:r.vertical, rev:r.revenue, emp:'Unknown', priority:r.fitScore>=8?'High':r.fitScore>=6?'Medium':'Low', pe:false, ownership:'Unknown', pains:[r.signal,'Quote-to-cash','ERP gap'], cxo:'CRO + CFO', website:r.domain, liSearch:r.company, stage:'New', source:'vibe', contacted:false, signals:[], tasks});
+  DB.push({id:nid, company:r.company, city:r.city||'TX', market:r.city||'Texas', vertical:r.vertical, rev:r.revenue, emp:'Unknown', priority:r.fitScore>=8?'High':r.fitScore>=6?'Medium':'Low', pe:false, ownership:'Unknown', pains:[r.signal,'Quote-to-cash','ERP gap'], cxo:'CRO + CFO', website:r.domain, liSearch:r.company, stage:'New', source:'vibe', contacted:false, signals:[], tasks, emails:[]});
   save(); renderList(); setMsg(r.company + ' added');
 }
 function addAllVibe() { discResults.forEach((_, i) => addOneVibe(i)); setMsg('Vibe results added to accounts'); }
@@ -1415,7 +1735,10 @@ function saveSettings() {
 function resetDB() {
   if (!confirm('Reset to 25 default accounts? This cannot be undone.')) return;
   DB = SEED.map(a => ({...a}));
-  DB.forEach(a => { if (!a.tasks) { a.tasks = {}; OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false, doneAt:null}; }); } });
+  DB.forEach(a => {
+    if (!a.tasks) { a.tasks = {}; OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false, doneAt:null}; }); }
+    if (!a.emails) a.emails = [];
+  });
   save(); renderList(); buildKanban();
   sel = null;
   document.getElementById('de-empty').style.display = '';
@@ -1448,7 +1771,9 @@ function addManual() {
 // COPY UTILITIES
 // ══════════════════════════════════════
 function cp(id, btn) {
-  navigator.clipboard.writeText(document.getElementById(id).textContent).then(() => {
+  const el = document.getElementById(id);
+  const text = el.value !== undefined && el.tagName === 'INPUT' ? el.value : el.textContent;
+  navigator.clipboard.writeText(text).then(() => {
     btn.textContent = '✓ Copied'; btn.classList.add('ok');
     setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('ok'); }, 2000);
   });
