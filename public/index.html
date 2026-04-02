@@ -57,7 +57,7 @@ html,body{height:100vh;overflow:hidden;background:var(--bg);font-family:'Inter',
 
 /* ── LAYOUT ── */
 .page{display:none;overflow:hidden;position:absolute;top:52px;left:0;right:0;bottom:28px;}
-.page.on{display:block;}
+/* .page.on handled by individual page rules */
 body{display:flex;flex-direction:column;}
 .scroll{overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border2) transparent;}
 ::-webkit-scrollbar{width:4px;height:4px;}
@@ -272,7 +272,7 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
 .td-mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);}
 
 /* ── PAGE 5: SETTINGS ── */
-#pg-settings.on{overflow-y:auto;}
+#pg-settings.on{display:block;overflow-y:auto;}
 .settings-wrap{max-width:600px;padding:24px;}
 .settings-title{font-size:22px;font-weight:700;margin-bottom:20px;}
 .scard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:12px;}
