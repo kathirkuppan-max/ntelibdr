@@ -1242,8 +1242,7 @@ async function refreshSignals(){
   const feed=document.getElementById('signals-feed');
   feed.innerHTML='<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;padding:12px 0;"><div class="spin spin-purple" style="display:inline-block;"></div>Generating persona-matched signals tied to your target accounts...</div>';
   try{
-    const accountContext=DB.slice(0,15).map(a=>`${a.company}|${a.vertical}|${a.city}|${a.rev}`).join('
-');
+    const accountContext=DB.slice(0,15).map(a=>`${a.company}|${a.vertical}|${a.city}|${a.rev}`).join('\n');
     const events=await claudeJSON(`B2B signal analyst for Nteli LLC (Salesforce RCA for manufacturing).
 Generate 10 buying signal events — one per account, pick highest-signal accounts from this list:
 ${accountContext}
