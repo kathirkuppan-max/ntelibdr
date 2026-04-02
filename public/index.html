@@ -497,7 +497,7 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
       </button>
     </div>
     <div class="events-body scroll" id="signals-feed">
-      <div style="color:var(--text3);font-size:13px;font-style:italic;padding:12px 0;">Click "Refresh Feed" to pull the latest buying signals across your ICP — new products, M&A, hiring sprees, and funding rounds.</div>
+      <div style="color:var(--text3);font-size:13px;font-style:italic;padding:12px 0;">Click "Refresh Feed" to generate persona-matched buying intelligence across all your target accounts — signals are tied directly to accounts in your list.</div>
     </div>
   </div>
   <div class="events-col">
@@ -658,6 +658,97 @@ const TRADE_SHOWS = [
   {id:'s8',name:'CSIA Executive Conference',dates:'May 13–16, 2026',location:'Orlando, FL',type:'Association',why:'Control Systems Integrators — excellent referral partners for RCA deals.',relevance:'Medium',url:'https://www.controlsys.org',attending:false,notes:'Target 3-5 SI partnership conversations.'}
 ];
 
+
+// ══════════════════════════════════════════
+// PERSONA ENGINE — from Nteli case study
+// ══════════════════════════════════════════
+const PERSONAS = {
+  CEO: {
+    icon: '📈',
+    label: 'CEO / Owner',
+    pain: 'Revenue is UP. Margin is DOWN.',
+    question: 'What does your EBITDA trend look like vs revenue over the last 2 years?',
+    hook: 'Manufacturers at your stage often find $6M–$14M of recoverable value sitting in lapsed service contracts, undisciplined discounting, and expedite costs nobody is tracking.',
+    proof: '$9M+ recovered annually. Valuation conversation shifted from revenue to recurring revenue and margin quality — worth more than two years of top-line growth.',
+    cta: 'What would your margin leak actually cost you annually? We can calculate it together in 30 minutes.',
+    signals: ['increase_in_all_departments','new_funding_round','merger_and_acquisitions','cost_cutting','new_product'],
+    color: '#B45309', bg: '#FFFBEB', border: '#FCD34D'
+  },
+  CFO: {
+    icon: '📋',
+    label: 'CFO / VP Finance',
+    pain: 'Signed off on numbers you could not fully stand behind.',
+    question: 'Could you demonstrate to your auditors exactly how you arrived at last quarter's revenue number?',
+    hook: '31% of manufacturing service contracts lapse without renewal. $11M–$18M in audit exposure is the average estimate for manufacturers your size running manual revenue processes.',
+    proof: 'Audit committee report came back clean for the first time in 3 years. Close time from 7.4 days to 3 — consistently.',
+    cta: 'What would a clean audit committee report be worth to you? 30-minute conversation with a CFO who has been there.',
+    signals: ['merger_and_acquisitions','cost_cutting','new_funding_round','lawsuits_and_legal_issues'],
+    color: '#1B4F72', bg: '#EBF4FB', border: '#BDD5EA'
+  },
+  COO: {
+    icon: '⚙️',
+    label: 'COO / VP Operations',
+    pain: 'Accountable for commitments you never agreed to.',
+    question: 'How do you find out about delivery commitments your sales team makes — before or after they are made?',
+    hook: 'The average mid-market manufacturer spends $1.4M annually on expedite costs. 68% of COOs name ops-sales misalignment as their top pain.',
+    proof: 'On-time delivery from 74% to 91%, sustained. Expedite costs down 34%. First-time field fix rate from 58% to 74%.',
+    cta: 'How much did misaligned commitments cost you last year? Let's put a number on it together.',
+    signals: ['hiring_in_operations_department','increase_in_all_departments','increase_in_operations_department','new_product','new_partnership'],
+    color: '#15803D', bg: '#ECFDF5', border: '#A7F3D0'
+  },
+  CRO: {
+    icon: '🎯',
+    label: 'CRO / VP Sales',
+    pain: 'Not losing on product. Losing on process.',
+    question: 'What percentage of your reps' time actually goes to selling vs building quotes and chasing approvals?',
+    hook: '60% of rep time lost to admin. 4.2-day average quote turnaround. 11 margin points given away per deal because discounting is the only closing tool reps have.',
+    proof: 'Win rate up 18 points. 40% shorter sales cycle. CEO took the forecast number without adjusting it — changed what conversations the CRO got invited to.',
+    cta: 'What is rep attrition and slow quoting actually costing you per quarter? We will size it in 30 minutes.',
+    signals: ['hiring_in_sales_department','increase_in_sales_department','new_product','increase_in_all_departments'],
+    color: '#6D28D9', bg: '#F5F3FF', border: '#C4B5FD'
+  }
+};
+
+// Map a Vibe event type → best persona(s)
+function eventToPersonas(eventType) {
+  const mapping = {
+    new_product: ['CRO','COO','CEO'],
+    merger_and_acquisitions: ['CEO','CFO'],
+    new_funding_round: ['CEO','CFO'],
+    increase_in_all_departments: ['CEO','CRO','COO'],
+    hiring_in_sales_department: ['CRO'],
+    increase_in_sales_department: ['CRO'],
+    hiring_in_operations_department: ['COO'],
+    increase_in_operations_department: ['COO'],
+    cost_cutting: ['CFO','CEO'],
+    lawsuits_and_legal_issues: ['CFO'],
+    new_partnership: ['CEO','COO'],
+    company_award: ['CEO','CRO'],
+    new_office: ['CEO','COO'],
+    decrease_in_all_departments: ['CFO','CEO'],
+    hiring_in_finance_department: ['CFO'],
+  };
+  return mapping[eventType] || ['CEO'];
+}
+
+// Score an account across all 4 personas based on its signals
+function scorePersonas(signals) {
+  const scores = {CEO:0, CFO:0, COO:0, CRO:0};
+  (signals||[]).forEach(ev => {
+    const personas = eventToPersonas(ev.type);
+    personas.forEach((p,i) => { scores[p] += (3 - i); }); // primary=3pts, secondary=2pts, tertiary=1pt
+  });
+  // Sort by score desc
+  return Object.entries(scores).sort((a,b)=>b[1]-a[1]).filter(([,s])=>s>0);
+}
+
+// Get the primary persona for an account
+function primaryPersona(signals) {
+  const ranked = scorePersonas(signals);
+  return ranked.length > 0 ? ranked[0][0] : 'CEO';
+}
+
+
 // ── STATE ──
 let DB = JSON.parse(localStorage.getItem('nteli_v7')||'null') || SEED.map(a=>({...a}));
 let SHOWS = JSON.parse(localStorage.getItem('nteli_shows_v3')||'null') || TRADE_SHOWS.map(s=>({...s}));
@@ -773,38 +864,11 @@ function pick(id){
 
 function renderStoredSignals(){
   if(!sel) return;
-  const el = document.getElementById('dc-signals');
-  if(!sel.signals||!sel.signals.length){
-    el.innerHTML='<div class="signal-empty">Click "Generate Signals" to pull AI-powered buying intelligence and live signal events for this account.</div>';
-    return;
+  if(sel.signals && sel.signals.length > 0){
+    renderPersonaSignals();
+  } else {
+    document.getElementById('dc-signals').innerHTML='<div class="signal-empty">Click "Generate Signals" to pull persona-matched buying intelligence for this account.</div>';
   }
-  const ICONS={new_product:'🚀',merger_and_acquisitions:'🤝',new_funding_round:'💰',increase_in_all_departments:'📈',hiring_in_sales_department:'🧑‍💼',hiring_in_operations_department:'⚙️'};
-  const LABELS={new_product:'New Product',merger_and_acquisitions:'M&A Activity',new_funding_round:'New Funding',increase_in_all_departments:'Headcount Growth',hiring_in_sales_department:'Hiring: Sales',hiring_in_operations_department:'Hiring: Ops'};
-
-  // Also show AI intelligence if stored
-  let html = '';
-  if(sel.aiIntel){
-    const ai = sel.aiIntel;
-    html += `<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;">
-      <div class="intel-item"><div class="intel-lbl">RCA Fit</div><div class="intel-val" style="color:var(--blue);font-weight:600;">${esc(ai.fit||'—')}</div></div>
-      <div class="intel-item"><div class="intel-lbl">Buy Trigger</div><div class="intel-val">${esc(ai.trig||'—')}</div></div>
-    </div>
-    <div class="intel-item" style="margin-bottom:10px;"><div class="intel-lbl">Opening Angle</div><div class="intel-val">${esc(ai.angle||'—')}</div></div>
-    <div class="intel-item" style="margin-bottom:12px;"><div class="intel-lbl">Objection + Counter</div><div class="intel-val">${esc(ai.obj||'—')}</div></div>
-    <div class="sec-lbl">Live Signal Events</div>`;
-  }
-
-  html += '<div class="signal-list">'+sel.signals.map(ev=>`
-    <div class="signal-item ${ev.type}">
-      <div class="signal-icon-wrap">${ICONS[ev.type]||'⚡'}</div>
-      <div class="signal-body">
-        <div class="signal-type">${LABELS[ev.type]||ev.type.replace(/_/g,' ')}</div>
-        <div class="signal-text">${esc(ev.text)}</div>
-        <div class="signal-date">${ev.date}</div>
-      </div>
-    </div>`).join('')+'</div>';
-
-  el.innerHTML = html;
 }
 
 function saveStage(){
@@ -852,38 +916,120 @@ async function claudeStream(prompt,onChunk){
 }
 function setBusy(b,s,on){document.getElementById(b).disabled=on;document.getElementById(s).style.display=on?'inline-block':'none';}
 
-// ── GENERATE SIGNALS (AI intel + live events combined) ──
+// ── GENERATE SIGNALS — persona-matched from Nteli case study ──
 async function runSignalsFull(){
   if(!sel){setMsg('Select an account first');return;}
   setBusy('btn-signals','sp-signals',true);setMsg('Generating buying intelligence...');
   const el=document.getElementById('dc-signals');
-  el.innerHTML='<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;padding:12px 0;"><div class="spin spin-purple" style="display:inline-block;"></div>Generating buying intelligence and signal events...</div>';
+  el.innerHTML='<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;padding:12px 0;"><div class="spin spin-purple" style="display:inline-block;"></div>Analysing account and mapping to buying personas...</div>';
   try{
-    const sig=localStorage.getItem('nteli_sig')||'Kathir | CEO, Nteli LLC | Revenue Cloud for Manufacturing';
-    // Get AI intel + signal events in one call
-    const res=await claudeJSON(`You are a B2B sales intelligence analyst for Nteli LLC (Salesforce RCA SI for manufacturing). 
-Return JSON with two keys:
-1. "intel": {fit: "X/10 — Label", trig: "1-2 specific buying triggers RIGHT NOW", angle: "sharpest cold outreach opening angle (specific, not generic)", obj: "most likely ${sel.cxo.split('+')[0].trim()} objection + one-line counter"}
-2. "events": array of 3 realistic recent buying signal events [{type("new_product"|"merger_and_acquisitions"|"new_funding_round"|"increase_in_all_departments"|"hiring_in_sales_department"), text(1-sentence), date("Mar 2026")}]
+    // Step 1: Get signal events + raw intel from Claude
+    const res=await claudeJSON(`You are a B2B sales intelligence analyst for Nteli LLC (Salesforce Revenue Cloud implementation partner for manufacturing).
+Return JSON with TWO keys only:
+1. "events": array of 3 realistic recent signal events for this company [{type("new_product"|"merger_and_acquisitions"|"new_funding_round"|"increase_in_all_departments"|"hiring_in_sales_department"|"hiring_in_operations_department"|"cost_cutting"), text(1 specific sentence about what happened), date("Mar 2026")}]
+2. "rcaFit": one of "Strong" | "Good" | "Moderate" — based on how well this company fits Salesforce Revenue Cloud Advanced for manufacturing
 
 Account: ${sel.company} | ${sel.vertical} | ${sel.rev} | ${sel.emp} employees | ${sel.ownership} | ${sel.city}
 Pain points: ${sel.pains.join(', ')}
-Sender: ${sig}
 ONLY return valid JSON, nothing else.`);
 
-    sel.aiIntel = res.intel;
     sel.signals = res.events || [];
+    sel.rcaFit = res.rcaFit || 'Good';
     save();
-    renderStoredSignals();
-    setMsg('✅ Buying intelligence ready');
+
+    // Step 2: Map signals → personas using the persona engine
+    const ranked = scorePersonas(sel.signals);
+    const topPersona = ranked.length > 0 ? ranked[0][0] : 'CRO';
+    const P = PERSONAS[topPersona];
+    sel.topPersona = topPersona;
+    save();
+
+    // Step 3: Render the full persona-matched signal view
+    renderPersonaSignals();
+    setMsg('✅ Persona-matched intelligence ready');
   }catch(e){
     el.innerHTML=`<div style="padding:12px;color:var(--red);font-size:13px;line-height:1.7;background:var(--red-bg);border-radius:var(--r);border:1px solid var(--red-border);">
-      <strong>Error generating signals:</strong> ${esc(e.message)}<br>
-      <span style="color:var(--text3);font-size:12px;margin-top:6px;display:block;">Make sure ANTHROPIC_API_KEY is set in your Vercel environment variables, then redeploy.</span>
+      <strong>Error:</strong> ${esc(e.message)}<br>
+      <span style="color:var(--text3);font-size:12px;margin-top:6px;display:block;">Check ANTHROPIC_API_KEY in Vercel → Settings → Environment Variables, then redeploy.</span>
     </div>`;
     setMsg('Error — check ANTHROPIC_API_KEY');
   }
   setBusy('btn-signals','sp-signals',false);
+}
+
+// ── RENDER PERSONA-MATCHED SIGNALS ──
+function renderPersonaSignals(){
+  if(!sel) return;
+  const el = document.getElementById('dc-signals');
+  if(!sel.signals||!sel.signals.length){
+    el.innerHTML='<div class="signal-empty">Click "Generate Signals" to pull persona-matched buying intelligence for this account.</div>';
+    return;
+  }
+
+  const ranked = scorePersonas(sel.signals);
+  const topPersona = sel.topPersona || (ranked.length>0?ranked[0][0]:'CRO');
+  const P = PERSONAS[topPersona];
+
+  const ICONS={new_product:'🚀',merger_and_acquisitions:'🤝',new_funding_round:'💰',increase_in_all_departments:'📈',hiring_in_sales_department:'🧑‍💼',hiring_in_operations_department:'⚙️',cost_cutting:'✂️',new_partnership:'🤝',lawsuits_and_legal_issues:'⚖️'};
+  const LABELS={new_product:'New Product',merger_and_acquisitions:'M&A',new_funding_round:'Funding',increase_in_all_departments:'Headcount Growth',hiring_in_sales_department:'Hiring: Sales',hiring_in_operations_department:'Hiring: Ops',cost_cutting:'Cost Cutting',new_partnership:'New Partnership'};
+
+  // RCA fit badge color
+  const fitColor = sel.rcaFit==='Strong'?'var(--green)':sel.rcaFit==='Good'?'var(--blue2)':'var(--amber)';
+  const fitBg = sel.rcaFit==='Strong'?'var(--green-bg)':sel.rcaFit==='Good'?'var(--blue-bg)':'var(--amber-bg)';
+
+  el.innerHTML = `
+    <!-- Persona match banner -->
+    <div style="background:${P.bg};border:1.5px solid ${P.border};border-radius:var(--r);padding:14px 16px;margin-bottom:12px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;">
+          <span style="font-size:20px;">${P.icon}</span>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:${P.color};">Best Entry Point: ${P.label}</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:1px;">Based on ${sel.signals.length} active buying signal${sel.signals.length!==1?'s':''}</div>
+          </div>
+        </div>
+        <div style="background:${fitBg};color:${fitColor};border:1px solid ${P.border};border-radius:20px;padding:3px 10px;font-size:11px;font-weight:600;">${sel.rcaFit||'Good'} RCA Fit</div>
+      </div>
+      <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:4px;">Their Pain: <span style="color:${P.color};">${P.pain}</span></div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:8px;">${P.hook}</div>
+      <div style="background:rgba(255,255,255,.7);border-radius:var(--r);padding:10px 12px;margin-bottom:8px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${P.color};margin-bottom:5px;">Opening Question</div>
+        <div style="font-size:13px;font-style:italic;color:var(--text);">"${P.question}"</div>
+      </div>
+      <div style="background:rgba(255,255,255,.7);border-radius:var(--r);padding:10px 12px;margin-bottom:8px;">
+        <div style="font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:${P.color};margin-bottom:5px;">Proof Point to Deploy</div>
+        <div style="font-size:13px;color:var(--text);">${P.proof}</div>
+      </div>
+      <div style="font-size:12px;color:${P.color};font-style:italic;">${P.cta}</div>
+    </div>
+
+    <!-- All ranked personas -->
+    ${ranked.length>1?`<div style="margin-bottom:12px;">
+      <div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;">All Persona Signals</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        ${ranked.map(([pKey,score])=>{const px=PERSONAS[pKey];return`<div style="display:flex;align-items:center;gap:5px;padding:4px 10px;background:${px.bg};border:1px solid ${px.border};border-radius:20px;font-size:11px;font-weight:600;color:${px.color};">${px.icon} ${px.label}<span style="background:rgba(0,0,0,.1);border-radius:10px;padding:1px 5px;font-size:10px;">${score}</span></div>`;}).join('')}
+      </div>
+    </div>`:''}
+
+    <!-- Live signal events -->
+    <div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:6px;">Live Signal Events</div>
+    <div class="signal-list">
+      ${sel.signals.map(ev=>{
+        const personas=eventToPersonas(ev.type);
+        const p1=PERSONAS[personas[0]];
+        return`<div class="signal-item ${ev.type}">
+          <div class="signal-icon-wrap">${ICONS[ev.type]||'⚡'}</div>
+          <div class="signal-body">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:3px;">
+              <div class="signal-type">${LABELS[ev.type]||ev.type.replace(/_/g,' ')}</div>
+              <span style="font-size:10px;padding:1px 6px;border-radius:10px;background:${p1.bg};color:${p1.color};border:1px solid ${p1.border};font-weight:600;">→ ${p1.label}</span>
+            </div>
+            <div class="signal-text">${esc(ev.text)}</div>
+            <div class="signal-date">${ev.date}</div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
 }
 
 // ── CONTACTS ──
@@ -936,16 +1082,25 @@ async function runEmail(){
   try{
     const sig=localStorage.getItem('nteli_sig')||'Kathir | CEO, Nteli LLC | Revenue Cloud for Manufacturing';
     const proof=localStorage.getItem('nteli_proof')||'Sauer Compressors, Harmar Mobility, Big Three Precision Products';
-    const sigEvent=sel.signals&&sel.signals.length?' Recent signal: '+sel.signals[0].text:'';
+    const sigEvent=sel.signals&&sel.signals.length?' Recent trigger: '+sel.signals[0].text:'';
+    // Get persona-specific context from case study
+    const personaKey=document.getElementById('e-persona').value.toUpperCase();
+    const pMap={CRO:'CRO',CFO:'CFO',COO:'COO',CEO:'CEO'};
+    const P=PERSONAS[pMap[personaKey]||sel.topPersona||'CRO'];
+    const personaContext=P?`
+Opening question to use: "${P.question}"
+Their core pain: ${P.pain}
+Proof point to reference: ${P.proof}
+Hook to open with: ${P.hook}`:'';
     await claudeStream(`Write a cold sales email from ${sig}.
-Target: ${persona} at ${sel.company} (${sel.vertical}, ${sel.city}, ${sel.rev}, ${sel.ownership}).
-Key pain points: ${sel.pains.join(', ')}.${sigEvent}
+Target: ${persona} at ${sel.company} (${sel.vertical}, ${sel.city}, ${sel.rev}, ${sel.ownership}).${sigEvent}
+${personaContext}
 Client proof: ${proof}.
-4-5 short paragraphs. Open with a specific pain hook for ${persona}. Soft 15-minute CTA. No fluff.
-EXACT FORMAT — first line is subject, then three dashes on their own line, then body only:
+4-5 tight paragraphs. Open with the pain hook. Reference the proof point naturally. Soft 15-minute CTA using the opening question. No fluff. No buzzwords.
+EXACT FORMAT:
 SUBJECT: [subject line]
 ---
-[email body]`,chunk=>{
+[email body only]`,chunk=>{
       full+=chunk;
       if(inSub){const di=full.indexOf('---');if(di>-1){inSub=false;sub.textContent=full.substring(0,di).replace('SUBJECT:','').trim();bod.textContent=full.substring(di+3).trim();}else{sub.textContent=full.replace('SUBJECT:','').trim();}}
       else{bod.textContent=full.substring(full.indexOf('---')+3).trim();}
@@ -1083,40 +1238,62 @@ function addAllVibe(){ discResults.forEach((_,i)=>addOneVibe(i)); setMsg('Vibe r
 
 // ── SIGNAL FEED ──
 async function refreshSignals(){
-  setBusy('btn-refresh','sp-refresh',true);setMsg('Refreshing signal feed...');
+  setBusy('btn-refresh','sp-refresh',true);setMsg('Building account-tied signal feed...');
   const feed=document.getElementById('signals-feed');
-  feed.innerHTML='<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;padding:12px 0;"><div class="spin spin-purple" style="display:inline-block;"></div>Pulling live buying signals from Vibe...</div>';
+  feed.innerHTML='<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;padding:12px 0;"><div class="spin spin-purple" style="display:inline-block;"></div>Generating persona-matched signals tied to your target accounts...</div>';
   try{
-    const companies=DB.slice(0,12).map(a=>a.company).join(', ');
-    const events=await claudeJSON(`Generate a realistic buying signal event feed for these Texas manufacturing target accounts: ${companies}.
-Return JSON array of 8 signal events:
-[{company, eventType("new_product"|"merger_and_acquisitions"|"new_funding_round"|"increase_in_all_departments"|"hiring_in_sales_department"), headline(1 sentence), detail(1-2 sentences specific detail), date("Mar 2026"), why("1 sentence why this matters for Nteli RCA pitch")}]
+    const accountContext=DB.slice(0,15).map(a=>`${a.company}|${a.vertical}|${a.city}|${a.rev}`).join('
+');
+    const events=await claudeJSON(`B2B signal analyst for Nteli LLC (Salesforce RCA for manufacturing).
+Generate 10 buying signal events — one per account, pick highest-signal accounts from this list:
+${accountContext}
+
+Return JSON array:
+[{company,eventType("new_product"|"merger_and_acquisitions"|"new_funding_round"|"increase_in_all_departments"|"hiring_in_sales_department"|"hiring_in_operations_department"|"cost_cutting"),headline(1 sentence),detail(1-2 sentences),date("Mar 2026"),persona("CEO"|"CFO"|"COO"|"CRO"),openingQuestion(the specific opening question for that persona from the Nteli case study),pitchAngle(1 sentence: what this means for an RCA pitch)}]
 ONLY JSON array.`);
-    const ICONS={new_product:'🚀',merger_and_acquisitions:'🤝',new_funding_round:'💰',increase_in_all_departments:'📈',hiring_in_sales_department:'🧑‍💼'};
-    const LABELS={new_product:'New Product',merger_and_acquisitions:'M&A',new_funding_round:'Funding',increase_in_all_departments:'Headcount Growth',hiring_in_sales_department:'Hiring: Sales'};
-    feed.innerHTML=events.map(ev=>`
-      <div class="feed-row">
+    const ICONS={new_product:'🚀',merger_and_acquisitions:'🤝',new_funding_round:'💰',increase_in_all_departments:'📈',hiring_in_sales_department:'🧑‍💼',hiring_in_operations_department:'⚙️',cost_cutting:'✂️'};
+    const LABELS={new_product:'New Product',merger_and_acquisitions:'M&A',new_funding_round:'Funding',increase_in_all_departments:'Headcount Growth',hiring_in_sales_department:'Hiring: Sales',hiring_in_operations_department:'Hiring: Ops',cost_cutting:'Cost Cutting'};
+    feed.innerHTML=events.map(ev=>{
+      const acct=DB.find(a=>a.company===ev.company);
+      const P=PERSONAS[ev.persona]||PERSONAS.CRO;
+      return`<div class="feed-row" style="cursor:pointer;transition:background .1s;" onmouseover="this.style.background='var(--surface2)'" onmouseout="this.style.background=''" onclick="goToAccount('${esc(ev.company)}')">
         <div class="feed-icon">${ICONS[ev.eventType]||'⚡'}</div>
         <div class="feed-body">
-          <div class="feed-co">${esc(ev.company)}</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+            <div class="feed-co">${esc(ev.company)}</div>
+            <div style="display:flex;align-items:center;gap:5px;">
+              <span style="font-size:10px;padding:2px 8px;border-radius:12px;background:${P.bg};color:${P.color};border:1px solid ${P.border};font-weight:600;">${P.icon} ${P.label}</span>
+              ${acct?'<span class="badge badge-blue" style="font-size:10px;">In List</span>':'<span class="badge badge-gray" style="font-size:10px;">Add to List</span>'}
+            </div>
+          </div>
           <div class="feed-headline">${esc(ev.headline)}</div>
           <div class="feed-detail">${esc(ev.detail)}</div>
+          <div style="background:${P.bg};border-radius:4px;padding:8px 10px;margin:7px 0;border-left:3px solid ${P.border};">
+            <div style="font-size:10px;font-weight:600;color:${P.color};text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px;">Pitch Angle for ${P.label}</div>
+            <div style="font-size:12px;color:var(--text2);margin-bottom:4px;">${esc(ev.pitchAngle)}</div>
+            <div style="font-size:12px;font-style:italic;color:${P.color};">"${esc(ev.openingQuestion)}"</div>
+          </div>
           <div class="feed-meta">
             <span class="badge badge-${ev.eventType==='new_product'?'green':ev.eventType==='merger_and_acquisitions'?'red':ev.eventType==='new_funding_round'?'gold':'amber'}">${LABELS[ev.eventType]||ev.eventType.replace(/_/g,' ')}</span>
             <span class="feed-date">${ev.date}</span>
-            <span class="feed-why">${esc(ev.why)}</span>
+            <span style="font-size:11px;color:var(--blue2);font-style:italic;">Click to open account →</span>
           </div>
         </div>
-      </div>`).join('');
-    setMsg('✅ Signal feed refreshed');
+      </div>`;
+    }).join('');
+    setMsg('✅ Signal feed — '+events.length+' accounts with active signals');
   }catch(e){
-    feed.innerHTML=`<div style="padding:16px;color:var(--red);font-size:13px;background:var(--red-bg);border-radius:var(--r);border:1px solid var(--red-border);">
-      <strong>Error:</strong> ${esc(e.message)}<br>
-      <span style="font-size:12px;color:var(--text3);margin-top:4px;display:block;">Check that ANTHROPIC_API_KEY is set in Vercel → Settings → Environment Variables, then redeploy.</span>
-    </div>`;
+    feed.innerHTML=`<div style="padding:16px;color:var(--red);font-size:13px;background:var(--red-bg);border-radius:var(--r);border:1px solid var(--red-border);"><strong>Error:</strong> ${esc(e.message)}<br><span style="font-size:12px;color:var(--text3);margin-top:4px;display:block;">Check ANTHROPIC_API_KEY in Vercel → Settings → Environment Variables.</span></div>`;
     setMsg('Error — check ANTHROPIC_API_KEY');
   }
   setBusy('btn-refresh','sp-refresh',false);
+}
+
+function goToAccount(companyName){
+  const acct=DB.find(a=>a.company===companyName);
+  if(!acct){setMsg(companyName+' — not in your account list yet');return;}
+  goPage('accounts',document.querySelectorAll('.ntab')[0]);
+  setTimeout(()=>pick(acct.id),80);
 }
 
 // ── TRADE SHOWS ──
