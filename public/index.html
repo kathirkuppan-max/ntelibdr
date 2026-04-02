@@ -39,10 +39,10 @@ body{display:flex;flex-direction:column;}
 
 /* PAGES — absolute fill between topbar and statusbar */
 .page{display:none;overflow:hidden;position:absolute;top:52px;left:0;right:0;bottom:28px;}
-#pg-accounts.on{display:grid;grid-template-columns:300px 1fr;overflow:hidden;align-items:stretch;}
+#pg-accounts.on{display:grid;grid-template-columns:300px 1fr;grid-template-rows:100%;overflow:hidden;}
 #pg-pipeline.on{display:flex;flex-direction:column;padding:20px;gap:12px;overflow:hidden;box-sizing:border-box;}
-#pg-events.on{display:grid;grid-template-columns:1fr 1fr;overflow:hidden;align-items:stretch;}
-#pg-discover.on{display:grid;grid-template-columns:280px 1fr;overflow:hidden;align-items:stretch;}
+#pg-events.on{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:100%;overflow:hidden;}
+#pg-discover.on{display:grid;grid-template-columns:280px 1fr;grid-template-rows:100%;overflow:hidden;}
 #pg-settings.on{display:flex;flex-direction:column;overflow-y:auto;}
 
 /* STATUSBAR */
@@ -124,7 +124,7 @@ body{display:flex;flex-direction:column;}
 .stage-dot.Proposal{background:#F59E0B;}
 
 /* ACCOUNT DETAIL */
-.acct-detail{background:var(--bg);display:flex;flex-direction:column;overflow:hidden;min-height:0;height:100%;}
+.acct-detail{background:var(--bg);display:flex;flex-direction:column;overflow:hidden;min-height:0;height:100%;max-height:100%;}
 .detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text3);text-align:center;gap:12px;}
 .detail-empty-icon{font-size:48px;opacity:.2;}
 .detail-hdr{padding:16px 20px 14px;background:var(--surface2);border-bottom:1px solid var(--border);flex-shrink:0;}
@@ -135,7 +135,7 @@ body{display:flex;flex-direction:column;}
 .detail-actions{display:flex;gap:6px;flex-shrink:0;}
 
 /* GTM BODY — scrollable sections */
-.gtm-body{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px;min-height:0;}
+.gtm-body{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px;min-height:0;max-height:100%;}
 .gtm-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
 .gtm-card-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);}
 .gtm-card-title{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;}
@@ -454,12 +454,7 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
         <option value="100-500M">$100M–$500M</option>
         <option value="500-1000M">$500M–$1B</option>
       </select>
-      <label class="sec-lbl">Min Similarity</label>
-      <select class="select" id="oc-score" style="font-size:12px;">
-        <option value="0.9">Very Similar (0.90+)</option>
-        <option value="0.85" selected>Similar (0.85+)</option>
-        <option value="0.79">Slightly Similar</option>
-      </select>
+<!-- minScore removed: premium-only field -->
       <button class="btn btn-outline" style="width:100%;justify-content:center;" onclick="runOcean()" id="btn-ocean">
         <span class="spin spin-blue" id="sp-ocean" style="display:none"></span>
         Find Lookalike Companies
@@ -1161,9 +1156,9 @@ async function runOcean() {
   document.getElementById('disc-hdr-actions').innerHTML = '';
   document.getElementById('disc-body').innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--blue2);font-size:13px;padding:40px 20px;"><div class="spin spin-blue" style="display:inline-block;"></div>Querying Ocean.io lookalike engine...</div>';
   const seeds = document.getElementById('oc-seeds').value.split(',').map(s => s.trim()).filter(Boolean);
-  const minScore = parseFloat(document.getElementById('oc-score').value);
   const rev = document.getElementById('oc-rev').value;
-  // Ocean.io v3 API format: lookalikes is array of {domain}, revenue_range uses underscore fields
+  if (!seeds.length) { setMsg('Enter at least one seed domain'); setBusy('btn-ocean','sp-ocean',false); return; }
+  // Ocean.io v3: companiesFilters with lookalikeDomains + revenues (minScore is premium-only, omitted)
   try {
     const r = await fetch('/api/ocean', {
       method: 'POST',
@@ -1174,7 +1169,6 @@ async function runOcean() {
           size: 25,
           companiesFilters: {
             lookalikeDomains: seeds,
-            minScore,
             revenues: [rev],
             countries: ['us']
           }
