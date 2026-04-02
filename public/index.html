@@ -123,7 +123,7 @@ body{display:flex;flex-direction:column;}
 .stage-dot.Proposal{background:#F59E0B;}
 
 /* ACCOUNT DETAIL */
-.acct-detail{background:var(--bg);display:flex;flex-direction:column;overflow:hidden;min-height:0;}
+.acct-detail{background:var(--bg);display:flex;flex-direction:column;overflow:hidden;min-height:0;height:100%;}
 .detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text3);text-align:center;gap:12px;}
 .detail-empty-icon{font-size:48px;opacity:.2;}
 .detail-hdr{padding:16px 20px 14px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;}
@@ -134,7 +134,7 @@ body{display:flex;flex-direction:column;}
 .detail-actions{display:flex;gap:6px;flex-shrink:0;}
 
 /* GTM BODY — scrollable sections */
-.gtm-body{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px;min-height:0;}
+.gtm-body{flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:14px;min-height:0;height:0;}
 .gtm-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
 .gtm-card-hdr{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);}
 .gtm-card-title{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px;}
@@ -297,7 +297,7 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
       <div style="font-size:18px;font-weight:600;color:rgba(26,34,53,.3);">Select an account</div>
       <div style="font-size:13px;color:var(--text3);max-width:220px;line-height:1.6;">Account intel, buying signals, and key contacts — all in one view.</div>
     </div>
-    <div id="de-content" style="display:none;flex-direction:column;height:100%;overflow:hidden;min-height:0;">
+    <div id="de-content" style="display:none;flex-direction:column;flex:1;overflow:hidden;min-height:0;">
       <div class="detail-hdr">
         <div class="detail-hdr-top">
           <div>
@@ -448,9 +448,9 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
       <input class="input" id="oc-seeds" value="sauer-compressors.com,harmar.com" style="font-size:12px;" placeholder="domain1.com, domain2.com">
       <label class="sec-lbl">Revenue Range</label>
       <select class="select" id="oc-rev" style="font-size:12px;">
-        <option value="10-50M">$10M–$50M</option>
-        <option value="50-100M" selected>$50M–$100M</option>
-        <option value="100-500M">$100M–$500M</option>
+        <option value="1-10M">$1M–$10M</option>
+        <option value="10-100M" selected>$10M–$100M</option>
+        <option value="100-1000M">$100M–$1B</option>
       </select>
       <label class="sec-lbl">Min Similarity</label>
       <select class="select" id="oc-score" style="font-size:12px;">
@@ -1160,12 +1160,15 @@ async function runOcean() {
   document.getElementById('disc-body').innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--blue2);font-size:13px;padding:40px 20px;"><div class="spin spin-blue" style="display:inline-block;"></div>Querying Ocean.io lookalike engine...</div>';
   const seeds = document.getElementById('oc-seeds').value.split(',').map(s => s.trim()).filter(Boolean);
   const minScore = parseFloat(document.getElementById('oc-score').value);
-  const rev = document.getElementById('oc-rev').value;
+  const revRaw = document.getElementById('oc-rev').value;
+  // Map to Ocean.io v2 revenue format: "0-1M","1-10M","10-100M","100-1000M",">1000M"
+  const revMap = {'10-50M':['10-100M'],'50-100M':['10-100M'],'100-500M':['100-1000M']};
+  const revenues = revMap[revRaw] || ['10-100M'];
   try {
     const r = await fetch('/api/ocean', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({endpoint: 'v3/search/companies', body: {size: 50, from: 0, companiesFilters: {lookalikeDomains: seeds, minScore, revenues: [rev], primaryCountries: ['us']}}})
+      body: JSON.stringify({endpoint: 'v2/search/companies', body: {size: 25, from: 0, companiesFilters: {lookalikeDomains: seeds, minScore, revenues, countries: ['us']}}})
     });
     if (!r.ok) { const err = await r.json().catch(() => ({})); throw new Error(err.error || 'HTTP ' + r.status + ' — check OCEAN_API_KEY in Vercel env vars'); }
     const data = await r.json();
