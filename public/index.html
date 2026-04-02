@@ -39,7 +39,7 @@
   --r:8px;
   --r2:12px;
 }
-html,body{height:100vh;overflow:hidden;background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);font-size:14px;}
+html,body{height:100vh;overflow:hidden;background:var(--bg);font-family:'Inter',sans-serif;color:var(--text);font-size:14px;position:relative;}
 
 /* ── TOPBAR ── */
 .topbar{height:52px;flex-shrink:0;background:var(--blue);display:flex;align-items:center;padding:0 20px;gap:0;box-shadow:0 1px 3px rgba(0,0,0,.15);}
@@ -56,8 +56,8 @@ html,body{height:100vh;overflow:hidden;background:var(--bg);font-family:'Inter',
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
 /* ── LAYOUT ── */
-.page{display:none;flex:1;overflow:hidden;min-height:0;}
-.page.on{display:flex;}
+.page{display:none;overflow:hidden;position:absolute;top:52px;left:0;right:0;bottom:28px;}
+.page.on{display:block;}
 body{display:flex;flex-direction:column;}
 .scroll{overflow-y:auto;scrollbar-width:thin;scrollbar-color:var(--border2) transparent;}
 ::-webkit-scrollbar{width:4px;height:4px;}
@@ -102,7 +102,7 @@ body{display:flex;flex-direction:column;}
 
 /* ── PAGE 1: ACCOUNTS ── */
 /* 2-column: 300px list | flex detail+actions */
-#pg-accounts{display:grid;grid-template-columns:300px 1fr;overflow:hidden;}
+#pg-accounts.on{display:grid;grid-template-columns:300px 1fr;overflow:hidden;}
 
 /* LEFT: Account list */
 .acct-list{background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;}
@@ -213,7 +213,7 @@ body{display:flex;flex-direction:column;}
 .cpbtn.ok{color:var(--green);border-color:var(--green-border);}
 
 /* ── PAGE 2: PIPELINE ── */
-#pg-pipeline{flex-direction:column;padding:20px;gap:12px;overflow:hidden;}
+#pg-pipeline.on{display:flex;flex-direction:column;padding:20px;gap:12px;overflow:hidden;}
 .pipe-hdr{display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .pipe-title{font-size:20px;font-weight:700;}
 .kanban{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;flex:1;overflow:hidden;min-height:0;}
@@ -229,7 +229,7 @@ body{display:flex;flex-direction:column;}
 .kcol-empty{font-size:12px;color:var(--text3);font-style:italic;padding:6px 4px;}
 
 /* ── PAGE 3: SIGNALS & SHOWS ── */
-#pg-events{display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+#pg-events.on{display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
 .events-col{display:flex;flex-direction:column;overflow:hidden;}
 .events-col:first-child{border-right:1px solid var(--border);}
 .events-col-hdr{padding:14px 20px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
@@ -255,7 +255,7 @@ body{display:flex;flex-direction:column;}
 .attending{background:var(--green-bg) !important;border-color:var(--green-border) !important;color:var(--green) !important;}
 
 /* ── PAGE 4: DISCOVER ── */
-#pg-discover{display:grid;grid-template-columns:280px 1fr;overflow:hidden;}
+#pg-discover.on{display:grid;grid-template-columns:280px 1fr;overflow:hidden;}
 .disc-sidebar{background:var(--surface);border-right:1px solid var(--border);padding:16px;overflow-y:auto;}
 .disc-sidebar-title{font-size:15px;font-weight:700;margin-bottom:14px;}
 .disc-section{margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);}
@@ -272,7 +272,7 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
 .td-mono{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text3);}
 
 /* ── PAGE 5: SETTINGS ── */
-#pg-settings{overflow-y:auto;}
+#pg-settings.on{overflow-y:auto;}
 .settings-wrap{max-width:600px;padding:24px;}
 .settings-title{font-size:22px;font-weight:700;margin-bottom:20px;}
 .scard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:12px;}
