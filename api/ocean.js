@@ -9,9 +9,8 @@ export default async function handler(req, res) {
   if (!key) return res.status(500).json({ error: 'OCEAN_API_KEY not set in Vercel environment variables' });
 
   const { endpoint, body } = req.body || {};
-  if (!endpoint || !body) return res.status(400).json({ error: 'Missing endpoint or body' });
+  if (!endpoint || !body) return res.status(400).json({ error: 'Missing endpoint or body in request' });
 
-  // Ocean.io v2 API uses apiToken as query param
   const url = `https://api.ocean.io/${endpoint}?apiToken=${encodeURIComponent(key)}`;
 
   try {
@@ -21,22 +20,23 @@ export default async function handler(req, res) {
       body: JSON.stringify(body)
     });
 
+    const text = await r.text();
     let data;
-    try { data = await r.json(); } catch (e) { data = { message: 'Non-JSON response from Ocean.io' }; }
+    try { data = JSON.parse(text); } catch (e) { data = { raw: text }; }
 
     if (!r.ok) {
+      // Return the full Ocean error so the frontend can show it
+      const detail = data.detail || data.message || data.error || text;
+      const detailStr = typeof detail === 'string' ? detail : JSON.stringify(detail);
       return res.status(r.status).json({
-        error: data.detail || data.message || 'Ocean.io API error',
+        error: detailStr,
         status: r.status,
-        hint: r.status === 401 ? 'Invalid API key — check OCEAN_API_KEY in Vercel env vars'
-            : r.status === 422 ? 'Request format rejected — check payload structure'
-            : r.status === 429 ? 'Rate limit hit — wait a moment and retry'
-            : 'Ocean.io returned an error'
+        sentPayload: body  // Echo back what we sent for debugging
       });
     }
 
     return res.status(200).json(data);
   } catch (e) {
-    return res.status(500).json({ error: 'Proxy error: ' + e.message });
+    return res.status(500).json({ error: 'Proxy fetch error: ' + e.message });
   }
 }
