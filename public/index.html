@@ -226,7 +226,7 @@ body{display:flex;flex-direction:column;}
 .disc-section:last-child{border-bottom:none;}
 .disc-main{display:flex;flex-direction:column;overflow:hidden;min-height:0;}
 .disc-main-hdr{padding:12px 20px;border-bottom:1px solid var(--border);background:var(--surface);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
-.disc-body{flex:1;overflow:auto;}
+.disc-body{flex:1;overflow:auto;min-height:0;}
 table{width:100%;border-collapse:collapse;}
 thead th{position:sticky;top:0;z-index:5;background:var(--surface2);padding:8px 12px;text-align:left;font-size:11px;font-weight:600;color:var(--text3);letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border);white-space:nowrap;}
 tbody tr{border-bottom:1px solid var(--border);transition:background .1s;}
@@ -1162,28 +1162,36 @@ async function runOcean() {
   const seeds = document.getElementById('oc-seeds').value.split(',').map(s => s.trim()).filter(Boolean);
   const minScore = parseFloat(document.getElementById('oc-score').value);
   const rev = document.getElementById('oc-rev').value;
-  // Ocean.io v2 valid revenues: "0-1M","1-10M","10-50M","50-100M","100-500M","500-1000M",">1000M"
+  // Ocean.io v3 API format: lookalikes is array of {domain}, revenue_range uses underscore fields
+  const revMap = {
+    '10-50M':    {min:10000000,  max:50000000},
+    '50-100M':   {min:50000000,  max:100000000},
+    '100-500M':  {min:100000000, max:500000000},
+    '500-1000M': {min:500000000, max:1000000000}
+  };
+  const revRange = revMap[rev] || revMap['50-100M'];
   try {
     const r = await fetch('/api/ocean', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        endpoint: 'v2/search/companies',
+        endpoint: 'v3/search/companies',
         body: {
           size: 25,
-          from: 1,
-          companiesFilters: {
-            lookalikeDomains: seeds,
-            minScore,
-            revenues: [rev],
-            countries: ['us']
+          from: 0,
+          filters: {
+            lookalikes: seeds.map(d => ({domain: d})),
+            min_score: minScore,
+            revenue: { min: revRange.min, max: revRange.max },
+            country: ['US']
           }
         }
       })
     });
     if (!r.ok) { const err = await r.json().catch(() => ({})); const errMsg = typeof err.error === 'string' ? err.error : (err.hint || err.message || JSON.stringify(err.error) || 'HTTP ' + r.status); throw new Error(errMsg + ' (HTTP ' + r.status + ')'); }
     const data = await r.json();
-    oceanResults = data.companies || [];
+    // v3 returns { data: [...] }, v2 returned { companies: [...] }
+    oceanResults = data.data || data.companies || [];
     if (!oceanResults.length) throw new Error('No results returned. Try different seed domains or a lower similarity score.');
     renderDiscTable(oceanResults, 'ocean');
     setMsg(oceanResults.length + ' lookalike companies from Ocean.io');
@@ -1235,13 +1243,18 @@ function renderDiscTable(results, source) {
       <thead><tr>${['Company','Domain','Industry','Revenue','Employees','Year','Add'].map(h => `<th>${h}</th>`).join('')}</tr></thead>
       <tbody>${results.map((raw, i) => {
         const c = (raw && raw.company) ? raw.company : (raw || {});
+        // v3 flat fields: name,domain,industry,revenue(number),employee_count,founded_year
+        const industry = c.industry || (c.industryCategories||[])[0] || '—';
+        const revNum = typeof c.revenue === 'number' ? '$'+(c.revenue/1e6).toFixed(0)+'M' : (c.revenue||'—');
+        const emp = c.employee_count || c.employeeCountOcean || c.employeeCountLinkedin || '—';
+        const yr = c.founded_year || c.yearFounded || '—';
         return `<tr>
-          <td class="td-co">${esc(c.name || '—')}</td>
-          <td class="td-mono">${esc(c.domain || '—')}</td>
-          <td style="font-size:12px;">${esc((c.industryCategories || [])[0] || c.industry || '—')}</td>
-          <td class="td-mono">${esc(c.revenue || '—')}</td>
-          <td class="td-mono">${esc(c.employeeCountOcean || c.employeeCountLinkedin || '—')}</td>
-          <td class="td-mono">${esc(c.yearFounded || '—')}</td>
+          <td class="td-co">${esc(c.name||'—')}</td>
+          <td class="td-mono">${esc(c.domain||'—')}</td>
+          <td style="font-size:12px;">${esc(industry)}</td>
+          <td class="td-mono">${esc(revNum)}</td>
+          <td class="td-mono">${esc(emp)}</td>
+          <td class="td-mono">${esc(yr)}</td>
           <td><button class="btn btn-outline btn-xs" onclick="addOneOcean(${i})">+</button></td>
         </tr>`;
       }).join('')}</tbody></table>`;
@@ -1268,7 +1281,7 @@ function addOneOcean(i) {
   const name = c.name || 'Unknown';
   if (DB.find(a => a.company === name)) { setMsg(name + ' already in accounts'); return; }
   const nid = Math.max(...DB.map(a => a.id)) + 1;
-  DB.push({id:nid, company:name, city:c.state||'USA', market:'Unknown', vertical:(c.industryCategories||['Manufacturing'])[0], rev:c.revenue||'Unknown', emp:String(c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[]});
+  DB.push({id:nid, company:name, city:c.state||c.country||'USA', market:'Unknown', vertical:c.industry||(c.industryCategories||['Manufacturing'])[0], rev:typeof c.revenue==='number'?'$'+(c.revenue/1e6).toFixed(0)+'M':(c.revenue||'Unknown'), emp:String(c.employee_count||c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[]});
   save(); renderList(); setMsg(name + ' added from Ocean.io');
 }
 function addAllOcean() { oceanResults.forEach((_, i) => addOneOcean(i)); setMsg('Ocean results added to accounts'); }
