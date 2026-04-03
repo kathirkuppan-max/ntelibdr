@@ -1313,7 +1313,30 @@ async function runContacts() {
   el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;"><div class="spin spin-purple" style="display:inline-block;"></div>Pulling real contacts from Explorium...</div>';
   try {
     const level = document.getElementById('c-level').value;
-    // Call real Explorium API via /api/vibe proxy
+    // Step 1: Ensure we have an Explorium business_id
+    let bizId = sel.explorium_id;
+    if (!bizId) {
+      const matchR = await fetch('/api/vibe', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          action: 'match-business',
+          payload: { businesses_to_match: [{ name: sel.company, domain: sel.website || null }] }
+        })
+      });
+      const matchData = await matchR.json();
+      console.log('Explorium match for contacts:', JSON.stringify(matchData).substring(0, 300));
+      const matched = matchData.matched_businesses || matchData.data || [];
+      bizId = matched[0] && matched[0].business_id;
+      if (bizId) { sel.explorium_id = bizId; save(); }
+    }
+
+    if (!bizId) {
+      console.warn('Could not match business in Explorium:', sel.company);
+      throw new Error('Business not found in Explorium');
+    }
+
+    // Step 2: Fetch prospects by business_id
     const r = await fetch('/api/vibe', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -1324,7 +1347,7 @@ async function runContacts() {
           size: 5,
           page_size: 5,
           filters: {
-            business_id: sel.explorium_id ? { values: [sel.explorium_id] } : undefined,
+            business_id: { values: [bizId] },
             job_level: { values: [level] },
             has_email: { value: true },
           },
@@ -1352,9 +1375,17 @@ async function runContacts() {
 
     // If Explorium returns empty (no API key, quota, etc.), fall back to Claude simulation with clear labeling
     if (!contacts.length) {
-      setMsg('No results from Explorium — generating simulated contacts');
-      const simulated = await claudeJSON('Generate realistic contact data for: ' + sel.company + ' (' + sel.website + '), ' + sel.vertical + ', ' + sel.city + '. Target: ' + level + '. Buyers: ' + sel.cxo + '.\nReturn JSON array of 3: [{"name":"","initials":"AB","title":"","email":"name@' + sel.website + '","emailValid":false,"phone":"","linkedin":""}]\nONLY valid JSON array. Mark emailValid as false since these are not verified.');
-      contacts = (simulated || []).map(c => ({...c, emailValid: false, simulated: true}));
+      setMsg('No real contacts found — showing placeholder. Check VIBE_API_KEY.');
+      contacts = [{
+        name: 'No verified contacts found',
+        initials: '?',
+        title: 'Run "Enrich Contacts" after verifying VIBE_API_KEY is set in Vercel',
+        email: '',
+        emailValid: false,
+        phone: '',
+        linkedin: '',
+        simulated: true,
+      }];
     }
 
     sel.contacts = contacts;
