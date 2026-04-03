@@ -15,7 +15,7 @@ export default async function handler(req, res) {
 
   const CLIENT_ID = process.env.GMAIL_CLIENT_ID;
   const CLIENT_SECRET = process.env.GMAIL_CLIENT_SECRET;
-  const AUTH_REDIRECT = process.env.AUTH_REDIRECT_URI || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api/auth?action=callback` : 'https://ntelibdr.vercel.app/api/auth?action=callback');
+  const AUTH_REDIRECT = 'https://ntelibdr.vercel.app/api/auth?action=callback';
 
   const action = req.query.action;
 
