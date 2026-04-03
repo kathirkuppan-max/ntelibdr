@@ -1957,24 +1957,28 @@ function renderDiscTable(results, source) {
 }
 
 function addOneOcean(i) {
-  const raw = oceanResults[i]; if (!raw) return;
-  const c = (raw.company) ? raw.company : raw;
-  const name = c.name || 'Unknown';
-  if (DB.find(a => a.company === name)) { setMsg(name + ' already in accounts'); return; }
-  const nid = Math.max(...DB.map(a => a.id)) + 1;
-  const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
-  DB.push({id:nid, company:name, city:c.state||c.country||'USA', market:'Unknown', vertical:c.industry||(c.industryCategories||['Manufacturing'])[0], rev:typeof c.revenue==='number'?'$'+(c.revenue/1e6).toFixed(0)+'M':(c.revenue||'Unknown'), emp:String(c.employee_count||c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[], tasks, emails:[]});
-  save(); renderList(); setMsg(name + ' added from Ocean.io');
+  try {
+    const raw = oceanResults[i]; if (!raw) { setMsg('Error: no data at index ' + i); return; }
+    const c = (raw.company) ? raw.company : raw;
+    const name = c.name || 'Unknown';
+    if (DB.find(a => a.company === name)) { setMsg(name + ' already in accounts'); return; }
+    const nid = Math.max(0, ...DB.map(a => a.id)) + 1;
+    const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
+    DB.push({id:nid, company:name, city:c.state||c.country||'USA', market:'Unknown', vertical:c.industry||(c.industryCategories||['Manufacturing'])[0], rev:typeof c.revenue==='number'?'$'+(c.revenue/1e6).toFixed(0)+'M':(c.revenue||'Unknown'), emp:String(c.employee_count||c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[], tasks, emails:[]});
+    save(); renderList(); setMsg(name + ' added from Ocean.io');
+  } catch (e) { setMsg('Error adding: ' + e.message); console.error('addOneOcean error:', e); }
 }
 function addAllOcean() { oceanResults.forEach((_, i) => addOneOcean(i)); setMsg('Ocean results added to accounts'); }
 
 function addOneVibe(i) {
-  const r = discResults[i]; if (!r) return;
-  if (DB.find(a => a.company === r.company)) { setMsg(r.company + ' already in accounts'); return; }
-  const nid = Math.max(...DB.map(a => a.id)) + 1;
-  const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
-  DB.push({id:nid, company:r.company, city:r.city||'TX', market:r.city||'Texas', vertical:r.vertical, rev:r.revenue, emp:'Unknown', priority:r.fitScore>=8?'High':r.fitScore>=6?'Medium':'Low', pe:false, ownership:'Unknown', pains:[r.signal,'Quote-to-cash','ERP gap'], cxo:'CRO + CFO', website:r.domain, liSearch:r.company, stage:'New', source:'vibe', contacted:false, signals:[], tasks, emails:[]});
-  save(); renderList(); setMsg(r.company + ' added');
+  try {
+    const r = discResults[i]; if (!r) { setMsg('Error: no data at index ' + i); return; }
+    if (DB.find(a => a.company === r.company)) { setMsg(r.company + ' already in accounts'); return; }
+    const nid = Math.max(0, ...DB.map(a => a.id)) + 1;
+    const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
+    DB.push({id:nid, company:r.company, city:r.city||'TX', market:r.city||'Texas', vertical:r.vertical, rev:r.revenue, emp:'Unknown', priority:r.fitScore>=8?'High':r.fitScore>=6?'Medium':'Low', pe:false, ownership:'Unknown', pains:[r.signal,'Quote-to-cash','ERP gap'], cxo:'CRO + CFO', website:r.domain, liSearch:r.company, stage:'New', source:'vibe', contacted:false, signals:[], tasks, emails:[]});
+    save(); renderList(); setMsg(r.company + ' added');
+  } catch (e) { setMsg('Error adding: ' + e.message); console.error('addOneVibe error:', e); }
 }
 function addAllVibe() { discResults.forEach((_, i) => addOneVibe(i)); setMsg('Vibe results added to accounts'); }
 
@@ -2021,13 +2025,16 @@ function exportCSV() {
 }
 
 function addManual() {
-  const name = prompt('Company name:');
-  if (!name) return;
-  const domain = prompt('Domain:', '');
-  const city = prompt('City:', 'Austin') || 'Austin';
-  const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
-  DB.push({id: Math.max(...DB.map(a => a.id)) + 1, company: name, city, market: city, vertical: 'Manufacturing', rev: 'Unknown', emp: 'Unknown', priority: 'Medium', pe: false, ownership: 'Unknown', pains: ['CPQ', 'Quote-to-cash', 'ERP gap'], cxo: 'CRO + CFO', website: domain, liSearch: name, stage: 'New', source: 'manual', contacted: false, signals: [], tasks});
-  save(); renderList(); setMsg(name + ' added');
+  try {
+    const name = prompt('Company name:');
+    if (!name) return;
+    const domain = prompt('Domain:', '');
+    const city = prompt('City:', 'Austin') || 'Austin';
+    if (DB.find(a => a.company === name)) { setMsg(name + ' already in accounts'); return; }
+    const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
+    DB.push({id: Math.max(0, ...DB.map(a => a.id)) + 1, company: name, city, market: city, vertical: 'Manufacturing', rev: 'Unknown', emp: 'Unknown', priority: 'Medium', pe: false, ownership: 'Unknown', pains: ['CPQ', 'Quote-to-cash', 'ERP gap'], cxo: 'CRO + CFO', website: domain, liSearch: name, stage: 'New', source: 'manual', contacted: false, signals: [], tasks, emails:[]});
+    save(); renderList(); setMsg(name + ' added');
+  } catch (e) { setMsg('Error adding: ' + e.message); console.error('addManual error:', e); }
 }
 
 // ══════════════════════════════════════
