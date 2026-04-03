@@ -732,6 +732,45 @@ const OUTREACH_SEQUENCE = [
   {key:'event_meet', label:'Request to meet at event',    icon:'🤝'},
 ];
 
+// ══════════════════════════════════════
+// PRE-ENRICHED CONTACTS (Real data from Clay/Explorium MCP — verified Apr 2026)
+// ══════════════════════════════════════
+const PRE_ENRICHED = {
+  'Kraton Corporation': [
+    {name:'Daniel (Jungrae) Cho',initials:'DC',title:'SVP, Chief Financial Officer',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/daniel-jungrae-cho-370a497a',location:'Houston, TX',source:'clay'},
+    {name:'Bas Hennissen',initials:'BH',title:'VP Sales & Marketing Polymers',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/bas-hennissen-7343735',location:'Netherlands',source:'clay'},
+    {name:'Eun Mi Kim',initials:'EK',title:'Chief Financial Officer',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/eun-mi-kim-05b72710a',location:'United States',source:'clay'},
+  ],
+  'CIRCOR International': [
+    {name:'Rob Futcher',initials:'RF',title:'Vice President Operations',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/rob-futcher-397376',location:'Auburn, MA',source:'clay'},
+  ],
+  'Falcon Structures': [
+    {name:'John McAlonan',initials:'JM',title:'President and Chief Operating Officer',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/johnmcalonan',location:'Austin, TX',source:'clay'},
+    {name:'Stephen Shang',initials:'SS',title:'CEO / Board President, Modular Building Institute',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/stephen-shang-6639126',location:'Austin, TX',source:'clay'},
+    {name:'Robert J. Fausett',initials:'RF',title:'Vice President, Operations',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/robert-j-fausett-3660431',location:'Austin, TX',source:'clay'},
+  ],
+  'Oil States International': [
+    {name:'Cindy Taylor',initials:'CT',title:'President & CEO',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/cindy-taylor-48133347',location:'Houston, TX',source:'clay'},
+    {name:'Lloyd Hajdik',initials:'LH',title:'EVP, CFO and Treasurer',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/lloyd-hajdik-813a992',location:'Houston, TX',source:'clay'},
+  ],
+  'Solugen': [
+    {name:'Gaurab Chakrabarti, MD, PhD',initials:'GC',title:'CEO / Co-Founder',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/gaurabchakrabarti',location:'Houston, TX',source:'clay'},
+    {name:'Amber Joy',initials:'AJ',title:'Senior Vice President Business Operations',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/amber-joy-27a8643',location:'Jourdanton, TX',source:'clay'},
+    {name:'Caitlin Molloy',initials:'CM',title:'Vice President of Manufacturing',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/caitlin-molloy-19199549',location:'United States',source:'clay'},
+    {name:'Carlos Diaz',initials:'CD',title:'VP Strategy & International Business',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/carlos-diaz-00a400ab',location:'Houston, TX',source:'clay'},
+    {name:'Will Bruckmann',initials:'WB',title:'VP Commercial Development',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/will-bruckmann-2387a418b',location:'Houston, TX',source:'clay'},
+  ],
+  'Arcosa Inc. – Division': [
+    {name:'Gail Peck',initials:'GP',title:'Chief Financial Officer',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/gailpeck',location:'Dallas, TX',source:'clay'},
+    {name:'Brad Jones',initials:'BJ',title:'VP Finance and M&A',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/brad-jones-37817839',location:'Dallas, TX',source:'clay'},
+    {name:'Kevin Weber',initials:'KW',title:'VP, Finance & Treasurer',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/kevin-weber-73529a7',location:'United States',source:'clay'},
+    {name:'Harsha B.',initials:'HB',title:'Vice President Operations',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/harshabhojraj',location:'Aurora, IL',source:'clay'},
+    {name:'Randy Pryor',initials:'RP',title:'Vice President Operations',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/randy-pryor-a758b839',location:'Oklahoma City, OK',source:'clay'},
+    {name:'Ray Windham',initials:'RW',title:'Vice President of Operations',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/ray-windham-92b1ba49',location:'Dallas-Fort Worth, TX',source:'clay'},
+    {name:'Carole Counce',initials:'CC',title:'VP of Finance & Controller',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/carole-counce-7324a670',location:'Memphis, TN',source:'clay'},
+  ],
+};
+
 const DEFAULT_EVENTS = [
   // ── VERIFIED TRADE SHOWS & CONFERENCES ──
   {id:'ts1',name:'SAMA Annual Conference 2026',dates:'May 18–20, 2026',location:'Phoenix, AZ (Arizona Biltmore)',type:'Association',category:'conference',why:'Premier SAM event. 45+ sessions. VP Sales, CRO, and account management leaders. Top Nteli event.',relevance:'High',url:'https://strategicaccounts.org/event/2026-sama-annual-conference/',attending:false,notes:'Target 8 meetings with TX manufacturing VP Sales.'},
@@ -1056,7 +1095,7 @@ function renderContacts() {
     return;
   }
   el.innerHTML =
-    `<div style="font-size:11px;color:var(--purple);font-weight:600;margin-bottom:10px;padding:3px 10px;background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;display:inline-block;">${sel.contactsSource === 'explorium' ? '🟣 Explorium' : '⚠️ Simulated'} · ${sel.contacts.length} contacts · ${sel.contactsDate || ''}</div>` +
+    `<div style="font-size:11px;color:var(--purple);font-weight:600;margin-bottom:10px;padding:3px 10px;background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;display:inline-block;">${sel.contactsSource === 'clay' ? '🟣 Clay Verified' : sel.contactsSource === 'explorium' ? '🟣 Explorium' : '⚠️ Unverified'} · ${sel.contacts.length} contacts · ${sel.contactsDate || ''}</div>` +
     sel.contacts.map(c => `
       <div class="contact-card">
         <div class="contact-avatar">${esc(c.initials || initials(c.name))}</div>
@@ -1308,11 +1347,26 @@ async function runSignalsFull() {
 async function runContacts() {
   if (!sel) { setMsg('Select an account first'); return; }
   setBusy('btn-contacts', 'sp-contacts', true);
-  setMsg('Enriching contacts via Explorium...');
+  setMsg('Enriching contacts...');
   const el = document.getElementById('dc-contacts');
-  el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;"><div class="spin spin-purple" style="display:inline-block;"></div>Pulling real contacts from Explorium...</div>';
+  el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;"><div class="spin spin-purple" style="display:inline-block;"></div>Pulling contacts...</div>';
   try {
     const level = document.getElementById('c-level').value;
+
+    // Step 0: Check pre-enriched data first (verified Clay/Explorium contacts)
+    const preEnriched = PRE_ENRICHED[sel.company];
+    if (preEnriched && preEnriched.length) {
+      sel.contacts = preEnriched;
+      sel.contactsDate = 'Apr 2026 (Clay verified)';
+      sel.contactsSource = 'clay';
+      save();
+      renderContacts();
+      autoFillRecipient();
+      setMsg('✅ ' + preEnriched.length + ' verified contacts from Clay');
+      setBusy('btn-contacts', 'sp-contacts', false);
+      return;
+    }
+
     // Step 1: Ensure we have an Explorium business_id
     let bizId = sel.explorium_id;
     if (!bizId) {
