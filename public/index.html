@@ -1071,7 +1071,7 @@ function renderContacts() {
     return;
   }
   el.innerHTML =
-    `<div style="font-size:11px;color:var(--purple);font-weight:600;margin-bottom:10px;padding:3px 10px;background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;display:inline-block;">🟣 Vibe · ${sel.contacts.length} contacts · ${sel.contactsDate || ''}</div>` +
+    `<div style="font-size:11px;color:var(--purple);font-weight:600;margin-bottom:10px;padding:3px 10px;background:var(--purple-bg);border:1px solid var(--purple-border);border-radius:4px;display:inline-block;">${sel.contactsSource === 'explorium' ? '🟣 Explorium' : '⚠️ Simulated'} · ${sel.contacts.length} contacts · ${sel.contactsDate || ''}</div>` +
     sel.contacts.map(c => `
       <div class="contact-card">
         <div class="contact-avatar">${esc(c.initials || initials(c.name))}</div>
@@ -1256,21 +1256,61 @@ async function runSignalsFull() {
 async function runContacts() {
   if (!sel) { setMsg('Select an account first'); return; }
   setBusy('btn-contacts', 'sp-contacts', true);
-  setMsg('Enriching contacts via Vibe...');
+  setMsg('Enriching contacts via Explorium...');
   const el = document.getElementById('dc-contacts');
-  el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;"><div class="spin spin-purple" style="display:inline-block;"></div>Pulling verified contacts...</div>';
+  el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;"><div class="spin spin-purple" style="display:inline-block;"></div>Pulling real contacts from Explorium...</div>';
   try {
     const level = document.getElementById('c-level').value;
-    const contacts = await claudeJSON('Simulate Vibe Prospecting enrich-prospects for: ' + sel.company + ' (' + sel.website + '), ' + sel.vertical + ', ' + sel.city + '. Target: ' + level + '. Buyers: ' + sel.cxo + '.\nReturn JSON array of 3: [{"name":"","initials":"AB","title":"","email":"name@' + sel.website + '","emailValid":true,"phone":"+1-XXX-XXX-XXXX","linkedin":"linkedin.com/in/slug"}]\nONLY valid JSON array.');
-    // Save contacts to account
+    // Call real Explorium API via /api/vibe proxy
+    const r = await fetch('/api/vibe', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'fetch-prospects',
+        payload: {
+          filter: {
+            company_name: [sel.company],
+            job_level: [level],
+          },
+          limit: 5,
+        }
+      })
+    });
+    const data = await r.json();
+
+    // Map Explorium response to our contact format
+    let contacts = [];
+    const prospects = data.prospects || data.results || data.data || [];
+    if (prospects.length) {
+      contacts = prospects.map(p => ({
+        name: p.full_name || p.name || (p.first_name + ' ' + p.last_name) || 'Unknown',
+        initials: ((p.first_name||'')[0] || '') + ((p.last_name||'')[0] || ''),
+        title: p.job_title || p.title || 'Unknown',
+        email: p.email || p.business_email || '',
+        emailValid: !!(p.email || p.business_email),
+        phone: p.phone_number || p.phone || '',
+        linkedin: p.linkedin_url || p.linkedin || '',
+      }));
+    }
+
+    // If Explorium returns empty (no API key, quota, etc.), fall back to Claude simulation with clear labeling
+    if (!contacts.length) {
+      setMsg('No results from Explorium — generating simulated contacts');
+      const simulated = await claudeJSON('Generate realistic contact data for: ' + sel.company + ' (' + sel.website + '), ' + sel.vertical + ', ' + sel.city + '. Target: ' + level + '. Buyers: ' + sel.cxo + '.\nReturn JSON array of 3: [{"name":"","initials":"AB","title":"","email":"name@' + sel.website + '","emailValid":false,"phone":"","linkedin":""}]\nONLY valid JSON array. Mark emailValid as false since these are not verified.');
+      contacts = (simulated || []).map(c => ({...c, emailValid: false, simulated: true}));
+    }
+
     sel.contacts = contacts;
     sel.contactsDate = new Date().toLocaleDateString();
+    sel.contactsSource = contacts.length && !contacts[0].simulated ? 'explorium' : 'simulated';
     save();
     renderContacts();
-    setMsg('✅ Contacts enriched');
+    setMsg(sel.contactsSource === 'explorium'
+      ? '✅ ' + contacts.length + ' real contacts from Explorium'
+      : '⚠️ Simulated contacts — check VIBE_API_KEY for real data');
   } catch (e) {
     el.innerHTML = errBlock(e.message);
-    setMsg('Error');
+    setMsg('Error: ' + e.message);
   }
   setBusy('btn-contacts', 'sp-contacts', false);
 }
