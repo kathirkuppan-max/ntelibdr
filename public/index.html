@@ -41,7 +41,7 @@ body{display:flex;flex-direction:column;}
 .page{display:none;overflow:hidden;position:absolute;top:52px;left:0;right:0;bottom:28px;height:calc(100vh - 80px);}
 #pg-accounts.on{display:grid;grid-template-columns:300px 1fr;grid-template-rows:1fr;align-items:stretch;}
 #pg-pipeline.on{display:flex;flex-direction:column;padding:20px;gap:12px;overflow:hidden;box-sizing:border-box;}
-#pg-events.on{display:grid;grid-template-columns:1fr 1fr;align-items:stretch;}
+#pg-events.on{display:flex;flex-direction:column;overflow:hidden;}
 #pg-discover.on{display:grid;grid-template-columns:280px 1fr;align-items:stretch;}
 #pg-settings.on{display:flex;flex-direction:column;overflow-y:auto;}
 
@@ -290,7 +290,7 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
   <nav class="nav">
     <div class="ntab on" onclick="goPage('accounts',this)">Accounts</div>
     <div class="ntab" onclick="goPage('pipeline',this)">Pipeline</div>
-    <div class="ntab" onclick="goPage('events',this)">Signal Feed</div>
+    <div class="ntab" onclick="goPage('events',this)">Events</div>
     <div class="ntab" onclick="goPage('discover',this)">Discover</div>
     <div class="ntab" onclick="goPage('settings',this)">Settings</div>
   </nav>
@@ -482,34 +482,20 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
 
 <!-- PAGE 3: SIGNAL FEED -->
 <div class="page" id="pg-events">
-  <div class="events-col">
+  <div class="events-col" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
     <div class="events-col-hdr">
-      <div class="events-col-title">⚡ Buying Signal Feed <span class="badge badge-green" style="font-size:11px;margin-left:6px;">Live</span></div>
-      <button class="btn btn-purple btn-sm" onclick="refreshSignals()" id="btn-refresh">
-        <span class="spin spin-purple" id="sp-refresh" style="display:none"></span>
-        Refresh Feed
-      </button>
-    </div>
-    <div class="events-body scroll" id="signals-feed">
-      <div style="color:var(--text3);font-size:13px;font-style:italic;padding:12px 0;">Click "Refresh Feed" to generate persona-matched signals for your target accounts. Each signal links directly to the account.</div>
-    </div>
-  </div>
-  <div class="events-col">
-    <div class="events-col-hdr">
-      <div class="events-col-title">🗓️ Events & Meetups</div>
+      <div class="events-col-title">🗓️ Events & Meetups <span class="badge badge-blue" style="font-size:11px;margin-left:6px;">Verified</span></div>
       <div style="display:flex;gap:6px;align-items:center;">
         <select class="fsel" id="evt-filter" style="font-size:12px;padding:4px 8px;" onchange="renderEvents()">
           <option value="all">All Events</option>
           <option value="trade_show">Trade Shows</option>
           <option value="conference">Conferences</option>
           <option value="meetup">Meetups</option>
-          <option value="coworking">Co-working</option>
-          <option value="dinner">Dinners</option>
         </select>
         <button class="btn btn-outline btn-sm" onclick="addEvent()">+ Add</button>
       </div>
     </div>
-    <div class="events-body scroll" id="events-body"></div>
+    <div class="events-body scroll" id="events-body" style="flex:1;min-height:0;"></div>
   </div>
 </div>
 
@@ -747,33 +733,32 @@ const OUTREACH_SEQUENCE = [
 ];
 
 const DEFAULT_EVENTS = [
-  // Trade Shows
-  {id:'ts1',name:'SAMA Annual Conference',dates:'May 5–7, 2026',location:'Dallas, TX',type:'Association',category:'conference',why:'Direct access to VP Sales and CRO community at manufacturing firms. Top Nteli event.',relevance:'High',url:'https://www.strategicaccounts.org',attending:false,notes:'Target 8 meetings with TX manufacturing VP Sales.'},
-  {id:'ts2',name:'FABTECH',dates:'Nov 3–6, 2026',location:'Las Vegas, NV',type:'Trade Show',category:'trade_show',why:'Largest North American metal fabrication event. Your exact ICP attends in force.',relevance:'High',url:'https://www.fabtechexpo.com',attending:false,notes:'Host dinner for 10-12 TX manufacturing prospects.'},
-  {id:'ts3',name:'Texas Manufacturing Summit',dates:'Sep 16, 2026',location:'Austin, TX',type:'Regional',category:'conference',why:'Texas-focused. Mid-market manufacturing CEOs and COOs in your backyard.',relevance:'High',url:'',attending:false,notes:'Submit speaking proposal on Revenue Cloud for Manufacturing.'},
-  {id:'ts4',name:'Houston Manufacturing & Energy Summit',dates:'Jun 10, 2026',location:'Houston, TX',type:'Regional',category:'conference',why:'Energy-adjacent manufacturers — Altivia, Solugen, CIRCOR types. Intimate room.',relevance:'High',url:'',attending:false,notes:'Sponsor a roundtable.'},
-  {id:'ts5',name:'IMTS',dates:'Sep 14–19, 2026',location:'Chicago, IL',type:'Trade Show',category:'trade_show',why:'250K+ attendees. Capital equipment and precision manufacturing focus.',relevance:'Medium',url:'https://www.imts.com',attending:false,notes:'Attend as visitor first year.'},
-  {id:'ts6',name:'Austin Small Business Expo',dates:'Apr 24, 2026',location:'Austin, TX',type:'Regional',category:'conference',why:'Founder-owned manufacturers. Good for Blue Sage Capital portfolio intros.',relevance:'Medium',url:'',attending:false,notes:'Attend with David.'},
-  {id:'ts7',name:'MD&M Minneapolis',dates:'Oct 28–30, 2026',location:'Minneapolis, MN',type:'Trade Show',category:'trade_show',why:'Medical device manufacturing — relevant for Strukmyer Medical.',relevance:'Medium',url:'https://www.mdmminneapolis.com',attending:false,notes:'Consider if Strukmyer deal progresses.'},
-  {id:'ts8',name:'CSIA Executive Conference',dates:'May 13–16, 2026',location:'Orlando, FL',type:'Association',category:'conference',why:'Control Systems Integrators — excellent referral partners for RCA deals.',relevance:'Medium',url:'https://www.controlsys.org',attending:false,notes:'Target 3-5 SI partnership conversations.'},
-  // Co-working Events
-  {id:'cw1',name:'Capital Factory — Mfg Founders Mixer',dates:'Monthly · 2nd Thursday',location:'Austin, TX (Domain)',type:'Co-working',category:'coworking',why:'Austin tech-meets-manufacturing crowd. Great for Falcon Structures, Athena, SabeRex intros.',relevance:'High',url:'https://www.capitalfactory.com',attending:false,notes:'Bring 10 business cards. Ask about Mfg cohort.'},
-  {id:'cw2',name:'Station Houston — Industrial Meetup',dates:'Monthly · 3rd Wednesday',location:'Houston, TX (Midtown)',type:'Co-working',category:'coworking',why:'Energy and chemical manufacturing startups. Solugen, Altivia adjacent network.',relevance:'High',url:'https://www.stationhouston.com',attending:false,notes:'Sponsor coffee. Pitch 5-min lightning talk.'},
-  {id:'cw3',name:'Common Desk — DFW Business Builders',dates:'Bi-weekly · Fridays',location:'Dallas, TX (Deep Ellum)',type:'Co-working',category:'coworking',why:'Mid-market business owners in DFW. Sky Island Capital portfolio companies attend.',relevance:'Medium',url:'https://www.commondesk.com',attending:false,notes:'Attend 2x to build presence.'},
-  {id:'cw4',name:'Worksuites — Woodlands Networking Hour',dates:'Monthly · 1st Tuesday',location:'The Woodlands, TX',type:'Co-working',category:'coworking',why:'Kraton, Ascend Performance execs frequent The Woodlands business community.',relevance:'Medium',url:'https://www.worksuites.com',attending:false,notes:'Low-key networking. Bring Kraton case angle.'},
-  // Meetups
-  {id:'mu1',name:'Austin Manufacturing Meetup',dates:'Quarterly · Next: May 20, 2026',location:'Austin, TX',type:'Meetup',category:'meetup',why:'30-50 local manufacturing leaders. High signal, low noise.',relevance:'High',url:'',attending:false,notes:'Volunteer to present on revenue ops trends.'},
-  {id:'mu2',name:'DFW Manufacturers Alliance',dates:'Monthly · Last Thursday',location:'Dallas, TX (Las Colinas)',type:'Meetup',category:'meetup',why:'Arcosa, Sky Island portfolio companies, regional mfg leaders.',relevance:'Medium',url:'',attending:false,notes:'Attend with Dallas-based champion.'},
-  // Industry Dinners
-  {id:'id1',name:'Houston Industrial Roundtable',dates:'Quarterly · Next: Jun 5, 2026',location:'Houston, TX (River Oaks)',type:'Industry Dinner',category:'dinner',why:'Intimate 20-person dinners. CIRCOR, Kraton, Ascend-level execs. High-touch selling.',relevance:'High',url:'',attending:false,notes:'Request invitation. Prepare 1-pager for table.'},
-  {id:'id2',name:'Texas CEO Manufacturing Dinner',dates:'Sep 10, 2026',location:'Austin, TX (Lakeway)',type:'Industry Dinner',category:'dinner',why:'CEO-level only. Founder-owned mid-market. Perfect for Cumberland, Q2 Holdings.',relevance:'High',url:'',attending:false,notes:'Sponsor a table. Invite 3 existing champions.'}
+  // ── VERIFIED TRADE SHOWS & CONFERENCES ──
+  {id:'ts1',name:'SAMA Annual Conference 2026',dates:'May 18–20, 2026',location:'Phoenix, AZ (Arizona Biltmore)',type:'Association',category:'conference',why:'Premier SAM event. 45+ sessions. VP Sales, CRO, and account management leaders. Top Nteli event.',relevance:'High',url:'https://strategicaccounts.org/event/2026-sama-annual-conference/',attending:false,notes:'Target 8 meetings with TX manufacturing VP Sales.'},
+  {id:'ts2',name:'FABTECH 2026',dates:'Oct 21–23, 2026',location:'Las Vegas, NV (LVCC)',type:'Trade Show',category:'trade_show',why:'Largest North American metal fabrication event. Free registration before Oct 16.',relevance:'High',url:'https://www.fabtechexpo.com',attending:false,notes:'Host dinner for 10-12 TX manufacturing prospects.'},
+  {id:'ts3',name:'IMTS 2026',dates:'Sep 14–19, 2026',location:'Chicago, IL (McCormick Place)',type:'Trade Show',category:'trade_show',why:'1M+ sq ft exhibit space. Capital equipment and precision manufacturing. Register before Aug 1 for discount.',relevance:'High',url:'https://www.imts.com',attending:false,notes:'Attend as visitor. International registration is free.'},
+  {id:'ts4',name:'HOUSTEX 2026',dates:'Feb 21–23, 2026',location:'Houston, TX',type:'Trade Show',category:'trade_show',why:'Advanced manufacturing for the Southwest. Daily networking receptions. Your Houston ICP attends.',relevance:'High',url:'https://www.imts.com/read/article-details/Attend-HOUSTEX-Advanced-Manufacturing-for-the-Southwest/1712/type/Read/1',attending:false,notes:'Focus on Altivia, CIRCOR, Oil States contacts.'},
+  {id:'ts5',name:'Connected Worker & Smart Manufacturing Summit',dates:'Jun 11–12, 2026',location:'Houston, TX',type:'Conference',category:'conference',why:'VPs, directors, ops leaders. AI, IoT, connected worker platforms. Perfect for RCA pitch.',relevance:'High',url:'https://www.key-notion.com/the-connected-worker-and-smart-manufacturing-summit-2026',attending:false,notes:'Attend both days. Target ops leaders for RCA demo.'},
+  {id:'ts6',name:'Industrial Marketing Summit',dates:'2026 (dates TBA)',location:'Austin, TX (Renaissance Hotel)',type:'Conference',category:'conference',why:'Manufacturing and industrial marketers. Built by Gorilla 76 & TREW Marketing. Austin-based.',relevance:'Medium',url:'https://industrialmarketingsummit.com/',attending:false,notes:'Good for marketing-side contacts at target accounts.'},
+  // ── VERIFIED DALLAS / DFW EVENTS ──
+  {id:'ts7',name:'ProveIt! — Industry 4.0 Summit',dates:'Feb 16–20, 2026',location:'Dallas, TX (Hyatt Regency)',type:'Conference',category:'conference',why:'Industrial automation with live demos and hands-on workshops. North TX manufacturing leaders.',relevance:'High',url:'',attending:false,notes:'Focus on Sky Island Capital portfolio companies.'},
+  {id:'ts8',name:'American Electronics & High-Tech Manufacturing Summit',dates:'Jun 16–17, 2026',location:'Dallas, TX (Hilton Anatole)',type:'Conference',category:'conference',why:'Electronics and high-tech manufacturing leaders. Advanced automation sessions.',relevance:'Medium',url:'',attending:false,notes:'Relevant for SabeRex and Q2 Holdings contacts.'},
+  {id:'ts9',name:'DFW Small Business Expo 2026',dates:'Nov 4, 2026',location:'Dallas, TX (Kay Bailey Hutchison Center)',type:'Expo',category:'conference',why:'10am-5pm. Mid-market business owners. Good for Arcosa, Conner Industries intros.',relevance:'Medium',url:'https://www.thesmallbusinessexpo.com/city/dallas/',attending:false,notes:'Attend with David. Bring targeted collateral.'},
+  // ── VERIFIED AUSTIN EVENTS ──
+  {id:'ts10',name:'ARMA Luncheon — Austin Manufacturers',dates:'Quarterly (next: Mar 24, 2026)',location:'Austin, TX (Sheraton Georgetown)',type:'Meetup',category:'meetup',why:'Austin Regional Manufacturers Association. Local manufacturing leaders. Networking 11:30am.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Join ARMA. Great for Falcon Structures, Athena, Cumberland intros.'},
+  {id:'ts11',name:'Austin Small Business Expo 2026',dates:'Oct 29, 2026',location:'Austin, TX (Palmer Events Center)',type:'Expo',category:'conference',why:'10am-5pm. Founder-owned businesses. Good for Blue Sage Capital portfolio.',relevance:'Medium',url:'https://www.thesmallbusinessexpo.com/city/austin/',attending:false,notes:'Attend with David.'},
+  // ── VERIFIED HOUSTON EVENTS ──
+  {id:'ts12',name:'AMPP Annual Conference + Expo',dates:'Mar 15–19, 2026',location:'Houston, TX (GRB Convention Center)',type:'Conference',category:'conference',why:'Materials performance, corrosion, coatings. Industrial technology. Relevant for specialty chemicals ICP.',relevance:'Medium',url:'',attending:false,notes:'Relevant for Altivia, Vibrantz, Ascend contacts.'},
+  // ── NATIONAL INDUSTRY CONFERENCES ──
+  {id:'ts13',name:'CSIA Executive Conference',dates:'May 13–16, 2026',location:'Orlando, FL',type:'Association',category:'conference',why:'Control Systems Integrators — excellent referral partners for RCA deals.',relevance:'Medium',url:'https://www.controlsys.org',attending:false,notes:'Target 3-5 SI partnership conversations.'},
+  {id:'ts14',name:'F50 Physical AI Summit',dates:'2026 (dates TBA)',location:'Dallas / Austin / Silicon Valley',type:'Conference',category:'conference',why:'Infrastructure, manufacturing, robotics. Multi-city format covers your markets.',relevance:'Medium',url:'https://physical.f50.ai/',attending:false,notes:'Check for Dallas or Austin dates.'}
 ];
 
 // ══════════════════════════════════════
 // STATE
 // ══════════════════════════════════════
 let DB = JSON.parse(localStorage.getItem('nteli_v8') || 'null') || SEED.map(a => ({...a}));
-let EVENTS = JSON.parse(localStorage.getItem('nteli_events_v1') || 'null') || DEFAULT_EVENTS.map(e => ({...e}));
+let EVENTS = JSON.parse(localStorage.getItem('nteli_events_v2') || 'null') || DEFAULT_EVENTS.map(e => ({...e}));
 let sel = null, mkt = 'all', srch = '';
 let discResults = [], oceanResults = [];
 
@@ -844,7 +829,7 @@ const save = () => {
   dbSaveAccounts();
 };
 const saveEvents = () => {
-  localStorage.setItem('nteli_events_v1', JSON.stringify(EVENTS));
+  localStorage.setItem('nteli_events_v2', JSON.stringify(EVENTS));
   dbSaveEventsAsync();
 };
 const setMsg = m => document.getElementById('sb-msg').textContent = m;
@@ -905,7 +890,7 @@ async function dbLoad() {
     }
     if (d.events && d.events.length) {
       EVENTS = d.events;
-      localStorage.setItem('nteli_events_v1', JSON.stringify(EVENTS));
+      localStorage.setItem('nteli_events_v2', JSON.stringify(EVENTS));
     }
     if (d.settings) {
       if (d.settings.sig) { localStorage.setItem('nteli_sig', d.settings.sig); const el = document.getElementById('s-sig'); if (el) el.value = d.settings.sig; }
