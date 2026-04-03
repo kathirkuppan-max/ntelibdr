@@ -1245,12 +1245,13 @@ async function runSignalsFull() {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         action: 'match-business',
-        payload: [{ name: sel.company, domain: sel.website || null }]
+        payload: { businesses_to_match: [{ name: sel.company, domain: sel.website || null }] }
       })
     });
     const matchData = await matchR.json();
     console.log('Explorium match response:', JSON.stringify(matchData).substring(0, 500));
-    const bizId = matchData.data && matchData.data[0] && matchData.data[0].business_id;
+    const matched = matchData.matched_businesses || matchData.data || [];
+    const bizId = matched[0] && matched[0].business_id;
 
     if (bizId) {
       // Step 2: Fetch events for this business_id
