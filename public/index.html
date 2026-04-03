@@ -756,6 +756,36 @@ const SEED = [
   {id:91,company:"TEST — David Account",city:"Austin",market:"Austin",vertical:"Test Account",rev:"N/A",emp:"N/A",priority:"High",pe:false,ownership:"Test",pains:["Email delivery test","Gmail API test","Tracking test"],cxo:"CRO",website:"nteligroup.com",liSearch:"david nteli",stage:"Outreach",source:"manual",contacted:false,signals:[],testContact:{name:"David",email:"david@nteligroup.com",title:"CRO"}}
 ];
 
+// ══════════════════════════════════════
+// CASE STUDY KNOWLEDGE BASE (from nteli_cxo_case_study.pdf)
+// Matched to persona for dynamic email context
+// ══════════════════════════════════════
+const CASE_STUDY_KB = {
+  CEO: `CEO STORIES (Revenue + Margin):
+- Capital Equipment Manufacturer ($175M): Found $9M in lapsed service contracts, undisciplined discounting, and untracked expedite costs. Recovered $9M+ annually.
+- Pre-PE exit manufacturer: Shifted valuation conversation from revenue to recurring revenue and margin quality. 2.4x service revenue growth in 18 months.
+- Key stat: 6-8% revenue-to-EBITDA gap typical in mid-market mfg. $6M-$14M recoverable per year.
+- Nteli customers: Vulcan Industrial (energy parts), Airgas (industrial gas), AP Financing.`,
+
+  CFO: `CFO STORIES (Close + Audit + Forecast):
+- Specialty Equipment Manufacturer ($215M): Auditors flagged material weakness on revenue recognition. Fixed by building controls into every deal from quote. Clean audit committee report first time in 3 years.
+- Industrial Manufacturer ($190M): Close went from 7.4 days to 3 days consistently. $11M recovered service revenue in first year.
+- Key stat: 31% of manufacturing service contracts lapse without renewal (TSIA 2024). 62% of mfg finance execs rate forecast accuracy as poor or fair (IDC).
+- Nteli customers: Elite Pharma, G-Tech Elevators (NJ/NYC), Vulcan Industrial.`,
+
+  COO: `COO STORIES (Ops Alignment + Delivery):
+- Capital Equipment Manufacturer ($180M): COO discovered $4M custom build order when it hit ERP — commit date was 3 weeks inside minimum lead time. After fix: ops has voice before commitment leaves.
+- Industrial Equipment Manufacturer ($165M): On-time delivery went from 74% to 91%. Expedite costs dropped 34%. First-time field fix rate from 58% to 74%.
+- Key stat: 68% of COOs name sales-ops misalignment as top pain. $1.4M avg annual expedite cost.
+- Nteli customers: Vulcan Industrial, G-Tech Elevators (field service).`,
+
+  CRO: `CRO STORIES (Sales Productivity + Win Rate):
+- Specialty Manufacturing ($140M): 3 reps resigned in 18 months citing admin burden. After fix: win rate up 18 points, sales cycle 40% shorter, reps stopped leaving.
+- Industrial Equipment Manufacturer ($155M): CEO took forecast number without adjusting it for the first time. Pipeline stages tied to objective criteria, not rep optimism.
+- Key stat: 60% of rep time lost to admin. 4.2-day avg quote turnaround. 11 margin points given away per deal.
+- Nteli customers: Vulcan Industrial, Airgas, AP Financing.`,
+};
+
 const OUTREACH_SEQUENCE = [
   {key:'li_connect', label:'LinkedIn connection request', icon:'🔗'},
   {key:'intro_msg',  label:'Send intro message',         icon:'✉️'},
@@ -1542,8 +1572,8 @@ ${sel.signals && sel.signals.length ? '- Recent signals:\n  ' + signalContext : 
 
 EMAIL TYPE: ${emailTypeMap[emailType] || emailTypeMap.intro_msg}
 
-CUSTOMER STORIES YOU CAN REFERENCE (use ONE that's most relevant to their situation):
-${stories || 'Sauer Compressors: Cut quote turnaround from 4 days to 4 hours.\nHarmar Mobility: Unified 3 ERPs into one Revenue Cloud. 40% faster order-to-cash.\nBig Three Precision: Automated AMC renewals. $600K annual recurring revenue added in 6 months.'}
+CUSTOMER STORIES — use ONE that matches the recipient's role and pain. Be specific with numbers:
+${stories || CASE_STUDY_KB[personaKey] || CASE_STUDY_KB.CRO}
 
 UPCOMING EVENTS FOR CTA:
   ${eventContext}
