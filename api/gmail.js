@@ -21,6 +21,7 @@ export default async function handler(req, res) {
     const scopes = [
       'https://www.googleapis.com/auth/gmail.send',
       'https://www.googleapis.com/auth/gmail.readonly',
+      'https://www.googleapis.com/auth/calendar.events',
     ].join(' ');
     const url = `https://accounts.google.com/o/oauth2/v2/auth?` +
       `client_id=${encodeURIComponent(CLIENT_ID)}` +
@@ -262,5 +263,44 @@ export default async function handler(req, res) {
     }
   }
 
-  return res.status(400).json({ error: 'Unknown action. Use: auth, callback, send, track, status, check' });
+  // ── CALENDAR: Create event on Google Calendar ──
+  if (action === 'calendar') {
+    if (req.method !== 'POST') return res.status(405).json({ error: 'POST required' });
+    try {
+      const { summary, location, description, startDate, endDate } = req.body;
+      if (!summary || !startDate) return res.status(400).json({ error: 'summary and startDate required' });
+
+      const accessToken = await getAccessToken();
+
+      const event = {
+        summary,
+        location: location || '',
+        description: description || '',
+        start: { date: startDate },
+        end: { date: endDate || startDate },
+        reminders: { useDefault: false, overrides: [{ method: 'popup', minutes: 1440 }] },
+      };
+
+      const calRes = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(event),
+      });
+      const calData = await calRes.json();
+      if (!calRes.ok) return res.status(calRes.status).json({ error: calData.error?.message || 'Calendar error' });
+
+      return res.status(200).json({
+        success: true,
+        eventId: calData.id,
+        htmlLink: calData.htmlLink,
+      });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+
+  return res.status(400).json({ error: 'Unknown action. Use: auth, callback, send, track, status, check, calendar' });
 }

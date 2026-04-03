@@ -2180,54 +2180,60 @@ function toggleAttend(i) {
   setMsg(EVENTS[i].name + (EVENTS[i].attending ? ' — attending' : ' — unmarked'));
 }
 
-function addToCalendar(i) {
+async function addToCalendar(i) {
   const e = EVENTS[i]; if (!e) return;
-  // Parse dates — handle ranges like "May 18–20, 2026" and single dates
-  const dateStr = e.dates.replace(/·.*$/, '').trim(); // remove time after ·
+
+  // Parse dates
+  const dateStr = e.dates.replace(/·.*$/, '').trim();
   let startDate, endDate;
+  const months = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
   const rangeMatch = dateStr.match(/(\w+)\s+(\d+)[–-](\d+),?\s*(\d{4})/);
   const singleMatch = dateStr.match(/(\w+)\s+(\d+),?\s*(\d{4})/);
-  const months = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
 
   if (rangeMatch) {
     const [,mon,d1,d2,yr] = rangeMatch;
     const m = months[mon] || '01';
-    startDate = `${yr}${m}${d1.padStart(2,'0')}`;
-    endDate = `${yr}${m}${(parseInt(d2)+1).toString().padStart(2,'0')}`;
+    startDate = `${yr}-${m}-${d1.padStart(2,'0')}`;
+    endDate = `${yr}-${m}-${(parseInt(d2)+1).toString().padStart(2,'0')}`;
   } else if (singleMatch) {
     const [,mon,d,yr] = singleMatch;
     const m = months[mon] || '01';
-    startDate = `${yr}${m}${d.padStart(2,'0')}`;
-    endDate = `${yr}${m}${(parseInt(d)+1).toString().padStart(2,'0')}`;
+    startDate = `${yr}-${m}-${d.padStart(2,'0')}`;
+    endDate = `${yr}-${m}-${(parseInt(d)+1).toString().padStart(2,'0')}`;
   } else {
-    // Can't parse — open Google Calendar with prefilled text
+    // Can't parse (recurring) — open Google Calendar prefilled
     window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.name) + '&details=' + encodeURIComponent(e.why + '\n\n' + (e.notes || '')) + '&location=' + encodeURIComponent(e.location), '_blank');
     return;
   }
 
-  // Generate .ics file
-  const ics = [
-    'BEGIN:VCALENDAR',
-    'VERSION:2.0',
-    'PRODID:-//Nteli BDR//Events//EN',
-    'BEGIN:VEVENT',
-    'DTSTART;VALUE=DATE:' + startDate,
-    'DTEND;VALUE=DATE:' + endDate,
-    'SUMMARY:' + e.name,
-    'LOCATION:' + e.location,
-    'DESCRIPTION:' + (e.why + '\\n\\n' + (e.notes || '')).replace(/\n/g, '\\n'),
-    e.url ? 'URL:' + e.url : '',
-    'END:VEVENT',
-    'END:VCALENDAR',
-  ].filter(Boolean).join('\r\n');
+  if (!gmailConnected) {
+    setMsg('Connect Gmail first (Settings) to add to Google Calendar');
+    return;
+  }
 
-  const blob = new Blob([ics], {type: 'text/calendar;charset=utf-8'});
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = e.name.replace(/[^a-zA-Z0-9]/g, '_') + '.ics';
-  link.click();
-  URL.revokeObjectURL(link.href);
-  setMsg('Calendar file downloaded — open to add to your calendar');
+  setMsg('Adding to Google Calendar...');
+  try {
+    const r = await fetch('/api/gmail?action=calendar', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        summary: e.name,
+        location: e.location,
+        description: e.why + '\n\n' + (e.notes || '') + (e.url ? '\n\n' + e.url : ''),
+        startDate,
+        endDate,
+      })
+    });
+    const d = await r.json();
+    if (d.success) {
+      setMsg('✅ Added to Google Calendar — ' + e.name);
+      if (d.htmlLink) window.open(d.htmlLink, '_blank');
+    } else {
+      throw new Error(d.error || 'Calendar error');
+    }
+  } catch (err) {
+    setMsg('Calendar error: ' + err.message + ' — you may need to re-authorize Gmail');
+  }
 }
 
 function addEvent() {
