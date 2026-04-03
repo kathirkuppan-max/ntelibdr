@@ -18,10 +18,18 @@ export default async function handler(req, res) {
     if (!urls[action]) return res.status(400).json({ error: `Unknown action: ${action}` });
     const r = await fetch(urls[action], {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'API_KEY': KEY },
+      headers: {
+        'Content-Type': 'application/json',
+        'api_key': KEY,
+        'API_KEY': KEY,
+        'Authorization': 'Bearer ' + KEY,
+      },
       body: JSON.stringify(payload),
     });
     const data = await r.json();
+    if (!r.ok) {
+      console.error('Explorium API error:', r.status, JSON.stringify(data).substring(0, 300));
+    }
     return res.status(r.ok ? 200 : r.status).json(data);
   } catch (err) {
     return res.status(500).json({ error: err.message });
