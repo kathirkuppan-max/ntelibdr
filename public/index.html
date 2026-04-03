@@ -861,8 +861,19 @@ async function dbInit() {
   try {
     const r = await fetch('/api/db?action=setup', {method:'POST'});
     const d = await r.json();
-    if (d.success) { dbReady = true; updateSB(); }
-  } catch { dbReady = false; }
+    if (d.success) {
+      dbReady = true;
+      updateSB();
+      setMsg('DB connected');
+    } else {
+      console.error('DB setup failed:', d.error);
+      setMsg('DB: ' + (d.error || 'setup failed'));
+    }
+  } catch (e) {
+    dbReady = false;
+    console.error('DB init error:', e);
+    setMsg('DB: connection failed');
+  }
 }
 
 async function dbLoad() {
