@@ -298,6 +298,8 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
     <div class="pill"><div class="dot"></div>Vibe Live</div>
     <div class="pill">🌊 Ocean.io</div>
     <div class="pill">Claude AI</div>
+    <div class="pill" id="pill-db"><div class="dot" id="dot-db" style="background:#F85149;"></div>DB</div>
+    <div class="pill" id="pill-gmail"><div class="dot" id="dot-gmail" style="background:#F85149;"></div>Gmail</div>
   </div>
 </div>
 
@@ -810,6 +812,7 @@ async function checkGmailStatus() {
       }
     }
     updateSendButton();
+    updatePills();
     // Update settings page status
     const settingsEl = document.getElementById('gmail-settings-status');
     if (settingsEl) {
@@ -863,17 +866,26 @@ async function dbInit() {
     const d = await r.json();
     if (d.success) {
       dbReady = true;
-      updateSB();
+      updateSB(); updatePills();
       setMsg('DB connected');
     } else {
       console.error('DB setup failed:', d.error);
       setMsg('DB: ' + (d.error || 'setup failed'));
+      updatePills();
     }
   } catch (e) {
     dbReady = false;
     console.error('DB init error:', e);
     setMsg('DB: connection failed');
+    updatePills();
   }
+}
+
+function updatePills() {
+  const dbDot = document.getElementById('dot-db');
+  const gmailDot = document.getElementById('dot-gmail');
+  if (dbDot) dbDot.style.background = dbReady ? '#22C55E' : '#F85149';
+  if (gmailDot) gmailDot.style.background = gmailConnected ? '#22C55E' : '#F85149';
 }
 
 async function dbLoad() {
