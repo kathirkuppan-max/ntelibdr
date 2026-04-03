@@ -2166,6 +2166,7 @@ function renderEvents() {
         ${s.notes ? `<div class="show-note">💡 ${esc(s.notes)}</div>` : ''}
         <div class="show-actions">
           <button class="btn btn-outline btn-sm ${s.attending ? 'attending' : ''}" onclick="toggleAttend(${idx})">${s.attending ? '✓ Attending' : 'Mark Attending'}</button>
+          ${s.attending ? `<button class="btn btn-outline btn-sm" onclick="addToCalendar(${idx})">📅 Add to Calendar</button>` : ''}
           ${s.url ? `<a class="btn btn-outline btn-sm" href="${esc(s.url)}" target="_blank">↗ Website</a>` : ''}
           <button class="btn btn-outline btn-sm" onclick="copyEventToSlack(${idx})">📋 Slack</button>
         </div>
@@ -2177,6 +2178,56 @@ function toggleAttend(i) {
   EVENTS[i].attending = !EVENTS[i].attending;
   saveEvents(); renderEvents();
   setMsg(EVENTS[i].name + (EVENTS[i].attending ? ' — attending' : ' — unmarked'));
+}
+
+function addToCalendar(i) {
+  const e = EVENTS[i]; if (!e) return;
+  // Parse dates — handle ranges like "May 18–20, 2026" and single dates
+  const dateStr = e.dates.replace(/·.*$/, '').trim(); // remove time after ·
+  let startDate, endDate;
+  const rangeMatch = dateStr.match(/(\w+)\s+(\d+)[–-](\d+),?\s*(\d{4})/);
+  const singleMatch = dateStr.match(/(\w+)\s+(\d+),?\s*(\d{4})/);
+  const months = {Jan:'01',Feb:'02',Mar:'03',Apr:'04',May:'05',Jun:'06',Jul:'07',Aug:'08',Sep:'09',Oct:'10',Nov:'11',Dec:'12'};
+
+  if (rangeMatch) {
+    const [,mon,d1,d2,yr] = rangeMatch;
+    const m = months[mon] || '01';
+    startDate = `${yr}${m}${d1.padStart(2,'0')}`;
+    endDate = `${yr}${m}${(parseInt(d2)+1).toString().padStart(2,'0')}`;
+  } else if (singleMatch) {
+    const [,mon,d,yr] = singleMatch;
+    const m = months[mon] || '01';
+    startDate = `${yr}${m}${d.padStart(2,'0')}`;
+    endDate = `${yr}${m}${(parseInt(d)+1).toString().padStart(2,'0')}`;
+  } else {
+    // Can't parse — open Google Calendar with prefilled text
+    window.open('https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent(e.name) + '&details=' + encodeURIComponent(e.why + '\n\n' + (e.notes || '')) + '&location=' + encodeURIComponent(e.location), '_blank');
+    return;
+  }
+
+  // Generate .ics file
+  const ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Nteli BDR//Events//EN',
+    'BEGIN:VEVENT',
+    'DTSTART;VALUE=DATE:' + startDate,
+    'DTEND;VALUE=DATE:' + endDate,
+    'SUMMARY:' + e.name,
+    'LOCATION:' + e.location,
+    'DESCRIPTION:' + (e.why + '\\n\\n' + (e.notes || '')).replace(/\n/g, '\\n'),
+    e.url ? 'URL:' + e.url : '',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  ].filter(Boolean).join('\r\n');
+
+  const blob = new Blob([ics], {type: 'text/calendar;charset=utf-8'});
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = e.name.replace(/[^a-zA-Z0-9]/g, '_') + '.ics';
+  link.click();
+  URL.revokeObjectURL(link.href);
+  setMsg('Calendar file downloaded — open to add to your calendar');
 }
 
 function addEvent() {
