@@ -1920,29 +1920,37 @@ function renderDiscTable(results, source) {
     `<button class="btn btn-primary btn-sm" onclick="${isOcean ? 'addAllOcean' : 'addAllVibe'}()">+ Add All to Accounts</button>`;
 
   if (isOcean) {
+    const rows = results.map((raw, i) => {
+      const c = (raw && raw.company) ? raw.company : (raw || {});
+      const name = c.name || '—';
+      const added = DB.find(a => a.company === name);
+      const industry = c.industry || (c.industryCategories||[])[0] || '—';
+      const revNum = typeof c.revenue === 'number' ? '$'+(c.revenue/1e6).toFixed(0)+'M' : (c.revenue||'—');
+      const emp = c.employee_count || c.employeeCountOcean || c.employeeCountLinkedin || '—';
+      const yr = c.founded_year || c.yearFounded || '—';
+      return `<tr style="${added ? 'opacity:.4;' : ''}">
+        <td class="td-co">${esc(name)}</td>
+        <td class="td-mono">${esc(c.domain||'—')}</td>
+        <td style="font-size:12px;">${esc(industry)}</td>
+        <td class="td-mono">${esc(revNum)}</td>
+        <td class="td-mono">${esc(emp)}</td>
+        <td class="td-mono">${esc(yr)}</td>
+        <td>${added
+          ? '<span class="badge badge-green" style="font-size:10px;">✓ Added</span>'
+          : `<button class="btn btn-outline btn-xs" onclick="addOneOcean(${i})">+</button>`}</td>
+      </tr>`;
+    }).join('');
+    const allAdded = results.every((raw) => { const c = (raw&&raw.company)?raw.company:raw; return DB.find(a => a.company === (c.name||'')); });
+    document.getElementById('disc-hdr-actions').innerHTML = allAdded
+      ? '<span class="badge badge-green">All added</span>'
+      : `<button class="btn btn-primary btn-sm" onclick="addAllOcean()">+ Add All to Accounts</button>`;
     document.getElementById('disc-body').innerHTML = `<table>
-      <thead><tr>${['Company','Domain','Industry','Revenue','Employees','Year','Add'].map(h => `<th>${h}</th>`).join('')}</tr></thead>
-      <tbody>${results.map((raw, i) => {
-        const c = (raw && raw.company) ? raw.company : (raw || {});
-        // v3 flat fields: name,domain,industry,revenue(number),employee_count,founded_year
-        const industry = c.industry || (c.industryCategories||[])[0] || '—';
-        const revNum = typeof c.revenue === 'number' ? '$'+(c.revenue/1e6).toFixed(0)+'M' : (c.revenue||'—');
-        const emp = c.employee_count || c.employeeCountOcean || c.employeeCountLinkedin || '—';
-        const yr = c.founded_year || c.yearFounded || '—';
-        return `<tr>
-          <td class="td-co">${esc(c.name||'—')}</td>
-          <td class="td-mono">${esc(c.domain||'—')}</td>
-          <td style="font-size:12px;">${esc(industry)}</td>
-          <td class="td-mono">${esc(revNum)}</td>
-          <td class="td-mono">${esc(emp)}</td>
-          <td class="td-mono">${esc(yr)}</td>
-          <td><button class="btn btn-outline btn-xs" onclick="addOneOcean(${i})">+</button></td>
-        </tr>`;
-      }).join('')}</tbody></table>`;
+      <thead><tr>${['Company','Domain','Industry','Revenue','Employees','Year',''].map(h => `<th>${h}</th>`).join('')}</tr></thead>
+      <tbody>${rows}</tbody></table>`;
   } else {
-    document.getElementById('disc-body').innerHTML = `<table>
-      <thead><tr>${['Company','City','Vertical','Revenue','Tech','Signal','Contact','Fit','Add'].map(h => `<th>${h}</th>`).join('')}</tr></thead>
-      <tbody>${results.map((r, i) => `<tr>
+    const rows = results.map((r, i) => {
+      const added = DB.find(a => a.company === r.company);
+      return `<tr style="${added ? 'opacity:.4;' : ''}">
         <td><div class="td-co">${esc(r.company)}</div><div class="td-mono">${esc(r.domain)}</div></td>
         <td class="td-mono">${esc(r.city || 'TX')}</td>
         <td style="font-size:12px;max-width:100px;">${esc(r.vertical)}</td>
@@ -1951,8 +1959,18 @@ function renderDiscTable(results, source) {
         <td><span class="badge badge-green" style="font-size:10px;">${esc(r.signal)}</span></td>
         <td style="font-size:12px;">${esc(r.contactName)}<br><span class="td-mono">${esc(r.contactTitle)}</span></td>
         <td style="text-align:center;font-weight:600;font-size:13px;color:${r.fitScore >= 8 ? 'var(--green)' : r.fitScore >= 6 ? 'var(--amber)' : 'var(--text3)'};">${r.fitScore}/10</td>
-        <td><button class="btn btn-primary btn-xs" onclick="addOneVibe(${i})">+</button></td>
-      </tr>`).join('')}</tbody></table>`;
+        <td>${added
+          ? '<span class="badge badge-green" style="font-size:10px;">✓ Added</span>'
+          : `<button class="btn btn-primary btn-xs" onclick="addOneVibe(${i})">+</button>`}</td>
+      </tr>`;
+    }).join('');
+    const allAdded = results.every(r => DB.find(a => a.company === r.company));
+    document.getElementById('disc-hdr-actions').innerHTML = allAdded
+      ? '<span class="badge badge-green">All added</span>'
+      : `<button class="btn btn-primary btn-sm" onclick="addAllVibe()">+ Add All to Accounts</button>`;
+    document.getElementById('disc-body').innerHTML = `<table>
+      <thead><tr>${['Company','City','Vertical','Revenue','Tech','Signal','Contact','Fit',''].map(h => `<th>${h}</th>`).join('')}</tr></thead>
+      <tbody>${rows}</tbody></table>`;
   }
 }
 
@@ -1965,10 +1983,10 @@ function addOneOcean(i) {
     const nid = Math.max(0, ...DB.map(a => a.id)) + 1;
     const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
     DB.push({id:nid, company:name, city:c.state||c.country||'USA', market:'Unknown', vertical:c.industry||(c.industryCategories||['Manufacturing'])[0], rev:typeof c.revenue==='number'?'$'+(c.revenue/1e6).toFixed(0)+'M':(c.revenue||'Unknown'), emp:String(c.employee_count||c.employeeCountOcean||'Unknown'), priority:'Medium', pe:false, ownership:'Unknown', pains:['Quote-to-cash','CPQ','ERP gap'], cxo:'CRO + CFO', website:c.domain||'', liSearch:name, stage:'New', source:'ocean', contacted:false, signals:[], tasks, emails:[]});
-    save(); renderList(); setMsg(name + ' added from Ocean.io');
+    save(); renderList(); renderDiscTable(oceanResults, 'ocean'); setMsg(name + ' added from Ocean.io');
   } catch (e) { setMsg('Error adding: ' + e.message); console.error('addOneOcean error:', e); }
 }
-function addAllOcean() { oceanResults.forEach((_, i) => addOneOcean(i)); setMsg('Ocean results added to accounts'); }
+function addAllOcean() { oceanResults.forEach((_, i) => addOneOcean(i)); renderDiscTable(oceanResults, 'ocean'); setMsg('Ocean results added to accounts'); }
 
 function addOneVibe(i) {
   try {
@@ -1977,10 +1995,10 @@ function addOneVibe(i) {
     const nid = Math.max(0, ...DB.map(a => a.id)) + 1;
     const tasks = {}; OUTREACH_SEQUENCE.forEach(t => { tasks[t.key] = {done:false, doneAt:null}; });
     DB.push({id:nid, company:r.company, city:r.city||'TX', market:r.city||'Texas', vertical:r.vertical, rev:r.revenue, emp:'Unknown', priority:r.fitScore>=8?'High':r.fitScore>=6?'Medium':'Low', pe:false, ownership:'Unknown', pains:[r.signal,'Quote-to-cash','ERP gap'], cxo:'CRO + CFO', website:r.domain, liSearch:r.company, stage:'New', source:'vibe', contacted:false, signals:[], tasks, emails:[]});
-    save(); renderList(); setMsg(r.company + ' added');
+    save(); renderList(); renderDiscTable(discResults, 'vibe'); setMsg(r.company + ' added');
   } catch (e) { setMsg('Error adding: ' + e.message); console.error('addOneVibe error:', e); }
 }
-function addAllVibe() { discResults.forEach((_, i) => addOneVibe(i)); setMsg('Vibe results added to accounts'); }
+function addAllVibe() { discResults.forEach((_, i) => addOneVibe(i)); renderDiscTable(discResults, 'vibe'); setMsg('Vibe results added to accounts'); }
 
 // ══════════════════════════════════════
 // SETTINGS & DATA
