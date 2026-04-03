@@ -1253,6 +1253,7 @@ async function runSignalsFull() {
       })
     });
     const data = await r.json();
+    console.log('Explorium signals response:', JSON.stringify(data).substring(0, 500));
     const events = data.events || data.results || data.data || [];
 
     if (events.length) {
@@ -1261,8 +1262,10 @@ async function runSignalsFull() {
         text: e.description || e.title || e.text || e.event_type || 'Business event detected',
         date: e.date || e.event_date || new Date().toLocaleDateString('en-US', {month:'short', year:'numeric'}),
       }));
+    } else {
+      console.warn('Explorium signals: empty response', data);
     }
-  } catch { /* Explorium failed, will fall back */ }
+  } catch (e) { console.error('Explorium signals error:', e.message); }
 
   // Fall back to Claude analysis if Explorium returns nothing
   if (!signals.length) {
@@ -1323,10 +1326,12 @@ async function runContacts() {
       })
     });
     const data = await r.json();
+    console.log('Explorium contacts response:', JSON.stringify(data).substring(0, 500));
 
     // Map Explorium response to our contact format
     let contacts = [];
     const prospects = data.prospects || data.results || data.data || [];
+    if (!prospects.length) console.warn('Explorium contacts: empty response', data);
     if (prospects.length) {
       contacts = prospects.map(p => ({
         name: p.full_name || p.name || (p.first_name + ' ' + p.last_name) || 'Unknown',
