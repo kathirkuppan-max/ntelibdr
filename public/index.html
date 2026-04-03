@@ -1329,7 +1329,7 @@ async function claudeStream(prompt, onChunk) {
 }
 
 function errBlock(msg) {
-  return `<div style="padding:12px;color:var(--red);font-size:13px;line-height:1.7;background:var(--red-bg);border-radius:var(--r);border:1px solid var(--red-border);"><strong>Error:</strong> ${esc(msg)}<br><span style="font-size:12px;color:var(--text3);margin-top:4px;display:block;">Check ANTHROPIC_API_KEY in Vercel → Settings → Environment Variables, then redeploy.</span></div>`;
+  return `<div style="padding:12px;color:var(--red);font-size:13px;line-height:1.7;background:var(--red-bg);border-radius:var(--r);border:1px solid var(--red-border);"><strong>Error:</strong> ${esc(msg)}</div>`;
 }
 
 // ══════════════════════════════════════
@@ -1470,7 +1470,18 @@ async function runContacts() {
 
     if (!bizId) {
       console.warn('Could not match business in Explorium:', sel.company);
-      throw new Error('Business not found in Explorium');
+      sel.contacts = [{
+        name: sel.company + ' — not in Explorium',
+        initials: '?',
+        title: 'Company not indexed. Use Clay MCP to enrich contacts for smaller companies.',
+        email: '', emailValid: false, phone: '', linkedin: '', simulated: true,
+      }];
+      sel.contactsDate = new Date().toLocaleDateString();
+      sel.contactsSource = 'not_found';
+      save(); renderContacts();
+      setMsg(sel.company + ' not in Explorium — use Clay MCP for contacts');
+      setBusy('btn-contacts', 'sp-contacts', false);
+      return;
     }
 
     // Step 2: Fetch prospects by business_id
