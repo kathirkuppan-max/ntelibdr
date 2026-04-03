@@ -602,11 +602,16 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
     </div>
     <span class="sec-lbl">Sender Identity</span>
     <div class="scard">
-      <label class="sec-lbl">Email Signature</label>
+      <label class="sec-lbl">Your Name & Title</label>
       <input class="input" id="s-sig" value="Kathir | CEO, Nteli LLC | Revenue Cloud for Manufacturing">
-      <label class="sec-lbl">Client Proof Points</label>
-      <input class="input" id="s-proof" value="Sauer Compressors, Harmar Mobility, Big Three Precision Products">
-      <button class="btn btn-primary btn-sm" onclick="saveSettings()">Save Settings</button>
+      <label class="sec-lbl">Customer Stories URL (landing page Claude reads for context)</label>
+      <input class="input" id="s-stories-url" placeholder="https://nteligroup.com/customers" value="">
+      <label class="sec-lbl">Customer Success Stories (paste key stories here)</label>
+      <textarea class="input" id="s-stories" rows="6" style="resize:vertical;font-size:12px;line-height:1.6;" placeholder="Sauer Compressors: Cut quote turnaround from 4 days to 4 hours. $2.1M in recovered service revenue.&#10;Harmar Mobility: Unified 3 ERPs into one Revenue Cloud. 40% faster order-to-cash.&#10;Big Three Precision: Automated AMC renewals. $600K annual recurring revenue added in 6 months."></textarea>
+      <label class="sec-lbl">Upcoming Events for CTAs (auto-pulled from Events tab)</label>
+      <input class="input" id="s-proof" value="Sauer Compressors, Harmar Mobility, Big Three Precision Products" style="display:none;">
+      <div id="s-events-preview" style="font-size:12px;color:var(--text3);line-height:1.6;"></div>
+      <button class="btn btn-primary btn-sm" onclick="saveSettings()" style="margin-top:8px;">Save Settings</button>
     </div>
     <span class="sec-lbl" style="margin-top:16px;display:block;">Gmail Integration</span>
     <div class="scard">
@@ -1499,10 +1504,66 @@ async function runEmail() {
   bod.contentEditable = 'false';
   let full = '', inSub = true;
   try {
-    const sig = localStorage.getItem('nteli_sig') || 'Kathir | CEO, Nteli LLC | Revenue Cloud for Manufacturing';
-    const proof = localStorage.getItem('nteli_proof') || 'Sauer Compressors, Harmar Mobility, Big Three Precision Products';
-    const sigEvent = sel.signals && sel.signals.length ? ' Recent signal: ' + sel.signals[0].text : '';
-    const prompt = 'Write a cold sales email from ' + sig + '.\nTarget: ' + P.label + ' at ' + sel.company + ' (' + sel.vertical + ', ' + sel.city + ', ' + sel.rev + ').' + sigEvent + '\nPain hook: ' + P.pain + '\nOpening question: ' + P.question + '\nProof: ' + P.proof + '\nClient references: ' + proof + '\n4-5 tight paragraphs. Open with the pain hook. Soft 15-min CTA. No buzzwords.\nFORMAT — first line subject, then three dashes alone, then body:\nSUBJECT: [line]\n---\n[body]';
+    const sig = localStorage.getItem('nteli_sig') || 'Kathir | CEO, Nteli LLC';
+    const stories = localStorage.getItem('nteli_stories') || '';
+    const recipientName = (sel.contacts && sel.contacts.length) ? sel.contacts[0].name.split(' ')[0] : '';
+    const recipientTitle = (sel.contacts && sel.contacts.length) ? sel.contacts[0].title : P.label;
+    const contactContext = (sel.contacts && sel.contacts.length) ? sel.contacts.map(c => c.name + ' (' + c.title + ')').join(', ') : 'Unknown';
+
+    // Build signal context
+    const signalContext = (sel.signals && sel.signals.length)
+      ? sel.signals.map(s => s.type.replace(/_/g,' ') + ': ' + s.text + ' (' + s.date + ')').join('\n  ')
+      : 'No signals available';
+
+    // Find upcoming events near this account's city
+    const nearbyEvents = EVENTS.filter(e => e.location && e.location.toLowerCase().includes(sel.city.toLowerCase().split(' ')[0])).slice(0, 2);
+    const eventContext = nearbyEvents.length
+      ? nearbyEvents.map(e => e.name + ' — ' + e.dates + ' in ' + e.location).join('\n  ')
+      : EVENTS.filter(e => e.relevance === 'High').slice(0, 2).map(e => e.name + ' — ' + e.dates + ' in ' + e.location).join('\n  ');
+
+    // Determine which step in sequence this email is for
+    const nextTask = OUTREACH_SEQUENCE.find(t => !sel.tasks[t.key] || !sel.tasks[t.key].done);
+    const emailType = nextTask ? nextTask.key : 'intro_msg';
+    const emailTypeMap = {
+      intro_msg: 'First intro email. Goal: share ONE relevant customer story and ask a question. No selling.',
+      case_study: 'Case study follow-up. Goal: share a specific customer success story with numbers. Offer to send the full write-up.',
+      webinar: 'Webinar/event invitation. Goal: invite to a specific upcoming event. Make it easy to say yes.',
+      event_meet: 'Event meeting request. Goal: request a quick coffee or 15-min chat at a specific upcoming event.',
+    };
+
+    const prompt = `You are writing a short, personal email from ${sig.split('|')[0].trim()} to ${recipientName || 'the ' + recipientTitle} at ${sel.company}.
+
+CONTEXT ABOUT THE RECIPIENT:
+- Company: ${sel.company} (${sel.vertical}, ${sel.city}, ${sel.rev})
+- Contact: ${contactContext}
+- Their challenges: ${sel.pains.join(', ')}
+- Ownership: ${sel.ownership}
+${sel.signals && sel.signals.length ? '- Recent signals:\n  ' + signalContext : ''}
+
+EMAIL TYPE: ${emailTypeMap[emailType] || emailTypeMap.intro_msg}
+
+CUSTOMER STORIES YOU CAN REFERENCE (use ONE that's most relevant to their situation):
+${stories || 'Sauer Compressors: Cut quote turnaround from 4 days to 4 hours.\nHarmar Mobility: Unified 3 ERPs into one Revenue Cloud. 40% faster order-to-cash.\nBig Three Precision: Automated AMC renewals. $600K annual recurring revenue added in 6 months.'}
+
+UPCOMING EVENTS FOR CTA:
+  ${eventContext}
+
+RULES — READ CAREFULLY:
+1. MAX 4-5 sentences total. Not paragraphs — sentences.
+2. Sound like a real person writing to a peer, not a sales rep pitching.
+3. Lead with something specific to THEM — a signal, their vertical, their city. Show you did homework.
+4. Reference ONE customer story briefly — name, specific result, 1 sentence max.
+5. CTA must be specific: a named event, a coffee in their city, or a webinar date. Never "jump on a quick call."
+6. No buzzwords: no "leverage", "synergy", "unlock", "drive", "empower", "transform", "cutting-edge", "game-changing".
+7. No fluff intros like "I hope this finds you well" or "I noticed that your company..."
+8. Use their first name. Be warm but direct.
+9. Sign off with just your first name, no title block.
+
+FORMAT — first line is subject, then three dashes alone, then body:
+SUBJECT: [short, specific, no clickbait]
+---
+[body]`;
+
     await claudeStream(prompt, chunk => {
       full += chunk;
       if (inSub) {
@@ -2260,15 +2321,34 @@ function addAllVibe() { discResults.forEach((_, i) => addOneVibe(i)); renderDisc
 function saveSettings() {
   const sig = document.getElementById('s-sig').value;
   const proof = document.getElementById('s-proof').value;
+  const stories = document.getElementById('s-stories').value;
+  const storiesUrl = document.getElementById('s-stories-url').value;
   localStorage.setItem('nteli_sig', sig);
   localStorage.setItem('nteli_proof', proof);
+  localStorage.setItem('nteli_stories', stories);
+  localStorage.setItem('nteli_stories_url', storiesUrl);
   if (dbReady) {
     fetch('/api/db?action=save-settings', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({settings: {sig, proof}})
+      body: JSON.stringify({settings: {sig, proof, stories, storiesUrl}})
     }).catch(() => {});
   }
   setMsg('Settings saved');
+}
+
+// Load stories on init
+function loadStoriesSettings() {
+  const s = localStorage.getItem('nteli_stories');
+  const u = localStorage.getItem('nteli_stories_url');
+  if (s) { const el = document.getElementById('s-stories'); if (el) el.value = s; }
+  if (u) { const el = document.getElementById('s-stories-url'); if (el) el.value = u; }
+  // Show nearby events preview
+  const ep = document.getElementById('s-events-preview');
+  if (ep) {
+    ep.innerHTML = EVENTS.filter(e => e.relevance === 'High').slice(0, 4).map(e =>
+      '📅 ' + e.name + ' — ' + e.dates + ' (' + e.location + ')'
+    ).join('<br>');
+  }
 }
 
 function resetDB() {
@@ -2337,6 +2417,7 @@ setInterval(() => document.getElementById('sb-time').textContent = new Date().to
 document.getElementById('sb-time').textContent = new Date().toLocaleTimeString();
 const _ss = localStorage.getItem('nteli_sig'); if (_ss) document.getElementById('s-sig').value = _ss;
 const _sp = localStorage.getItem('nteli_proof'); if (_sp) document.getElementById('s-proof').value = _sp;
+loadStoriesSettings();
 // ══════════════════════════════════════
 // AUTHENTICATION
 // ══════════════════════════════════════
