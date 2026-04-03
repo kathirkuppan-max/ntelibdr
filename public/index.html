@@ -509,20 +509,35 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
 
 <!-- PAGE 3: SIGNAL FEED -->
 <div class="page" id="pg-events">
-  <div class="events-col" style="flex:1;display:flex;flex-direction:column;overflow:hidden;">
-    <div class="events-col-hdr">
-      <div class="events-col-title">🗓️ Events & Meetups <span class="badge badge-blue" style="font-size:11px;margin-left:6px;">Verified</span></div>
+  <div style="flex:1;display:flex;flex-direction:column;overflow:hidden;padding:16px 20px;gap:12px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
+      <div>
+        <div style="font-size:20px;font-weight:700;">🗓️ Event Planning Board</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px;">21 verified events · Austin · Houston · Dallas · National</div>
+      </div>
       <div style="display:flex;gap:6px;align-items:center;">
+        <select class="fsel" id="evt-city" style="font-size:12px;padding:4px 8px;" onchange="renderEvents()">
+          <option value="all">All Cities</option>
+          <option value="Austin">Austin</option>
+          <option value="Houston">Houston</option>
+          <option value="Dallas">Dallas / DFW</option>
+          <option value="national">National</option>
+        </select>
         <select class="fsel" id="evt-filter" style="font-size:12px;padding:4px 8px;" onchange="renderEvents()">
-          <option value="all">All Events</option>
+          <option value="all">All Types</option>
           <option value="trade_show">Trade Shows</option>
           <option value="conference">Conferences</option>
           <option value="meetup">Meetups</option>
         </select>
+        <select class="fsel" id="evt-status" style="font-size:12px;padding:4px 8px;" onchange="renderEvents()">
+          <option value="all">All Status</option>
+          <option value="attending">✅ Attending</option>
+          <option value="not">Not Yet Decided</option>
+        </select>
         <button class="btn btn-outline btn-sm" onclick="addEvent()">+ Add</button>
       </div>
     </div>
-    <div class="events-body scroll" id="events-body" style="flex:1;min-height:0;"></div>
+    <div style="flex:1;overflow-y:auto;min-height:0;" class="scroll" id="events-body"></div>
   </div>
 </div>
 
@@ -834,32 +849,37 @@ const PRE_ENRICHED = {
 };
 
 const DEFAULT_EVENTS = [
-  // ── VERIFIED TRADE SHOWS & CONFERENCES ──
-  {id:'ts1',name:'SAMA Annual Conference 2026',dates:'May 18–20, 2026',location:'Phoenix, AZ (Arizona Biltmore)',type:'Association',category:'conference',why:'Premier SAM event. 45+ sessions. VP Sales, CRO, and account management leaders. Top Nteli event.',relevance:'High',url:'https://strategicaccounts.org/event/2026-sama-annual-conference/',attending:false,notes:'Target 8 meetings with TX manufacturing VP Sales.'},
-  {id:'ts2',name:'FABTECH 2026',dates:'Oct 21–23, 2026',location:'Las Vegas, NV (LVCC)',type:'Trade Show',category:'trade_show',why:'Largest North American metal fabrication event. Free registration before Oct 16.',relevance:'High',url:'https://www.fabtechexpo.com',attending:false,notes:'Host dinner for 10-12 TX manufacturing prospects.'},
-  {id:'ts3',name:'IMTS 2026',dates:'Sep 14–19, 2026',location:'Chicago, IL (McCormick Place)',type:'Trade Show',category:'trade_show',why:'1M+ sq ft exhibit space. Capital equipment and precision manufacturing. Register before Aug 1 for discount.',relevance:'High',url:'https://www.imts.com',attending:false,notes:'Attend as visitor. International registration is free.'},
-  {id:'ts4',name:'HOUSTEX 2026',dates:'Feb 21–23, 2026',location:'Houston, TX',type:'Trade Show',category:'trade_show',why:'Advanced manufacturing for the Southwest. Daily networking receptions. Your Houston ICP attends.',relevance:'High',url:'https://www.imts.com/read/article-details/Attend-HOUSTEX-Advanced-Manufacturing-for-the-Southwest/1712/type/Read/1',attending:false,notes:'Focus on Altivia, CIRCOR, Oil States contacts.'},
-  {id:'ts5',name:'Connected Worker & Smart Manufacturing Summit',dates:'Jun 11–12, 2026',location:'Houston, TX',type:'Conference',category:'conference',why:'VPs, directors, ops leaders. AI, IoT, connected worker platforms. Perfect for RCA pitch.',relevance:'High',url:'https://www.key-notion.com/the-connected-worker-and-smart-manufacturing-summit-2026',attending:false,notes:'Attend both days. Target ops leaders for RCA demo.'},
-  {id:'ts6',name:'Industrial Marketing Summit',dates:'2026 (dates TBA)',location:'Austin, TX (Renaissance Hotel)',type:'Conference',category:'conference',why:'Manufacturing and industrial marketers. Built by Gorilla 76 & TREW Marketing. Austin-based.',relevance:'Medium',url:'https://industrialmarketingsummit.com/',attending:false,notes:'Good for marketing-side contacts at target accounts.'},
-  // ── VERIFIED DALLAS / DFW EVENTS ──
-  {id:'ts7',name:'ProveIt! — Industry 4.0 Summit',dates:'Feb 16–20, 2026',location:'Dallas, TX (Hyatt Regency)',type:'Conference',category:'conference',why:'Industrial automation with live demos and hands-on workshops. North TX manufacturing leaders.',relevance:'High',url:'',attending:false,notes:'Focus on Sky Island Capital portfolio companies.'},
-  {id:'ts8',name:'American Electronics & High-Tech Manufacturing Summit',dates:'Jun 16–17, 2026',location:'Dallas, TX (Hilton Anatole)',type:'Conference',category:'conference',why:'Electronics and high-tech manufacturing leaders. Advanced automation sessions.',relevance:'Medium',url:'',attending:false,notes:'Relevant for SabeRex and Q2 Holdings contacts.'},
-  {id:'ts9',name:'DFW Small Business Expo 2026',dates:'Nov 4, 2026',location:'Dallas, TX (Kay Bailey Hutchison Center)',type:'Expo',category:'conference',why:'10am-5pm. Mid-market business owners. Good for Arcosa, Conner Industries intros.',relevance:'Medium',url:'https://www.thesmallbusinessexpo.com/city/dallas/',attending:false,notes:'Attend with David. Bring targeted collateral.'},
-  // ── VERIFIED AUSTIN EVENTS ──
-  {id:'ts10',name:'ARMA Luncheon — Austin Manufacturers',dates:'Quarterly (next: Mar 24, 2026)',location:'Austin, TX (Sheraton Georgetown)',type:'Meetup',category:'meetup',why:'Austin Regional Manufacturers Association. Local manufacturing leaders. Networking 11:30am.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Join ARMA. Great for Falcon Structures, Athena, Cumberland intros.'},
-  {id:'ts11',name:'Austin Small Business Expo 2026',dates:'Oct 29, 2026',location:'Austin, TX (Palmer Events Center)',type:'Expo',category:'conference',why:'10am-5pm. Founder-owned businesses. Good for Blue Sage Capital portfolio.',relevance:'Medium',url:'https://www.thesmallbusinessexpo.com/city/austin/',attending:false,notes:'Attend with David.'},
-  // ── VERIFIED HOUSTON EVENTS ──
-  {id:'ts12',name:'AMPP Annual Conference + Expo',dates:'Mar 15–19, 2026',location:'Houston, TX (GRB Convention Center)',type:'Conference',category:'conference',why:'Materials performance, corrosion, coatings. Industrial technology. Relevant for specialty chemicals ICP.',relevance:'Medium',url:'',attending:false,notes:'Relevant for Altivia, Vibrantz, Ascend contacts.'},
-  // ── NATIONAL INDUSTRY CONFERENCES ──
-  {id:'ts13',name:'CSIA Executive Conference',dates:'May 13–16, 2026',location:'Orlando, FL',type:'Association',category:'conference',why:'Control Systems Integrators — excellent referral partners for RCA deals.',relevance:'Medium',url:'https://www.controlsys.org',attending:false,notes:'Target 3-5 SI partnership conversations.'},
-  {id:'ts14',name:'F50 Physical AI Summit',dates:'2026 (dates TBA)',location:'Dallas / Austin / Silicon Valley',type:'Conference',category:'conference',why:'Infrastructure, manufacturing, robotics. Multi-city format covers your markets.',relevance:'Medium',url:'https://physical.f50.ai/',attending:false,notes:'Check for Dallas or Austin dates.'}
+  // ═══ AUSTIN ═══
+  {id:'a1',name:'ARMA Trade Show',dates:'Mar 5, 2026 · 8am–1pm',location:'Austin, TX (Georgetown)',type:'Trade Show',category:'trade_show',why:'Austin Regional Manufacturers Association. 100+ exhibitors. Your backyard.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Must attend. Falcon Structures, Athena, Cumberland are ARMA members.'},
+  {id:'a2',name:'ARMA Luncheon — AI in Manufacturing',dates:'Mar 24, 2026 · 11:30am',location:'Austin, TX (Sheraton Georgetown)',type:'Meetup',category:'meetup',why:'Andrew Peters (Circuit AI) on AI integration in manufacturing. Registration 11:30, lunch 12pm.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Join ARMA ($250/yr). Network with local mfg leaders.'},
+  {id:'a3',name:'ARMA Luncheon',dates:'Quarterly · next TBA',location:'Austin, TX (Round Rock / Georgetown)',type:'Meetup',category:'meetup',why:'30-50 Austin manufacturing executives. High signal, low noise.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Check ARMA site for Q2/Q3 dates.'},
+  {id:'a4',name:'Capital Factory — Open Coworking Day',dates:'Every Tuesday',location:'Austin, TX (5th floor, Capital Factory)',type:'Co-working',category:'meetup',why:'Ideas spark, connections happen. Austin tech-meets-mfg crowd.',relevance:'Medium',url:'https://opencoworking.capitalfactory.com/',attending:false,notes:'Show up 2x/month. Great for Falcon, Blue Sage intros.'},
+  {id:'a5',name:'InnoTech Austin',dates:'May 12, 2026',location:'Austin, TX (Palmer Events Center)',type:'Conference',category:'conference',why:'Full day of networking, tech demos, and professional development.',relevance:'Medium',url:'',attending:false,notes:'Tech-focused but good for meeting IT leaders at mfg companies.'},
+  {id:'a6',name:'Austin Small Business Expo',dates:'Oct 29, 2026 · 10am–5pm',location:'Austin, TX (Palmer Events Center)',type:'Expo',category:'conference',why:'Founder-owned businesses. Blue Sage Capital portfolio intros.',relevance:'Medium',url:'https://www.thesmallbusinessexpo.com/city/austin/',attending:false,notes:'Attend with David.'},
+  // ═══ HOUSTON ═══
+  {id:'h1',name:'OTC 2026 (Offshore Technology Conference)',dates:'May 4–7, 2026',location:'Houston, TX (NRG Park)',type:'Trade Show',category:'trade_show',why:'Massive energy + industrial event. Oil States, CIRCOR, Altivia ICP all attend.',relevance:'High',url:'https://2026.otcnet.org/',attending:false,notes:'Book meetings with Oil States (Cindy Taylor) and CIRCOR contacts in advance.'},
+  {id:'h2',name:'Connected Worker & Smart Manufacturing Summit',dates:'Jun 11–12, 2026',location:'Houston, TX',type:'Conference',category:'conference',why:'VPs, directors, ops leaders. AI, IoT, connected worker platforms. Perfect for RCA pitch.',relevance:'High',url:'https://www.key-notion.com/the-connected-worker-and-smart-manufacturing-summit-2026',attending:false,notes:'Attend both days. Target ops leaders.'},
+  {id:'h3',name:'URTeC 2026',dates:'Jun 22–24, 2026',location:'Houston, TX (GRB Convention Center)',type:'Conference',category:'conference',why:'Unconventional resources + technology. Oil States, energy-adjacent mfg contacts.',relevance:'Medium',url:'',attending:false,notes:'Relevant for energy manufacturing ICP.'},
+  {id:'h4',name:'Houston Technology Summit',dates:'May 6, 2026',location:'Houston, TX (Hyatt Regency West)',type:'Conference',category:'conference',why:'IT and technology leaders. 1-day summit on modern IT priorities.',relevance:'Medium',url:'',attending:false,notes:'Meet CIOs/IT Directors at Houston mfg companies.'},
+  {id:'h5',name:'SPE ATCE 2026',dates:'Oct 21–23, 2026',location:'Houston, TX',type:'Conference',category:'conference',why:'Society of Petroleum Engineers. Largest technical gathering for energy professionals.',relevance:'Medium',url:'',attending:false,notes:'Energy sector overlap with industrial mfg.'},
+  {id:'h6',name:'AMPP Annual Conference + Expo',dates:'Mar 15–19, 2026',location:'Houston, TX (GRB Convention Center)',type:'Conference',category:'conference',why:'Materials performance, corrosion, coatings. Altivia, Vibrantz, Ascend adjacent.',relevance:'Medium',url:'',attending:false,notes:'Relevant for specialty chemicals ICP.'},
+  // ═══ DALLAS / FORT WORTH ═══
+  {id:'d1',name:'AEA International Convention',dates:'Mar 23–26, 2026',location:'Dallas, TX (Hilton Anatole)',type:'Trade Show',category:'trade_show',why:'Avionics industry — manufacturers, distributors, technicians. DFW manufacturing leaders.',relevance:'High',url:'',attending:false,notes:'Network with Arcosa, Conner Industries, DFW manufacturers.'},
+  {id:'d2',name:'American Electronics & High-Tech Mfg Summit',dates:'Jun 16–17, 2026',location:'Dallas, TX (Hilton Anatole)',type:'Conference',category:'conference',why:'Electronics and high-tech manufacturing leaders. Advanced automation.',relevance:'High',url:'',attending:false,notes:'SabeRex, Q2 Holdings contacts relevant.'},
+  {id:'d3',name:'IntraLogisteX',dates:'Sep 16–17, 2026',location:'Dallas, TX (Kay Bailey Hutchison Center)',type:'Trade Show',category:'trade_show',why:'Logistics and supply chain operations. Warehouse efficiency and automation.',relevance:'Medium',url:'',attending:false,notes:'Supply chain overlap with manufacturing ops.'},
+  {id:'d4',name:'DFW Small Business Expo',dates:'Nov 4, 2026 · 10am–5pm',location:'Dallas, TX (Kay Bailey Hutchison Center)',type:'Expo',category:'conference',why:'Mid-market business owners. Arcosa, Conner, Sky Island portfolio.',relevance:'Medium',url:'https://www.thesmallbusinessexpo.com/city/dallas/',attending:false,notes:'Attend with David.'},
+  // ═══ NATIONAL (MUST-ATTEND) ═══
+  {id:'n1',name:'SAMA Annual Conference 2026',dates:'May 18–20, 2026',location:'Phoenix, AZ (Arizona Biltmore)',type:'Association',category:'conference',why:'Premier SAM event. 45+ sessions. VP Sales, CRO community. Top Nteli event.',relevance:'High',url:'https://strategicaccounts.org/event/2026-sama-annual-conference/',attending:false,notes:'Target 8 meetings with TX manufacturing VP Sales.'},
+  {id:'n2',name:'IMTS 2026',dates:'Sep 14–19, 2026',location:'Chicago, IL (McCormick Place)',type:'Trade Show',category:'trade_show',why:'1M+ sq ft. Capital equipment and precision manufacturing. Register before Aug 1.',relevance:'High',url:'https://www.imts.com',attending:false,notes:'Biggest manufacturing show. International registration free.'},
+  {id:'n3',name:'FABTECH 2026',dates:'Oct 21–23, 2026',location:'Las Vegas, NV (LVCC)',type:'Trade Show',category:'trade_show',why:'Largest North American metal fabrication event. Free registration before Oct 16.',relevance:'High',url:'https://www.fabtechexpo.com',attending:false,notes:'Host dinner for 10-12 TX manufacturing prospects.'},
+  {id:'n4',name:'CSIA Executive Conference',dates:'May 13–16, 2026',location:'Orlando, FL',type:'Association',category:'conference',why:'Control Systems Integrators — excellent referral partners for RCA deals.',relevance:'Medium',url:'https://www.controlsys.org',attending:false,notes:'Target 3-5 SI partnership conversations.'},
 ];
 
 // ══════════════════════════════════════
 // STATE
 // ══════════════════════════════════════
 let DB = JSON.parse(localStorage.getItem('nteli_v8') || 'null') || SEED.map(a => ({...a}));
-let EVENTS = JSON.parse(localStorage.getItem('nteli_events_v2') || 'null') || DEFAULT_EVENTS.map(e => ({...e}));
+let EVENTS = JSON.parse(localStorage.getItem('nteli_events_v3') || 'null') || DEFAULT_EVENTS.map(e => ({...e}));
 let sel = null, mkt = 'all', srch = '';
 let discResults = [], oceanResults = [];
 
@@ -930,7 +950,7 @@ const save = () => {
   dbSaveAccounts();
 };
 const saveEvents = () => {
-  localStorage.setItem('nteli_events_v2', JSON.stringify(EVENTS));
+  localStorage.setItem('nteli_events_v3', JSON.stringify(EVENTS));
   dbSaveEventsAsync();
 };
 const setMsg = m => document.getElementById('sb-msg').textContent = m;
@@ -991,7 +1011,7 @@ async function dbLoad() {
     }
     if (d.events && d.events.length) {
       EVENTS = d.events;
-      localStorage.setItem('nteli_events_v2', JSON.stringify(EVENTS));
+      localStorage.setItem('nteli_events_v3', JSON.stringify(EVENTS));
     }
     if (d.settings) {
       if (d.settings.sig) { localStorage.setItem('nteli_sig', d.settings.sig); const el = document.getElementById('s-sig'); if (el) el.value = d.settings.sig; }
@@ -2087,33 +2107,69 @@ function copyTaskSummary() {
 // EVENTS & MEETUPS
 // ══════════════════════════════════════
 function renderEvents() {
-  const filter = document.getElementById('evt-filter').value;
-  const filtered = filter === 'all' ? EVENTS : EVENTS.filter(e => e.category === filter);
+  const typeFilter = document.getElementById('evt-filter').value;
+  const cityFilter = document.getElementById('evt-city').value;
+  const statusFilter = document.getElementById('evt-status').value;
+
+  let filtered = EVENTS;
+  if (typeFilter !== 'all') filtered = filtered.filter(e => e.category === typeFilter);
+  if (cityFilter === 'national') filtered = filtered.filter(e => !e.location.includes('TX') && !e.location.includes('Texas'));
+  else if (cityFilter !== 'all') filtered = filtered.filter(e => e.location.toLowerCase().includes(cityFilter.toLowerCase()));
+  if (statusFilter === 'attending') filtered = filtered.filter(e => e.attending);
+  else if (statusFilter === 'not') filtered = filtered.filter(e => !e.attending);
+
   const RC = {High:'badge-gold', Medium:'badge-blue', Low:'badge-gray'};
-  const TC = {'Trade Show':'badge-blue', Association:'badge-purple', Regional:'badge-green', 'Co-working':'badge-teal', Meetup:'badge-amber', 'Industry Dinner':'badge-pink'};
-  document.getElementById('events-body').innerHTML = filtered.length ? filtered.map((s, i) => {
-    const idx = EVENTS.indexOf(s);
-    return `<div class="show-card">
-      <div class="show-card-hdr">
-        <div>
-          <div class="show-name">${esc(s.name)}</div>
-          <div class="show-date">📅 ${esc(s.dates)}</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-          <span class="badge ${RC[s.relevance] || 'badge-gray'}">${s.relevance} Priority</span>
-          <span class="badge ${TC[s.type] || 'badge-gray'}">${s.type}</span>
-        </div>
+  const TC = {'Trade Show':'badge-blue', Association:'badge-purple', Conference:'badge-purple', Expo:'badge-green', Meetup:'badge-amber', 'Co-working':'badge-teal'};
+  const attending = EVENTS.filter(e => e.attending).length;
+
+  document.getElementById('events-body').innerHTML =
+    // Summary bar
+    `<div style="display:flex;gap:12px;margin-bottom:12px;flex-wrap:wrap;flex-shrink:0;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:120px;">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;">Total Events</div>
+        <div style="font-size:22px;font-weight:700;">${EVENTS.length}</div>
       </div>
-      <div class="show-loc">📍 ${esc(s.location)}</div>
-      <div class="show-why">${esc(s.why)}</div>
-      ${s.notes ? `<div class="show-note">💡 ${esc(s.notes)}</div>` : ''}
-      <div class="show-actions">
-        <button class="btn btn-outline btn-sm ${s.attending ? 'attending' : ''}" onclick="toggleAttend(${idx})">${s.attending ? '✓ Attending' : 'Mark Attending'}</button>
-        ${s.url ? `<a class="btn btn-outline btn-sm" href="${esc(s.url)}" target="_blank">↗ Website</a>` : ''}
-        <button class="btn btn-outline btn-sm" onclick="copyEventToSlack(${idx})">📋 Slack</button>
+      <div style="background:var(--green-bg);border:1px solid var(--green-border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:120px;">
+        <div style="font-size:11px;color:var(--green);text-transform:uppercase;letter-spacing:.05em;">Attending</div>
+        <div style="font-size:22px;font-weight:700;color:var(--green);">${attending}</div>
       </div>
-    </div>`;
-  }).join('') : '<div style="color:var(--text3);font-size:13px;font-style:italic;padding:20px 0;text-align:center;">No events in this category.</div>';
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:120px;">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;">Showing</div>
+        <div style="font-size:22px;font-weight:700;">${filtered.length}</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:10px 16px;flex:1;min-width:120px;">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;">Cities</div>
+        <div style="font-size:13px;font-weight:600;margin-top:4px;">Austin · Houston · Dallas</div>
+      </div>
+    </div>` +
+    // Event cards
+    (filtered.length ? filtered.map((s, i) => {
+      const idx = EVENTS.indexOf(s);
+      // Find target accounts in this event's city
+      const cityKey = s.location.toLowerCase();
+      const nearbyAccounts = DB.filter(a => cityKey.includes(a.city.toLowerCase().split(' ')[0])).slice(0, 3);
+      return `<div class="show-card" style="${s.attending ? 'border-left:3px solid var(--green);' : ''}">
+        <div class="show-card-hdr">
+          <div>
+            <div class="show-name">${s.attending ? '✅ ' : ''}${esc(s.name)}</div>
+            <div class="show-date">📅 ${esc(s.dates)}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+            <span class="badge ${RC[s.relevance] || 'badge-gray'}">${s.relevance}</span>
+            <span class="badge ${TC[s.type] || 'badge-gray'}">${s.type}</span>
+          </div>
+        </div>
+        <div class="show-loc">📍 ${esc(s.location)}</div>
+        <div class="show-why">${esc(s.why)}</div>
+        ${nearbyAccounts.length ? `<div style="font-size:11px;color:var(--blue);margin-bottom:6px;">🎯 Target accounts nearby: ${nearbyAccounts.map(a => esc(a.company)).join(', ')}</div>` : ''}
+        ${s.notes ? `<div class="show-note">💡 ${esc(s.notes)}</div>` : ''}
+        <div class="show-actions">
+          <button class="btn btn-outline btn-sm ${s.attending ? 'attending' : ''}" onclick="toggleAttend(${idx})">${s.attending ? '✓ Attending' : 'Mark Attending'}</button>
+          ${s.url ? `<a class="btn btn-outline btn-sm" href="${esc(s.url)}" target="_blank">↗ Website</a>` : ''}
+          <button class="btn btn-outline btn-sm" onclick="copyEventToSlack(${idx})">📋 Slack</button>
+        </div>
+      </div>`;
+    }).join('') : '<div style="color:var(--text3);font-size:13px;font-style:italic;padding:20px 0;text-align:center;">No events match your filters.</div>');
 }
 
 function toggleAttend(i) {
