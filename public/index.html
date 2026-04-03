@@ -729,7 +729,9 @@ const SEED = [
   {id:22,company:"Fritz Industries",city:"Mesquite TX",market:"Dallas/DFW",vertical:"Custom Biochemistry / Water Treatment",rev:"$40M–$100M",emp:"200–400",priority:"High",pe:false,ownership:"Privately held",pains:["Custom formulation quoting","Volume contracts","Service revenue"],cxo:"CRO + CFO",website:"fritzindustries.com",liSearch:"fritz industries mesquite",stage:"New",source:"manual",contacted:false,signals:[]},
   {id:23,company:"Blue Sage Capital – Portfolio",city:"Austin",market:"Austin",vertical:"Niche Manufacturing (PE Portfolio)",rev:"Varies",emp:"Varies",priority:"High",pe:true,ownership:"Austin PE firm",pains:["Revenue process buildout","CRM implementation","Service revenue"],cxo:"CEO + CFO",website:"bluesage.com",liSearch:"blue sage capital austin",stage:"New",source:"manual",contacted:false,signals:[]},
   {id:24,company:"Sky Island Capital – Portfolio",city:"Dallas",market:"Dallas/DFW",vertical:"Lower Middle Market Mfg (PE Portfolio)",rev:"Varies",emp:"Varies",priority:"High",pe:true,ownership:"Dallas PE firm",pains:["CPQ buildout","Revenue infrastructure","Margin improvement"],cxo:"CEO + COO",website:"skyislandcapital.com",liSearch:"sky island capital dallas",stage:"New",source:"manual",contacted:false,signals:[]},
-  {id:25,company:"Arcosa Inc. – Division",city:"Dallas",market:"Dallas/DFW",vertical:"Construction & Infrastructure Mfg",rev:"$1B+ (divisions)",emp:"3000+",priority:"Medium",pe:false,ownership:"NYSE: ACA",pains:["Division CPQ","Service revenue","Ops alignment"],cxo:"COO + CFO",website:"arcosa.com",liSearch:"arcosa dallas division",stage:"New",source:"manual",contacted:false,signals:[]}
+  {id:25,company:"Arcosa Inc. – Division",city:"Dallas",market:"Dallas/DFW",vertical:"Construction & Infrastructure Mfg",rev:"$1B+ (divisions)",emp:"3000+",priority:"Medium",pe:false,ownership:"NYSE: ACA",pains:["Division CPQ","Service revenue","Ops alignment"],cxo:"COO + CFO",website:"arcosa.com",liSearch:"arcosa dallas division",stage:"New",source:"manual",contacted:false,signals:[]},
+  {id:90,company:"TEST — Kathir Account",city:"Austin",market:"Austin",vertical:"Test Account",rev:"N/A",emp:"N/A",priority:"High",pe:false,ownership:"Test",pains:["Email delivery test","Gmail API test","Tracking test"],cxo:"CEO",website:"nteligroup.com",liSearch:"kathir nteli",stage:"Outreach",source:"manual",contacted:false,signals:[],testContact:{name:"Kathir Kuppan",email:"kathir@nteligroup.com",title:"CEO"}},
+  {id:91,company:"TEST — David Account",city:"Austin",market:"Austin",vertical:"Test Account",rev:"N/A",emp:"N/A",priority:"High",pe:false,ownership:"Test",pains:["Email delivery test","Gmail API test","Tracking test"],cxo:"CRO",website:"nteligroup.com",liSearch:"david nteli",stage:"Outreach",source:"manual",contacted:false,signals:[],testContact:{name:"David",email:"david@nteligroup.com",title:"CRO"}}
 ];
 
 const OUTREACH_SEQUENCE = [
@@ -1350,10 +1352,17 @@ function renderEmailHistory() {
 
 // Auto-fill recipient from enriched contacts
 function autoFillRecipient() {
-  const contactsEl = document.getElementById('dc-contacts');
-  if (!contactsEl || !sel) return;
+  if (!sel) return;
   const emailEl = document.getElementById('e-to');
   if (emailEl.value) return; // Don't overwrite manual entry
+  // Auto-fill from test contact data
+  if (sel.testContact && sel.testContact.email) {
+    emailEl.value = sel.testContact.email;
+    return;
+  }
+  // Fall back to enriched contacts
+  const contactsEl = document.getElementById('dc-contacts');
+  if (!contactsEl) return;
   const match = contactsEl.innerHTML.match(/mailto:([^"]+)/);
   if (match) emailEl.value = match[1];
 }
