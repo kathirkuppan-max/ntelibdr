@@ -513,7 +513,7 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
     <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0;">
       <div>
         <div style="font-size:20px;font-weight:700;">🗓️ Event Planning Board</div>
-        <div style="font-size:12px;color:var(--text3);margin-top:2px;">21 verified events · Austin · Houston · Dallas · National</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px;">22 verified events · Austin · Houston · Dallas · National</div>
       </div>
       <div style="display:flex;gap:6px;align-items:center;">
         <select class="fsel" id="evt-city" style="font-size:12px;padding:4px 8px;" onchange="renderEvents()">
@@ -850,10 +850,11 @@ const PRE_ENRICHED = {
 
 const DEFAULT_EVENTS = [
   // ═══ AUSTIN ═══
-  {id:'a1',name:'ARMA Trade Show',dates:'Mar 5, 2026 · 8am–1pm',location:'Austin, TX (Georgetown)',type:'Trade Show',category:'trade_show',why:'Austin Regional Manufacturers Association. 100+ exhibitors. Your backyard.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Must attend. Falcon Structures, Athena, Cumberland are ARMA members.'},
+  {id:'a1',name:'ARMA Safety Summit',dates:'Mar 5, 2026 · 8am–1pm',location:'Austin, TX (Georgetown)',type:'Conference',category:'conference',why:'Half-day OSHA trends and workplace safety seminar for manufacturers.',relevance:'Medium',url:'https://arma-tx.org/events',attending:false,notes:'Good networking. Falcon Structures, Athena, Cumberland are ARMA members.'},
   {id:'a2',name:'ARMA Luncheon — AI in Manufacturing',dates:'Mar 24, 2026 · 11:30am',location:'Austin, TX (Sheraton Georgetown)',type:'Meetup',category:'meetup',why:'Andrew Peters (Circuit AI) on AI integration in manufacturing. Registration 11:30, lunch 12pm.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Join ARMA ($250/yr). Network with local mfg leaders.'},
-  {id:'a3',name:'ARMA Luncheon',dates:'Quarterly · next TBA',location:'Austin, TX (Round Rock / Georgetown)',type:'Meetup',category:'meetup',why:'30-50 Austin manufacturing executives. High signal, low noise.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Check ARMA site for Q2/Q3 dates.'},
-  {id:'a4',name:'Capital Factory — Open Coworking Day',dates:'Every Tuesday',location:'Austin, TX (5th floor, Capital Factory)',type:'Co-working',category:'meetup',why:'Ideas spark, connections happen. Austin tech-meets-mfg crowd.',relevance:'Medium',url:'https://opencoworking.capitalfactory.com/',attending:false,notes:'Show up 2x/month. Great for Falcon, Blue Sage intros.'},
+  {id:'a2b',name:'ARMA Spring Golf Tournament',dates:'Apr 16, 2026 · Afternoon',location:'Austin, TX (Avery Ranch Golf Club)',type:'Meetup',category:'meetup',why:'150+ players. Shotgun start. Best relationship-building event of the year.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Register early. Invite target account contacts as guests.'},
+  {id:'a3',name:'ARMA Luncheons (Quarterly)',dates:'Quarterly · check arma-tx.org',location:'Austin, TX (Round Rock / Georgetown)',type:'Meetup',category:'meetup',why:'30-50 Austin manufacturing executives. High signal, low noise.',relevance:'High',url:'https://arma-tx.org/events',attending:false,notes:'Check ARMA site for Q2/Q3 dates. Embassy Suites or Sheraton.'},
+  {id:'a4',name:'Capital Factory — Open Coworking Day',dates:'Every Tuesday · 5th floor',location:'Austin, TX (Capital Factory)',type:'Co-working',category:'meetup',why:'Weekly drop-in. Ideas spark, connections happen. Austin tech-meets-mfg crowd.',relevance:'Medium',url:'https://opencoworking.capitalfactory.com/',attending:false,notes:'Show up 2x/month. Great for Falcon, Blue Sage intros.'},
   {id:'a5',name:'InnoTech Austin',dates:'May 12, 2026',location:'Austin, TX (Palmer Events Center)',type:'Conference',category:'conference',why:'Full day of networking, tech demos, and professional development.',relevance:'Medium',url:'',attending:false,notes:'Tech-focused but good for meeting IT leaders at mfg companies.'},
   {id:'a6',name:'Austin Small Business Expo',dates:'Oct 29, 2026 · 10am–5pm',location:'Austin, TX (Palmer Events Center)',type:'Expo',category:'conference',why:'Founder-owned businesses. Blue Sage Capital portfolio intros.',relevance:'Medium',url:'https://www.thesmallbusinessexpo.com/city/austin/',attending:false,notes:'Attend with David.'},
   // ═══ HOUSTON ═══
@@ -879,7 +880,7 @@ const DEFAULT_EVENTS = [
 // STATE
 // ══════════════════════════════════════
 let DB = JSON.parse(localStorage.getItem('nteli_v8') || 'null') || SEED.map(a => ({...a}));
-let EVENTS = JSON.parse(localStorage.getItem('nteli_events_v3') || 'null') || DEFAULT_EVENTS.map(e => ({...e}));
+let EVENTS = JSON.parse(localStorage.getItem('nteli_events_v4') || 'null') || DEFAULT_EVENTS.map(e => ({...e}));
 let sel = null, mkt = 'all', srch = '';
 let discResults = [], oceanResults = [];
 
@@ -950,7 +951,7 @@ const save = () => {
   dbSaveAccounts();
 };
 const saveEvents = () => {
-  localStorage.setItem('nteli_events_v3', JSON.stringify(EVENTS));
+  localStorage.setItem('nteli_events_v4', JSON.stringify(EVENTS));
   dbSaveEventsAsync();
 };
 const setMsg = m => document.getElementById('sb-msg').textContent = m;
@@ -1011,7 +1012,7 @@ async function dbLoad() {
     }
     if (d.events && d.events.length) {
       EVENTS = d.events;
-      localStorage.setItem('nteli_events_v3', JSON.stringify(EVENTS));
+      localStorage.setItem('nteli_events_v4', JSON.stringify(EVENTS));
     }
     if (d.settings) {
       if (d.settings.sig) { localStorage.setItem('nteli_sig', d.settings.sig); const el = document.getElementById('s-sig'); if (el) el.value = d.settings.sig; }
