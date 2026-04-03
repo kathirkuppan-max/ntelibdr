@@ -1336,18 +1336,121 @@ function renderEmailHistory() {
   if (!sel) return;
   const el = document.getElementById('email-history');
   if (!sel.emails.length) { el.innerHTML = ''; return; }
-  const statusClass = {draft:'draft', sent:'sent', replied:'replied', rejected:'rejected', failed:'rejected', sending:'draft'};
-  const statusLabel = {draft:'Draft', sent:'Sent', replied:'Replied', rejected:'Rejected', failed:'Failed', sending:'Sending'};
-  const statusIcon = {draft:'📝', sent:'✅', replied:'💬', rejected:'❌', failed:'⚠️', sending:'⏳'};
-  el.innerHTML = '<div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;padding-top:8px;">Email History</div>' +
+  const statusClass = {draft:'draft', sent:'sent', opened:'sent', replied:'replied', rejected:'rejected', failed:'rejected', sending:'draft'};
+  const statusLabel = {draft:'Draft', sent:'Sent', opened:'Opened', replied:'Replied', rejected:'Rejected', failed:'Failed', sending:'Sending'};
+  const statusIcon = {draft:'📝', sent:'✅', opened:'👁️', replied:'💬', rejected:'❌', failed:'⚠️', sending:'⏳'};
+  const hasSent = sel.emails.some(e => e.status === 'sent' || e.status === 'opened');
+  el.innerHTML =
+    '<div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;margin-bottom:8px;">' +
+      '<div style="font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--text3);">Email History</div>' +
+      (hasSent ? '<button class="btn btn-outline btn-sm" onclick="checkEmailStatus()" id="btn-check-status">🔄 Check Status</button>' : '') +
+    '</div>' +
     sel.emails.slice().reverse().map(e =>
       `<div class="email-hist-item">
         <span class="email-hist-icon">${statusIcon[e.status] || '📧'}</span>
-        <span class="email-hist-date">${e.createdAt}</span>
-        <span class="email-hist-subj">${esc(e.subject || 'No subject')}</span>
+        <span class="email-hist-date">${e.sentAt || e.createdAt}</span>
+        <span class="email-hist-subj">${esc(e.to ? e.to + ' — ' : '')}${esc(e.subject || 'No subject')}</span>
         <span class="estatus ${statusClass[e.status] || 'draft'}">${statusLabel[e.status] || e.status}</span>
       </div>`
-    ).join('');
+    ).join('') +
+    renderNextStep();
+}
+
+function renderNextStep() {
+  if (!sel) return '';
+  // Find the next undone task in sequence
+  const next = OUTREACH_SEQUENCE.find(t => !sel.tasks[t.key] || !sel.tasks[t.key].done);
+  if (!next) return '<div style="padding:10px 12px;font-size:13px;color:var(--green);background:var(--green-bg);border-radius:var(--r);margin-top:8px;">✅ Outreach sequence complete for ' + esc(sel.company) + '</div>';
+
+  const tips = {
+    li_connect: 'Generate a LinkedIn Note above, then click "Copy & Open LinkedIn" to send a connection request.',
+    intro_msg: 'Select a persona and click "Draft Email" to create a personalized intro email.',
+    case_study: 'Draft an email focused on a relevant case study for ' + esc(sel.vertical) + '.',
+    webinar: 'Draft an email inviting them to an upcoming webinar or event.',
+    event_meet: 'Check Events & Meetups in Signal Feed for upcoming events near ' + esc(sel.city) + '.',
+  };
+
+  return '<div style="padding:10px 12px;font-size:13px;color:var(--blue);background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:var(--r);margin-top:8px;">' +
+    '<div style="font-weight:600;margin-bottom:4px;">⏭️ Next Step: ' + next.icon + ' ' + esc(next.label) + '</div>' +
+    '<div style="font-size:12px;color:var(--text2);">' + (tips[next.key] || '') + '</div>' +
+  '</div>';
+}
+
+async function checkEmailStatus() {
+  if (!sel || !sel.emails.length) return;
+  const btn = document.getElementById('btn-check-status');
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Checking...'; }
+  setMsg('Checking email status...');
+
+  const sentEmails = sel.emails.filter(e => (e.status === 'sent' || e.status === 'opened') && e.threadId);
+  let updated = false;
+
+  // Check opens via KV
+  const emailIds = sel.emails.filter(e => e.status === 'sent' && e.id).map(e => e.id);
+  if (emailIds.length) {
+    try {
+      const r = await fetch('/api/gmail?action=opens', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ emailIds }),
+      });
+      const d = await r.json();
+      if (d.results) {
+        sel.emails.forEach(e => {
+          if (e.status === 'sent' && d.results[e.id] && d.results[e.id].opened) {
+            e.status = 'opened';
+            e.openedAt = d.results[e.id].openedAt;
+            updated = true;
+          }
+        });
+      }
+      if (!d.kvConfigured && emailIds.length) {
+        setMsg('Open tracking needs Vercel KV — add it from Vercel Marketplace');
+      }
+    } catch { /* skip opens check */ }
+  }
+
+  // Check replies via Gmail threads
+  const threadIds = sentEmails.map(e => e.threadId).filter(Boolean);
+  if (threadIds.length) {
+    try {
+      const r = await fetch('/api/gmail?action=check', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ threadIds }),
+      });
+      const d = await r.json();
+      if (d.results) {
+        sel.emails.forEach(e => {
+          if (e.threadId && d.results[e.threadId] && d.results[e.threadId].replied) {
+            e.status = 'replied';
+            updated = true;
+          }
+        });
+      }
+    } catch { /* skip reply check */ }
+  }
+
+  if (updated) {
+    save();
+    // Auto-advance tasks based on replies
+    sel.emails.forEach(e => {
+      if (e.status === 'replied') {
+        // Mark connected stage if we got a reply
+        if (sel.stage === 'Outreach' || sel.stage === 'New' || sel.stage === 'Researching') {
+          sel.stage = 'Connected';
+          save();
+        }
+      }
+    });
+    setMsg('✅ Status updated');
+  } else {
+    setMsg('No new opens or replies detected');
+  }
+
+  renderEmailHistory();
+  renderTasks();
+  if (btn) { btn.disabled = false; btn.textContent = '🔄 Check Status'; }
 }
 
 // Auto-fill recipient from enriched contacts

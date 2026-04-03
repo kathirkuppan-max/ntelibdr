@@ -159,17 +159,47 @@ export default async function handler(req, res) {
     }
   }
 
-  // ── TRACK: Serve 1x1 tracking pixel ──
+  // ── TRACK: Serve 1x1 tracking pixel + log open ──
   if (action === 'track') {
+    const eid = req.query.eid || 'unknown';
+    // Try to log open via Vercel KV (Upstash Redis) if configured
+    const KV_URL = process.env.KV_REST_API_URL;
+    const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+    if (KV_URL && KV_TOKEN && eid !== 'unknown') {
+      try {
+        await fetch(`${KV_URL}/set/open:${eid}/${Date.now()}`, {
+          headers: { Authorization: `Bearer ${KV_TOKEN}` },
+        });
+      } catch { /* best-effort */ }
+    }
     // 1x1 transparent GIF
     const pixel = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
     res.setHeader('Content-Type', 'image/gif');
     res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
     res.setHeader('Pragma', 'no-cache');
     res.setHeader('Expires', '0');
-    // Note: In v1, open tracking is best-effort. The pixel serves but we can't persist opens
-    // in stateless Vercel. Client-side polls thread status instead.
     return res.status(200).send(pixel);
+  }
+
+  // ── OPENS: Check open status for email IDs ──
+  if (action === 'opens') {
+    if (req.method !== 'POST') return res.status(405).json({ error: 'POST required' });
+    const KV_URL = process.env.KV_REST_API_URL;
+    const KV_TOKEN = process.env.KV_REST_API_TOKEN;
+    if (!KV_URL || !KV_TOKEN) return res.status(200).json({ results: {}, kvConfigured: false });
+    const { emailIds } = req.body;
+    if (!emailIds || !emailIds.length) return res.status(400).json({ error: 'emailIds required' });
+    const results = {};
+    for (const eid of emailIds.slice(0, 50)) {
+      try {
+        const r = await fetch(`${KV_URL}/get/open:${eid}`, {
+          headers: { Authorization: `Bearer ${KV_TOKEN}` },
+        });
+        const d = await r.json();
+        results[eid] = d.result ? { opened: true, openedAt: new Date(parseInt(d.result)).toLocaleDateString() } : { opened: false };
+      } catch { results[eid] = { opened: false }; }
+    }
+    return res.status(200).json({ results, kvConfigured: true });
   }
 
   // ── STATUS: Check Gmail connection and get sender info ──
