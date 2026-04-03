@@ -1231,22 +1231,68 @@ function errBlock(msg) {
 async function runSignalsFull() {
   if (!sel) { setMsg('Select an account first'); return; }
   setBusy('btn-signals', 'sp-signals', true);
-  setMsg('Generating buying intelligence...');
+  setMsg('Fetching buying signals from Explorium...');
   const el = document.getElementById('dc-signals');
-  el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;padding:12px 0;"><div class="spin spin-purple" style="display:inline-block;"></div>Analysing account and mapping to buying personas...</div>';
+  el.innerHTML = '<div style="display:flex;align-items:center;gap:10px;color:var(--purple);font-size:13px;padding:12px 0;"><div class="spin spin-purple" style="display:inline-block;"></div>Pulling real business events from Explorium...</div>';
+
+  let signals = [];
+  let signalSource = 'explorium';
+
   try {
-    const res = await claudeJSON('Nteli RCA analyst. Return ONLY this JSON structure, no other text:\n{"events":[{"type":"new_product","text":"1 sentence","date":"Mar 2026"},{"type":"hiring_in_sales_department","text":"1 sentence","date":"Feb 2026"},{"type":"increase_in_all_departments","text":"1 sentence","date":"Jan 2026"}],"rcaFit":"Strong"}\n\nReplace with realistic data for: ' + sel.company + ', ' + sel.vertical + ', ' + sel.city + ', ' + sel.rev + '\nValid types: new_product merger_and_acquisitions new_funding_round increase_in_all_departments hiring_in_sales_department hiring_in_operations_department cost_cutting\nDates must be Oct 2025 through Apr 2026. rcaFit must be Strong Good or Moderate.\nONLY the JSON. No explanation.');
-    sel.signals = res.events || [];
-    sel.rcaFit = res.rcaFit || 'Good';
-    sel.topPersona = (() => { const r = scorePersonas(sel.signals); return r.length > 0 ? r[0][0] : 'CRO'; })();
-    save();
-    renderPersonaSignals();
-    renderList();
-    setMsg('✅ Persona-matched intelligence ready');
-  } catch (e) {
-    el.innerHTML = errBlock(e.message);
-    setMsg('Error — check ANTHROPIC_API_KEY');
+    // Try real Explorium business-events API
+    const r = await fetch('/api/vibe', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'business-events',
+        payload: {
+          filter: { company_name: [sel.company] },
+          event_types: ['new_product','merger_and_acquisitions','new_funding_round','increase_in_all_departments','hiring_in_sales_department','hiring_in_operations_department','cost_cutting','new_partnership','new_office'],
+          limit: 10,
+        }
+      })
+    });
+    const data = await r.json();
+    const events = data.events || data.results || data.data || [];
+
+    if (events.length) {
+      signals = events.map(e => ({
+        type: e.event_type || e.type || 'new_product',
+        text: e.description || e.title || e.text || e.event_type || 'Business event detected',
+        date: e.date || e.event_date || new Date().toLocaleDateString('en-US', {month:'short', year:'numeric'}),
+      }));
+    }
+  } catch { /* Explorium failed, will fall back */ }
+
+  // Fall back to Claude analysis if Explorium returns nothing
+  if (!signals.length) {
+    signalSource = 'claude';
+    try {
+      setMsg('No Explorium events — Claude analysing account...');
+      const res = await claudeJSON('Nteli RCA analyst. Analyse this real company and provide plausible recent business events based on public information.\nCompany: ' + sel.company + ', ' + sel.vertical + ', ' + sel.city + ', ' + sel.rev + '\nReturn ONLY this JSON:\n{"events":[{"type":"new_product","text":"1 sentence","date":"Mar 2026"}],"rcaFit":"Strong"}\nValid types: new_product merger_and_acquisitions new_funding_round increase_in_all_departments hiring_in_sales_department hiring_in_operations_department cost_cutting\nrcaFit: Strong Good or Moderate. ONLY JSON.');
+      signals = res.events || [];
+      sel.rcaFit = res.rcaFit || 'Good';
+    } catch (e) {
+      el.innerHTML = errBlock(e.message);
+      setMsg('Error fetching signals');
+      setBusy('btn-signals', 'sp-signals', false);
+      return;
+    }
+  } else {
+    // Score RCA fit based on signal count and types
+    const highValue = signals.filter(s => ['new_funding_round','merger_and_acquisitions','increase_in_all_departments'].includes(s.type));
+    sel.rcaFit = highValue.length >= 2 ? 'Strong' : signals.length >= 3 ? 'Good' : 'Moderate';
   }
+
+  sel.signals = signals;
+  sel.signalSource = signalSource;
+  sel.topPersona = (() => { const r = scorePersonas(sel.signals); return r.length > 0 ? r[0][0] : 'CRO'; })();
+  save();
+  renderPersonaSignals();
+  renderList();
+  setMsg(signalSource === 'explorium'
+    ? '✅ ' + signals.length + ' real signals from Explorium'
+    : '✅ Claude-analysed signals (check VIBE_API_KEY for real data)');
   setBusy('btn-signals', 'sp-signals', false);
 }
 
@@ -1937,12 +1983,55 @@ async function runVibe() {
   const event = document.getElementById('vb-event').value;
   const existing = DB.map(a => a.company).join(', ');
   try {
-    discResults = await claudeJSON('Simulate Vibe Prospecting results for Nteli ICP (TX private manufacturing, RCA targets). Exclude: ' + existing + '.\nFilters: state=' + state + ' rev=' + rev + ' signal=' + event + '\nReturn 10 real-sounding TX manufacturing companies:\n[{"company":"","domain":"","city":"","vertical":"","revenue":"","techStack":["NetSuite"],"signal":"1-2 words","contactName":"","contactTitle":"","fitScore":8}]\nONLY JSON array. Short strings. fitScore 1-10.');
-    renderDiscTable(discResults, 'vibe');
-    setMsg(discResults.length + ' prospects from Vibe');
+    // Try real Explorium fetch-businesses API
+    const r = await fetch('/api/vibe', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        action: 'fetch-businesses',
+        payload: {
+          filter: {
+            company_country_code: ['US'],
+            company_region_country_code: state === 'TX' ? ['US-TX'] : undefined,
+            company_revenue: rev ? [rev] : undefined,
+            linkedin_category: ['Manufacturing'],
+          },
+          limit: 15,
+        }
+      })
+    });
+    const data = await r.json();
+    const businesses = data.businesses || data.results || data.data || [];
+
+    if (businesses.length) {
+      discResults = businesses.map(b => ({
+        company: b.company_name || b.name || 'Unknown',
+        domain: b.domain || b.website || '',
+        city: b.city || b.location || state,
+        vertical: b.industry || b.linkedin_category || 'Manufacturing',
+        revenue: b.revenue || b.annual_revenue || 'Unknown',
+        techStack: b.tech_stack ? b.tech_stack.slice(0, 3) : [],
+        signal: b.recent_event || event || 'Growth',
+        contactName: '',
+        contactTitle: '',
+        fitScore: b.fit_score || 7,
+      })).filter(b => !DB.find(a => a.company === b.company));
+      renderDiscTable(discResults, 'vibe');
+      setMsg(discResults.length + ' real companies from Explorium');
+    } else {
+      throw new Error('No results from Explorium');
+    }
   } catch (e) {
-    document.getElementById('disc-body').innerHTML = errBlock(e.message);
-    setMsg('Error');
+    // Fall back to Claude-generated prospects with clear label
+    setMsg('Explorium returned no results — using Claude simulation');
+    try {
+      discResults = await claudeJSON('Generate realistic TX manufacturing companies for prospecting. Exclude: ' + existing + '.\nFilters: state=' + state + ' rev=' + rev + ' signal=' + event + '\nReturn 10 real-sounding TX manufacturing companies:\n[{"company":"","domain":"","city":"","vertical":"","revenue":"","techStack":["NetSuite"],"signal":"1-2 words","contactName":"","contactTitle":"","fitScore":8}]\nONLY JSON array. Short strings. fitScore 1-10.');
+      renderDiscTable(discResults, 'vibe');
+      setMsg('⚠️ Simulated prospects — check VIBE_API_KEY for real data');
+    } catch (e2) {
+      document.getElementById('disc-body').innerHTML = errBlock(e2.message);
+      setMsg('Error');
+    }
   }
   setBusy('btn-vibe', 'sp-vibe', false);
 }
