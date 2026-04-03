@@ -9,15 +9,16 @@ export default async function handler(req, res) {
   try {
     const { action, payload = {} } = req.body;
     const urls = {
-      'fetch-businesses': 'https://api.explorium.ai/v1/businesses/fetch',
-      'fetch-prospects':  'https://api.explorium.ai/v1/prospects/fetch',
-      'enrich-prospects': 'https://api.explorium.ai/v1/prospects/enrich',
-      'business-events':  'https://api.explorium.ai/v1/businesses/events',
+      'fetch-businesses':  'https://api.explorium.ai/v1/businesses',
+      'fetch-prospects':   'https://api.explorium.ai/v1/prospects',
+      'enrich-prospects':  'https://api.explorium.ai/v1/prospects/enrich',
+      'business-events':   'https://api.explorium.ai/v1/businesses/events',
+      'match-business':    'https://api.explorium.ai/v1/businesses/match',
     };
     if (!urls[action]) return res.status(400).json({ error: `Unknown action: ${action}` });
     const r = await fetch(urls[action], {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'api_key': KEY },
+      headers: { 'Content-Type': 'application/json', 'API_KEY': KEY },
       body: JSON.stringify(payload),
     });
     const data = await r.json();

@@ -1239,31 +1239,48 @@ async function runSignalsFull() {
   let signalSource = 'explorium';
 
   try {
-    // Try real Explorium business-events API
-    const r = await fetch('/api/vibe', {
+    // Step 1: Match business to get Explorium business_id
+    const matchR = await fetch('/api/vibe', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
-        action: 'business-events',
-        payload: {
-          filter: { company_name: [sel.company] },
-          event_types: ['new_product','merger_and_acquisitions','new_funding_round','increase_in_all_departments','hiring_in_sales_department','hiring_in_operations_department','cost_cutting','new_partnership','new_office'],
-          limit: 10,
-        }
+        action: 'match-business',
+        payload: [{ name: sel.company, domain: sel.website || null }]
       })
     });
-    const data = await r.json();
-    console.log('Explorium signals response:', JSON.stringify(data).substring(0, 500));
-    const events = data.events || data.results || data.data || [];
+    const matchData = await matchR.json();
+    console.log('Explorium match response:', JSON.stringify(matchData).substring(0, 500));
+    const bizId = matchData.data && matchData.data[0] && matchData.data[0].business_id;
 
-    if (events.length) {
-      signals = events.map(e => ({
-        type: e.event_type || e.type || 'new_product',
-        text: e.description || e.title || e.text || e.event_type || 'Business event detected',
-        date: e.date || e.event_date || new Date().toLocaleDateString('en-US', {month:'short', year:'numeric'}),
-      }));
+    if (bizId) {
+      // Step 2: Fetch events for this business_id
+      const r = await fetch('/api/vibe', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          action: 'business-events',
+          payload: {
+            business_ids: [bizId],
+            event_types: ['new_product','merger_and_acquisitions','new_funding_round','increase_in_all_departments','hiring_in_sales_department','hiring_in_operations_department','cost_cutting','new_partnership','new_office'],
+            timestamp_from: '2025-01-01',
+          }
+        })
+      });
+      const data = await r.json();
+      console.log('Explorium events response:', JSON.stringify(data).substring(0, 500));
+      const events = data.output_events || data.data || [];
+
+      if (events.length) {
+        signals = events.map(e => ({
+          type: e.event_name || e.event_type || 'new_product',
+          text: (e.data && (e.data.description || e.data.title || e.data.summary)) || e.event_name || 'Business event detected',
+          date: e.event_time ? new Date(e.event_time).toLocaleDateString('en-US', {month:'short', year:'numeric'}) : 'Recent',
+        }));
+      }
+      // Save business_id for future use
+      sel.explorium_id = bizId;
     } else {
-      console.warn('Explorium signals: empty response', data);
+      console.warn('Explorium: could not match business', sel.company);
     }
   } catch (e) { console.error('Explorium signals error:', e.message); }
 
@@ -1317,11 +1334,14 @@ async function runContacts() {
       body: JSON.stringify({
         action: 'fetch-prospects',
         payload: {
-          filter: {
-            company_name: [sel.company],
-            job_level: [level],
+          mode: 'full',
+          size: 5,
+          page_size: 5,
+          filters: {
+            business_id: sel.explorium_id ? { values: [sel.explorium_id] } : undefined,
+            job_level: { values: [level] },
+            has_email: { value: true },
           },
-          limit: 5,
         }
       })
     });
@@ -1330,7 +1350,7 @@ async function runContacts() {
 
     // Map Explorium response to our contact format
     let contacts = [];
-    const prospects = data.prospects || data.results || data.data || [];
+    const prospects = data.data || data.prospects || data.results || [];
     if (!prospects.length) console.warn('Explorium contacts: empty response', data);
     if (prospects.length) {
       contacts = prospects.map(p => ({
@@ -1995,18 +2015,20 @@ async function runVibe() {
       body: JSON.stringify({
         action: 'fetch-businesses',
         payload: {
-          filter: {
-            company_country_code: ['US'],
-            company_region_country_code: state === 'TX' ? ['US-TX'] : undefined,
-            company_revenue: rev ? [rev] : undefined,
-            linkedin_category: ['Manufacturing'],
+          mode: 'full',
+          size: 15,
+          page_size: 15,
+          filters: {
+            country_code: { values: ['US'] },
+            region_country_code: state === 'TX' ? { values: ['US-TX'] } : undefined,
+            company_revenue: rev ? { values: [rev] } : undefined,
           },
-          limit: 15,
         }
       })
     });
     const data = await r.json();
-    const businesses = data.businesses || data.results || data.data || [];
+    console.log('Explorium businesses response:', JSON.stringify(data).substring(0, 500));
+    const businesses = data.data || data.businesses || data.results || [];
 
     if (businesses.length) {
       discResults = businesses.map(b => ({
