@@ -626,6 +626,8 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
   <span style="color:var(--border2);">·</span>
   <span id="sb-msg">Ready</span>
   <span style="color:var(--border2);margin-left:auto;">·</span>
+  <span id="sb-db" style="color:var(--text3);">DB: local</span>
+  <span style="color:var(--border2);">·</span>
   <span id="sb-time"></span>
 </div>
 
@@ -833,11 +835,92 @@ function updateSendButton() {
 // Check Gmail on load
 setTimeout(checkGmailStatus, 500);
 
-const save = () => { localStorage.setItem('nteli_v8', JSON.stringify(DB)); updateSB(); };
-const saveEvents = () => localStorage.setItem('nteli_events_v1', JSON.stringify(EVENTS));
+const save = () => {
+  localStorage.setItem('nteli_v8', JSON.stringify(DB));
+  updateSB();
+  dbSaveAccounts();
+};
+const saveEvents = () => {
+  localStorage.setItem('nteli_events_v1', JSON.stringify(EVENTS));
+  dbSaveEventsAsync();
+};
 const setMsg = m => document.getElementById('sb-msg').textContent = m;
 const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-const updateSB = () => { document.getElementById('sb-accts').textContent = DB.length + ' accounts'; };
+const updateSB = () => {
+  document.getElementById('sb-accts').textContent = DB.length + ' accounts';
+  const dbEl = document.getElementById('sb-db');
+  if (dbEl) dbEl.textContent = dbReady ? 'DB: ✓' : 'DB: local';
+};
+
+// ══════════════════════════════════════
+// DATABASE SYNC (Neon Postgres)
+// ══════════════════════════════════════
+let dbReady = false;
+
+async function dbInit() {
+  try {
+    const r = await fetch('/api/db?action=setup', {method:'POST'});
+    const d = await r.json();
+    if (d.success) { dbReady = true; updateSB(); }
+  } catch { dbReady = false; }
+}
+
+async function dbLoad() {
+  if (!dbReady) return;
+  try {
+    const r = await fetch('/api/db?action=load');
+    const d = await r.json();
+    if (d.accounts && d.accounts.length) {
+      DB = d.accounts;
+      DB.forEach(a => {
+        if (!a.tasks) { a.tasks = {}; OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false,doneAt:null}; }); }
+        if (!a.emails) a.emails = [];
+      });
+      localStorage.setItem('nteli_v8', JSON.stringify(DB));
+      renderList(); updateSB();
+      setMsg('Loaded ' + DB.length + ' accounts from database');
+    }
+    if (d.events && d.events.length) {
+      EVENTS = d.events;
+      localStorage.setItem('nteli_events_v1', JSON.stringify(EVENTS));
+    }
+    if (d.settings) {
+      if (d.settings.sig) { localStorage.setItem('nteli_sig', d.settings.sig); const el = document.getElementById('s-sig'); if (el) el.value = d.settings.sig; }
+      if (d.settings.proof) { localStorage.setItem('nteli_proof', d.settings.proof); const el = document.getElementById('s-proof'); if (el) el.value = d.settings.proof; }
+    }
+  } catch (e) { setMsg('DB load failed — using local data'); }
+}
+
+let dbSaveTimer = null;
+function dbSaveAccounts() {
+  if (!dbReady) return;
+  clearTimeout(dbSaveTimer);
+  dbSaveTimer = setTimeout(async () => {
+    try {
+      await fetch('/api/db?action=save-accounts', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({accounts: DB})
+      });
+    } catch { /* localStorage is backup */ }
+  }, 1500);
+}
+
+let dbEvtTimer = null;
+function dbSaveEventsAsync() {
+  if (!dbReady) return;
+  clearTimeout(dbEvtTimer);
+  dbEvtTimer = setTimeout(async () => {
+    try {
+      await fetch('/api/db?action=save-events', {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({events: EVENTS})
+      });
+    } catch { /* localStorage is backup */ }
+  }, 1500);
+}
+
+// Init DB on page load
+dbInit().then(() => dbLoad());
 const initials = name => (name || '').split(' ').map(w => w[0] || '').join('').substring(0, 2).toUpperCase();
 const setBusy = (b, s, on) => { document.getElementById(b).disabled = on; document.getElementById(s).style.display = on ? 'inline-block' : 'none'; };
 
@@ -1839,8 +1922,16 @@ function addAllVibe() { discResults.forEach((_, i) => addOneVibe(i)); setMsg('Vi
 // SETTINGS & DATA
 // ══════════════════════════════════════
 function saveSettings() {
-  localStorage.setItem('nteli_sig', document.getElementById('s-sig').value);
-  localStorage.setItem('nteli_proof', document.getElementById('s-proof').value);
+  const sig = document.getElementById('s-sig').value;
+  const proof = document.getElementById('s-proof').value;
+  localStorage.setItem('nteli_sig', sig);
+  localStorage.setItem('nteli_proof', proof);
+  if (dbReady) {
+    fetch('/api/db?action=save-settings', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({settings: {sig, proof}})
+    }).catch(() => {});
+  }
   setMsg('Settings saved');
 }
 

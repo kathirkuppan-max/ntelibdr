@@ -5,6 +5,7 @@
     { "src": "/api/vibe",   "dest": "/api/vibe.js"   },
     { "src": "/api/claude", "dest": "/api/claude.js" },
     { "src": "/api/gmail",  "dest": "/api/gmail.js"  },
+    { "src": "/api/db",     "dest": "/api/db.js"     },
     { "src": "/(.*)",       "dest": "/public/$1"     }
   ]
 }
