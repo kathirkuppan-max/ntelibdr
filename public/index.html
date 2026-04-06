@@ -1001,14 +1001,23 @@ function updateSendButton() {
 // Check Gmail on load
 setTimeout(checkGmailStatus, 500);
 
+let _saveTimer = null;
 const save = () => {
-  localStorage.setItem('nteli_v8', JSON.stringify(DB));
   updateSB();
-  dbSaveAccounts();
+  // Defer heavy serialization off the UI interaction
+  clearTimeout(_saveTimer);
+  _saveTimer = setTimeout(() => {
+    localStorage.setItem('nteli_v8', JSON.stringify(DB));
+    dbSaveAccounts();
+  }, 100);
 };
+let _evtSaveTimer = null;
 const saveEvents = () => {
-  localStorage.setItem('nteli_events_v5', JSON.stringify(EVENTS));
-  dbSaveEventsAsync();
+  clearTimeout(_evtSaveTimer);
+  _evtSaveTimer = setTimeout(() => {
+    localStorage.setItem('nteli_events_v5', JSON.stringify(EVENTS));
+    dbSaveEventsAsync();
+  }, 100);
 };
 const setMsg = m => document.getElementById('sb-msg').textContent = m;
 const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
