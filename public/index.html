@@ -2586,16 +2586,22 @@ function loadStoriesSettings() {
 
 function resetDB() {
   if (!confirm('Reset to 25 default accounts? This cannot be undone.')) return;
-  DB = SEED.map(a => ({...a}));
-  DB.forEach(a => {
-    if (!a.tasks) { a.tasks = {}; OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false, doneAt:null}; }); }
-    if (!a.emails) a.emails = [];
-  });
-  save(); renderList(); buildKanban();
+  setMsg('Resetting...');
   sel = null;
   document.getElementById('de-empty').style.display = '';
   document.getElementById('de-content').style.display = 'none';
-  setMsg('Reset to defaults');
+  // Defer heavy work
+  setTimeout(() => {
+    DB = SEED.map(a => ({...a}));
+    DB.forEach(a => {
+      if (!a.tasks) { a.tasks = {}; OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false, doneAt:null}; }); }
+      if (!a.emails) a.emails = [];
+    });
+    renderList();
+    save();
+    setTimeout(buildKanban, 50);
+    setMsg('Reset to defaults — ' + DB.length + ' accounts');
+  }, 10);
 }
 
 function exportCSV() {
