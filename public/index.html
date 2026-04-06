@@ -1004,20 +1004,29 @@ setTimeout(checkGmailStatus, 500);
 let _saveTimer = null;
 const save = () => {
   updateSB();
-  // Defer heavy serialization off the UI interaction
   clearTimeout(_saveTimer);
   _saveTimer = setTimeout(() => {
-    localStorage.setItem('nteli_v8', JSON.stringify(DB));
-    dbSaveAccounts();
-  }, 100);
+    requestIdleCallback ? requestIdleCallback(() => {
+      localStorage.setItem('nteli_v8', JSON.stringify(DB));
+      dbSaveAccounts();
+    }) : setTimeout(() => {
+      localStorage.setItem('nteli_v8', JSON.stringify(DB));
+      dbSaveAccounts();
+    }, 50);
+  }, 200);
 };
 let _evtSaveTimer = null;
 const saveEvents = () => {
   clearTimeout(_evtSaveTimer);
   _evtSaveTimer = setTimeout(() => {
-    localStorage.setItem('nteli_events_v5', JSON.stringify(EVENTS));
-    dbSaveEventsAsync();
-  }, 100);
+    requestIdleCallback ? requestIdleCallback(() => {
+      localStorage.setItem('nteli_events_v5', JSON.stringify(EVENTS));
+      dbSaveEventsAsync();
+    }) : setTimeout(() => {
+      localStorage.setItem('nteli_events_v5', JSON.stringify(EVENTS));
+      dbSaveEventsAsync();
+    }, 50);
+  }, 200);
 };
 const setMsg = m => document.getElementById('sb-msg').textContent = m;
 const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -1327,12 +1336,14 @@ function renderPersonaSignals() {
 function saveStage() {
   if (!sel) return;
   sel.stage = document.getElementById('dc-stage').value;
-  save(); renderList(); buildKanban(); pick(sel.id); setMsg(sel.company + ' → ' + sel.stage);
+  save(); setMsg(sel.company + ' → ' + sel.stage);
+  requestAnimationFrame(() => { renderList(); setTimeout(buildKanban, 0); });
 }
 
 function markContacted() {
   if (!sel) return;
-  sel.contacted = true; save(); renderList(); pick(sel.id); setMsg(sel.company + ' marked contacted');
+  sel.contacted = true; save(); setMsg(sel.company + ' marked contacted');
+  requestAnimationFrame(() => renderList());
 }
 
 function openLI() { if (sel) window.open('https://www.linkedin.com/search/results/people/?keywords=' + encodeURIComponent(sel.liSearch), '_blank'); }
@@ -2165,8 +2176,9 @@ function toggleTask(key) {
   const t = sel.tasks[key];
   t.done = !t.done;
   t.doneAt = t.done ? new Date().toLocaleDateString() : null;
-  save(); renderTasks();
   setMsg(sel.company + ' — ' + (t.done ? '✓' : '↩') + ' ' + OUTREACH_SEQUENCE.find(s => s.key === key).label);
+  renderTasks();
+  save();
 }
 
 function copyTaskSummary() {
@@ -2252,8 +2264,9 @@ function renderEvents() {
 
 function toggleAttend(i) {
   EVENTS[i].attending = !EVENTS[i].attending;
-  saveEvents(); renderEvents();
   setMsg(EVENTS[i].name + (EVENTS[i].attending ? ' — attending' : ' — unmarked'));
+  renderEvents();
+  saveEvents();
 }
 
 async function addToCalendar(i) {
