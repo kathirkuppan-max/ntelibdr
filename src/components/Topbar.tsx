@@ -14,12 +14,12 @@ export function Topbar({ currentPage, onNavigate }: { currentPage: Page; onNavig
   const { dbReady, gmailConnected, gmailEmail, user } = useStore()
 
   return (
-    <header className="h-13 shrink-0 bg-surface flex items-center px-5 border-b border-border">
-      <div className="text-base font-bold tracking-tight mr-6">
+    <header className="h-[56px] shrink-0 bg-white flex items-center px-6 border-b border-border shadow-sm">
+      <div className="text-[17px] font-bold tracking-tight mr-8">
         NTELI <span className="text-blue">BDR</span>
       </div>
 
-      <nav className="flex h-full">
+      <nav className="flex h-full gap-1">
         {TABS.map(tab => (
           <button
             key={tab.key}
@@ -35,16 +35,16 @@ export function Topbar({ currentPage, onNavigate }: { currentPage: Page; onNavig
         ))}
       </nav>
 
-      <div className="flex gap-2 items-center ml-auto">
-        <Pill dot={dbReady ? '#22C55E' : '#F85149'}>DB</Pill>
-        <Pill dot={gmailConnected ? '#22C55E' : '#F85149'}>
-          {gmailConnected ? `Gmail: ${gmailEmail}` : 'Gmail'}
+      <div className="flex gap-2.5 items-center ml-auto">
+        <Pill dot={dbReady ? '#22C55E' : '#EF4444'}>DB</Pill>
+        <Pill dot={gmailConnected ? '#22C55E' : '#EF4444'}>
+          {gmailConnected ? gmailEmail : 'Gmail'}
         </Pill>
         <Pill>Claude AI</Pill>
         {user && (
           <a
             href="/api/auth?action=logout"
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium border border-border2 bg-surface2 text-text2 hover:text-text cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[12px] font-medium bg-surface2 text-text2 hover:text-text hover:bg-surface3 cursor-pointer transition-colors"
             title={`${user.email} — click to sign out`}
           >
             {user.name || user.email.split('@')[0]}
@@ -57,10 +57,10 @@ export function Topbar({ currentPage, onNavigate }: { currentPage: Page; onNavig
 
 function Pill({ children, dot }: { children: React.ReactNode; dot?: string }) {
   return (
-    <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-medium border border-border2 bg-surface2 text-text2">
+    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-medium bg-surface2 text-text2">
       {dot && (
         <div
-          className="w-1.5 h-1.5 rounded-full animate-pulse-slow"
+          className="w-[6px] h-[6px] rounded-full animate-pulse-slow"
           style={{ background: dot }}
         />
       )}
