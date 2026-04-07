@@ -374,12 +374,11 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
           </div>
           <div class="detail-actions">
             <select class="fsel" id="dc-stage">
-              <option>New</option><option>Researching</option><option>Outreach</option>
-              <option>Connected</option><option>Meeting</option><option>Proposal</option>
-              <option>Won</option><option>Lost</option>
+              <option>Prospect</option><option>Connected</option><option>Met</option>
+              <option>Following Up</option><option>Engaged</option><option>Meeting</option>
+              <option>Proposal</option><option>Won</option><option>Lost</option>
             </select>
             <button class="btn btn-outline btn-sm" onclick="saveStage()">Save</button>
-            <button class="btn btn-outline btn-sm" onclick="markContacted()">✓ Contacted</button>
             <button class="btn btn-outline btn-sm" onclick="openLI()">🔗 LinkedIn</button>
           </div>
         </div>
@@ -400,97 +399,28 @@ tbody td{padding:9px 12px;font-size:13px;vertical-align:middle;}
           </div>
         </div>
 
-        <!-- SECTION 2: BUYING SIGNALS -->
-        <div class="gtm-card">
-          <div class="gtm-card-hdr">
-            <div class="gtm-card-title">⚡ Buying Signals <span class="badge badge-green" style="font-size:10px;">Live · Vibe</span></div>
-            <button class="btn btn-purple btn-sm" id="btn-signals" onclick="runSignalsFull()">
-              <span class="spin spin-purple" id="sp-signals" style="display:none"></span>
-              Generate Signals
-            </button>
-          </div>
-          <div class="gtm-card-body">
-            <div id="dc-signals"><div style="color:var(--text3);font-size:13px;font-style:italic;">Click "Generate Signals" to pull persona-matched buying intelligence.</div></div>
-          </div>
-        </div>
-
-        <!-- SECTION 3: KEY CONTACTS -->
+        <!-- SECTION 2: KEY CONTACTS -->
         <div class="gtm-card">
           <div class="gtm-card-hdr">
             <div class="gtm-card-title">👥 Key Contacts</div>
-            <div style="display:flex;gap:6px;align-items:center;">
-              <select class="fsel" id="c-level" style="font-size:12px;padding:4px 8px;">
-                <option value="c-suite">C-Suite</option>
-                <option value="vice president">VP</option>
-                <option value="director">Director</option>
-              </select>
-              <button class="btn btn-purple btn-sm" id="btn-contacts" onclick="runContacts()">
-                <span class="spin spin-purple" id="sp-contacts" style="display:none"></span>
-                Enrich Contacts
-              </button>
-            </div>
+            <button class="btn btn-purple btn-sm" id="btn-contacts" onclick="runContacts()">
+              <span class="spin spin-purple" id="sp-contacts" style="display:none"></span>
+              Enrich
+            </button>
           </div>
           <div class="gtm-card-body">
-            <div id="dc-contacts"><div style="color:var(--text3);font-size:13px;font-style:italic;">Click "Enrich Contacts" to pull verified emails, phones, and LinkedIn profiles.</div></div>
+            <div id="dc-contacts"><div style="color:var(--text3);font-size:13px;font-style:italic;">Click "Enrich" to pull verified contacts.</div></div>
           </div>
         </div>
 
-        <!-- SECTION 4: OUTREACH SEQUENCE -->
+        <!-- SECTION 3: MEETINGS & FOLLOW-UPS -->
         <div class="gtm-card">
           <div class="gtm-card-hdr">
-            <div class="gtm-card-title">📋 Outreach Sequence <span class="badge badge-blue" id="dc-task-progress" style="font-size:10px;">0/5</span></div>
-            <button class="btn btn-outline btn-sm" onclick="copyTaskSummary()">📋 Copy for Slack</button>
+            <div class="gtm-card-title">🤝 Meetings & Follow-ups <span class="gmail-badge off" id="gmail-badge" onclick="connectGmail()" title="Click to connect Gmail">Gmail</span></div>
+            <button class="btn btn-primary btn-sm" onclick="logMeeting()">📝 Met at Event</button>
           </div>
           <div class="gtm-card-body">
-            <div id="dc-tasks"></div>
-          </div>
-        </div>
-
-        <!-- SECTION 5: OUTREACH -->
-        <div class="gtm-card">
-          <div class="gtm-card-hdr">
-            <div class="gtm-card-title">✍️ Outreach Tools <span class="gmail-badge off" id="gmail-badge" onclick="connectGmail()" title="Click to connect Gmail">Gmail: Not Connected</span></div>
-            <div style="display:flex;gap:6px;align-items:center;">
-              <select class="fsel" id="e-persona" style="font-size:12px;padding:4px 8px;">
-                <option value="CRO">CRO / VP Sales</option>
-                <option value="CFO">CFO / VP Finance</option>
-                <option value="COO">COO / VP Operations</option>
-                <option value="CEO">CEO / Owner</option>
-              </select>
-              <button class="btn btn-primary btn-sm" id="btn-email" onclick="runEmail()">
-                <span class="spin spin-blue" id="sp-email" style="display:none"></span>
-                Draft Email
-              </button>
-              <button class="btn btn-outline btn-sm" id="btn-li" onclick="runLinkedInAndMark()">
-                <span class="spin spin-blue" id="sp-li" style="display:none"></span>
-                LI Note
-              </button>
-            </div>
-          </div>
-          <div class="gtm-card-body">
-            <!-- Email Composer -->
-            <div class="email-composer" id="email-composer">
-              <div class="email-field">
-                <div class="email-field-label">To</div>
-                <input class="email-field-input" id="e-to" type="email" placeholder="Enrich contacts to auto-fill recipient...">
-              </div>
-              <div class="email-field">
-                <div class="email-field-label">Subject</div>
-                <input class="email-field-input" id="e-sub" placeholder="Draft an email to see the subject line...">
-              </div>
-              <div class="email-body-edit ph" id="e-body" contenteditable="false">Draft an email to see the body...</div>
-              <div class="email-actions" id="e-actions">
-                <button class="btn btn-primary btn-sm" id="btn-send" onclick="approveAndSend()" disabled>✅ Approve & Send</button>
-                <button class="btn btn-outline btn-sm" id="btn-edit" onclick="editDraft()" disabled>✏️ Edit</button>
-                <button class="btn btn-outline btn-sm" id="btn-revise" onclick="reviseDraft()" disabled>🔄 Revise</button>
-                <button class="btn btn-outline btn-sm" id="btn-reject" onclick="rejectDraft()" disabled>❌ Reject</button>
-                <button class="cpbtn" onclick="cp('e-body',this)" style="margin-left:auto;">Copy</button>
-              </div>
-            </div>
-            <!-- LinkedIn Notes -->
-            <div id="li-out"></div>
-            <!-- Email History -->
-            <div class="email-history" id="email-history"></div>
+            <div id="dc-meetings"></div>
           </div>
         </div>
       </div>
@@ -947,6 +877,7 @@ DB.forEach(a => {
     OUTREACH_SEQUENCE.forEach(t => { a.tasks[t.key] = {done:false, doneAt:null}; });
   }
   if (!a.emails) a.emails = [];
+  if (!a.meetings) a.meetings = [];
 });
 
 // Gmail connection state
@@ -1195,7 +1126,7 @@ function pick(id) {
   document.getElementById('dc-name').textContent = sel.company;
   document.getElementById('dc-sub').textContent = sel.vertical + ' · ' + sel.city + ' · ' + sel.rev;
 
-  const sb = {New:'badge-gray',Researching:'badge-blue',Outreach:'badge-amber',Connected:'badge-blue',Meeting:'badge-green',Proposal:'badge-gold',Won:'badge-green',Lost:'badge-red'};
+  const sb = {Prospect:'badge-gray',New:'badge-gray',Connected:'badge-blue',Met:'badge-amber','Following Up':'badge-purple',Engaged:'badge-blue',Meeting:'badge-green',Proposal:'badge-gold',Won:'badge-green',Lost:'badge-red'};
   document.getElementById('dc-badges').innerHTML =
     `<span class="badge ${sel.priority === 'High' ? 'badge-gold' : 'badge-blue'}">${sel.priority} Priority</span>` +
     (sel.pe ? '<span class="badge badge-purple">PE-Backed</span>' : '') +
@@ -1214,16 +1145,8 @@ function pick(id) {
   document.getElementById('dc-pains').innerHTML = sel.pains.map((p, i) =>
     `<div class="pain-item"><span class="pain-num">#${i + 1}</span><span style="font-size:13px;">${esc(p)}</span></div>`).join('');
 
-  renderPersonaSignals();
-  renderTasks();
-
   renderContacts();
-  // Reset email composer and render history
-  resetComposer();
-  document.getElementById('e-to').value = '';
-  renderLinkedInNotes();
-  renderEmailHistory();
-  autoFillRecipient();
+  renderMeetings();
   setMsg(sel.company + ' selected');
 }
 
@@ -1269,6 +1192,173 @@ function renderContacts() {
       </div>`).join('');
   // Auto-fill email TO field from first contact
   autoFillRecipient();
+}
+
+// ══════════════════════════════════════
+// MEETINGS & FOLLOW-UPS
+// ══════════════════════════════════════
+function logMeeting() {
+  if (!sel) { setMsg('Select an account first'); return; }
+  const attendingEvents = EVENTS.filter(e => e.attending);
+  if (!attendingEvents.length) { setMsg('Mark an event as attending first (Events tab)'); return; }
+
+  const eventName = attendingEvents.length === 1
+    ? attendingEvents[0].name
+    : prompt('Which event?\n' + attendingEvents.map((e,i) => (i+1) + '. ' + e.name).join('\n'), attendingEvents[0].name);
+  if (!eventName) return;
+
+  const contactName = (sel.contacts && sel.contacts.length)
+    ? prompt('Who did you meet?\n' + sel.contacts.map((c,i) => (i+1) + '. ' + c.name + ' (' + c.title + ')').join('\n'), sel.contacts[0].name)
+    : prompt('Who did you meet? (name)');
+  if (!contactName) return;
+
+  const notes = prompt('What did you discuss? (key topics, follow-up items)');
+  if (!notes) return;
+
+  if (!sel.meetings) sel.meetings = [];
+  const contact = (sel.contacts || []).find(c => c.name.includes(contactName) || contactName.includes(c.name)) || {name: contactName, email: '', title: ''};
+
+  const meeting = {
+    id: 'm_' + Date.now(),
+    event: eventName,
+    contact: contact.name,
+    contactEmail: contact.email || '',
+    contactTitle: contact.title || '',
+    notes: notes,
+    date: new Date().toLocaleDateString(),
+    followUps: [
+      {day: 1, status: 'pending', subject: '', body: '', sentAt: null},
+      {day: 5, status: 'pending', subject: '', body: '', sentAt: null},
+      {day: 10, status: 'pending', subject: '', body: '', sentAt: null},
+    ]
+  };
+
+  sel.meetings.push(meeting);
+  if (sel.stage === 'Prospect' || sel.stage === 'Connected' || sel.stage === 'New') {
+    sel.stage = 'Met';
+    document.getElementById('dc-stage').value = 'Met';
+  }
+  save();
+  renderMeetings();
+  setMsg('Meeting logged — follow-up sequence created for ' + contact.name);
+
+  // Auto-generate follow-up emails
+  generateFollowUps(meeting, sel.meetings.length - 1);
+}
+
+async function generateFollowUps(meeting, meetingIdx) {
+  if (!sel) return;
+  const sig = localStorage.getItem('nteli_sig') || 'Kathir';
+  const senderName = sig.split('|')[0].trim();
+  const stories = localStorage.getItem('nteli_stories') || '';
+  const kb = stories || CASE_STUDY_KB.CRO;
+
+  setMsg('Generating follow-up emails...');
+  try {
+    const result = await claudeJSON(`Generate a 3-email follow-up sequence for a manufacturing executive I just met at an event.
+
+MEETING CONTEXT:
+- Met: ${meeting.contact} (${meeting.contactTitle}) at ${sel.company}
+- Event: ${meeting.event}
+- What we discussed: ${meeting.notes}
+- Company: ${sel.company} (${sel.vertical}, ${sel.city}, ${sel.rev})
+- Sender: ${senderName}
+
+CUSTOMER STORIES TO REFERENCE:
+${kb}
+
+GENERATE 3 EMAILS:
+Email 1 (send next day): Brief follow-up referencing the conversation. Attach case study mention. 3 sentences max.
+Email 2 (send day 5): Check if the case study resonated. Reference specific topic from meeting notes. 3 sentences max.
+Email 3 (send day 10): Suggest a 30-min meeting to dive deeper. Reference their specific challenge from notes. 3 sentences max.
+
+RULES:
+- Sound like a real person, not a sales rep
+- No buzzwords, no fluff
+- Use first names
+- Each email: subject line + body, 3 sentences max
+
+Return JSON: [{"subject":"","body":""},{"subject":"","body":""},{"subject":"","body":""}]
+ONLY JSON array.`);
+
+    if (result && result.length === 3) {
+      result.forEach((email, i) => {
+        sel.meetings[meetingIdx].followUps[i].subject = email.subject;
+        sel.meetings[meetingIdx].followUps[i].body = email.body;
+        sel.meetings[meetingIdx].followUps[i].status = 'ready';
+      });
+      save();
+      renderMeetings();
+      setMsg('✅ 3 follow-up emails ready for ' + meeting.contact);
+    }
+  } catch (e) {
+    setMsg('Error generating follow-ups: ' + e.message);
+  }
+}
+
+async function sendFollowUp(meetingIdx, followUpIdx) {
+  if (!sel || !gmailConnected) { setMsg('Connect Gmail first'); return; }
+  const meeting = sel.meetings[meetingIdx];
+  const fu = meeting.followUps[followUpIdx];
+  if (!meeting.contactEmail) { setMsg('No email for ' + meeting.contact + ' — add manually'); return; }
+
+  setMsg('Sending follow-up to ' + meeting.contact + '...');
+  try {
+    const sig = localStorage.getItem('nteli_sig') || 'Kathir';
+    const fromName = sig.split('|')[0].trim();
+    const emailId = 'fu_' + Date.now();
+    const r = await fetch('/api/gmail?action=send', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ to: meeting.contactEmail, subject: fu.subject, body: fu.body, fromName, emailId }),
+    });
+    const d = await r.json();
+    if (!r.ok || !d.success) throw new Error(d.error || 'Send failed');
+
+    fu.status = 'sent';
+    fu.sentAt = new Date().toLocaleDateString();
+    if (sel.stage === 'Met') { sel.stage = 'Following Up'; document.getElementById('dc-stage').value = 'Following Up'; }
+    save();
+    renderMeetings();
+    setMsg('✅ Sent to ' + meeting.contactEmail);
+  } catch (e) {
+    setMsg('Send failed: ' + e.message);
+  }
+}
+
+function renderMeetings() {
+  if (!sel) return;
+  const el = document.getElementById('dc-meetings');
+  if (!sel.meetings || !sel.meetings.length) {
+    el.innerHTML = '<div style="color:var(--text3);font-size:13px;font-style:italic;padding:8px 0;">No meetings yet. Meet someone at an event and click "📝 Met at Event" to start the follow-up sequence.</div>';
+    return;
+  }
+
+  const statusIcon = {pending:'⏳', ready:'📧', sent:'✅', opened:'👁️', replied:'💬'};
+  const statusLabel = {pending:'Generating...', ready:'Ready to send', sent:'Sent', opened:'Opened', replied:'Replied'};
+
+  el.innerHTML = sel.meetings.slice().reverse().map((m, ri) => {
+    const mi = sel.meetings.length - 1 - ri;
+    return `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin-bottom:10px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <div>
+          <div style="font-size:14px;font-weight:600;">🤝 ${esc(m.contact)}</div>
+          <div style="font-size:12px;color:var(--text3);">${esc(m.contactTitle)} · ${esc(m.event)} · ${m.date}</div>
+        </div>
+        ${m.contactEmail ? `<span class="badge badge-green" style="font-size:10px;">✉ ${esc(m.contactEmail)}</span>` : '<span class="badge badge-amber" style="font-size:10px;">No email</span>'}
+      </div>
+      <div style="font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;padding:8px 10px;background:var(--surface3);border-radius:var(--r);font-style:italic;">📝 "${esc(m.notes)}"</div>
+      <div style="font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Follow-up Sequence</div>
+      ${m.followUps.map((fu, fi) => `<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-bottom:1px solid var(--border);font-size:12px;">
+        <span>${statusIcon[fu.status] || '⏳'}</span>
+        <span style="color:var(--text3);font-family:monospace;min-width:40px;">Day ${fu.day}</span>
+        <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${fu.subject ? esc(fu.subject) : 'Generating...'}</span>
+        <span style="font-size:10px;color:var(--text3);">${statusLabel[fu.status]}</span>
+        ${fu.status === 'ready' ? `<button class="btn btn-primary btn-sm" style="font-size:11px;padding:2px 8px;" onclick="sendFollowUp(${mi},${fi})">Send</button>` : ''}
+        ${fu.status === 'sent' ? `<span style="font-size:10px;color:var(--green);">${fu.sentAt}</span>` : ''}
+      </div>`).join('')}
+    </div>`;
+  }).join('');
 }
 
 function renderPersonaSignals() {
@@ -2074,8 +2164,8 @@ function copyAndOpenLI(noteIndex) {
 // ══════════════════════════════════════
 // PIPELINE
 // ══════════════════════════════════════
-const STAGES = ['New', 'Researching', 'Outreach', 'Connected', 'Meeting', 'Proposal'];
-const STAGE_CLR = {New:'#CBD5E1', Researching:'#2874A6', Outreach:'#D97706', Connected:'#0D9488', Meeting:'#15803D', Proposal:'#F59E0B'};
+const STAGES = ['Prospect', 'Connected', 'Met', 'Following Up', 'Engaged', 'Meeting', 'Proposal'];
+const STAGE_CLR = {Prospect:'#CBD5E1', Connected:'#2874A6', Met:'#D97706', 'Following Up':'#0D9488', Engaged:'#58A6FF', Meeting:'#15803D', Proposal:'#F59E0B'};
 
 function buildKanban() {
   document.getElementById('kanban').innerHTML = STAGES.map(s => {
