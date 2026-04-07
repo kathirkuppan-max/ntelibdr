@@ -1,9 +1,3 @@
 {
-  "version": 2,
-  "routes": [
-    { "src": "/api/ocean",  "dest": "/api/ocean.js"  },
-    { "src": "/api/vibe",   "dest": "/api/vibe.js"   },
-    { "src": "/api/claude", "dest": "/api/claude.js" },
-    { "src": "/(.*)",       "dest": "/public/$1"     }
-  ]
+  "framework": "nextjs"
 }
