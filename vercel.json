@@ -1,12 +1,3 @@
 {
-  "version": 2,
-  "routes": [
-    { "src": "/api/ocean",  "dest": "/api/ocean.js"  },
-    { "src": "/api/vibe",   "dest": "/api/vibe.js"   },
-    { "src": "/api/claude", "dest": "/api/claude.js" },
-    { "src": "/api/gmail",  "dest": "/api/gmail.js"  },
-    { "src": "/api/auth",   "dest": "/api/auth.js"   },
-    { "src": "/api/db",     "dest": "/api/db.js"     },
-    { "src": "/(.*)",       "dest": "/public/$1"     }
-  ]
+  "framework": "nextjs"
 }
