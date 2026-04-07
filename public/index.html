@@ -1992,7 +1992,12 @@ async function checkAuth() {
   }
 }
 
-checkAuth();
+try { checkAuth(); } catch(e) {
+  console.error('Auth failed:', e);
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app-content').style.display = '';
+  goPage('accounts', document.querySelectorAll('.ntab')[0]);
+}
 </script>
 </div><!-- /app-content -->
 </body>
