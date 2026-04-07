@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import { useStore } from '@/lib/store'
-import type { Account, Stage } from '@/lib/types'
+import type { Account } from '@/lib/types'
 import { AccountDetail } from './AccountDetail'
 
 const FILTERS = [
@@ -33,36 +33,38 @@ export function AccountsPage() {
   }, [accounts, filter, search])
 
   return (
-    <div className="grid grid-cols-[300px_1fr] h-full">
+    <div className="grid grid-cols-[320px_1fr] h-full">
       {/* Account List */}
-      <div className="bg-surface border-r border-border flex flex-col overflow-hidden">
-        <div className="p-3.5 pb-2.5 border-b border-border shrink-0">
-          <div className="flex items-center justify-between mb-2.5">
-            <span className="text-[15px] font-semibold">Target Accounts</span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium bg-blue-bg text-blue border border-blue-border">
+      <div className="bg-white border-r border-border flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="px-5 pt-5 pb-4 border-b border-border shrink-0">
+          <div className="flex items-center justify-between mb-3">
+            <h2 className="text-[16px] font-semibold text-text">Target Accounts</h2>
+            <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold bg-blue-bg text-blue border border-blue-border">
               {filtered.length}
             </span>
           </div>
-          <div className="flex items-center gap-2 bg-surface2 border border-border rounded-md px-2.5 py-1.5">
-            <span className="text-text3 text-sm">&#x2315;</span>
+          <div className="flex items-center gap-2 bg-surface2 rounded-lg px-3 py-2">
+            <svg className="w-4 h-4 text-text3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
             <input
               placeholder="Search accounts..."
               value={search}
               onChange={e => setSearch(e.target.value)}
-              className="bg-transparent border-none text-text text-[13px] outline-none flex-1"
+              className="bg-transparent border-none text-text text-[13px] outline-none flex-1 placeholder-text3"
             />
           </div>
         </div>
 
-        <div className="px-3.5 py-2 flex gap-1.5 flex-wrap shrink-0 border-b border-border">
+        {/* Filter chips */}
+        <div className="px-5 py-3 flex gap-1.5 flex-wrap shrink-0 border-b border-border">
           {FILTERS.map(f => (
             <button
               key={f.key}
               onClick={() => setFilter(f.key)}
-              className={`text-[11px] px-2.5 py-0.5 rounded-full border font-medium cursor-pointer transition-all select-none ${
+              className={`text-[11px] px-3 py-1 rounded-full border font-medium cursor-pointer transition-all select-none ${
                 filter === f.key
-                  ? 'bg-blue-bg border-blue-border text-blue font-semibold'
-                  : 'border-border text-text3 hover:text-text'
+                  ? 'bg-blue text-white border-blue shadow-sm'
+                  : 'border-border text-text2 hover:border-border2 hover:text-text bg-white'
               }`}
             >
               {f.label}
@@ -70,6 +72,7 @@ export function AccountsPage() {
           ))}
         </div>
 
+        {/* List */}
         <div className="flex-1 overflow-y-auto min-h-0">
           {filtered.map(a => (
             <AccountRow key={a.id} account={a} selected={selectedId === a.id} onClick={() => selectAccount(a.id)} />
@@ -81,12 +84,16 @@ export function AccountsPage() {
       {selectedId ? (
         <AccountDetail />
       ) : (
-        <div className="flex flex-col items-center justify-center text-text3 text-center gap-3 bg-bg">
-          <div className="text-5xl opacity-20">&#x1F3AF;</div>
-          <div className="text-lg font-semibold opacity-30">Select an account</div>
-          <p className="text-[13px] text-text3 max-w-[220px] leading-relaxed">
-            Account intel, contacts, and meeting follow-ups — all in one view.
-          </p>
+        <div className="flex flex-col items-center justify-center text-text3 text-center gap-4 bg-bg">
+          <div className="w-16 h-16 rounded-2xl bg-surface2 flex items-center justify-center text-3xl">
+            &#x1F3AF;
+          </div>
+          <div>
+            <div className="text-[16px] font-semibold text-text2 mb-1">Select an account</div>
+            <p className="text-[13px] text-text3 max-w-[240px] leading-relaxed">
+              Account intel, contacts, and meeting follow-ups — all in one view.
+            </p>
+          </div>
         </div>
       )}
     </div>
@@ -115,22 +122,24 @@ function AccountRow({ account: a, selected, onClick }: { account: Account; selec
   return (
     <div
       onClick={onClick}
-      className={`px-4 py-2.5 border-b border-border cursor-pointer transition-colors relative ${
-        selected ? 'bg-blue-bg border-l-3 border-l-blue' : 'hover:bg-surface2'
+      className={`px-5 py-3 border-b border-border/60 cursor-pointer transition-all relative group ${
+        selected
+          ? 'bg-blue-bg border-l-[3px] border-l-blue'
+          : 'hover:bg-surface2'
       }`}
     >
       <div
-        className="w-[7px] h-[7px] rounded-full absolute right-2.5 top-3"
-        style={{ background: STAGE_COLORS[a.stage] || '#374458' }}
+        className="w-2 h-2 rounded-full absolute right-4 top-4"
+        style={{ background: STAGE_COLORS[a.stage] || '#A3A3A3' }}
       />
-      <div className="text-sm font-semibold truncate pr-5 mb-0.5">{a.company}</div>
-      <div className="flex items-center gap-1.5 text-xs text-text3">
-        <span className="w-[7px] h-[7px] rounded-full shrink-0" style={{ background: PRIO_COLORS[a.priority] }} />
+      <div className="text-[14px] font-semibold text-text truncate pr-6 mb-1">{a.company}</div>
+      <div className="flex items-center gap-2 text-[12px] text-text2">
+        <span className="w-2 h-2 rounded-full shrink-0" style={{ background: PRIO_COLORS[a.priority] }} />
         <span>{a.city}</span>
-        <span>·</span>
-        <span className="truncate">{a.vertical.substring(0, 28)}</span>
+        <span className="text-text3">·</span>
+        <span className="truncate text-text3">{a.vertical.substring(0, 28)}</span>
         {a.pe && (
-          <span className="inline-flex items-center px-1.5 py-px rounded-full text-[9px] font-medium bg-purple-bg text-purple border border-purple-border">PE</span>
+          <span className="inline-flex items-center px-1.5 py-px rounded text-[9px] font-semibold bg-purple-bg text-purple border border-purple-border">PE</span>
         )}
       </div>
     </div>

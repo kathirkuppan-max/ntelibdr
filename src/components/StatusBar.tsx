@@ -15,8 +15,8 @@ export function StatusBar() {
   }, [])
 
   return (
-    <footer className="h-7 shrink-0 bg-surface border-t border-border flex items-center px-5 gap-3 text-[11px] text-text3 font-mono">
-      <div className="w-1.5 h-1.5 rounded-full bg-green" />
+    <footer className="h-[32px] shrink-0 bg-white border-t border-border flex items-center px-6 gap-3 text-[11px] text-text3" style={{ fontFamily: "'JetBrains Mono', monospace" }}>
+      <div className="w-[6px] h-[6px] rounded-full bg-green" />
       <span>{accounts.length} accounts</span>
       <span className="text-border2">·</span>
       <span>Ready</span>
