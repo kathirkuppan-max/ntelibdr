@@ -1647,6 +1647,37 @@ function copyEventToSlack(i) {
 }
 
 // ══════════════════════════════════════
+// PIPELINE
+// ══════════════════════════════════════
+const STAGES = ['Prospect', 'Connected', 'Met', 'Following Up', 'Engaged', 'Meeting', 'Proposal'];
+const STAGE_CLR = {Prospect:'#CBD5E1', Connected:'#2874A6', Met:'#D97706', 'Following Up':'#0D9488', Engaged:'#58A6FF', Meeting:'#15803D', Proposal:'#F59E0B'};
+
+function buildKanban() {
+  const el = document.getElementById('kanban');
+  if (!el) return;
+  el.innerHTML = STAGES.map(s => {
+    const accts = DB.filter(a => a.stage === s);
+    return `<div class="kcol">
+      <div class="kcol-hdr" style="border-top-color:${STAGE_CLR[s] || '#CBD5E1'}">
+        <div class="kcol-name">${s}</div>
+        <div class="kcol-n">${accts.length}</div>
+      </div>
+      <div class="kcol-cards scroll">${accts.length
+        ? accts.map(a => `<div class="kcard" onclick="goPage('accounts',document.querySelectorAll('.ntab')[0]);setTimeout(()=>pick(${a.id}),80)"><div class="kcard-name">${esc(a.company)}</div><div class="kcard-sub">${a.priority} · ${esc(a.city)}</div></div>`).join('')
+        : '<div class="kcol-empty">Empty</div>'}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function goToAccount(companyName) {
+  const acct = DB.find(a => a.company === companyName);
+  if (!acct) { setMsg(companyName + ' — not in your account list'); return; }
+  goPage('accounts', document.querySelectorAll('.ntab')[0]);
+  setTimeout(() => pick(acct.id), 80);
+}
+
+// ══════════════════════════════════════
 // DISCOVER — OCEAN.IO
 // ══════════════════════════════════════
 async function runOcean() {
