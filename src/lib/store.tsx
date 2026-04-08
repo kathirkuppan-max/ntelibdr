@@ -42,13 +42,29 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AppState['user']>(null)
   const [initialized, setInitialized] = useState(false)
 
-  // Load from localStorage on mount
+  // Load from localStorage on mount — use seed version to detect stale data
   useEffect(() => {
-    const savedAccounts = localStorage.getItem('nteli_v8')
-    const savedEvents = localStorage.getItem('nteli_events_v5')
+    const SEED_VERSION = 'v3-shipdeb'  // bump this when seed data changes
+    const storedVersion = localStorage.getItem('nteli_seed_version')
+    const isStale = storedVersion !== SEED_VERSION
 
-    let accts = savedAccounts ? JSON.parse(savedAccounts) : SEED_ACCOUNTS.map(a => ({ ...a }))
-    // Ensure all accounts have meetings array and pre-enriched contacts
+    let accts: Account[]
+    let evts: BdrEvent[]
+
+    if (isStale) {
+      // Seed data changed — reset to new defaults
+      accts = SEED_ACCOUNTS.map(a => ({ ...a }))
+      evts = SEED_EVENTS.map(e => ({ ...e }))
+      localStorage.setItem('nteli_seed_version', SEED_VERSION)
+      localStorage.removeItem('nteli_v8')
+      localStorage.removeItem('nteli_events_v5')
+    } else {
+      const savedAccounts = localStorage.getItem('nteli_v8')
+      const savedEvents = localStorage.getItem('nteli_events_v5')
+      accts = savedAccounts ? JSON.parse(savedAccounts) : SEED_ACCOUNTS.map(a => ({ ...a }))
+      evts = savedEvents ? JSON.parse(savedEvents) : SEED_EVENTS.map(e => ({ ...e }))
+    }
+
     accts = accts.map((a: Account) => {
       if (!a.meetings) a.meetings = []
       if (!a.contacts && PRE_ENRICHED[a.company]) {
@@ -60,11 +76,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     })
 
     setAccountsState(accts)
-    setEventsState(savedEvents ? JSON.parse(savedEvents) : SEED_EVENTS.map(e => ({ ...e })))
+    setEventsState(evts)
     setInitialized(true)
   }, [])
 
-  // DB init + load
+  // DB init + save new seed data to DB
   useEffect(() => {
     if (!initialized) return
     const init = async () => {
@@ -73,33 +89,24 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         const d = await r.json()
         if (d.success) {
           setDbReadyState(true)
-          // Load from DB
-          const lr = await fetch('/api/db?action=load')
-          const ld = await lr.json()
-          if (ld.accounts?.length) {
-            const dbAccts = ld.accounts.map((a: Account) => {
-              if (!a.meetings) a.meetings = []
-              if (!a.contacts && PRE_ENRICHED[a.company]) {
-                a.contacts = PRE_ENRICHED[a.company]
-                a.contactsSource = 'clay'
-                a.contactsDate = 'Apr 2026 (Clay verified)'
-              }
-              return a
-            })
-            setAccountsState(dbAccts)
-            localStorage.setItem('nteli_v8', JSON.stringify(dbAccts))
-          }
-          if (ld.events?.length) {
-            setEventsState(ld.events)
-            localStorage.setItem('nteli_events_v5', JSON.stringify(ld.events))
-          }
+          // Push current (seed) data to DB so it stays in sync
+          fetch('/api/db?action=save-accounts', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accounts }),
+          }).catch(() => {})
+          fetch('/api/db?action=save-events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ events }),
+          }).catch(() => {})
         }
       } catch {
-        // DB not available, use localStorage
+        // DB not available
       }
     }
     init()
-  }, [initialized])
+  }, [initialized]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Check Gmail status
   useEffect(() => {
