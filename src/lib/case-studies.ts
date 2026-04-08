@@ -1,25 +1,22 @@
+// Case studies focused on ship & debit and distributor pricing pain
 export const CASE_STUDY_KB: Record<string, string> = {
-  CEO: `CEO STORIES (Revenue + Margin):
-- Capital Equipment Manufacturer ($175M): Found $9M in lapsed service contracts, undisciplined discounting, and untracked expedite costs. Recovered $9M+ annually.
-- Pre-PE exit manufacturer: Shifted valuation conversation from revenue to recurring revenue and margin quality. 2.4x service revenue growth in 18 months.
-- Key stat: 6-8% revenue-to-EBITDA gap typical in mid-market mfg. $6M-$14M recoverable per year.
-- Nteli customers: Vulcan Industrial (energy parts), Airgas (industrial gas), AP Financing.`,
+  CEO: `CEO STORIES (Ship & Debit Revenue Impact):
+- Electronics Manufacturer ($800M): Ship & debit claims were costing $12M/yr in unrecovered rebates. Manual reconciliation meant 40% of valid claims expired before processing. Automated S&D platform recovered $8M in year one.
+- Chemical Manufacturer ($500M): CEO discovered 6% of revenue was leaking through distributor pricing errors — wrong tier applied, expired SPAs still active, phantom debit memos approved without verification. Fixed process saved $30M.
+- Key stat: Manufacturers lose 2-5% of revenue to ship & debit errors (Aberdeen Group). Average mid-market manufacturer has $4M-$15M in unrecovered rebates.`,
 
-  CFO: `CFO STORIES (Close + Audit + Forecast):
-- Specialty Equipment Manufacturer ($215M): Auditors flagged material weakness on revenue recognition. Fixed by building controls into every deal from quote. Clean audit committee report first time in 3 years.
-- Industrial Manufacturer ($190M): Close went from 7.4 days to 3 days consistently. $11M recovered service revenue in first year.
-- Key stat: 31% of manufacturing service contracts lapse without renewal (TSIA 2024). 62% of mfg finance execs rate forecast accuracy as poor or fair (IDC).
-- Nteli customers: Elite Pharma, G-Tech Elevators (NJ/NYC), Vulcan Industrial.`,
+  CFO: `CFO STORIES (Rebate Accrual + Audit):
+- Industrial Products Manufacturer ($350M): Auditors flagged material weakness on rebate accrual — couldn't reconcile ship & debit claims against actual distributor sell-through. Automated tracking eliminated the finding.
+- HVAC Manufacturer ($1.2B): 47% of distributor debit memos had errors — wrong pricing tier, expired SPAs, duplicate claims. Finance team spent 200 hours/month on manual reconciliation. Cut to 20 hours with automated validation.
+- Key stat: 38% of ship & debit claims contain errors (Industry Week). Average manufacturer processes 10,000+ debit memos per quarter manually.`,
 
-  COO: `COO STORIES (Ops Alignment + Delivery):
-- Capital Equipment Manufacturer ($180M): COO discovered $4M custom build order when it hit ERP — commit date was 3 weeks inside minimum lead time. After fix: ops has voice before commitment leaves.
-- Industrial Equipment Manufacturer ($165M): On-time delivery went from 74% to 91%. Expedite costs dropped 34%. First-time field fix rate from 58% to 74%.
-- Key stat: 68% of COOs name sales-ops misalignment as top pain. $1.4M avg annual expedite cost.
-- Nteli customers: Vulcan Industrial, G-Tech Elevators (field service).`,
+  COO: `COO STORIES (Channel Operations):
+- Fastener Manufacturer ($200M): Distributors were submitting debit claims 90 days after shipment — couldn't verify inventory levels or sell-through data. Real-time distributor portal reduced claim disputes by 70%.
+- Electronics Manufacturer ($600M): Price protection windows overlapped across 150 distributors. Different reps were approving conflicting SPAs for the same end customer. Centralized SPA management eliminated $5M in channel conflict.
+- Key stat: 65% of manufacturer-distributor disputes are about ship & debit pricing discrepancies (NAW). Average resolution time is 45 days.`,
 
-  CRO: `CRO STORIES (Sales Productivity + Win Rate):
-- Specialty Manufacturing ($140M): 3 reps resigned in 18 months citing admin burden. After fix: win rate up 18 points, sales cycle 40% shorter, reps stopped leaving.
-- Industrial Equipment Manufacturer ($155M): CEO took forecast number without adjusting it for the first time. Pipeline stages tied to objective criteria, not rep optimism.
-- Key stat: 60% of rep time lost to admin. 4.2-day avg quote turnaround. 11 margin points given away per deal.
-- Nteli customers: Vulcan Industrial, Airgas, AP Financing.`,
+  CRO: `CRO STORIES (Sales + Channel Productivity):
+- Industrial OEM ($400M): Sales reps spent 30% of their time on SPA approvals, debit memo disputes, and rebate questions instead of selling. Automated ship & debit freed up 12 hours/week per rep.
+- Chemical Manufacturer ($250M): Distributor reps stopped pushing their products because ship & debit claims took 60 days to process. Competitors with faster rebate processing won shelf space. Fixing turnaround to 5 days recovered $8M in channel share.
+- Key stat: 45% of distributor reps say they favor manufacturers with faster ship & debit processing (ISA Survey). Slow rebate processing directly costs market share.`,
 }
