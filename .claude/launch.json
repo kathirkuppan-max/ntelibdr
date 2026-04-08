@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "dev",
+      "runtimeExecutable": "/Users/kathiravankuppan/.nvm/versions/node/v20.19.4/bin/node",
+      "runtimeArgs": ["node_modules/.bin/next", "dev"],
+      "env": {"PATH": "/Users/kathiravankuppan/.nvm/versions/node/v20.19.4/bin:/usr/local/bin:/usr/bin:/bin"},
+      "port": 3000
+    }
+  ]
+}
