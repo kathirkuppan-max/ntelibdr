@@ -48,16 +48,18 @@ export function AppShell() {
       {/* Purple header — AI Tinkerers style */}
       <header className="shrink-0 bg-gradient-to-r from-[#4338CA] to-[#6366F1] text-white">
         <div className="max-w-[960px] mx-auto px-8 flex items-center h-14">
-          <span className="text-[16px] font-bold tracking-tight">
+          <span className="text-[16px] font-bold tracking-tight whitespace-nowrap">
             NTELI BDR
           </span>
 
-          <nav className="flex h-full ml-8 gap-1">
+          <div className="w-px h-5 bg-white/20 mx-6 shrink-0" />
+
+          <nav className="flex h-full gap-2">
             {(['today', 'dashboard'] as const).map(p => (
               <button
                 key={p}
                 onClick={() => setPage(p)}
-                className={`px-4 text-[13px] font-medium border-b-2 transition-colors cursor-pointer capitalize ${
+                className={`px-5 text-[13px] font-medium border-b-2 transition-colors cursor-pointer capitalize whitespace-nowrap ${
                   page === p
                     ? 'text-white border-white'
                     : 'text-white/60 border-transparent hover:text-white/90'
@@ -68,9 +70,9 @@ export function AppShell() {
             ))}
           </nav>
 
-          <div className="ml-auto flex items-center gap-4 text-[12px]">
-            <span className="text-white/70">{user?.email}</span>
-            <a href="/api/auth?action=logout" className="text-white/50 hover:text-white transition-colors">Sign out</a>
+          <div className="ml-auto flex items-center gap-5 text-[12px] shrink-0">
+            <span className="text-white/60 hidden sm:inline">{user?.email}</span>
+            <a href="/api/auth?action=logout" className="text-white/40 hover:text-white transition-colors whitespace-nowrap">Sign out</a>
           </div>
         </div>
       </header>
