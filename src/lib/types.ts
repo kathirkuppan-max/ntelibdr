@@ -43,6 +43,12 @@ export type Stage =
   | 'Won'
   | 'Lost'
 
+export interface StageChange {
+  stage: Stage
+  date: string
+  note?: string
+}
+
 export interface Account {
   id: number
   company: string
@@ -68,6 +74,8 @@ export interface Account {
   meetings?: Meeting[]
   explorium_id?: string
   testContact?: { name: string; email: string; title: string }
+  stageHistory?: StageChange[]
+  notes?: string
 }
 
 export interface Signal {
@@ -77,6 +85,11 @@ export interface Signal {
 }
 
 export type EventCategory = 'trade_show' | 'conference' | 'meetup' | 'coworking' | 'dinner'
+
+export interface EventTag {
+  accountId: number
+  contactName: string
+}
 
 export interface BdrEvent {
   id: string
@@ -90,4 +103,5 @@ export interface BdrEvent {
   url: string
   attending: boolean
   notes: string
+  eventTags?: EventTag[]
 }
