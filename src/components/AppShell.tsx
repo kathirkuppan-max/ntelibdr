@@ -45,31 +45,35 @@ export function AppShell() {
 
   return (
     <div className="flex flex-col h-screen bg-bg">
-      {/* Top bar */}
-      <header className="h-14 shrink-0 bg-white flex items-center px-8 border-b border-border">
-        <span className="text-[15px] font-bold tracking-tight">
-          NTELI <span className="text-blue">BDR</span>
-        </span>
+      {/* Purple header — AI Tinkerers style */}
+      <header className="shrink-0 bg-gradient-to-r from-[#4338CA] to-[#6366F1] text-white">
+        <div className="max-w-[960px] mx-auto px-8 flex items-center h-14">
+          <span className="text-[16px] font-bold tracking-tight whitespace-nowrap">
+            NTELI BDR
+          </span>
 
-        <div className="w-px h-6 bg-border mx-5" />
+          <div className="w-px h-5 bg-white/20 mx-6 shrink-0" />
 
-        <nav className="flex h-full gap-1">
-          {(['today', 'dashboard'] as const).map(p => (
-            <button
-              key={p}
-              onClick={() => setPage(p)}
-              className={`px-5 text-[13px] font-medium border-b-2 transition-colors cursor-pointer capitalize ${
-                page === p ? 'text-text border-text' : 'text-text3 border-transparent hover:text-text2'
-              }`}
-            >
-              {p}
-            </button>
-          ))}
-        </nav>
+          <nav className="flex h-full gap-2">
+            {(['today', 'dashboard'] as const).map(p => (
+              <button
+                key={p}
+                onClick={() => setPage(p)}
+                className={`px-5 text-[13px] font-medium border-b-2 transition-colors cursor-pointer capitalize whitespace-nowrap ${
+                  page === p
+                    ? 'text-white border-white'
+                    : 'text-white/60 border-transparent hover:text-white/90'
+                }`}
+              >
+                {p}
+              </button>
+            ))}
+          </nav>
 
-        <div className="ml-auto flex items-center gap-5 text-[12px]">
-          <span className="text-text2">{user?.email}</span>
-          <a href="/api/auth?action=logout" className="text-text3 hover:text-red transition-colors">Sign out</a>
+          <div className="ml-auto flex items-center gap-5 text-[12px] shrink-0">
+            <span className="text-white/60 hidden sm:inline">{user?.email}</span>
+            <a href="/api/auth?action=logout" className="text-white/40 hover:text-white transition-colors whitespace-nowrap">Sign out</a>
+          </div>
         </div>
       </header>
 

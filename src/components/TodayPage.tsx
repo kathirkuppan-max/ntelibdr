@@ -27,7 +27,7 @@ export function TodayPage({ firstName }: { firstName: string }) {
         const d = new Date(parseInt(dateMatch[3]), months[dateMatch[1]] ?? 0, parseInt(dateMatch[2]))
         daysUntil = Math.ceil((d.getTime() - Date.now()) / 86400000)
       }
-      const nearbyAccounts = accounts.filter(a => e.location.toLowerCase().includes(a.city.toLowerCase().split(' ')[0])).slice(0, 3)
+      const nearbyAccounts = accounts.filter(a => e.location.toLowerCase().includes(a.city.toLowerCase().split(' ')[0])).slice(0, 4)
       const contacts = nearbyAccounts.flatMap(a => (a.contacts || PRE_ENRICHED[a.company] || []).slice(0, 1).map(c => ({ ...c, company: a.company })))
       return { ...e, daysUntil, nearbyAccounts, contacts }
     }).sort((a, b) => a.daysUntil - b.daysUntil)
@@ -37,84 +37,91 @@ export function TodayPage({ firstName }: { firstName: string }) {
     return accounts.filter(a => {
       const hasContacts = (a.contacts?.length || PRE_ENRICHED[a.company]?.length) ?? 0
       return hasContacts > 0 && !a.meetings?.length && a.priority === 'High'
-    }).slice(0, 5)
+    }).slice(0, 6)
   }, [accounts])
 
   const suggestedEvents = events.filter(e => !e.attending && e.relevance === 'High').slice(0, 3)
 
   return (
-    <div className="max-w-[860px] mx-auto px-8 py-10">
-      {/* Header */}
-      <div className="mb-10">
-        <h1 className="text-[28px] font-bold text-text tracking-tight">Hey {firstName} — here&apos;s your day.</h1>
-        <p className="text-[15px] text-text2 mt-2 leading-relaxed">
+    <div className="max-w-[960px] mx-auto px-8 py-12">
+      {/* ── Hero ── */}
+      <div className="mb-12">
+        <h1 className="text-[32px] font-bold text-text tracking-tight leading-tight">
+          Hey {firstName} — here&apos;s your day.
+        </h1>
+        <p className="text-[16px] text-text2 mt-3 leading-relaxed">
           {pendingFollowUps.length > 0
-            ? `${pendingFollowUps.length} follow-up${pendingFollowUps.length > 1 ? 's' : ''} ready to send.`
+            ? `You have ${pendingFollowUps.length} follow-up${pendingFollowUps.length > 1 ? 's' : ''} ready to send.`
             : 'No pending follow-ups. Meet people at events to start sequences.'}
         </p>
       </div>
 
-      {/* Gmail warning */}
+      {/* ── Gmail warning ── */}
       {!gmailConnected && (
-        <div className="flex items-center gap-3 px-5 py-4 rounded-xl bg-amber-bg border border-amber-border mb-8">
-          <span className="text-xl">⚠️</span>
-          <p className="text-[13px] text-amber"><strong>Gmail isn&apos;t connected.</strong> You won&apos;t be able to send follow-ups. <a href="/api/gmail?action=auth" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Fix this →</a></p>
+        <div className="flex items-center gap-4 px-6 py-5 rounded-2xl bg-amber-bg border border-amber-border mb-10">
+          <span className="text-2xl">⚠️</span>
+          <div>
+            <p className="text-[14px] font-semibold text-amber">Gmail isn&apos;t connected</p>
+            <p className="text-[13px] text-amber/80 mt-0.5">You won&apos;t be able to send follow-ups. <a href="/api/gmail?action=auth" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Connect Gmail →</a></p>
+          </div>
         </div>
       )}
 
       {/* ═══ FOLLOW-UPS ═══ */}
       {pendingFollowUps.length > 0 && (
-        <Section label="EMAILS TO SEND" count={pendingFollowUps.length} color="blue">
-          <div className="space-y-4">
+        <Section label="Emails to send" count={pendingFollowUps.length} accent>
+          <div className="space-y-5">
             {pendingFollowUps.map((item, i) => <FollowUpCard key={i} item={item} />)}
           </div>
         </Section>
       )}
 
-      {/* ═══ ACCOUNTS TO WORK ═══ */}
+      {/* ═══ ACCOUNTS ═══ */}
       {accountsToPrep.length > 0 && (
-        <Section label="ACCOUNTS TO WORK" count={accountsToPrep.length} color="default">
-          <p className="text-[13px] text-text3 mb-4">You have contacts here but haven&apos;t met anyone. After an event, click &quot;I met them&quot; to start the follow-up sequence.</p>
-          <div className="bg-white rounded-xl border border-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            {accountsToPrep.map((a, i) => <AccountRow key={a.id} account={a} events={events} last={i === accountsToPrep.length - 1} />)}
+        <Section label="Accounts to work" count={accountsToPrep.length}>
+          <p className="text-[14px] text-text3 mb-5 -mt-2">You have contacts here but haven&apos;t met anyone yet. After meeting at an event, click &quot;I met them&quot; to generate follow-up emails.</p>
+          <div className="grid grid-cols-1 gap-3">
+            {accountsToPrep.map(a => <AccountCard key={a.id} account={a} events={events} />)}
           </div>
         </Section>
       )}
 
-      {/* ═══ UPCOMING EVENTS ═══ */}
+      {/* ═══ YOUR EVENTS ═══ */}
       {upcomingEvents.length > 0 && (
-        <Section label="YOUR EVENTS" count={upcomingEvents.length} color="default">
-          <div className="space-y-3">
+        <Section label="Your events" count={upcomingEvents.length}>
+          <div className="space-y-4">
             {upcomingEvents.map(evt => (
-              <div key={evt.id} className="bg-white rounded-xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-                <div className="flex items-start justify-between mb-2">
-                  <div>
-                    <h3 className="text-[15px] font-semibold text-text">{evt.name}</h3>
-                    <p className="text-[13px] text-text3 mt-1">{evt.dates} · {evt.location}</p>
+              <div key={evt.id} className="bg-white rounded-2xl border border-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-shadow">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <Pill className="bg-blue-bg text-blue">{evt.type}</Pill>
+                      <span className={`text-[12px] font-semibold ${
+                        evt.daysUntil <= 7 ? 'text-red' : evt.daysUntil <= 30 ? 'text-amber' : 'text-text3'
+                      }`}>
+                        {evt.daysUntil <= 0 ? 'Today!' : evt.daysUntil === 1 ? 'Tomorrow' : `in ${evt.daysUntil} days`}
+                      </span>
+                    </div>
+                    <h3 className="text-[18px] font-bold text-text">{evt.name}</h3>
+                    <p className="text-[13px] text-text2 mt-1">📅 {evt.dates}</p>
+                    <p className="text-[13px] text-text3 mt-0.5">📍 {evt.location}</p>
                   </div>
-                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full shrink-0 ml-4 ${
-                    evt.daysUntil <= 7 ? 'bg-red-bg text-red' :
-                    evt.daysUntil <= 30 ? 'bg-amber-bg text-amber' :
-                    'bg-surface2 text-text3'
-                  }`}>
-                    {evt.daysUntil <= 0 ? 'Today!' : evt.daysUntil === 1 ? 'Tomorrow' : `in ${evt.daysUntil} days`}
-                  </span>
                 </div>
+
                 {evt.contacts.length > 0 && (
-                  <div className="mt-3 pt-3 border-t border-border">
-                    <p className="text-[11px] font-semibold text-text3 uppercase tracking-wide mb-2">People to find</p>
-                    {evt.contacts.map((c, i) => (
-                      <div key={i} className="flex items-center justify-between py-2">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-surface2 flex items-center justify-center text-[11px] font-bold text-text3">{c.initials}</div>
+                  <div className="mt-5 pt-4 border-t border-border">
+                    <p className="text-[12px] font-semibold text-text2 mb-3">People to find at this event</p>
+                    <div className="flex flex-wrap gap-3">
+                      {evt.contacts.map((c, i) => (
+                        <div key={i} className="flex items-center gap-2.5 bg-surface2 rounded-xl px-3 py-2">
+                          <div className="w-8 h-8 rounded-full bg-blue-bg flex items-center justify-center text-[11px] font-bold text-blue">{c.initials}</div>
                           <div>
-                            <span className="text-[13px] font-medium text-text">{c.name}</span>
-                            <span className="text-[12px] text-text3 ml-2">{c.title}</span>
+                            <p className="text-[13px] font-medium text-text">{c.name}</p>
+                            <p className="text-[11px] text-text3">{c.company}</p>
                           </div>
                         </div>
-                        <span className="text-[12px] text-text3">{c.company}</span>
-                      </div>
-                    ))}
+                      ))}
+                    </div>
                   </div>
                 )}
               </div>
@@ -125,19 +132,24 @@ export function TodayPage({ firstName }: { firstName: string }) {
 
       {/* ═══ SUGGESTED EVENTS ═══ */}
       {suggestedEvents.length > 0 && (
-        <Section label="SHOULD YOU ATTEND?" color="default">
-          <div className="bg-white rounded-xl border border-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            {suggestedEvents.map((evt, i) => (
-              <div key={evt.id} className={`px-5 py-4 ${i < suggestedEvents.length - 1 ? 'border-b border-border' : ''}`}>
-                <div className="flex items-start justify-between">
-                  <div className="min-w-0 pr-4">
-                    <p className="text-[14px] font-semibold text-text">{evt.name}</p>
-                    <p className="text-[12px] text-text3 mt-1">{evt.dates} · {evt.location}</p>
-                    <p className="text-[13px] text-text2 mt-2 leading-relaxed">{evt.why}</p>
+        <Section label="Should you attend?">
+          <div className="space-y-4">
+            {suggestedEvents.map(evt => (
+              <div key={evt.id} className="bg-white rounded-2xl border border-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-shadow">
+                <div className="flex items-start justify-between gap-6">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Pill className="bg-purple-bg text-purple">{evt.type}</Pill>
+                      <Pill className="bg-amber-bg text-amber">High relevance</Pill>
+                    </div>
+                    <h3 className="text-[17px] font-bold text-text">{evt.name}</h3>
+                    <p className="text-[13px] text-text2 mt-1">📅 {evt.dates} · 📍 {evt.location}</p>
+                    <p className="text-[14px] text-text2 mt-3 leading-relaxed">{evt.why}</p>
+                    {evt.notes && <p className="text-[13px] text-text3 italic mt-2">{evt.notes}</p>}
                   </div>
                   <button
                     onClick={() => { updateEvent(evt.id, { attending: true }); setTimeout(saveEvents, 100) }}
-                    className="shrink-0 px-4 py-2 text-[12px] font-semibold text-text border border-border rounded-lg hover:bg-surface2 cursor-pointer transition-colors"
+                    className="shrink-0 px-5 py-2.5 text-[13px] font-semibold text-white bg-blue rounded-xl hover:bg-blue2 cursor-pointer transition-colors shadow-sm"
                   >
                     I&apos;ll go
                   </button>
@@ -148,20 +160,20 @@ export function TodayPage({ firstName }: { firstName: string }) {
         </Section>
       )}
 
-      <div className="h-16" />
+      <div className="h-20" />
     </div>
   )
 }
 
 /* ═══ Section ═══ */
-function Section({ label, count, color, children }: { label: string; count?: number; color: 'blue' | 'default'; children: React.ReactNode }) {
+function Section({ label, count, accent, children }: { label: string; count?: number; accent?: boolean; children: React.ReactNode }) {
   return (
-    <div className="mb-10">
-      <div className="flex items-center gap-3 mb-4">
-        <h2 className="text-[12px] font-bold tracking-widest text-text3">{label}</h2>
+    <div className="mb-12">
+      <div className="flex items-center gap-3 mb-5">
+        <h2 className="text-[13px] font-bold uppercase tracking-widest text-text3">{label}</h2>
         {count !== undefined && (
-          <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
-            color === 'blue' ? 'bg-blue text-white' : 'bg-surface3 text-text2'
+          <span className={`text-[11px] font-bold min-w-[22px] text-center py-0.5 px-2 rounded-full ${
+            accent ? 'bg-blue text-white' : 'bg-surface3 text-text2'
           }`}>{count}</span>
         )}
         <div className="flex-1 h-px bg-border" />
@@ -169,6 +181,11 @@ function Section({ label, count, color, children }: { label: string; count?: num
       {children}
     </div>
   )
+}
+
+/* ═══ Pill ═══ */
+function Pill({ children, className = '' }: { children: React.ReactNode; className?: string }) {
+  return <span className={`text-[11px] font-semibold px-2.5 py-1 rounded-full ${className}`}>{children}</span>
 }
 
 /* ═══ Follow-up Card ═══ */
@@ -197,59 +214,61 @@ function FollowUpCard({ item }: { item: { account: Account; meeting: Meeting; me
   }
 
   if (sent) return (
-    <div className="flex items-center gap-3 px-5 py-4 bg-green-bg border border-green-border rounded-xl text-[13px] text-green font-medium">
-      <span>✓</span> Sent to {item.meeting.contact} at {item.account.company}
+    <div className="flex items-center gap-3 px-6 py-5 bg-green-bg border border-green-border rounded-2xl text-[14px] text-green font-medium">
+      <span className="text-lg">✓</span> Sent to {item.meeting.contact} at {item.account.company}
     </div>
   )
 
   return (
-    <div className="bg-white rounded-xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
-      <div className="px-6 pt-5 pb-4">
-        {/* Who + context */}
-        <div className="flex items-start justify-between mb-4">
-          <div>
-            <p className="text-[16px] font-semibold text-text">
-              {item.meeting.contact}
-              <span className="text-text3 font-normal text-[14px] ml-2">at {item.account.company}</span>
-            </p>
-            <p className="text-[12px] text-text3 mt-1">Day {item.fu.day} follow-up · Met at {item.meeting.event}</p>
-          </div>
-          {item.meeting.contactEmail && (
-            <span className="text-[11px] font-medium text-green bg-green-bg px-3 py-1 rounded-full shrink-0">{item.meeting.contactEmail}</span>
-          )}
-        </div>
-
-        {/* Email preview — looks like an actual email */}
-        <div className="rounded-lg border border-border overflow-hidden">
-          <div className="bg-surface2 px-4 py-2.5 border-b border-border">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] text-text3 w-14">To</span>
-              <span className="text-[12px] text-text">{item.meeting.contactEmail || '—'}</span>
+    <div className="bg-white rounded-2xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-shadow">
+      <div className="p-6">
+        {/* Header */}
+        <div className="flex items-start justify-between mb-5">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-blue-bg flex items-center justify-center text-[14px] font-bold text-blue">
+              {item.meeting.contact.split(' ').map(w => w[0]).join('').substring(0, 2)}
+            </div>
+            <div>
+              <p className="text-[16px] font-semibold text-text">{item.meeting.contact}</p>
+              <p className="text-[13px] text-text2">{item.account.company} · Day {item.fu.day} follow-up</p>
             </div>
           </div>
-          <div className="bg-surface2 px-4 py-2.5 border-b border-border">
-            <div className="flex items-center gap-2">
-              <span className="text-[11px] text-text3 w-14">Subject</span>
-              <span className="text-[12px] font-medium text-text">{item.fu.subject}</span>
-            </div>
+          <div className="flex items-center gap-2">
+            {item.meeting.contactEmail && (
+              <span className="text-[12px] font-medium text-green bg-green-bg px-3 py-1.5 rounded-full">{item.meeting.contactEmail}</span>
+            )}
           </div>
-          <div className="bg-white px-4 py-4 text-[13px] text-text leading-relaxed whitespace-pre-wrap">{item.fu.body}</div>
         </div>
 
-        {/* Notes context */}
-        <p className="text-[11px] text-text3 mt-3 italic">Your meeting notes: &quot;{item.meeting.notes}&quot;</p>
+        {/* Email preview */}
+        <div className="rounded-xl border border-border overflow-hidden">
+          <div className="bg-surface2 px-5 py-3 flex items-center gap-3 border-b border-border">
+            <span className="text-[12px] text-text3 w-16 shrink-0">To</span>
+            <span className="text-[13px] text-text">{item.meeting.contactEmail || '—'}</span>
+          </div>
+          <div className="bg-surface2 px-5 py-3 flex items-center gap-3 border-b border-border">
+            <span className="text-[12px] text-text3 w-16 shrink-0">Subject</span>
+            <span className="text-[13px] font-medium text-text">{item.fu.subject}</span>
+          </div>
+          <div className="px-5 py-5 text-[14px] text-text leading-relaxed whitespace-pre-wrap bg-white">{item.fu.body}</div>
+        </div>
+
+        {/* Context */}
+        <div className="mt-4 flex items-center gap-2">
+          <Pill className="bg-surface2 text-text3">Met at {item.meeting.event}</Pill>
+        </div>
       </div>
 
-      {/* Action bar */}
+      {/* Actions */}
       <div className="flex border-t border-border">
         <button onClick={send} disabled={sending || !item.meeting.contactEmail}
-          className="flex-1 py-3.5 text-[13px] font-semibold text-blue hover:bg-blue-bg disabled:opacity-30 cursor-pointer transition-colors text-center border-r border-border">
+          className="flex-1 py-4 text-[14px] font-semibold text-blue hover:bg-blue-bg disabled:opacity-30 cursor-pointer transition-colors text-center border-r border-border">
           {sending ? 'Sending...' : '✓ Send it'}
         </button>
-        <button className="flex-1 py-3.5 text-[13px] font-medium text-text2 hover:bg-surface2 cursor-pointer transition-colors text-center border-r border-border">
+        <button className="flex-1 py-4 text-[14px] font-medium text-text2 hover:bg-surface2 cursor-pointer transition-colors text-center border-r border-border">
           Edit
         </button>
-        <button className="flex-1 py-3.5 text-[13px] font-medium text-text3 hover:bg-surface2 cursor-pointer transition-colors text-center">
+        <button className="flex-1 py-4 text-[14px] font-medium text-text3 hover:bg-surface2 cursor-pointer transition-colors text-center">
           Skip
         </button>
       </div>
@@ -257,8 +276,8 @@ function FollowUpCard({ item }: { item: { account: Account; meeting: Meeting; me
   )
 }
 
-/* ═══ Account Row ═══ */
-function AccountRow({ account, events, last }: { account: Account; events: BdrEvent[]; last: boolean }) {
+/* ═══ Account Card ═══ */
+function AccountCard({ account, events }: { account: Account; events: BdrEvent[] }) {
   const { updateAccount, save } = useStore()
   const [logging, setLogging] = useState(false)
   const contacts = account.contacts || PRE_ENRICHED[account.company] || []
@@ -295,21 +314,21 @@ function AccountRow({ account, events, last }: { account: Account; events: BdrEv
   }
 
   return (
-    <div className={`flex items-center justify-between px-5 py-4 ${!last ? 'border-b border-border' : ''}`}>
+    <div className="bg-white rounded-2xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-shadow flex items-center justify-between gap-4">
       <div className="flex items-center gap-4 min-w-0">
-        <div className="w-10 h-10 rounded-lg bg-surface2 flex items-center justify-center text-[12px] font-bold text-text3 shrink-0">
+        <div className="w-11 h-11 rounded-xl bg-surface2 flex items-center justify-center text-[13px] font-bold text-text3 shrink-0">
           {account.company.substring(0, 2).toUpperCase()}
         </div>
         <div className="min-w-0">
-          <p className="text-[14px] font-semibold text-text truncate">{account.company}</p>
-          <p className="text-[12px] text-text3 mt-0.5 truncate">
+          <p className="text-[15px] font-semibold text-text truncate">{account.company}</p>
+          <p className="text-[13px] text-text3 mt-0.5 truncate">
             {topContact ? `${topContact.name}, ${topContact.title}` : `${contacts.length} contacts`}
-            <span className="mx-1.5 text-border2">·</span>{account.city}
+            <span className="mx-2 text-border2">·</span>{account.city}
           </p>
         </div>
       </div>
       <button onClick={handleLog} disabled={logging}
-        className="ml-4 shrink-0 px-4 py-2 text-[12px] font-semibold text-text border border-border rounded-lg hover:bg-surface2 disabled:opacity-40 cursor-pointer transition-colors">
+        className="shrink-0 px-5 py-2.5 text-[13px] font-semibold text-text border border-border rounded-xl hover:bg-surface2 disabled:opacity-40 cursor-pointer transition-all">
         {logging ? 'Writing emails...' : 'I met them'}
       </button>
     </div>
