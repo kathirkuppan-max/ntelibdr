@@ -9,7 +9,6 @@ import { PRE_ENRICHED } from '@/lib/contacts'
 export function TodayPage({ firstName }: { firstName: string }) {
   const { accounts, events, updateAccount, updateEvent, save, saveEvents, gmailConnected } = useStore()
 
-  // ── Compute action items ──
   const pendingFollowUps: { account: Account; meeting: Meeting; meetingIdx: number; fuIdx: number; fu: Meeting['followUps'][0] }[] = []
   accounts.forEach(a => {
     (a.meetings || []).forEach((m, mi) => {
@@ -19,7 +18,6 @@ export function TodayPage({ firstName }: { firstName: string }) {
     })
   })
 
-  // Events coming up (attending) with days until
   const upcomingEvents = useMemo(() => {
     return events.filter(e => e.attending).map(e => {
       const dateMatch = e.dates.match(/(\w+)\s+(\d+).*?(\d{4})/)
@@ -29,18 +27,12 @@ export function TodayPage({ firstName }: { firstName: string }) {
         const d = new Date(parseInt(dateMatch[3]), months[dateMatch[1]] ?? 0, parseInt(dateMatch[2]))
         daysUntil = Math.ceil((d.getTime() - Date.now()) / 86400000)
       }
-      // Find target accounts near this event
-      const nearbyAccounts = accounts.filter(a => {
-        const city = e.location.toLowerCase()
-        return city.includes(a.city.toLowerCase().split(' ')[0])
-      }).slice(0, 3)
-      // Find contacts at those accounts
+      const nearbyAccounts = accounts.filter(a => e.location.toLowerCase().includes(a.city.toLowerCase().split(' ')[0])).slice(0, 3)
       const contacts = nearbyAccounts.flatMap(a => (a.contacts || PRE_ENRICHED[a.company] || []).slice(0, 1).map(c => ({ ...c, company: a.company })))
       return { ...e, daysUntil, nearbyAccounts, contacts }
     }).sort((a, b) => a.daysUntil - b.daysUntil)
   }, [events, accounts])
 
-  // Accounts with contacts but no meeting yet
   const accountsToPrep = useMemo(() => {
     return accounts.filter(a => {
       const hasContacts = (a.contacts?.length || PRE_ENRICHED[a.company]?.length) ?? 0
@@ -48,152 +40,138 @@ export function TodayPage({ firstName }: { firstName: string }) {
     }).slice(0, 5)
   }, [accounts])
 
-  // Not-yet-attending events
   const suggestedEvents = events.filter(e => !e.attending && e.relevance === 'High').slice(0, 3)
 
-  // ── Count total actions ──
-  const actionCount = pendingFollowUps.length + (upcomingEvents.length > 0 ? 1 : 0) + (accountsToPrep.length > 0 ? 1 : 0)
-
   return (
-    <div className="max-w-2xl mx-auto px-6 py-10">
-      {/* ── Header ── */}
-      <h1 className="text-2xl font-bold text-text">Hey {firstName} — here&apos;s your day.</h1>
-      <p className="text-sm text-text2 mt-2 leading-relaxed">
-        {actionCount === 0
-          ? 'Nothing urgent. Browse events below and start building your pipeline.'
-          : `You have ${actionCount} thing${actionCount > 1 ? 's' : ''} to act on.`}
-      </p>
+    <div className="max-w-[860px] mx-auto px-8 py-10">
+      {/* Header */}
+      <div className="mb-10">
+        <h1 className="text-[28px] font-bold text-text tracking-tight">Hey {firstName} — here&apos;s your day.</h1>
+        <p className="text-[15px] text-text2 mt-2 leading-relaxed">
+          {pendingFollowUps.length > 0
+            ? `${pendingFollowUps.length} follow-up${pendingFollowUps.length > 1 ? 's' : ''} ready to send.`
+            : 'No pending follow-ups. Meet people at events to start sequences.'}
+        </p>
+      </div>
 
-      {/* ── Gmail warning ── */}
+      {/* Gmail warning */}
       {!gmailConnected && (
-        <div className="mt-5 flex items-center gap-3 p-4 rounded-xl bg-amber-bg border border-amber-border">
+        <div className="flex items-center gap-3 px-5 py-4 rounded-xl bg-amber-bg border border-amber-border mb-8">
           <span className="text-xl">⚠️</span>
-          <p className="text-sm text-amber"><strong>Gmail isn&apos;t connected.</strong> You won&apos;t be able to send follow-ups. <a href="/api/gmail?action=auth" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Fix this →</a></p>
+          <p className="text-[13px] text-amber"><strong>Gmail isn&apos;t connected.</strong> You won&apos;t be able to send follow-ups. <a href="/api/gmail?action=auth" target="_blank" rel="noopener noreferrer" className="underline font-semibold">Fix this →</a></p>
         </div>
       )}
 
-      {/* ════════════════════════════════════════ */}
-      {/* SECTION 1: FOLLOW-UPS TO SEND           */}
-      {/* ════════════════════════════════════════ */}
+      {/* ═══ FOLLOW-UPS ═══ */}
       {pendingFollowUps.length > 0 && (
-        <div className="mt-8">
-          <SectionBadge color="blue" label={`${pendingFollowUps.length} email${pendingFollowUps.length > 1 ? 's' : ''} ready to send`} />
-          <p className="text-sm text-text2 mt-1 mb-4">Review and approve each follow-up. They&apos;ll send from your Gmail.</p>
+        <Section label="EMAILS TO SEND" count={pendingFollowUps.length} color="blue">
           <div className="space-y-4">
             {pendingFollowUps.map((item, i) => <FollowUpCard key={i} item={item} />)}
           </div>
-        </div>
+        </Section>
       )}
 
-      {/* ════════════════════════════════════════ */}
-      {/* SECTION 2: UPCOMING EVENTS — PREP       */}
-      {/* ════════════════════════════════════════ */}
+      {/* ═══ ACCOUNTS TO WORK ═══ */}
+      {accountsToPrep.length > 0 && (
+        <Section label="ACCOUNTS TO WORK" count={accountsToPrep.length} color="default">
+          <p className="text-[13px] text-text3 mb-4">You have contacts here but haven&apos;t met anyone. After an event, click &quot;I met them&quot; to start the follow-up sequence.</p>
+          <div className="bg-white rounded-xl border border-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            {accountsToPrep.map((a, i) => <AccountRow key={a.id} account={a} events={events} last={i === accountsToPrep.length - 1} />)}
+          </div>
+        </Section>
+      )}
+
+      {/* ═══ UPCOMING EVENTS ═══ */}
       {upcomingEvents.length > 0 && (
-        <div className="mt-10">
-          <SectionBadge color="amber" label="Events coming up" />
-          <p className="text-sm text-text2 mt-1 mb-4">Prep for these. Know who&apos;ll be there and what to talk about.</p>
+        <Section label="YOUR EVENTS" count={upcomingEvents.length} color="default">
           <div className="space-y-3">
             {upcomingEvents.map(evt => (
-              <div key={evt.id} className="bg-white rounded-xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.06)]">
-                <div className="flex items-start justify-between">
+              <div key={evt.id} className="bg-white rounded-xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <div className="flex items-start justify-between mb-2">
                   <div>
                     <h3 className="text-[15px] font-semibold text-text">{evt.name}</h3>
-                    <p className="text-xs text-text2 mt-0.5">{evt.dates} · {evt.location}</p>
+                    <p className="text-[13px] text-text3 mt-1">{evt.dates} · {evt.location}</p>
                   </div>
-                  <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${
+                  <span className={`text-[12px] font-bold px-3 py-1 rounded-full shrink-0 ml-4 ${
                     evt.daysUntil <= 7 ? 'bg-red-bg text-red' :
                     evt.daysUntil <= 30 ? 'bg-amber-bg text-amber' :
                     'bg-surface2 text-text3'
                   }`}>
-                    {evt.daysUntil <= 0 ? 'Today!' : evt.daysUntil === 1 ? 'Tomorrow' : `${evt.daysUntil} days`}
+                    {evt.daysUntil <= 0 ? 'Today!' : evt.daysUntil === 1 ? 'Tomorrow' : `in ${evt.daysUntil} days`}
                   </span>
                 </div>
-
-                {/* Who to find */}
                 {evt.contacts.length > 0 && (
                   <div className="mt-3 pt-3 border-t border-border">
-                    <p className="text-[11px] font-semibold text-text3 uppercase tracking-wide mb-2">People to find at this event</p>
+                    <p className="text-[11px] font-semibold text-text3 uppercase tracking-wide mb-2">People to find</p>
                     {evt.contacts.map((c, i) => (
-                      <div key={i} className="flex items-center justify-between py-1.5">
-                        <div>
-                          <span className="text-sm font-medium text-text">{c.name}</span>
-                          <span className="text-xs text-text3 ml-2">{c.title} · {c.company}</span>
+                      <div key={i} className="flex items-center justify-between py-2">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-full bg-surface2 flex items-center justify-center text-[11px] font-bold text-text3">{c.initials}</div>
+                          <div>
+                            <span className="text-[13px] font-medium text-text">{c.name}</span>
+                            <span className="text-[12px] text-text3 ml-2">{c.title}</span>
+                          </div>
                         </div>
-                        {c.linkedin && (
-                          <a href={`https://${c.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-[11px] text-blue hover:underline">LinkedIn</a>
-                        )}
+                        <span className="text-[12px] text-text3">{c.company}</span>
                       </div>
                     ))}
                   </div>
                 )}
-
-                {/* Nearby accounts */}
-                {evt.nearbyAccounts.length > 0 && evt.contacts.length === 0 && (
-                  <p className="text-xs text-blue mt-2">Target accounts nearby: {evt.nearbyAccounts.map(a => a.company).join(', ')}</p>
-                )}
               </div>
             ))}
           </div>
-        </div>
+        </Section>
       )}
 
-      {/* ════════════════════════════════════════ */}
-      {/* SECTION 3: ACCOUNTS TO PREP             */}
-      {/* ════════════════════════════════════════ */}
-      {accountsToPrep.length > 0 && (
-        <div className="mt-10">
-          <SectionBadge color="green" label="Accounts to work" />
-          <p className="text-sm text-text2 mt-1 mb-4">You have contacts at these companies but haven&apos;t met anyone yet. Log a meeting after you connect.</p>
-          <div className="bg-white rounded-xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.06)] divide-y divide-border">
-            {accountsToPrep.map(a => <AccountRow key={a.id} account={a} events={events} />)}
-          </div>
-        </div>
-      )}
-
-      {/* ════════════════════════════════════════ */}
-      {/* SECTION 4: EVENTS TO CONSIDER           */}
-      {/* ════════════════════════════════════════ */}
+      {/* ═══ SUGGESTED EVENTS ═══ */}
       {suggestedEvents.length > 0 && (
-        <div className="mt-10">
-          <SectionBadge color="purple" label="Should you attend?" />
-          <p className="text-sm text-text2 mt-1 mb-4">High-relevance events you haven&apos;t signed up for yet.</p>
-          <div className="bg-white rounded-xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.06)] divide-y divide-border">
-            {suggestedEvents.map(evt => (
-              <div key={evt.id} className="px-5 py-4 flex items-center justify-between">
-                <div className="min-w-0">
-                  <p className="text-sm font-medium text-text">{evt.name}</p>
-                  <p className="text-xs text-text3 mt-0.5">{evt.dates} · {evt.location}</p>
-                  <p className="text-xs text-text2 mt-1">{evt.why}</p>
+        <Section label="SHOULD YOU ATTEND?" color="default">
+          <div className="bg-white rounded-xl border border-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            {suggestedEvents.map((evt, i) => (
+              <div key={evt.id} className={`px-5 py-4 ${i < suggestedEvents.length - 1 ? 'border-b border-border' : ''}`}>
+                <div className="flex items-start justify-between">
+                  <div className="min-w-0 pr-4">
+                    <p className="text-[14px] font-semibold text-text">{evt.name}</p>
+                    <p className="text-[12px] text-text3 mt-1">{evt.dates} · {evt.location}</p>
+                    <p className="text-[13px] text-text2 mt-2 leading-relaxed">{evt.why}</p>
+                  </div>
+                  <button
+                    onClick={() => { updateEvent(evt.id, { attending: true }); setTimeout(saveEvents, 100) }}
+                    className="shrink-0 px-4 py-2 text-[12px] font-semibold text-text border border-border rounded-lg hover:bg-surface2 cursor-pointer transition-colors"
+                  >
+                    I&apos;ll go
+                  </button>
                 </div>
-                <button
-                  onClick={() => { updateEvent(evt.id, { attending: true }); setTimeout(saveEvents, 100) }}
-                  className="ml-4 shrink-0 px-3 py-1.5 text-xs font-semibold text-blue border border-blue-border rounded-lg hover:bg-blue hover:text-white cursor-pointer transition-colors"
-                >
-                  I&apos;ll go
-                </button>
               </div>
             ))}
           </div>
-        </div>
+        </Section>
       )}
 
-      <div className="h-12" /> {/* bottom spacer */}
+      <div className="h-16" />
     </div>
   )
 }
 
-/* ── Section Badge ── */
-function SectionBadge({ color, label }: { color: 'blue' | 'amber' | 'green' | 'purple'; label: string }) {
-  const styles = {
-    blue: 'bg-blue text-white',
-    amber: 'bg-amber text-white',
-    green: 'bg-green text-white',
-    purple: 'bg-purple text-white',
-  }
-  return <span className={`inline-block text-xs font-bold px-3 py-1 rounded-full ${styles[color]}`}>{label}</span>
+/* ═══ Section ═══ */
+function Section({ label, count, color, children }: { label: string; count?: number; color: 'blue' | 'default'; children: React.ReactNode }) {
+  return (
+    <div className="mb-10">
+      <div className="flex items-center gap-3 mb-4">
+        <h2 className="text-[12px] font-bold tracking-widest text-text3">{label}</h2>
+        {count !== undefined && (
+          <span className={`text-[11px] font-bold px-2 py-0.5 rounded-full ${
+            color === 'blue' ? 'bg-blue text-white' : 'bg-surface3 text-text2'
+          }`}>{count}</span>
+        )}
+        <div className="flex-1 h-px bg-border" />
+      </div>
+      {children}
+    </div>
+  )
 }
 
-/* ── Follow-up Card ── */
+/* ═══ Follow-up Card ═══ */
 function FollowUpCard({ item }: { item: { account: Account; meeting: Meeting; meetingIdx: number; fuIdx: number; fu: Meeting['followUps'][0] } }) {
   const { updateAccount, save, gmailConnected } = useStore()
   const [sending, setSending] = useState(false)
@@ -219,61 +197,59 @@ function FollowUpCard({ item }: { item: { account: Account; meeting: Meeting; me
   }
 
   if (sent) return (
-    <div className="flex items-center gap-3 p-4 bg-green-bg border border-green-border rounded-xl text-sm text-green font-medium">
-      <span className="text-lg">✓</span> Sent to {item.meeting.contact} at {item.account.company}
+    <div className="flex items-center gap-3 px-5 py-4 bg-green-bg border border-green-border rounded-xl text-[13px] text-green font-medium">
+      <span>✓</span> Sent to {item.meeting.contact} at {item.account.company}
     </div>
   )
 
   return (
-    <div className="bg-white rounded-xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.06)] overflow-hidden">
-      {/* Header */}
-      <div className="px-5 pt-4 pb-3">
-        <div className="flex items-start justify-between">
+    <div className="bg-white rounded-xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
+      <div className="px-6 pt-5 pb-4">
+        {/* Who + context */}
+        <div className="flex items-start justify-between mb-4">
           <div>
-            <p className="text-[15px] font-semibold text-text">
-              Email {item.meeting.contact}
-              <span className="text-text2 font-normal"> at {item.account.company}</span>
+            <p className="text-[16px] font-semibold text-text">
+              {item.meeting.contact}
+              <span className="text-text3 font-normal text-[14px] ml-2">at {item.account.company}</span>
             </p>
-            <p className="text-xs text-text3 mt-1">Day {item.fu.day} follow-up · Met at {item.meeting.event}</p>
+            <p className="text-[12px] text-text3 mt-1">Day {item.fu.day} follow-up · Met at {item.meeting.event}</p>
           </div>
-          {item.meeting.contactEmail ? (
-            <span className="text-[11px] font-medium text-green bg-green-bg px-2.5 py-1 rounded-full shrink-0 ml-3">{item.meeting.contactEmail}</span>
-          ) : (
-            <span className="text-[11px] font-medium text-red bg-red-bg px-2.5 py-1 rounded-full shrink-0 ml-3">No email on file</span>
+          {item.meeting.contactEmail && (
+            <span className="text-[11px] font-medium text-green bg-green-bg px-3 py-1 rounded-full shrink-0">{item.meeting.contactEmail}</span>
           )}
         </div>
-      </div>
 
-      {/* Email preview */}
-      <div className="mx-5 mb-3 rounded-lg bg-surface2 border border-border">
-        <div className="px-4 py-2 border-b border-border">
-          <span className="text-[11px] text-text3">To: </span>
-          <span className="text-[11px] font-medium text-text">{item.meeting.contactEmail || '—'}</span>
+        {/* Email preview — looks like an actual email */}
+        <div className="rounded-lg border border-border overflow-hidden">
+          <div className="bg-surface2 px-4 py-2.5 border-b border-border">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-text3 w-14">To</span>
+              <span className="text-[12px] text-text">{item.meeting.contactEmail || '—'}</span>
+            </div>
+          </div>
+          <div className="bg-surface2 px-4 py-2.5 border-b border-border">
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] text-text3 w-14">Subject</span>
+              <span className="text-[12px] font-medium text-text">{item.fu.subject}</span>
+            </div>
+          </div>
+          <div className="bg-white px-4 py-4 text-[13px] text-text leading-relaxed whitespace-pre-wrap">{item.fu.body}</div>
         </div>
-        <div className="px-4 py-2 border-b border-border">
-          <span className="text-[11px] text-text3">Subject: </span>
-          <span className="text-[11px] font-medium text-text">{item.fu.subject}</span>
-        </div>
-        <div className="px-4 py-3 text-[13px] text-text2 leading-relaxed whitespace-pre-wrap">{item.fu.body}</div>
+
+        {/* Notes context */}
+        <p className="text-[11px] text-text3 mt-3 italic">Your meeting notes: &quot;{item.meeting.notes}&quot;</p>
       </div>
 
-      {/* Context */}
-      <div className="px-5 pb-3">
-        <p className="text-[11px] text-text3">
-          <span className="font-semibold">Your notes:</span> &quot;{item.meeting.notes}&quot;
-        </p>
-      </div>
-
-      {/* Actions */}
-      <div className="flex border-t border-border divide-x divide-border">
+      {/* Action bar */}
+      <div className="flex border-t border-border">
         <button onClick={send} disabled={sending || !item.meeting.contactEmail}
-          className="flex-1 py-3 text-[13px] font-semibold text-blue hover:bg-blue-bg disabled:opacity-30 cursor-pointer transition-colors text-center">
+          className="flex-1 py-3.5 text-[13px] font-semibold text-blue hover:bg-blue-bg disabled:opacity-30 cursor-pointer transition-colors text-center border-r border-border">
           {sending ? 'Sending...' : '✓ Send it'}
         </button>
-        <button className="flex-1 py-3 text-[13px] font-medium text-text2 hover:bg-surface2 cursor-pointer transition-colors text-center">
-          Edit first
+        <button className="flex-1 py-3.5 text-[13px] font-medium text-text2 hover:bg-surface2 cursor-pointer transition-colors text-center border-r border-border">
+          Edit
         </button>
-        <button className="flex-1 py-3 text-[13px] font-medium text-text3 hover:bg-surface2 cursor-pointer transition-colors text-center">
+        <button className="flex-1 py-3.5 text-[13px] font-medium text-text3 hover:bg-surface2 cursor-pointer transition-colors text-center">
           Skip
         </button>
       </div>
@@ -281,8 +257,8 @@ function FollowUpCard({ item }: { item: { account: Account; meeting: Meeting; me
   )
 }
 
-/* ── Account Row ── */
-function AccountRow({ account, events }: { account: Account; events: BdrEvent[] }) {
+/* ═══ Account Row ═══ */
+function AccountRow({ account, events, last }: { account: Account; events: BdrEvent[]; last: boolean }) {
   const { updateAccount, save } = useStore()
   const [logging, setLogging] = useState(false)
   const contacts = account.contacts || PRE_ENRICHED[account.company] || []
@@ -319,16 +295,21 @@ function AccountRow({ account, events }: { account: Account; events: BdrEvent[] 
   }
 
   return (
-    <div className="px-5 py-4 flex items-center justify-between">
-      <div className="min-w-0">
-        <p className="text-sm font-semibold text-text">{account.company}</p>
-        <p className="text-xs text-text3 mt-0.5">
-          {topContact ? `${topContact.name}, ${topContact.title}` : `${contacts.length} contacts`}
-          <span className="mx-1.5">·</span>{account.city}
-        </p>
+    <div className={`flex items-center justify-between px-5 py-4 ${!last ? 'border-b border-border' : ''}`}>
+      <div className="flex items-center gap-4 min-w-0">
+        <div className="w-10 h-10 rounded-lg bg-surface2 flex items-center justify-center text-[12px] font-bold text-text3 shrink-0">
+          {account.company.substring(0, 2).toUpperCase()}
+        </div>
+        <div className="min-w-0">
+          <p className="text-[14px] font-semibold text-text truncate">{account.company}</p>
+          <p className="text-[12px] text-text3 mt-0.5 truncate">
+            {topContact ? `${topContact.name}, ${topContact.title}` : `${contacts.length} contacts`}
+            <span className="mx-1.5 text-border2">·</span>{account.city}
+          </p>
+        </div>
       </div>
       <button onClick={handleLog} disabled={logging}
-        className="ml-4 shrink-0 px-3 py-1.5 text-xs font-semibold text-white bg-blue rounded-lg hover:bg-blue2 disabled:opacity-40 cursor-pointer transition-colors">
+        className="ml-4 shrink-0 px-4 py-2 text-[12px] font-semibold text-text border border-border rounded-lg hover:bg-surface2 disabled:opacity-40 cursor-pointer transition-colors">
         {logging ? 'Writing emails...' : 'I met them'}
       </button>
     </div>
