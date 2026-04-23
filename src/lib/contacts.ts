@@ -37,6 +37,24 @@ export const PRE_ENRICHED: Record<string, Contact[]> = {
     {name:'Grant Butler',initials:'GB',title:'VP National Accounts',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/grant-butler-0771b91a',location:'Fort Lauderdale, FL',source:'clay'},
     {name:'Timothy Keane',initials:'TK',title:'Financial Director',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/timothykeane1',location:'United States',source:'clay'},
   ],
+  'Rhodes Pharmaceuticals': [
+    {name:'Rebecca Scotto, CPA',initials:'RS',title:'Executive Director, Head of Finance',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/rebecca-bella-cpa-ab784959',location:'Lebanon, NJ',source:'clay'},
+    {name:'Eric Basil',initials:'EB',title:'Director, Rhodes Pharma Commercial',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/eric-basil-4995142',location:'Greater Philadelphia',source:'clay'},
+    {name:'Jeremiah Waltz',initials:'JW',title:'Associate Director, Strategic Sourcing & Portfolio',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/jeremiah-waltz-415b471b',location:'Greater Pittsburgh',source:'clay'},
+    {name:'Jack Gibbs',initials:'JG',title:'Associate Director, Supply Chain',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/jack-gibbs-bb13a511',location:'West Greenwich, RI',source:'clay'},
+  ],
+  'Arbor Pharmaceuticals': [
+    {name:'Sheri Hill',initials:'SH',title:'Senior Director, Hospital & Specialty Marketing',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/sheri-hill-a0278aba',location:'Atlanta, GA',source:'clay'},
+    {name:'Penny Richardson',initials:'PR',title:'National Business Director, Hospital Specialty',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/penny-richardson-597971172',location:'Atlanta Metro',source:'clay'},
+    {name:'Shara Ambrosecchia',initials:'SA',title:'Director, Regulatory Affairs',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/shara-ambrosecchia-015747114',location:'Missouri',source:'clay'},
+  ],
+  'Rising Pharmaceuticals': [
+    {name:'Vimal Kavuru',initials:'VK',title:'Chief Executive Officer',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/vimal-kavuru-3607a66',location:'Carlstadt, NJ',source:'clay'},
+    {name:'James Mastakas',initials:'JM',title:'Chief Financial Officer',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/james-mastakas-7479223',location:'Hillsborough, NJ',source:'clay'},
+    {name:'Steven Greenstein',initials:'SG',title:'Executive VP Sales & Marketing',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/steven-greenstein-bb04a212',location:'Flemington, NJ',source:'clay'},
+    {name:'Ishaan Gupta',initials:'IG',title:'Director, Commercial Excellence',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/ishaan-gupta-30219172',location:'New York, NY',source:'clay'},
+    {name:'Ravi Kumar Vatchavai',initials:'RV',title:'VP Regulatory Affairs',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/ravikvatchavai',location:'Hyderabad, India',source:'clay'},
+  ],
   'Tris Pharma': [
     {name:'Ketan Mehta',initials:'KM',title:'Founder & CEO',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/ketanmehta',location:'New York Metro',source:'clay'},
     {name:'Peter Ciano',initials:'PC',title:'CFO & SVP Corporate Development',email:'',emailValid:false,phone:'',linkedin:'linkedin.com/in/peter-ciano-73773b7',location:'Westfield, NJ',source:'clay'},
