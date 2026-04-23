@@ -21,7 +21,7 @@ export function DashboardPage() {
   const [meetingModal, setMeetingModal] = useState<{ open: boolean; accountId?: number }>({ open: false })
   const [emailModal, setEmailModal] = useState<{ open: boolean; accountId?: number; meetingIdx?: number; fuIdx?: number }>({ open: false })
   const [importing, setImporting] = useState(false)
-  const [importResult, setImportResult] = useState<{ imported: number; totalPulled: number; afterDedupe: number; importedCompanies?: string[] } | null>(null)
+  const [importResult, setImportResult] = useState<{ imported: number; totalPulled: number; afterDedupe: number; importedCompanies?: string[]; debug?: string[] } | null>(null)
   const [importError, setImportError] = useState<string | null>(null)
 
   async function runImport() {
@@ -87,10 +87,16 @@ export function DashboardPage() {
         <div className="mb-6 px-5 py-4 rounded-xl bg-red-bg border border-red-border text-[13px] text-red">Import failed: {importError}</div>
       )}
       {importResult && (
-        <div className="mb-6 px-5 py-4 rounded-xl bg-green-bg border border-green-border text-[13px] text-green">
-          <strong>Imported {importResult.imported} new accounts</strong> · pulled {importResult.totalPulled} from Explorium · {importResult.afterDedupe} unique after dedupe.
+        <div className={`mb-6 px-5 py-4 rounded-xl border text-[13px] ${importResult.imported > 0 ? 'bg-green-bg border-green-border text-green' : 'bg-amber-bg border-amber-border text-amber'}`}>
+          <strong>{importResult.imported > 0 ? `Imported ${importResult.imported} new accounts` : 'No accounts imported'}</strong> · pulled {importResult.totalPulled} from Explorium · {importResult.afterDedupe} unique after dedupe.
           {importResult.importedCompanies && importResult.importedCompanies.length > 0 && (
-            <div className="text-[12px] text-green/80 mt-1">First 20: {importResult.importedCompanies.join(', ')}{importResult.imported > 20 ? '…' : ''}</div>
+            <div className="text-[12px] opacity-80 mt-1">First 20: {importResult.importedCompanies.join(', ')}{importResult.imported > 20 ? '…' : ''}</div>
+          )}
+          {importResult.debug && importResult.debug.length > 0 && (
+            <details className="text-[12px] opacity-80 mt-2">
+              <summary className="cursor-pointer font-semibold">Diagnostics ({importResult.debug.length})</summary>
+              <pre className="mt-2 whitespace-pre-wrap font-mono text-[11px]">{importResult.debug.join('\n')}</pre>
+            </details>
           )}
         </div>
       )}
