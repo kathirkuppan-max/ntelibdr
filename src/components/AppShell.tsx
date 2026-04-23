@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react'
 import { useStore } from '@/lib/store'
 import { TodayPage } from './TodayPage'
 import { DashboardPage } from './DashboardPage'
+import { DiscoverPage } from './DiscoverPage'
 import { LoginScreen } from './LoginScreen'
 
-type Page = 'today' | 'dashboard'
+type Page = 'today' | 'dashboard' | 'discover'
 export type { Page }
 
 export function AppShell() {
@@ -55,7 +56,7 @@ export function AppShell() {
           <div className="w-px h-5 bg-white/20 mx-6 shrink-0" />
 
           <nav className="flex h-full gap-2">
-            {(['today', 'dashboard'] as const).map(p => (
+            {(['today', 'dashboard', 'discover'] as const).map(p => (
               <button
                 key={p}
                 onClick={() => setPage(p)}
@@ -80,6 +81,7 @@ export function AppShell() {
       <main className="flex-1 overflow-y-auto">
         {page === 'today' && <TodayPage firstName={firstName} />}
         {page === 'dashboard' && <DashboardPage />}
+        {page === 'discover' && <DiscoverPage />}
       </main>
     </div>
   )
