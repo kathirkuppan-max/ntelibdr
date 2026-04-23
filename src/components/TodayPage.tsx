@@ -2,23 +2,20 @@
 
 import { useState, useMemo } from 'react'
 import { useStore } from '@/lib/store'
-import type { Account, BdrEvent } from '@/lib/types'
+import type { Account } from '@/lib/types'
 import { PRE_ENRICHED } from '@/lib/contacts'
 import { MeetingLoggerModal } from './MeetingLoggerModal'
 import { EmailEditorModal } from './EmailEditorModal'
-import { EventDetailDrawer } from './EventDetailDrawer'
 import { AccountDetailDrawer } from './AccountDetailDrawer'
 
 export function TodayPage({ firstName }: { firstName: string }) {
-  const { accounts, events, updateEvent, saveEvents, gmailConnected, updateAccount, save } = useStore()
+  const { accounts, updateAccount, save, gmailConnected } = useStore()
 
-  // Modal/drawer state
-  const [meetingModal, setMeetingModal] = useState<{ open: boolean; accountId?: number; eventId?: string; contactName?: string }>({ open: false })
+  const [meetingModal, setMeetingModal] = useState<{ open: boolean; accountId?: number; contactName?: string }>({ open: false })
   const [emailModal, setEmailModal] = useState<{ open: boolean; accountId?: number; meetingIdx?: number; fuIdx?: number }>({ open: false })
-  const [activeEventId, setActiveEventId] = useState<string | null>(null)
   const [activeAccountId, setActiveAccountId] = useState<number | null>(null)
 
-  // Computed data
+  // Pending follow-ups
   const pendingFollowUps: { account: Account; meetingIdx: number; fuIdx: number }[] = []
   accounts.forEach(a => {
     (a.meetings || []).forEach((m, mi) => {
@@ -28,32 +25,30 @@ export function TodayPage({ firstName }: { firstName: string }) {
     })
   })
 
-  const upcomingEvents = useMemo(() => {
-    return events.filter(e => e.attending).map(e => {
-      const dateMatch = e.dates.match(/(\w+)\s+(\d+).*?(\d{4})/)
-      let daysUntil = 999
-      if (dateMatch) {
-        const months: Record<string, number> = { Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11 }
-        const d = new Date(parseInt(dateMatch[3]), months[dateMatch[1]] ?? 0, parseInt(dateMatch[2]))
-        daysUntil = Math.ceil((d.getTime() - Date.now()) / 86400000)
-      }
-      const tagCount = (e.eventTags || []).length
-      return { ...e, daysUntil, tagCount }
-    }).sort((a, b) => a.daysUntil - b.daysUntil)
-  }, [events])
-
-  const accountsToPrep = useMemo(() => {
-    return accounts.filter(a => {
-      const hasContacts = (a.contacts?.length || PRE_ENRICHED[a.company]?.length) ?? 0
-      return hasContacts > 0 && !a.meetings?.length && a.priority === 'High'
-    }).slice(0, 6)
+  // Accounts ranked by signal heat (most signals, most recent first)
+  const hotAccounts = useMemo(() => {
+    return accounts
+      .filter(a => (a.signals?.length ?? 0) > 0)
+      .map(a => {
+        const latest = [...(a.signals || [])].sort((x, y) => (y.date || '').localeCompare(x.date || ''))[0]
+        return { ...a, latestSignal: latest, signalCount: (a.signals || []).length }
+      })
+      .sort((a, b) => (b.latestSignal?.date || '').localeCompare(a.latestSignal?.date || ''))
+      .slice(0, 10)
   }, [accounts])
 
-  const suggestedEvents = events.filter(e => !e.attending && e.relevance === 'High').slice(0, 3)
-  const activeEvent = events.find(e => e.id === activeEventId) || null
+  // Accounts with contacts but no meetings yet (high priority work list)
+  const accountsToWork = useMemo(() => {
+    return accounts
+      .filter(a => {
+        const hasContacts = (a.contacts?.length || PRE_ENRICHED[a.company]?.length) ?? 0
+        return hasContacts > 0 && !a.meetings?.length && a.priority === 'High'
+      })
+      .slice(0, 8)
+  }, [accounts])
+
   const activeAccount = accounts.find(a => a.id === activeAccountId) || null
 
-  // Helpers for follow-up cards
   function getFuData(item: { account: Account; meetingIdx: number; fuIdx: number }) {
     const meeting = item.account.meetings![item.meetingIdx]
     const fu = meeting.followUps[item.fuIdx]
@@ -62,14 +57,13 @@ export function TodayPage({ firstName }: { firstName: string }) {
 
   return (
     <div className="max-w-[960px] mx-auto px-8 py-12">
-      {/* Hero */}
       <div className="flex items-start justify-between mb-12">
         <div>
-          <h1 className="text-[32px] font-bold text-text tracking-tight">Hey {firstName} — here&apos;s your day.</h1>
+          <h1 className="text-[32px] font-bold text-text tracking-tight">Hey {firstName}.</h1>
           <p className="text-[16px] text-text2 mt-3">
             {pendingFollowUps.length > 0
-              ? `${pendingFollowUps.length} follow-up${pendingFollowUps.length > 1 ? 's' : ''} ready to send.`
-              : 'No pending follow-ups. Meet people at events to start sequences.'}
+              ? `${pendingFollowUps.length} follow-up${pendingFollowUps.length > 1 ? 's' : ''} ready to send · ${accounts.length} accounts in pipeline`
+              : `${accounts.length} accounts in pipeline · ${hotAccounts.length} have fresh signals`}
           </p>
         </div>
         <button
@@ -80,7 +74,6 @@ export function TodayPage({ firstName }: { firstName: string }) {
         </button>
       </div>
 
-      {/* Gmail warning */}
       {!gmailConnected && (
         <div className="flex items-center gap-4 px-6 py-5 rounded-2xl bg-amber-bg border border-amber-border mb-10">
           <span className="text-2xl">⚠️</span>
@@ -98,7 +91,7 @@ export function TodayPage({ firstName }: { firstName: string }) {
             {pendingFollowUps.map((item, i) => {
               const { meeting, fu } = getFuData(item)
               return (
-                <div key={i} className="bg-white rounded-2xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-shadow">
+                <div key={i} className="bg-white rounded-2xl border border-border shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-4">
@@ -112,7 +105,6 @@ export function TodayPage({ firstName }: { firstName: string }) {
                       </div>
                       {meeting.contactEmail && <span className="text-[12px] font-medium text-green bg-green-bg px-3 py-1.5 rounded-full">{meeting.contactEmail}</span>}
                     </div>
-
                     <div className="rounded-xl border border-border overflow-hidden">
                       <div className="bg-surface2 px-5 py-3 border-b border-border flex gap-3">
                         <span className="text-[12px] text-text3 w-16">Subject</span>
@@ -121,7 +113,6 @@ export function TodayPage({ firstName }: { firstName: string }) {
                       <div className="px-5 py-4 text-[14px] text-text leading-relaxed whitespace-pre-wrap">{fu.body}</div>
                     </div>
                   </div>
-
                   <div className="flex border-t border-border">
                     <button
                       onClick={() => setEmailModal({ open: true, accountId: item.account.id, meetingIdx: item.meetingIdx, fuIdx: item.fuIdx })}
@@ -148,16 +139,55 @@ export function TodayPage({ firstName }: { firstName: string }) {
         </Section>
       )}
 
-      {/* ═══ ACCOUNTS ═══ */}
-      {accountsToPrep.length > 0 && (
-        <Section label="Accounts to work" count={accountsToPrep.length}>
-          <p className="text-[14px] text-text3 mb-5 -mt-2">You have contacts here but haven&apos;t met anyone yet.</p>
-          <div className="grid grid-cols-1 gap-3">
-            {accountsToPrep.map(a => {
+      {/* ═══ HOT ACCOUNTS (signal-driven) ═══ */}
+      {hotAccounts.length > 0 && (
+        <Section label="Hot accounts · recent signals" count={hotAccounts.length} accent>
+          <div className="space-y-3">
+            {hotAccounts.map(a => (
+              <div
+                key={a.id}
+                onClick={() => setActiveAccountId(a.id)}
+                className="bg-white rounded-2xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.08)] transition-shadow cursor-pointer"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start gap-4 min-w-0 flex-1">
+                    <div className="w-11 h-11 rounded-xl bg-surface2 flex items-center justify-center text-[13px] font-bold text-text3 shrink-0">{a.company.substring(0, 2).toUpperCase()}</div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[15px] font-semibold text-text">{a.company}</p>
+                      <p className="text-[12px] text-text3 mt-0.5">{a.city} · {a.rev} · {a.emp} emps</p>
+                      {a.latestSignal && (
+                        <div className="mt-2 flex items-start gap-2">
+                          <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-amber-bg text-amber shrink-0 mt-px">{signalTypeLabel(a.latestSignal.type)}</span>
+                          <span className="text-[12px] text-text2 line-clamp-1">{a.latestSignal.title}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="text-[11px] font-semibold text-amber bg-amber-bg px-2.5 py-0.5 rounded-full inline-block">{a.signalCount} signals</div>
+                    {a.latestSignal?.date && <div className="text-[10px] text-text3 font-mono mt-1">{a.latestSignal.date}</div>}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+      )}
+
+      {/* ═══ ACCOUNTS TO WORK ═══ */}
+      {accountsToWork.length > 0 && (
+        <Section label="Accounts to work" count={accountsToWork.length}>
+          <p className="text-[14px] text-text3 mb-5 -mt-2">Contacts on file but no meeting yet.</p>
+          <div className="space-y-3">
+            {accountsToWork.map(a => {
               const contacts = a.contacts || PRE_ENRICHED[a.company] || []
               const top = contacts[0]
               return (
-                <div key={a.id} className="bg-white rounded-2xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-shadow flex items-center justify-between gap-4 cursor-pointer" onClick={() => setActiveAccountId(a.id)}>
+                <div
+                  key={a.id}
+                  className="bg-white rounded-2xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex items-center justify-between gap-4 cursor-pointer"
+                  onClick={() => setActiveAccountId(a.id)}
+                >
                   <div className="flex items-center gap-4 min-w-0">
                     <div className="w-11 h-11 rounded-xl bg-surface2 flex items-center justify-center text-[13px] font-bold text-text3 shrink-0">{a.company.substring(0, 2).toUpperCase()}</div>
                     <div className="min-w-0">
@@ -178,71 +208,12 @@ export function TodayPage({ firstName }: { firstName: string }) {
         </Section>
       )}
 
-      {/* ═══ YOUR EVENTS ═══ */}
-      {upcomingEvents.length > 0 && (
-        <Section label="Your events" count={upcomingEvents.length}>
-          <div className="space-y-4">
-            {upcomingEvents.map(evt => (
-              <div key={evt.id} onClick={() => setActiveEventId(evt.id)} className="bg-white rounded-2xl border border-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-shadow cursor-pointer">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-blue-bg text-blue">{evt.type}</span>
-                      <span className={`text-[12px] font-semibold ${evt.daysUntil <= 7 ? 'text-red' : evt.daysUntil <= 30 ? 'text-amber' : 'text-text3'}`}>
-                        {evt.daysUntil <= 0 ? 'Today!' : evt.daysUntil === 1 ? 'Tomorrow' : `in ${evt.daysUntil} days`}
-                      </span>
-                    </div>
-                    <h3 className="text-[18px] font-bold text-text">{evt.name}</h3>
-                    <p className="text-[13px] text-text2 mt-1">📅 {evt.dates} · 📍 {evt.location}</p>
-                  </div>
-                  {evt.tagCount > 0 && (
-                    <span className="text-[12px] font-semibold text-green bg-green-bg px-3 py-1 rounded-full shrink-0">{evt.tagCount} contacts tagged</span>
-                  )}
-                </div>
-                <p className="text-[13px] text-blue mt-3 font-medium">Click to prep →</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
-
-      {/* ═══ SUGGESTED EVENTS ═══ */}
-      {suggestedEvents.length > 0 && (
-        <Section label="Should you attend?">
-          <div className="space-y-4">
-            {suggestedEvents.map(evt => (
-              <div key={evt.id} className="bg-white rounded-2xl border border-border p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:shadow-[0_4px_12px_rgba(0,0,0,0.06)] transition-shadow">
-                <div className="flex items-start justify-between gap-6">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-purple-bg text-purple">{evt.type}</span>
-                      <span className="text-[11px] font-semibold px-2.5 py-1 rounded-full bg-amber-bg text-amber">High relevance</span>
-                    </div>
-                    <h3 className="text-[17px] font-bold text-text">{evt.name}</h3>
-                    <p className="text-[13px] text-text2 mt-1">📅 {evt.dates} · 📍 {evt.location}</p>
-                    <p className="text-[14px] text-text2 mt-3 leading-relaxed">{evt.why}</p>
-                  </div>
-                  <button
-                    onClick={() => { updateEvent(evt.id, { attending: true }); setTimeout(saveEvents, 100) }}
-                    className="shrink-0 px-5 py-2.5 text-[13px] font-semibold text-white bg-blue rounded-xl hover:bg-blue2 cursor-pointer transition-colors shadow-sm"
-                  >
-                    I&apos;ll go
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Section>
-      )}
-
       <div className="h-20" />
 
-      {/* ═══ MODALS & DRAWERS ═══ */}
       <MeetingLoggerModal
         open={meetingModal.open}
         onClose={() => setMeetingModal({ open: false })}
         defaultAccountId={meetingModal.accountId}
-        defaultEventId={meetingModal.eventId}
         defaultContactName={meetingModal.contactName}
       />
 
@@ -261,29 +232,12 @@ export function TodayPage({ firstName }: { firstName: string }) {
         )
       })()}
 
-      {activeEventId && (
-        <EventDetailDrawer
-          event={activeEvent}
-          onClose={() => setActiveEventId(null)}
-          onLogMeeting={(accountId, contactName) => {
-            setActiveEventId(null)
-            setMeetingModal({ open: true, accountId, eventId: activeEventId, contactName })
-          }}
-        />
-      )}
-
       {activeAccountId && (
         <AccountDetailDrawer
           account={activeAccount}
           onClose={() => setActiveAccountId(null)}
-          onLogMeeting={(accountId) => {
-            setActiveAccountId(null)
-            setMeetingModal({ open: true, accountId })
-          }}
-          onEditEmail={(accountId, meetingIdx, fuIdx) => {
-            setActiveAccountId(null)
-            setEmailModal({ open: true, accountId, meetingIdx, fuIdx })
-          }}
+          onLogMeeting={(id) => { setActiveAccountId(null); setMeetingModal({ open: true, accountId: id }) }}
+          onEditEmail={(id, mi, fi) => { setActiveAccountId(null); setEmailModal({ open: true, accountId: id, meetingIdx: mi, fuIdx: fi }) }}
         />
       )}
     </div>
@@ -303,4 +257,18 @@ function Section({ label, count, accent, children }: { label: string; count?: nu
       {children}
     </div>
   )
+}
+
+function signalTypeLabel(type: string) {
+  const m: Record<string, string> = {
+    new_product: 'Product / ANDA',
+    new_funding_round: 'Funding',
+    merger_and_acquisitions: 'M&A',
+    ipo_announcement: 'IPO',
+    lawsuits_and_legal_issues: 'Legal',
+    hiring_in_finance_department: 'Finance hire',
+    new_executive: 'Exec hire',
+    other: 'Signal',
+  }
+  return m[type] || 'Signal'
 }

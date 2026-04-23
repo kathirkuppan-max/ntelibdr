@@ -11,16 +11,14 @@ interface Props {
   open: boolean
   onClose: () => void
   defaultAccountId?: number
-  defaultEventId?: string
   defaultContactName?: string
 }
 
-export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEventId, defaultContactName }: Props) {
-  const { accounts, events, updateAccount, save } = useStore()
-  const attendingEvents = events.filter(e => e.attending)
+export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultContactName }: Props) {
+  const { accounts, updateAccount, save } = useStore()
 
   const [accountId, setAccountId] = useState<number | null>(defaultAccountId ?? null)
-  const [eventId, setEventId] = useState(defaultEventId || '')
+  const [where, setWhere] = useState('')
   const [contactName, setContactName] = useState(defaultContactName || '')
   const [notes, setNotes] = useState('')
   const [generating, setGenerating] = useState(false)
@@ -31,10 +29,9 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEve
 
   const account = accounts.find(a => a.id === accountId)
   const contacts: Contact[] = account ? (account.contacts || PRE_ENRICHED[account.company] || []) : []
-  const event = events.find(e => e.id === eventId)
 
   async function handleSubmit() {
-    if (!accountId || !eventId || (!contactName && !newName) || !notes) return
+    if (!accountId || !where || (!contactName && !newName) || !notes) return
     const acct = accounts.find(a => a.id === accountId)
     if (!acct) return
 
@@ -45,7 +42,7 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEve
 
     const meeting: Meeting = {
       id: 'm_' + Date.now(),
-      event: event?.name || eventId,
+      event: where,
       contact: c.name,
       contactEmail: ('email' in c ? c.email : '') || '',
       contactTitle: ('title' in c ? c.title : '') || '',
@@ -63,7 +60,6 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEve
     updateAccount(accountId, { meetings, stage })
     setTimeout(save, 100)
 
-    // Generate follow-ups
     setGenerating(true)
     try {
       const sig = localStorage.getItem('nteli_sig') || 'Kathir'
@@ -72,7 +68,7 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEve
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514', max_tokens: 1024,
-          messages: [{ role: 'user', content: `Generate 3 follow-up emails for ${c.name} (${'title' in c ? c.title : ''}) at ${acct.company}. Met at ${event?.name || eventId}. Discussed: ${notes}. Company: ${acct.vertical}, ${acct.rev}. Their pain: ${acct.pains.join(', ')}. Sender: ${sig.split('|')[0].trim()}.\n\nStories: ${stories}\n\nEmail 1 (day 1): 3 sentences. Email 2 (day 5): 3 sentences. Email 3 (day 10): 3 sentences. Sound human, first names.\n\nReturn ONLY JSON: [{"subject":"","body":""},{"subject":"","body":""},{"subject":"","body":""}]` }],
+          messages: [{ role: 'user', content: `Generate 3 follow-up emails for ${c.name} (${'title' in c ? c.title : ''}) at ${acct.company}. Met at ${where}. Discussed: ${notes}. Company: ${acct.vertical}, ${acct.rev}. Their pain: ${acct.pains.join(', ')}. Sender: ${sig.split('|')[0].trim()}.\n\nStories: ${stories}\n\nEmail 1 (day 1): 3 sentences. Email 2 (day 5): 3 sentences. Email 3 (day 10): 3 sentences. Sound human, first names.\n\nReturn ONLY JSON: [{"subject":"","body":""},{"subject":"","body":""},{"subject":"","body":""}]` }],
         }),
       })
       const data = await r.json()
@@ -99,7 +95,6 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEve
   return (
     <Modal open={open} onClose={onClose} title="Log a Meeting">
       <div className="space-y-5">
-        {/* Account */}
         <Field label="Account">
           <select
             value={accountId ?? ''}
@@ -111,22 +106,15 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEve
           </select>
         </Field>
 
-        {/* Event */}
-        <Field label="Event">
-          <select
-            value={eventId}
-            onChange={e => setEventId(e.target.value)}
+        <Field label="Where did you meet? (event name, conference, coffee, etc.)">
+          <input
+            value={where}
+            onChange={e => setWhere(e.target.value)}
+            placeholder="e.g. CBI Pharma Contracting Summit"
             className="w-full bg-surface2 border border-border rounded-xl px-4 py-3 text-[14px] text-text outline-none focus:border-blue transition-colors"
-          >
-            <option value="">Select event...</option>
-            {attendingEvents.map(e => <option key={e.id} value={e.id}>{e.name}</option>)}
-          </select>
-          {attendingEvents.length === 0 && (
-            <p className="text-[12px] text-amber mt-1">No events marked as attending. Go to Today page and click &quot;I&apos;ll go&quot; on an event first.</p>
-          )}
+          />
         </Field>
 
-        {/* Contact */}
         <Field label="Who did you meet?">
           {!newContact ? (
             <>
@@ -156,7 +144,6 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEve
           )}
         </Field>
 
-        {/* Notes */}
         <Field label="What did you discuss?">
           <textarea
             value={notes}
@@ -167,10 +154,9 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultEve
           />
         </Field>
 
-        {/* Submit */}
         <button
           onClick={handleSubmit}
-          disabled={!accountId || !eventId || (!contactName && !newName) || !notes || generating}
+          disabled={!accountId || !where || (!contactName && !newName) || !notes || generating}
           className="w-full py-3.5 text-[14px] font-semibold text-white bg-blue rounded-xl hover:bg-blue2 disabled:opacity-40 cursor-pointer transition-colors"
         >
           {generating ? 'Generating follow-up emails...' : 'Log Meeting & Generate Follow-ups'}

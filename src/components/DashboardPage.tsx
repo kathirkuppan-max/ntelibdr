@@ -15,11 +15,28 @@ const STAGE_COLOR: Record<string, string> = {
 }
 
 export function DashboardPage() {
-  const { accounts, events } = useStore()
+  const { accounts, reloadFromDb } = useStore()
   const [expandedStage, setExpandedStage] = useState<Stage | null>(null)
   const [activeAccountId, setActiveAccountId] = useState<number | null>(null)
   const [meetingModal, setMeetingModal] = useState<{ open: boolean; accountId?: number }>({ open: false })
   const [emailModal, setEmailModal] = useState<{ open: boolean; accountId?: number; meetingIdx?: number; fuIdx?: number }>({ open: false })
+  const [importing, setImporting] = useState(false)
+  const [importResult, setImportResult] = useState<{ imported: number; totalPulled: number; afterDedupe: number; importedCompanies?: string[] } | null>(null)
+  const [importError, setImportError] = useState<string | null>(null)
+
+  async function runImport() {
+    if (importing) return
+    if (!confirm('Import the full US specialty pharma ICP universe from Explorium?\nThis pulls ~400+ companies with signals and writes them to Neon. One-time.')) return
+    setImporting(true); setImportError(null); setImportResult(null)
+    try {
+      const r = await fetch('/api/import', { method: 'POST' })
+      const d = await r.json()
+      if (!d.success) throw new Error(d.error || 'Import failed')
+      setImportResult(d)
+      await reloadFromDb()
+    } catch (e) { setImportError((e as Error).message) }
+    setImporting(false)
+  }
 
   const stats = useMemo(() => {
     let totalMeetings = 0, totalSent = 0, totalPending = 0
@@ -29,8 +46,10 @@ export function DashboardPage() {
         m.followUps.forEach(fu => { if (fu.status === 'sent') totalSent++; if (fu.status === 'ready') totalPending++ })
       })
     })
-    return { totalMeetings, totalSent, totalPending, attending: events.filter(e => e.attending).length, total: accounts.length }
-  }, [accounts, events])
+    const totalSignals = accounts.reduce((sum, a) => sum + (a.signals?.length || 0), 0)
+    const hotAccounts = accounts.filter(a => (a.signals?.length || 0) > 0).length
+    return { totalMeetings, totalSent, totalPending, totalSignals, hotAccounts, total: accounts.length }
+  }, [accounts])
 
   const pipeline = useMemo(() => {
     return STAGE_ORDER.map(s => ({ stage: s, accounts: accounts.filter(a => a.stage === s) })).filter(s => s.accounts.length > 0)
@@ -53,15 +72,36 @@ export function DashboardPage() {
 
   return (
     <div className="max-w-[960px] mx-auto px-8 py-12">
-      <h1 className="text-[32px] font-bold text-text tracking-tight mb-8">Dashboard</h1>
+      <div className="flex items-start justify-between mb-8">
+        <h1 className="text-[32px] font-bold text-text tracking-tight">Dashboard</h1>
+        <button
+          onClick={runImport}
+          disabled={importing}
+          className="px-4 py-2 text-[13px] font-semibold text-white bg-blue rounded-lg hover:bg-blue2 disabled:opacity-40 cursor-pointer shadow-sm"
+        >
+          {importing ? 'Importing…' : 'Import ICP Universe'}
+        </button>
+      </div>
+
+      {importError && (
+        <div className="mb-6 px-5 py-4 rounded-xl bg-red-bg border border-red-border text-[13px] text-red">Import failed: {importError}</div>
+      )}
+      {importResult && (
+        <div className="mb-6 px-5 py-4 rounded-xl bg-green-bg border border-green-border text-[13px] text-green">
+          <strong>Imported {importResult.imported} new accounts</strong> · pulled {importResult.totalPulled} from Explorium · {importResult.afterDedupe} unique after dedupe.
+          {importResult.importedCompanies && importResult.importedCompanies.length > 0 && (
+            <div className="text-[12px] text-green/80 mt-1">First 20: {importResult.importedCompanies.join(', ')}{importResult.imported > 20 ? '…' : ''}</div>
+          )}
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-5 gap-3 mb-10">
         <StatCard label="Accounts" value={stats.total} />
+        <StatCard label="Hot (signals)" value={stats.hotAccounts} color="amber" />
         <StatCard label="Meetings" value={stats.totalMeetings} />
         <StatCard label="Emails Sent" value={stats.totalSent} color="green" />
         <StatCard label="Pending" value={stats.totalPending} color={stats.totalPending > 0 ? 'amber' : undefined} />
-        <StatCard label="Events" value={stats.attending} />
       </div>
 
       {/* Pipeline */}

@@ -78,10 +78,22 @@ export interface Account {
   notes?: string
 }
 
+export type SignalType =
+  | 'new_product'            // ANDA approval / drug launch
+  | 'new_funding_round'      // Capital raise
+  | 'merger_and_acquisitions'// PE deal, acquisition, integration
+  | 'ipo_announcement'
+  | 'lawsuits_and_legal_issues' // Patent fight, FDA issue
+  | 'hiring_in_finance_department' // New CFO/Controller
+  | 'new_executive'          // Generic senior hire
+  | 'other'
+
 export interface Signal {
-  type: string
-  text?: string
-  date?: string
+  type: SignalType
+  title: string
+  date: string       // ISO date
+  link?: string
+  snippet?: string
 }
 
 export type EventCategory = 'trade_show' | 'conference' | 'meetup' | 'coworking' | 'dinner'
