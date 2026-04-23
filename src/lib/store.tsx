@@ -33,6 +33,7 @@ interface AppActions {
   tagContactToEvent: (eventId: string, accountId: number, contactName: string) => void
   removeTagFromEvent: (eventId: string, accountId: number, contactName: string) => void
   addDiscoveredAccount: (account: Omit<Account, 'id'>) => number | null
+  reloadFromDb: () => Promise<void>
 }
 
 const StoreContext = createContext<(AppState & AppActions) | null>(null)
@@ -158,6 +159,26 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }))
   }, [])
 
+  const reloadFromDb = useCallback(async () => {
+    try {
+      const r = await fetch('/api/db?action=load')
+      const d = await r.json()
+      if (d.accounts?.length) {
+        const dbAccts: Account[] = d.accounts.map((a: Account) => {
+          if (!a.meetings) a.meetings = []
+          if (!a.stageHistory) a.stageHistory = [{ stage: a.stage, date: new Date().toISOString() }]
+          return a
+        })
+        setAccountsState(dbAccts)
+        localStorage.setItem('nteli_v8', JSON.stringify(dbAccts))
+      }
+      if (d.events?.length) {
+        setEventsState(d.events)
+        localStorage.setItem('nteli_events_v5', JSON.stringify(d.events))
+      }
+    } catch { /* silent */ }
+  }, [])
+
   const addDiscoveredAccount = useCallback((account: Omit<Account, 'id'>) => {
     let newId: number | null = null
     setAccountsState(prev => {
@@ -207,7 +228,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       accounts, events, selectedId, gmailConnected, gmailEmail, dbReady, user,
       setAccounts, updateAccount, setEvents, updateEvent, selectAccount,
       setGmail, setDbReady, setUser, save, saveEvents, selectedAccount,
-      updateAccountWithStage, tagContactToEvent, removeTagFromEvent, addDiscoveredAccount,
+      updateAccountWithStage, tagContactToEvent, removeTagFromEvent, addDiscoveredAccount, reloadFromDb,
     }}>
       {children}
     </StoreContext.Provider>

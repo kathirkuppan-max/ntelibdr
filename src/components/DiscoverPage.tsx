@@ -1,327 +1,200 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStore } from '@/lib/store'
-import type { Account } from '@/lib/types'
 
-interface ExploriumBusiness {
-  business_id?: string
-  company_name?: string
-  name?: string
-  domain?: string
-  website?: string
-  city?: string
-  state?: string
-  country?: string
-  linkedin_category?: string
-  industry?: string
-  annual_revenue?: string
-  revenue?: string
-  employee_count?: number | string
-  number_of_employees?: string
-  linkedin?: string
-  linkedin_url?: string
+interface EnrichmentRun {
+  runAt: string
+  scanned: number
+  added: number
+  skippedDedupe: number
+  skippedFilter: number
+  addedCompanies: string[]
+  skipReasons: Record<string, number>
 }
 
-type Candidate = {
-  key: string
-  company: string
-  domain: string
-  city: string
-  state: string
-  vertical: string
-  rev: string
-  emp: string
-  linkedin: string
-  explorium_id: string
-}
-
+// Read-only enrichment status page.
+// Accounts are added by the daily Vercel Cron — no manual add/remove here.
 export function DiscoverPage() {
-  const { accounts, addDiscoveredAccount, save } = useStore()
-
-  const [revenueBand, setRevenueBand] = useState<string>('25M-75M')
-  const [state, setState] = useState<string>('')
-  const [size, setSize] = useState<number>(50)
-  const [loading, setLoading] = useState(false)
-  const [results, setResults] = useState<Candidate[]>([])
+  const { accounts, reloadFromDb } = useStore()
+  const [log, setLog] = useState<EnrichmentRun[]>([])
+  const [loading, setLoading] = useState(true)
+  const [running, setRunning] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  const [selected, setSelected] = useState<Set<string>>(new Set())
-  const [addedKeys, setAddedKeys] = useState<Set<string>>(new Set())
-  const [bulkAdding, setBulkAdding] = useState(false)
-  const [enriching, setEnriching] = useState<string | null>(null)
 
-  async function search() {
+  async function loadLog() {
     setLoading(true)
-    setError(null)
-    setResults([])
-    setSelected(new Set())
-
-    const filters: Record<string, unknown> = {
-      linkedin_category: { values: ['pharmaceutical manufacturing'] },
-      company_country_code: { values: ['US'] },
-      company_revenue: { values: [revenueBand] },
-    }
-    if (state) filters.company_region_country_code = { values: [`US-${state}`] }
-
     try {
-      const r = await fetch('/api/vibe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'fetch-businesses',
-          payload: { mode: 'full', size, page_size: size, filters },
-        }),
-      })
-      const data = await r.json()
-      if (data.error) throw new Error(data.error)
-      const businesses: ExploriumBusiness[] = data.data || data.businesses || data.results || []
-
-      // Dedupe against existing accounts
-      const existingDomains = new Set(accounts.map(a => (a.website || '').toLowerCase()))
-      const existingNames = new Set(accounts.map(a => a.company.toLowerCase()))
-
-      const mapped: Candidate[] = businesses.map((b, i) => {
-        const company = b.company_name || b.name || 'Unknown'
-        const domain = (b.domain || b.website || '').toLowerCase().replace(/^https?:\/\//, '').replace(/\/$/, '')
-        return {
-          key: String(b.business_id || `${domain || company}-${i}`),
-          company,
-          domain,
-          city: b.city || '',
-          state: b.state || '',
-          vertical: b.linkedin_category || b.industry || 'Pharmaceutical Manufacturing',
-          rev: b.annual_revenue || b.revenue || revenueBand,
-          emp: String(b.employee_count || b.number_of_employees || '—'),
-          linkedin: b.linkedin || b.linkedin_url || '',
-          explorium_id: String(b.business_id || ''),
-        }
-      }).filter(c => c.company !== 'Unknown' && !existingDomains.has(c.domain) && !existingNames.has(c.company.toLowerCase()))
-
-      setResults(mapped)
-      if (!mapped.length) setError('No new companies returned. Try a different revenue band or state filter.')
-    } catch (e) {
-      setError((e as Error).message)
-    }
+      const r = await fetch('/api/enrich?action=log')
+      const d = await r.json()
+      if (d.success) setLog(d.log || [])
+    } catch (e) { setError((e as Error).message) }
     setLoading(false)
   }
 
-  function toggleSelect(key: string) {
-    setSelected(prev => {
-      const next = new Set(prev)
-      if (next.has(key)) next.delete(key)
-      else next.add(key)
-      return next
-    })
-  }
-
-  function toggleSelectAll() {
-    if (selected.size === results.length) setSelected(new Set())
-    else setSelected(new Set(results.map(r => r.key)))
-  }
-
-  function addOne(c: Candidate) {
-    const newAccount: Omit<Account, 'id'> = {
-      company: c.company, city: c.city || 'Unknown', market: c.state || 'Unknown',
-      vertical: c.vertical, rev: c.rev, emp: c.emp,
-      priority: 'Medium', pe: false, ownership: 'Unknown',
-      pains: ['Chargeback / ship-debit enrichment pending', 'Needs Clay contact discovery', 'Pain-point research needed'],
-      cxo: '— (enrich)', website: c.domain, liSearch: c.company,
-      stage: 'Prospect', source: 'explorium', contacted: false, signals: [],
-      explorium_id: c.explorium_id || undefined,
-    }
-    const id = addDiscoveredAccount(newAccount)
-    if (id) {
-      setAddedKeys(prev => new Set(prev).add(c.key))
-      setTimeout(save, 100)
-    }
-  }
-
-  async function addSelected() {
-    setBulkAdding(true)
-    const toAdd = results.filter(r => selected.has(r.key))
-    for (const c of toAdd) addOne(c)
-    setSelected(new Set())
-    setTimeout(save, 200)
-    setBulkAdding(false)
-  }
-
-  async function enrichOne(c: Candidate) {
-    if (!c.explorium_id) { alert('No Explorium ID — cannot enrich'); return }
-    setEnriching(c.key)
+  async function runNow() {
+    setRunning(true)
+    setError(null)
     try {
-      const r = await fetch('/api/vibe', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: 'fetch-prospects',
-          payload: {
-            mode: 'full', size: 5, page_size: 5,
-            filters: { business_id: { values: [c.explorium_id] }, job_level: { values: ['c-suite', 'director', 'vice president'] } },
-          },
-        }),
-      })
-      const data = await r.json()
-      const prospects = data.data || data.prospects || data.results || []
-      if (!prospects.length) { alert(`No contacts returned for ${c.company}`); setEnriching(null); return }
-      // Add account with enriched contacts
-      const contacts = prospects.slice(0, 5).map((p: Record<string, string>) => ({
-        name: p.full_name || p.name || `${p.first_name} ${p.last_name}`.trim() || 'Unknown',
-        initials: ((p.first_name || '')[0] || '') + ((p.last_name || '')[0] || ''),
-        title: p.job_title || p.title || 'Unknown',
-        email: p.email || p.business_email || '',
-        emailValid: !!(p.email || p.business_email),
-        phone: p.phone_number || p.phone || '',
-        linkedin: p.linkedin_url || p.linkedin || '',
-      }))
-      const newAccount: Omit<Account, 'id'> = {
-        company: c.company, city: c.city || 'Unknown', market: c.state || 'Unknown',
-        vertical: c.vertical, rev: c.rev, emp: c.emp,
-        priority: 'High', pe: false, ownership: 'Unknown',
-        pains: ['Chargeback / ship-debit pain — pattern-based', 'GTN reserve accuracy', 'Contract & 844 exception volume'],
-        cxo: contacts[0]?.title || '— (enrich)',
-        website: c.domain, liSearch: c.company, stage: 'Prospect', source: 'explorium+enriched',
-        contacted: false, signals: [], explorium_id: c.explorium_id,
-        contacts, contactsDate: new Date().toLocaleDateString(), contactsSource: 'explorium',
-      }
-      const id = addDiscoveredAccount(newAccount)
-      if (id) { setAddedKeys(prev => new Set(prev).add(c.key)); setTimeout(save, 100) }
-      else alert(`${c.company} already in accounts`)
-    } catch (e) { alert('Enrich failed: ' + (e as Error).message) }
-    setEnriching(null)
+      const r = await fetch('/api/enrich', { method: 'POST' })
+      const d = await r.json()
+      if (!d.success) throw new Error(d.error || 'Failed')
+      await Promise.all([loadLog(), reloadFromDb()])
+    } catch (e) { setError((e as Error).message) }
+    setRunning(false)
   }
+
+  useEffect(() => { loadLog() }, [])
+
+  const latest = log[0]
+  const totalAddedAllTime = log.reduce((sum, r) => sum + r.added, 0)
+  const enrichedAccounts = accounts.filter(a => a.source === 'enriched' || a.source === 'explorium+enriched')
 
   return (
-    <div className="max-w-[1080px] mx-auto px-8 py-12">
-      <h1 className="text-[32px] font-bold text-text tracking-tight">Discover New Accounts</h1>
-      <p className="text-[15px] text-text2 mt-2">
-        Pull US specialty pharma companies from Explorium. Current pipeline has {accounts.length} accounts — total US TAM is ~490 in the $25M-$75M band.
-      </p>
-
-      {/* Filters */}
-      <div className="mt-8 bg-white rounded-2xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)] flex flex-wrap items-end gap-4">
+    <div className="max-w-[960px] mx-auto px-8 py-12">
+      <div className="flex items-start justify-between gap-6 mb-3">
         <div>
-          <label className="block text-[11px] font-semibold text-text3 uppercase tracking-wide mb-1.5">Revenue Band</label>
-          <select value={revenueBand} onChange={e => setRevenueBand(e.target.value)} className="bg-surface2 border border-border rounded-lg px-3 py-2 text-[13px] text-text outline-none focus:border-blue min-w-[140px]">
-            <option value="10M-25M">$10M–$25M</option>
-            <option value="25M-75M">$25M–$75M (ICP core)</option>
-            <option value="75M-200M">$75M–$200M (ref story)</option>
-          </select>
+          <h1 className="text-[32px] font-bold text-text tracking-tight">Background Enrichment</h1>
+          <p className="text-[15px] text-text2 mt-2 leading-relaxed">
+            A daily Vercel Cron scans Explorium for US specialty pharma ($10M-$200M) and auto-adds only companies
+            with C-suite or Director-level contacts that pass the ICP filter. No manual curation.
+          </p>
         </div>
-        <div>
-          <label className="block text-[11px] font-semibold text-text3 uppercase tracking-wide mb-1.5">State (optional)</label>
-          <select value={state} onChange={e => setState(e.target.value)} className="bg-surface2 border border-border rounded-lg px-3 py-2 text-[13px] text-text outline-none focus:border-blue min-w-[120px]">
-            <option value="">All US</option>
-            <option value="NJ">New Jersey</option>
-            <option value="NY">New York</option>
-            <option value="PA">Pennsylvania</option>
-            <option value="MA">Massachusetts</option>
-            <option value="CA">California</option>
-            <option value="IL">Illinois</option>
-            <option value="TX">Texas</option>
-            <option value="GA">Georgia</option>
-            <option value="FL">Florida</option>
-            <option value="VA">Virginia</option>
-            <option value="MD">Maryland</option>
-            <option value="NC">North Carolina</option>
-            <option value="RI">Rhode Island</option>
-          </select>
-        </div>
-        <div>
-          <label className="block text-[11px] font-semibold text-text3 uppercase tracking-wide mb-1.5">Results</label>
-          <select value={size} onChange={e => setSize(Number(e.target.value))} className="bg-surface2 border border-border rounded-lg px-3 py-2 text-[13px] text-text outline-none focus:border-blue min-w-[80px]">
-            <option value={25}>25</option>
-            <option value={50}>50</option>
-            <option value={100}>100</option>
-          </select>
-        </div>
-        <button onClick={search} disabled={loading}
-          className="px-5 py-2.5 text-[13px] font-semibold text-white bg-blue rounded-xl hover:bg-blue2 disabled:opacity-40 cursor-pointer transition-colors shadow-sm">
-          {loading ? 'Searching…' : 'Find companies'}
+        <button
+          onClick={runNow}
+          disabled={running}
+          className="shrink-0 px-4 py-2.5 text-[13px] font-semibold text-text border border-border rounded-xl hover:bg-surface2 disabled:opacity-40 cursor-pointer transition-colors"
+        >
+          {running ? 'Running…' : 'Run now'}
         </button>
       </div>
 
-      {error && <div className="mt-4 px-5 py-4 rounded-xl bg-amber-bg border border-amber-border text-[13px] text-amber">{error}</div>}
+      {error && <div className="mt-4 px-5 py-4 rounded-xl bg-red-bg border border-red-border text-[13px] text-red">{error}</div>}
 
-      {/* Results table */}
-      {results.length > 0 && (
-        <div className="mt-6">
-          {/* Bulk bar */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="text-[13px] text-text2">
-              <strong className="text-text">{results.length}</strong> new companies found
-              {selected.size > 0 && <span className="ml-3 text-blue font-medium">{selected.size} selected</span>}
-            </div>
-            {selected.size > 0 && (
-              <button onClick={addSelected} disabled={bulkAdding}
-                className="px-4 py-2 text-[12px] font-semibold text-white bg-blue rounded-lg hover:bg-blue2 disabled:opacity-40 cursor-pointer transition-colors">
-                {bulkAdding ? 'Adding…' : `+ Add ${selected.size} to Accounts`}
-              </button>
-            )}
+      {/* ── Stats ── */}
+      <div className="grid grid-cols-4 gap-3 mt-8">
+        <Stat label="Total Pipeline" value={accounts.length} />
+        <Stat label="Auto-Enriched" value={enrichedAccounts.length} accent="blue" />
+        <Stat label="Added All-Time" value={totalAddedAllTime} accent="green" />
+        <Stat label="Last Run" value={latest ? timeAgo(latest.runAt) : '—'} small />
+      </div>
+
+      {/* ── ICP Filter Rules ── */}
+      <div className="mt-10">
+        <Section label="ICP filter rules">
+          <div className="bg-white rounded-2xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+            <ul className="space-y-2 text-[13px] text-text2 leading-relaxed">
+              <li><span className="text-green font-bold">✓</span> US pharmaceutical manufacturing</li>
+              <li><span className="text-green font-bold">✓</span> Revenue in $10M-$200M (core: $25M-$75M)</li>
+              <li><span className="text-green font-bold">✓</span> Employee count 20-500 (skip &lt;20 = spreadsheets, &gt;500 = Model N territory)</li>
+              <li><span className="text-green font-bold">✓</span> Has ≥1 verifiable buyer-persona contact (CFO / Director Contracts / VP)</li>
+              <li><span className="text-green font-bold">✓</span> Has a real domain</li>
+              <li><span className="text-red font-bold">✗</span> Already in your pipeline (dedupe by domain + name)</li>
+            </ul>
           </div>
+        </Section>
+      </div>
 
-          <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
-            <table className="w-full">
-              <thead className="bg-surface2">
-                <tr className="text-[11px] font-semibold uppercase tracking-wide text-text3">
-                  <th className="py-3 px-4 text-left w-10"><input type="checkbox" checked={selected.size === results.length && results.length > 0} onChange={toggleSelectAll} className="cursor-pointer" /></th>
-                  <th className="py-3 px-4 text-left">Company</th>
-                  <th className="py-3 px-4 text-left">Location</th>
-                  <th className="py-3 px-4 text-left">Revenue</th>
-                  <th className="py-3 px-4 text-left">Employees</th>
-                  <th className="py-3 px-4 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {results.map(c => {
-                  const added = addedKeys.has(c.key)
-                  const isEnriching = enriching === c.key
-                  return (
-                    <tr key={c.key} className={`border-t border-border text-[13px] ${added ? 'bg-green-bg/40' : 'hover:bg-surface2'} transition-colors`}>
-                      <td className="py-3 px-4"><input type="checkbox" checked={selected.has(c.key)} onChange={() => toggleSelect(c.key)} disabled={added} className="cursor-pointer" /></td>
-                      <td className="py-3 px-4">
-                        <div className="font-semibold text-text">{c.company}</div>
-                        <div className="text-[11px] text-text3">{c.domain || '—'}</div>
+      {/* ── Recent Runs ── */}
+      <div className="mt-10">
+        <Section label="Recent runs">
+          {loading ? (
+            <p className="text-[14px] text-text3 py-6 text-center">Loading…</p>
+          ) : log.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-border p-8 text-center">
+              <p className="text-[14px] text-text3">No runs yet. The daily cron triggers at 10am UTC.</p>
+              <p className="text-[12px] text-text3 mt-2">Click <strong className="text-text">Run now</strong> to trigger a manual run.</p>
+            </div>
+          ) : (
+            <div className="bg-white rounded-2xl border border-border overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <table className="w-full">
+                <thead className="bg-surface2">
+                  <tr className="text-[11px] font-semibold uppercase tracking-wide text-text3">
+                    <th className="py-3 px-4 text-left">When</th>
+                    <th className="py-3 px-4 text-right">Scanned</th>
+                    <th className="py-3 px-4 text-right">Added</th>
+                    <th className="py-3 px-4 text-right">Deduped</th>
+                    <th className="py-3 px-4 text-right">Filtered Out</th>
+                    <th className="py-3 px-4 text-left">Added Companies</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {log.map((r, i) => (
+                    <tr key={i} className="border-t border-border text-[13px]">
+                      <td className="py-3 px-4 text-text whitespace-nowrap">
+                        <div>{new Date(r.runAt).toLocaleDateString()}</div>
+                        <div className="text-[11px] text-text3">{new Date(r.runAt).toLocaleTimeString()}</div>
                       </td>
-                      <td className="py-3 px-4 text-text2">{[c.city, c.state].filter(Boolean).join(', ') || '—'}</td>
-                      <td className="py-3 px-4 text-text2">{c.rev}</td>
-                      <td className="py-3 px-4 text-text2">{c.emp}</td>
-                      <td className="py-3 px-4 text-right">
-                        {added ? (
-                          <span className="text-[11px] font-semibold text-green bg-green-bg px-3 py-1 rounded-full">✓ Added</span>
+                      <td className="py-3 px-4 text-right text-text2 font-medium">{r.scanned}</td>
+                      <td className="py-3 px-4 text-right font-bold text-green">+{r.added}</td>
+                      <td className="py-3 px-4 text-right text-text3">{r.skippedDedupe}</td>
+                      <td className="py-3 px-4 text-right text-text3">{r.skippedFilter}</td>
+                      <td className="py-3 px-4 text-text2 max-w-[280px]">
+                        {r.addedCompanies.length > 0 ? (
+                          <span className="text-[12px]">{r.addedCompanies.slice(0, 3).join(', ')}{r.addedCompanies.length > 3 ? ` + ${r.addedCompanies.length - 3} more` : ''}</span>
                         ) : (
-                          <div className="flex gap-2 justify-end">
-                            <button onClick={() => enrichOne(c)} disabled={isEnriching || !c.explorium_id}
-                              className="px-3 py-1.5 text-[11px] font-semibold text-purple border border-purple-border rounded-lg hover:bg-purple-bg disabled:opacity-40 cursor-pointer transition-colors">
-                              {isEnriching ? 'Enriching…' : 'Enrich + Add'}
-                            </button>
-                            <button onClick={() => addOne(c)}
-                              className="px-3 py-1.5 text-[11px] font-semibold text-text border border-border rounded-lg hover:bg-surface2 cursor-pointer transition-colors">
-                              + Add
-                            </button>
-                          </div>
+                          <span className="text-text3 italic">—</span>
                         )}
                       </td>
                     </tr>
-                  )
-                })}
-              </tbody>
-            </table>
-          </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </Section>
+      </div>
 
-          <p className="text-[12px] text-text3 mt-3">
-            <strong className="text-text2">Enrich + Add</strong> pulls 5 verified C-suite/director contacts per company from Explorium before adding.
-            <strong className="text-text2 ml-2">+ Add</strong> creates the account shell for later enrichment.
-          </p>
-        </div>
-      )}
-
-      {results.length === 0 && !loading && !error && (
-        <div className="mt-10 text-center py-12 bg-white rounded-2xl border border-border">
-          <p className="text-[14px] text-text3">Set your filters and click <strong className="text-text2">Find companies</strong> to pull from Explorium.</p>
-          <p className="text-[12px] text-text3 mt-2">Default: US pharma, $25M-$75M revenue, first 50 results.</p>
+      {/* ── Latest run skip breakdown ── */}
+      {latest && Object.keys(latest.skipReasons).length > 0 && (
+        <div className="mt-10">
+          <Section label="Latest run — skip reasons">
+            <div className="bg-white rounded-2xl border border-border p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+              <div className="space-y-2">
+                {Object.entries(latest.skipReasons).sort((a, b) => b[1] - a[1]).map(([reason, count]) => (
+                  <div key={reason} className="flex items-center justify-between text-[13px]">
+                    <span className="text-text2">{reason}</span>
+                    <span className="text-text3 font-mono text-[12px] bg-surface2 px-2 py-0.5 rounded">{count}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Section>
         </div>
       )}
 
       <div className="h-16" />
     </div>
   )
+}
+
+function Stat({ label, value, accent, small }: { label: string; value: number | string; accent?: string; small?: boolean }) {
+  const c = accent === 'green' ? 'text-green' : accent === 'blue' ? 'text-blue' : 'text-text'
+  return (
+    <div className="bg-white border border-border rounded-2xl p-5 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+      <p className="text-[11px] text-text3 uppercase tracking-wider font-semibold">{label}</p>
+      <p className={`font-bold mt-1 ${c} ${small ? 'text-[15px]' : 'text-[28px]'}`}>{value}</p>
+    </div>
+  )
+}
+
+function Section({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <div className="flex items-center gap-3 mb-4">
+        <h2 className="text-[13px] font-bold uppercase tracking-widest text-text3">{label}</h2>
+        <div className="flex-1 h-px bg-border" />
+      </div>
+      {children}
+    </div>
+  )
+}
+
+function timeAgo(iso: string): string {
+  const diff = Date.now() - new Date(iso).getTime()
+  const hours = Math.floor(diff / 3600000)
+  if (hours < 1) return 'Just now'
+  if (hours < 24) return `${hours}h ago`
+  const days = Math.floor(hours / 24)
+  return `${days}d ago`
 }
