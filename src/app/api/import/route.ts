@@ -248,7 +248,7 @@ export async function GET(req: NextRequest) {
     if (!apiKey) return NextResponse.json({ error: 'VIBE_API_KEY not set' })
     const keyPreview = `${apiKey.slice(0, 4)}...${apiKey.slice(-4)} (len=${apiKey.length})`
 
-    const endpoints = [
+    const endpoints: { url: string; headers: Record<string, string> }[] = [
       { url: 'https://api.explorium.ai/v1/businesses', headers: { 'Content-Type': 'application/json', api_key: apiKey } },
       { url: 'https://api.explorium.ai/v1/businesses', headers: { 'Content-Type': 'application/json', API_KEY: apiKey } },
       { url: 'https://api.explorium.ai/v1/prospects', headers: { 'Content-Type': 'application/json', api_key: apiKey } },
