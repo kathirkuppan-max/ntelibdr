@@ -87,7 +87,7 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
 
         {/* Pain Points */}
         <div>
-          <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">Ship &amp; Debit Pain Points</h3>
+          <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">Chargeback &amp; Ship-Debit Pain Points</h3>
           <div className="space-y-1.5">
             {account.pains.map((p, i) => (
               <div key={i} className="text-[13px] text-text2 bg-surface2 rounded-lg px-3 py-2">{p}</div>

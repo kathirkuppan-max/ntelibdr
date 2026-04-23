@@ -47,7 +47,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [initialized, setInitialized] = useState(false)
 
   useEffect(() => {
-    const SEED_VERSION = 'v4-interactive'
+    const SEED_VERSION = 'v5-pharma'
     const storedVersion = localStorage.getItem('nteli_seed_version')
     const isStale = storedVersion !== SEED_VERSION
 
