@@ -238,7 +238,35 @@ export async function POST(_req: NextRequest) {
   }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url)
+  const action = searchParams.get('action')
+
+  // Debug endpoint — makes one raw Explorium call with minimum filter to isolate auth issue
+  if (action === 'debug') {
+    const apiKey = process.env.VIBE_API_KEY
+    if (!apiKey) return NextResponse.json({ error: 'VIBE_API_KEY not set' })
+    const keyPreview = `${apiKey.slice(0, 4)}...${apiKey.slice(-4)} (len=${apiKey.length})`
+
+    const endpoints = [
+      { url: 'https://api.explorium.ai/v1/businesses', headers: { 'Content-Type': 'application/json', api_key: apiKey } },
+      { url: 'https://api.explorium.ai/v1/businesses', headers: { 'Content-Type': 'application/json', API_KEY: apiKey } },
+      { url: 'https://api.explorium.ai/v1/prospects', headers: { 'Content-Type': 'application/json', api_key: apiKey } },
+    ]
+    const body = { mode: 'full', size: 1, page: 1, filters: { country_code: { values: ['us'] } } }
+
+    const results = []
+    for (const ep of endpoints) {
+      try {
+        const r = await fetch(ep.url, { method: 'POST', headers: ep.headers, body: JSON.stringify(body) })
+        const text = await r.text()
+        results.push({ url: ep.url, headers: Object.keys(ep.headers), status: r.status, body: text.slice(0, 400) })
+      } catch (e) { results.push({ url: ep.url, headers: Object.keys(ep.headers), error: (e as Error).message }) }
+    }
+    return NextResponse.json({ keyPreview, tests: results })
+  }
+
+  // Default = read last import log
   const DATABASE_URL = process.env.DATABASE_URL || process.env.POSTGRES_URL
   if (!DATABASE_URL) return NextResponse.json({ error: 'DATABASE_URL not configured' }, { status: 500 })
   const sql = neon(DATABASE_URL)
