@@ -32,6 +32,7 @@ interface AppActions {
   updateAccountWithStage: (id: number, newStage: Stage, note?: string) => void
   tagContactToEvent: (eventId: string, accountId: number, contactName: string) => void
   removeTagFromEvent: (eventId: string, accountId: number, contactName: string) => void
+  addDiscoveredAccount: (account: Omit<Account, 'id'>) => number | null
 }
 
 const StoreContext = createContext<(AppState & AppActions) | null>(null)
@@ -157,6 +158,32 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     }))
   }, [])
 
+  const addDiscoveredAccount = useCallback((account: Omit<Account, 'id'>) => {
+    let newId: number | null = null
+    setAccountsState(prev => {
+      // Dedupe by domain or company name
+      const existing = prev.find(a =>
+        (account.website && a.website === account.website) ||
+        a.company.toLowerCase() === account.company.toLowerCase()
+      )
+      if (existing) {
+        newId = null
+        return prev
+      }
+      const maxId = prev.reduce((m, a) => Math.max(m, a.id), 0)
+      newId = maxId + 1
+      const fullAccount: Account = {
+        ...account,
+        id: newId,
+        meetings: account.meetings || [],
+        signals: account.signals || [],
+        stageHistory: account.stageHistory || [{ stage: account.stage, date: new Date().toISOString() }],
+      }
+      return [...prev, fullAccount]
+    })
+    return newId
+  }, [])
+
   const selectAccount = useCallback((id: number | null) => setSelectedId(id), [])
   const setGmail = useCallback((connected: boolean, email: string) => { setGmailConnected(connected); setGmailEmail(email) }, [])
   const setDbReady = useCallback((ready: boolean) => setDbReadyState(ready), [])
@@ -180,7 +207,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       accounts, events, selectedId, gmailConnected, gmailEmail, dbReady, user,
       setAccounts, updateAccount, setEvents, updateEvent, selectAccount,
       setGmail, setDbReady, setUser, save, saveEvents, selectedAccount,
-      updateAccountWithStage, tagContactToEvent, removeTagFromEvent,
+      updateAccountWithStage, tagContactToEvent, removeTagFromEvent, addDiscoveredAccount,
     }}>
       {children}
     </StoreContext.Provider>
