@@ -54,25 +54,41 @@ const SIGNAL_MAP: Record<string, SignalType> = {
 const NAICS_PHARMA = ['325412', '325411', '3254'] // pharma preparation, medicinal, and all
 const REV_BANDS = ['25M-75M', '10M-25M', '75M-200M']
 
-async function fetchExploriumPage(apiKey: string, revenueBand: string, page: number, pageSize: number): Promise<ExploriumBusiness[]> {
-  const res = await fetch('https://api.explorium.ai/v1/businesses', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', API_KEY: apiKey, api_key: apiKey, Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({
-      mode: 'full',
-      size: 10000,
-      page_size: pageSize,
-      page,
-      filters: {
-        country_code: { values: ['us'] },
-        company_revenue: { values: [revenueBand] },
-        naics_category: { values: ['325412'] }, // Strict: Pharmaceutical Preparation Manufacturing
-      },
-    }),
-  })
-  if (!res.ok) return []
-  const data = await res.json()
-  return data.data || data.businesses || data.results || []
+async function fetchExploriumPage(apiKey: string, revenueBand: string, page: number, pageSize: number, debug: string[]): Promise<ExploriumBusiness[]> {
+  const body = {
+    mode: 'full',
+    size: 10000,
+    page_size: pageSize,
+    page,
+    filters: {
+      country_code: { values: ['us'] },
+      company_revenue: { values: [revenueBand] },
+      naics_category: { values: ['325412'] },
+    },
+  }
+  try {
+    const res = await fetch('https://api.explorium.ai/v1/businesses', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', API_KEY: apiKey, api_key: apiKey, Authorization: `Bearer ${apiKey}` },
+      body: JSON.stringify(body),
+    })
+    const text = await res.text()
+    if (!res.ok) {
+      debug.push(`${revenueBand} p${page}: HTTP ${res.status} — ${text.slice(0, 200)}`)
+      return []
+    }
+    let data: Record<string, unknown> = {}
+    try { data = JSON.parse(text) } catch {
+      debug.push(`${revenueBand} p${page}: invalid JSON — ${text.slice(0, 100)}`)
+      return []
+    }
+    const rows = (data.data || data.businesses || data.results || []) as ExploriumBusiness[]
+    debug.push(`${revenueBand} p${page}: ${rows.length} rows (keys: ${Object.keys(data).join(',')})`)
+    return rows
+  } catch (e) {
+    debug.push(`${revenueBand} p${page}: fetch error — ${(e as Error).message}`)
+    return []
+  }
 }
 
 async function fetchBusinessEvents(apiKey: string, businessIds: string[]): Promise<Record<string, ExploriumEvent[]>> {
@@ -151,9 +167,10 @@ async function runImport() {
 
   // 2. Pull all revenue bands paginated
   const allBusinesses: ExploriumBusiness[] = []
+  const debug: string[] = []
   for (const band of REV_BANDS) {
     for (let page = 1; page <= 10; page++) {
-      const rows = await fetchExploriumPage(apiKey, band, page, 100)
+      const rows = await fetchExploriumPage(apiKey, band, page, 100, debug)
       if (!rows.length) break
       allBusinesses.push(...rows.map(b => ({ ...b, _band: band })))
       if (rows.length < 100) break
@@ -197,23 +214,19 @@ async function runImport() {
   }
 
   // 7. Log run
-  const logStr = JSON.stringify({
+  const result = {
     runAt: new Date().toISOString(),
     totalPulled: allBusinesses.length,
     pharmaOnly: pharmaOnly.length,
     afterDedupe: toImport.length,
     imported,
     importedCompanies: importedCompanies.slice(0, 20),
-  })
+    debug,
+  }
+  const logStr = JSON.stringify(result)
   await sql`INSERT INTO settings (key, value) VALUES ('last_import', ${logStr}) ON CONFLICT (key) DO UPDATE SET value = ${logStr}`
 
-  return {
-    totalPulled: allBusinesses.length,
-    pharmaOnly: pharmaOnly.length,
-    afterDedupe: toImport.length,
-    imported,
-    importedCompanies: importedCompanies.slice(0, 20),
-  }
+  return result
 }
 
 export async function POST(_req: NextRequest) {
