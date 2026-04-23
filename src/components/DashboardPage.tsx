@@ -14,6 +14,8 @@ const STAGE_COLOR: Record<string, string> = {
   Proposal: 'bg-amber-bg text-amber', Won: 'bg-green-bg text-green', Lost: 'bg-red-bg text-red',
 }
 
+type SortKey = 'company' | 'rev' | 'emp' | 'signals' | 'contacts' | 'stage'
+
 export function DashboardPage() {
   const { accounts, reloadFromDb } = useStore()
   const [expandedStage, setExpandedStage] = useState<Stage | null>(null)
@@ -23,6 +25,12 @@ export function DashboardPage() {
   const [importing, setImporting] = useState(false)
   const [importResult, setImportResult] = useState<{ imported: number; totalPulled: number; afterDedupe: number; importedCompanies?: string[]; debug?: string[] } | null>(null)
   const [importError, setImportError] = useState<string | null>(null)
+
+  // Accounts table state
+  const [search, setSearch] = useState('')
+  const [filter, setFilter] = useState<'all' | 'enriched' | 'hot' | 'missing-contacts' | 'missing-signals'>('all')
+  const [sortKey, setSortKey] = useState<SortKey>('signals')
+  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
 
   async function runImport() {
     if (importing) return
@@ -69,6 +77,47 @@ export function DashboardPage() {
   }, [accounts])
 
   const activeAccount = accounts.find(a => a.id === activeAccountId) || null
+
+  // Rows for the All Accounts table
+  const tableRows = useMemo(() => {
+    const rows = accounts.map(a => {
+      const contactCount = (a.contacts?.length ?? 0)
+      const signalCount = (a.signals?.length ?? 0)
+      const hasContacts = contactCount > 0
+      const hasSignals = signalCount > 0
+      const enriched = hasContacts && hasSignals
+      return { ...a, contactCount, signalCount, hasContacts, hasSignals, enriched }
+    })
+    let filtered = rows
+    if (search) {
+      const q = search.toLowerCase()
+      filtered = filtered.filter(r =>
+        r.company.toLowerCase().includes(q) ||
+        (r.city || '').toLowerCase().includes(q) ||
+        (r.vertical || '').toLowerCase().includes(q)
+      )
+    }
+    if (filter === 'enriched') filtered = filtered.filter(r => r.enriched)
+    else if (filter === 'hot') filtered = filtered.filter(r => r.hasSignals)
+    else if (filter === 'missing-contacts') filtered = filtered.filter(r => !r.hasContacts)
+    else if (filter === 'missing-signals') filtered = filtered.filter(r => !r.hasSignals)
+
+    filtered.sort((a, b) => {
+      const dir = sortDir === 'asc' ? 1 : -1
+      if (sortKey === 'signals') return (a.signalCount - b.signalCount) * dir
+      if (sortKey === 'contacts') return (a.contactCount - b.contactCount) * dir
+      if (sortKey === 'emp') return (String(a.emp) < String(b.emp) ? -1 : 1) * dir
+      if (sortKey === 'rev') return (String(a.rev) < String(b.rev) ? -1 : 1) * dir
+      if (sortKey === 'stage') return (a.stage < b.stage ? -1 : 1) * dir
+      return (a.company.toLowerCase() < b.company.toLowerCase() ? -1 : 1) * dir
+    })
+    return filtered
+  }, [accounts, search, filter, sortKey, sortDir])
+
+  function handleSort(k: SortKey) {
+    if (sortKey === k) setSortDir(d => d === 'asc' ? 'desc' : 'asc')
+    else { setSortKey(k); setSortDir(k === 'signals' || k === 'contacts' ? 'desc' : 'asc') }
+  }
 
   return (
     <div className="max-w-[960px] mx-auto px-8 py-12">
@@ -149,6 +198,100 @@ export function DashboardPage() {
         )}
       </Section>
 
+      {/* All Accounts Table */}
+      <Section label={`All Accounts (${tableRows.length} of ${accounts.length})`}>
+        {/* Filter bar */}
+        <div className="flex flex-wrap gap-2 mb-3">
+          <input
+            type="text"
+            placeholder="Search company, city, vertical..."
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            className="flex-1 min-w-[220px] bg-white border border-border rounded-lg px-3 py-2 text-[13px] outline-none focus:border-blue"
+          />
+          {([
+            ['all', 'All'],
+            ['enriched', 'Enriched'],
+            ['hot', 'Hot (signals)'],
+            ['missing-contacts', 'Missing contacts'],
+            ['missing-signals', 'Missing signals'],
+          ] as const).map(([key, label]) => (
+            <button
+              key={key}
+              onClick={() => setFilter(key)}
+              className={`px-3 py-2 text-[12px] font-semibold rounded-lg cursor-pointer transition-colors ${
+                filter === key
+                  ? 'bg-blue text-white'
+                  : 'bg-white border border-border text-text2 hover:bg-surface2'
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <div className="bg-white border border-border rounded-2xl overflow-hidden shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+          <div className="overflow-x-auto">
+            <table className="w-full text-[13px]">
+              <thead className="bg-surface2 border-b border-border">
+                <tr>
+                  <Th onClick={() => handleSort('company')} active={sortKey === 'company'} dir={sortDir}>Company</Th>
+                  <Th>Location</Th>
+                  <Th onClick={() => handleSort('rev')} active={sortKey === 'rev'} dir={sortDir}>Revenue</Th>
+                  <Th onClick={() => handleSort('emp')} active={sortKey === 'emp'} dir={sortDir}>Emps</Th>
+                  <Th onClick={() => handleSort('stage')} active={sortKey === 'stage'} dir={sortDir}>Stage</Th>
+                  <Th onClick={() => handleSort('contacts')} active={sortKey === 'contacts'} dir={sortDir}>Contacts</Th>
+                  <Th onClick={() => handleSort('signals')} active={sortKey === 'signals'} dir={sortDir}>Signals</Th>
+                  <Th>Enrichment</Th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableRows.map((r, i) => (
+                  <tr
+                    key={r.id}
+                    onClick={() => setActiveAccountId(r.id)}
+                    className={`cursor-pointer hover:bg-surface2 transition-colors ${i < tableRows.length - 1 ? 'border-b border-border' : ''}`}
+                  >
+                    <td className="px-4 py-3">
+                      <div className="font-semibold text-text">{r.company}</div>
+                      <div className="text-[11px] text-text3">{r.vertical}</div>
+                    </td>
+                    <td className="px-4 py-3 text-text2">{r.city || '—'}</td>
+                    <td className="px-4 py-3 text-text2">{r.rev}</td>
+                    <td className="px-4 py-3 text-text2">{r.emp}</td>
+                    <td className="px-4 py-3">
+                      <span className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full ${STAGE_COLOR[r.stage] || 'bg-surface2 text-text3'}`}>
+                        {r.stage}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {r.contactCount > 0 ? (
+                        <span className="text-green font-bold">{r.contactCount}</span>
+                      ) : (
+                        <span className="text-text3">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-center">
+                      {r.signalCount > 0 ? (
+                        <span className="text-amber font-bold">{r.signalCount}</span>
+                      ) : (
+                        <span className="text-text3">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      <EnrichmentBadge hasContacts={r.hasContacts} hasSignals={r.hasSignals} />
+                    </td>
+                  </tr>
+                ))}
+                {tableRows.length === 0 && (
+                  <tr><td colSpan={8} className="px-4 py-8 text-center text-text3">No accounts match your filter.</td></tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </Section>
+
       {/* Activity Log */}
       <Section label="Activity Log">
         {activity.length === 0 ? (
@@ -204,6 +347,33 @@ function StatCard({ label, value, color }: { label: string; value: number; color
       <p className={`text-[28px] font-bold mt-1 ${c}`}>{value}</p>
     </div>
   )
+}
+
+function Th({ children, onClick, active, dir }: { children: React.ReactNode; onClick?: () => void; active?: boolean; dir?: 'asc' | 'desc' }) {
+  return (
+    <th
+      onClick={onClick}
+      className={`text-left px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wider ${onClick ? 'cursor-pointer hover:text-text' : ''} ${active ? 'text-blue' : 'text-text3'}`}
+    >
+      <span className="inline-flex items-center gap-1">
+        {children}
+        {active && <span className="text-[9px]">{dir === 'asc' ? '▲' : '▼'}</span>}
+      </span>
+    </th>
+  )
+}
+
+function EnrichmentBadge({ hasContacts, hasSignals }: { hasContacts: boolean; hasSignals: boolean }) {
+  if (hasContacts && hasSignals) {
+    return <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-green-bg text-green">✓ Full</span>
+  }
+  if (hasContacts) {
+    return <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-blue-bg text-blue">Contacts only</span>
+  }
+  if (hasSignals) {
+    return <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-bg text-amber">Signals only</span>
+  }
+  return <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-surface2 text-text3">Not enriched</span>
 }
 
 function Section({ label, children }: { label: string; children: React.ReactNode }) {
