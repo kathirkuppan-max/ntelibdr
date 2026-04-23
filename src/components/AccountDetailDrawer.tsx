@@ -85,6 +85,50 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
           </div>
         </div>
 
+        {/* Signals */}
+        {account.signals && account.signals.length > 0 && (
+          <div>
+            <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">Signals ({account.signals.length})</h3>
+            <div className="space-y-2">
+              {account.signals.map((s, i) => {
+                const sig = s as { type?: string; title?: string; date?: string; link?: string; snippet?: string; text?: string }
+                const typeLabel: Record<string, string> = {
+                  new_product: 'New product / ANDA',
+                  new_funding_round: 'Funding round',
+                  merger_and_acquisitions: 'M&A / PE',
+                  ipo_announcement: 'IPO',
+                  lawsuits_and_legal_issues: 'Legal / lawsuit',
+                  hiring_in_finance_department: 'Finance hiring',
+                  new_executive: 'New executive',
+                  other: 'Signal',
+                }
+                const typeColor: Record<string, string> = {
+                  new_product: 'bg-green-bg text-green',
+                  new_funding_round: 'bg-blue-bg text-blue',
+                  merger_and_acquisitions: 'bg-amber-bg text-amber',
+                  ipo_announcement: 'bg-purple-bg text-purple',
+                  lawsuits_and_legal_issues: 'bg-red-bg text-red',
+                  hiring_in_finance_department: 'bg-blue-bg text-blue',
+                  new_executive: 'bg-purple-bg text-purple',
+                }
+                return (
+                  <div key={i} className="bg-white border border-border rounded-lg p-3">
+                    <div className="flex items-center gap-2 mb-1.5">
+                      <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${typeColor[sig.type || 'other'] || 'bg-surface2 text-text3'}`}>
+                        {typeLabel[sig.type || 'other']}
+                      </span>
+                      {sig.date && <span className="text-[11px] text-text3 font-mono">{sig.date}</span>}
+                    </div>
+                    <p className="text-[13px] font-medium text-text leading-snug">{sig.title || sig.text || '—'}</p>
+                    {sig.snippet && <p className="text-[11px] text-text3 mt-1 line-clamp-2">{sig.snippet}</p>}
+                    {sig.link && <a href={sig.link} target="_blank" rel="noopener noreferrer" className="text-[11px] text-blue hover:underline mt-1 inline-block">Source →</a>}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
         {/* Pain Points */}
         <div>
           <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">Chargeback &amp; Ship-Debit Pain Points</h3>
