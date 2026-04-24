@@ -76,6 +76,7 @@ export interface Account {
   testContact?: { name: string; email: string; title: string }
   stageHistory?: StageChange[]
   notes?: string
+  fitScore340B?: FitScore340B
 }
 
 export type SignalType =
@@ -86,7 +87,19 @@ export type SignalType =
   | 'lawsuits_and_legal_issues' // Patent fight, FDA issue
   | 'hiring_in_finance_department' // New CFO/Controller
   | 'new_executive'          // Generic senior hire
+  | 'govpricing_hiring'      // 340B / Gov Pricing / Contracts hire (NEW)
   | 'other'
+
+// Recapture fit scoring — 340B chargeback recapture engine
+export interface FitScore340B {
+  total: number          // 0-100
+  channelExposure: number   // hospital / IDN / clinic = high; OTC = low
+  therapeuticArea: number   // oncology / rare / injectable / HIV = high
+  revenueBand: number       // $50M-$5B sweet spot, outside = penalty
+  competitorRisk: number    // Model N / Kalderos already deployed = penalty
+  signalBoost: number       // Recent M&A / gov pricing hiring = boost
+  rationale: string[]       // Human-readable reasons
+}
 
 export interface Signal {
   type: SignalType
