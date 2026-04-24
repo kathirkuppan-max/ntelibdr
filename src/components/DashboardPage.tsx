@@ -14,7 +14,7 @@ const STAGE_COLOR: Record<string, string> = {
   Proposal: 'bg-amber-bg text-amber', Won: 'bg-green-bg text-green', Lost: 'bg-red-bg text-red',
 }
 
-type SortKey = 'company' | 'rev' | 'emp' | 'signals' | 'contacts' | 'stage'
+type SortKey = 'company' | 'rev' | 'emp' | 'signals' | 'contacts' | 'stage' | 'fit340B'
 
 export function DashboardPage() {
   const { accounts, reloadFromDb } = useStore()
@@ -29,7 +29,7 @@ export function DashboardPage() {
   // Accounts table state
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState<'all' | 'enriched' | 'hot' | 'missing-contacts' | 'missing-signals'>('all')
-  const [sortKey, setSortKey] = useState<SortKey>('signals')
+  const [sortKey, setSortKey] = useState<SortKey>('fit340B')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
 
   async function runImport() {
@@ -104,6 +104,7 @@ export function DashboardPage() {
 
     filtered.sort((a, b) => {
       const dir = sortDir === 'asc' ? 1 : -1
+      if (sortKey === 'fit340B') return ((a.fitScore340B?.total || 0) - (b.fitScore340B?.total || 0)) * dir
       if (sortKey === 'signals') return (a.signalCount - b.signalCount) * dir
       if (sortKey === 'contacts') return (a.contactCount - b.contactCount) * dir
       if (sortKey === 'emp') return (String(a.emp) < String(b.emp) ? -1 : 1) * dir
@@ -235,6 +236,7 @@ export function DashboardPage() {
             <table className="w-full text-[13px]">
               <thead className="bg-surface2 border-b border-border">
                 <tr>
+                  <Th onClick={() => handleSort('fit340B')} active={sortKey === 'fit340B'} dir={sortDir}>340B Fit</Th>
                   <Th onClick={() => handleSort('company')} active={sortKey === 'company'} dir={sortDir}>Company</Th>
                   <Th>Location</Th>
                   <Th onClick={() => handleSort('rev')} active={sortKey === 'rev'} dir={sortDir}>Revenue</Th>
@@ -252,6 +254,9 @@ export function DashboardPage() {
                     onClick={() => setActiveAccountId(r.id)}
                     className={`cursor-pointer hover:bg-surface2 transition-colors ${i < tableRows.length - 1 ? 'border-b border-border' : ''}`}
                   >
+                    <td className="px-4 py-3">
+                      <FitScorePill score={r.fitScore340B?.total ?? 0} />
+                    </td>
                     <td className="px-4 py-3">
                       <div className="font-semibold text-text">{r.company}</div>
                       <div className="text-[11px] text-text3">{r.vertical}</div>
@@ -284,7 +289,7 @@ export function DashboardPage() {
                   </tr>
                 ))}
                 {tableRows.length === 0 && (
-                  <tr><td colSpan={8} className="px-4 py-8 text-center text-text3">No accounts match your filter.</td></tr>
+                  <tr><td colSpan={9} className="px-4 py-8 text-center text-text3">No accounts match your filter.</td></tr>
                 )}
               </tbody>
             </table>
@@ -360,6 +365,17 @@ function Th({ children, onClick, active, dir }: { children: React.ReactNode; onC
         {active && <span className="text-[9px]">{dir === 'asc' ? '▲' : '▼'}</span>}
       </span>
     </th>
+  )
+}
+
+function FitScorePill({ score }: { score: number }) {
+  const color = score >= 75 ? 'bg-green text-white' : score >= 55 ? 'bg-amber-bg text-amber border border-amber-border' : score >= 35 ? 'bg-surface2 text-text2' : 'bg-surface3 text-text3'
+  const label = score >= 75 ? 'Tier 1' : score >= 55 ? 'Tier 2' : score >= 35 ? 'Tier 3' : 'Skip'
+  return (
+    <div className="flex items-center gap-2">
+      <span className={`inline-flex items-center justify-center text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[28px] ${color}`}>{score}</span>
+      <span className="text-[11px] text-text3">{label}</span>
+    </div>
   )
 }
 

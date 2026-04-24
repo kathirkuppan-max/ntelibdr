@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useCallback, useEffect, type React
 import type { Account, Stage } from './types'
 import { SEED_ACCOUNTS } from './seed-accounts'
 import { PRE_ENRICHED } from './contacts'
+import { compute340BFit } from './fit-score'
 
 interface AppState {
   accounts: Account[]
@@ -40,7 +41,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [initialized, setInitialized] = useState(false)
 
   useEffect(() => {
-    const SEED_VERSION = 'v9-universe-40'
+    const SEED_VERSION = 'v10-recapture-fit'
     const storedVersion = localStorage.getItem('nteli_seed_version')
     const isStale = storedVersion !== SEED_VERSION
 
@@ -65,6 +66,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         a.contactsSource = 'clay'
         a.contactsDate = 'Apr 2026 (Clay verified)'
       }
+      // Always recompute 340B fit on load (cheap, keeps signals fresh)
+      a.fitScore340B = compute340BFit(a)
       return a
     })
 
@@ -134,6 +137,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
           if (!a.meetings) a.meetings = []
           if (!a.signals) a.signals = []
           if (!a.stageHistory) a.stageHistory = [{ stage: a.stage, date: new Date().toISOString() }]
+          a.fitScore340B = compute340BFit(a)
           return a
         })
         setAccountsState(dbAccts)

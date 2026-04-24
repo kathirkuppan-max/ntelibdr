@@ -25,15 +25,20 @@ export function TodayPage({ firstName }: { firstName: string }) {
     })
   })
 
-  // Accounts ranked by signal heat (most signals, most recent first)
+  // Accounts ranked by 340B fit × signal freshness
+  // This surfaces the accounts that actually buy Recapture, not just the loudest ones.
   const hotAccounts = useMemo(() => {
     return accounts
       .filter(a => (a.signals?.length ?? 0) > 0)
       .map(a => {
         const latest = [...(a.signals || [])].sort((x, y) => (y.date || '').localeCompare(x.date || ''))[0]
-        return { ...a, latestSignal: latest, signalCount: (a.signals || []).length }
+        const fit = a.fitScore340B?.total ?? 50
+        const daysSinceSignal = latest?.date ? Math.max(0, (Date.now() - new Date(latest.date).getTime()) / 86400000) : 365
+        const freshnessBoost = Math.max(0, 30 - daysSinceSignal) // +30 for today, 0 after 30 days
+        const priorityScore = fit + freshnessBoost
+        return { ...a, latestSignal: latest, signalCount: (a.signals || []).length, priorityScore }
       })
-      .sort((a, b) => (b.latestSignal?.date || '').localeCompare(a.latestSignal?.date || ''))
+      .sort((a, b) => b.priorityScore - a.priorityScore)
       .slice(0, 10)
   }, [accounts])
 
@@ -163,9 +168,14 @@ export function TodayPage({ firstName }: { firstName: string }) {
                       )}
                     </div>
                   </div>
-                  <div className="text-right shrink-0">
-                    <div className="text-[11px] font-semibold text-amber bg-amber-bg px-2.5 py-0.5 rounded-full inline-block">{a.signalCount} signals</div>
-                    {a.latestSignal?.date && <div className="text-[10px] text-text3 font-mono mt-1">{a.latestSignal.date}</div>}
+                  <div className="text-right shrink-0 flex flex-col items-end gap-1">
+                    {a.fitScore340B && (
+                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${a.fitScore340B.total >= 75 ? 'bg-green text-white' : a.fitScore340B.total >= 55 ? 'bg-amber-bg text-amber' : 'bg-surface2 text-text3'}`}>
+                        340B: {a.fitScore340B.total}
+                      </span>
+                    )}
+                    <div className="text-[10px] font-semibold text-amber bg-amber-bg px-2 py-0.5 rounded-full inline-block">{a.signalCount} signals</div>
+                    {a.latestSignal?.date && <div className="text-[9px] text-text3 font-mono">{a.latestSignal.date}</div>}
                   </div>
                 </div>
               </div>

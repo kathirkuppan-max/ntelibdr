@@ -6,6 +6,7 @@ import { useStore } from '@/lib/store'
 import type { Meeting, Stage, Contact } from '@/lib/types'
 import { CASE_STUDY_KB } from '@/lib/case-studies'
 import { PRE_ENRICHED } from '@/lib/contacts'
+import { pickPersona } from '@/lib/outreach-templates'
 
 interface Props {
   open: boolean
@@ -64,11 +65,40 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultCon
     try {
       const sig = localStorage.getItem('nteli_sig') || 'Kathir'
       const stories = localStorage.getItem('nteli_stories') || CASE_STUDY_KB.CRO
+      const contactTitle = 'title' in c ? c.title : ''
+      const persona = pickPersona(contactTitle || '')
+      const signalContext = (acct.signals || []).slice(0, 2).map(s => `· ${s.type}: ${s.title}`).join('\n') || 'none'
+
       const r = await fetch('/api/claude', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514', max_tokens: 1024,
-          messages: [{ role: 'user', content: `Generate 3 follow-up emails for ${c.name} (${'title' in c ? c.title : ''}) at ${acct.company}. Met at ${where}. Discussed: ${notes}. Company: ${acct.vertical}, ${acct.rev}. Their pain: ${acct.pains.join(', ')}. Sender: ${sig.split('|')[0].trim()}.\n\nStories: ${stories}\n\nEmail 1 (day 1): 3 sentences. Email 2 (day 5): 3 sentences. Email 3 (day 10): 3 sentences. Sound human, first names.\n\nReturn ONLY JSON: [{"subject":"","body":""},{"subject":"","body":""},{"subject":"","body":""}]` }],
+          messages: [{ role: 'user', content: `Generate 3 follow-up emails for ${c.name} (${contactTitle}) at ${acct.company}. Met at ${where}. Discussed: ${notes}.
+
+Company: ${acct.vertical}, ${acct.rev}. Pains: ${acct.pains.join(', ')}.
+Recent signals:\n${signalContext}
+
+Sender: ${sig.split('|')[0].trim()}.
+
+BUYER PERSONA: ${persona.persona}
+HOOK TO USE: ${persona.hook}
+DOMAIN INSIGHT: ${persona.insight}
+MEETING ASK: ${persona.ask}
+CASE STUDY TO REFERENCE: ${persona.case_study}
+
+Product: Recapture — a real-time 340B chargeback validation engine that
+catches the 4 leaks Model N/Vistex/IQVIA weren't designed for: OPAIS-terminated
+CEs, unauthorized contract pharmacies, manufacturer policy violations, duplicate
+Medicaid. Priced at 5-10% of verified recovery.
+
+Stories: ${stories}
+
+Email 1 (day 1, ≤3 sentences): Thank + reference the specific topic discussed + tease the insight.
+Email 2 (day 5, ≤3 sentences): Lead with one case-study data point. Ask the meeting.
+Email 3 (day 10, ≤3 sentences): Re-ask + create a small urgency hook (e.g. a recent signal or regulatory date).
+
+Sound human. Use first names. No buzzwords. No pronouncing-confident emoji.
+Return ONLY JSON: [{"subject":"","body":""},{"subject":"","body":""},{"subject":"","body":""}]` }],
         }),
       })
       const data = await r.json()

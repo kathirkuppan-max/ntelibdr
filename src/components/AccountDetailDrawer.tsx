@@ -85,6 +85,40 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
           </div>
         </div>
 
+        {/* 340B Fit Score */}
+        {account.fitScore340B && (
+          <div>
+            <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">Recapture 340B Fit</h3>
+            <div className="bg-white border border-border rounded-xl p-4">
+              <div className="flex items-center justify-between mb-3">
+                <div>
+                  <div className="text-[28px] font-bold text-text leading-none">{account.fitScore340B.total}<span className="text-[14px] text-text3">/100</span></div>
+                  <div className="text-[11px] text-text3 mt-1">
+                    {account.fitScore340B.total >= 75 ? '🟢 Tier 1 — Prioritize' :
+                     account.fitScore340B.total >= 55 ? '🟡 Tier 2 — Good fit' :
+                     account.fitScore340B.total >= 35 ? '⚪ Tier 3 — Reference only' :
+                     '⛔ Skip — outside ICP'}
+                  </div>
+                </div>
+              </div>
+              <div className="grid grid-cols-5 gap-2 mb-3">
+                <FitBar label="Revenue" value={account.fitScore340B.revenueBand} />
+                <FitBar label="Channel" value={account.fitScore340B.channelExposure} />
+                <FitBar label="TA" value={account.fitScore340B.therapeuticArea} />
+                <FitBar label="Compete" value={account.fitScore340B.competitorRisk} />
+                <FitBar label="Signals" value={account.fitScore340B.signalBoost * 3.33} />
+              </div>
+              {account.fitScore340B.rationale.length > 0 && (
+                <ul className="text-[11px] text-text2 space-y-1 mt-2">
+                  {account.fitScore340B.rationale.map((r, i) => (
+                    <li key={i}>· {r}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        )}
+
         {/* Signals */}
         {account.signals && account.signals.length > 0 && (
           <div>
@@ -222,5 +256,21 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
         </div>
       </div>
     </Drawer>
+  )
+}
+
+function FitBar({ label, value }: { label: string; value: number }) {
+  const v = Math.max(0, Math.min(100, value))
+  return (
+    <div>
+      <div className="text-[9px] font-semibold text-text3 uppercase tracking-wide mb-1">{label}</div>
+      <div className="h-1.5 bg-surface2 rounded-full overflow-hidden">
+        <div
+          className={`h-full ${v >= 70 ? 'bg-green' : v >= 40 ? 'bg-amber' : 'bg-text3'}`}
+          style={{ width: `${v}%` }}
+        />
+      </div>
+      <div className="text-[10px] text-text3 font-mono mt-0.5">{Math.round(v)}</div>
+    </div>
   )
 }
