@@ -4,8 +4,9 @@ import { useState } from 'react'
 import { Drawer } from './ui/Drawer'
 import { useStore } from '@/lib/store'
 import { DripTimeline } from './DripTimeline'
-import type { Account, Stage } from '@/lib/types'
+import type { Account, Contact, Stage } from '@/lib/types'
 import { PRE_ENRICHED } from '@/lib/contacts'
+import { pickPersona } from '@/lib/outreach-templates'
 
 const STAGES: Stage[] = ['Prospect', 'Connected', 'Met', 'Following Up', 'Engaged', 'Meeting', 'Proposal', 'Won', 'Lost']
 const STAGE_COLORS: Record<string, string> = {
@@ -24,6 +25,8 @@ interface Props {
 export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmail }: Props) {
   const { updateAccountWithStage, updateAccount, save } = useStore()
   const [notesValue, setNotesValue] = useState(account?.notes || '')
+  const [drafting, setDrafting] = useState<string | null>(null)
+  const [draft, setDraft] = useState<{ contactName: string; subject: string; body: string } | null>(null)
 
   if (!account) return null
 
@@ -44,6 +47,54 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
     }
   }
   timeline.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+
+  async function draftEmail(contact: Contact) {
+    if (!account) return
+    setDrafting(contact.name)
+    setDraft(null)
+    try {
+      const sig = localStorage.getItem('nteli_sig') || 'Kathir'
+      const senderName = sig.split('|')[0].trim()
+      const persona = pickPersona(contact.title || '')
+      const topSignal = (account.signals || [])[0]
+      const signalContext = topSignal ? `\n\nRecent signal at ${account.company}: ${topSignal.title}` : ''
+
+      const r = await fetch('/api/claude', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-20250514', max_tokens: 500,
+          messages: [{ role: 'user', content: `Write ONE cold email to ${contact.name} (${contact.title}) at ${account.company}.
+
+Company context: ${account.vertical}, ${account.rev}.${signalContext}
+
+BUYER PERSONA: ${persona.persona}
+HOOK: ${persona.hook}
+INSIGHT: ${persona.insight}
+MEETING ASK: ${persona.ask}
+CASE STUDY: ${persona.case_study}
+
+Product: Recapture — a real-time 340B chargeback validation engine that
+catches the 4 leaks Model N/Vistex/IQVIA weren't designed for: OPAIS-terminated
+CEs, unauthorized contract pharmacies, manufacturer policy violations,
+duplicate Medicaid. Priced at 5-10% of verified recovery.
+
+Sender: ${senderName}, CEO of Nteli.
+
+Rules: ≤5 sentences. No buzzwords. First names. Lead with the hook. End with the ask. Sign with "${senderName}".
+
+Return ONLY JSON: {"subject":"","body":""}` }],
+        }),
+      })
+      const data = await r.json()
+      const text = data.content?.[0]?.text || ''
+      const match = text.match(/\{[\s\S]*\}/)
+      if (match) {
+        const email = JSON.parse(match[0])
+        setDraft({ contactName: contact.name, subject: email.subject, body: email.body })
+      }
+    } catch { /* surface nothing for now */ }
+    setDrafting(null)
+  }
 
   function handleSaveNotes() {
     updateAccount(account!.id, { notes: notesValue })
@@ -179,16 +230,29 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
             <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3">Contacts ({contacts.length})</h3>
           </div>
           <div className="space-y-2">
-            {contacts.map((c, i) => (
-              <div key={i} className="flex items-center gap-3 bg-surface2 rounded-xl px-3 py-2.5">
-                <div className="w-8 h-8 rounded-full bg-blue-bg flex items-center justify-center text-[11px] font-bold text-blue shrink-0">{c.initials}</div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-medium text-text truncate">{c.name}</p>
-                  <p className="text-[11px] text-text3 truncate">{c.title}</p>
+            {contacts.map((c, i) => {
+              const persona = pickPersona(c.title || '')
+              const isDrafting = drafting === c.name
+              return (
+                <div key={i} className="bg-surface2 rounded-xl px-3 py-2.5">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-blue-bg flex items-center justify-center text-[11px] font-bold text-blue shrink-0">{c.initials}</div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[13px] font-medium text-text truncate">{c.name}</p>
+                      <p className="text-[11px] text-text3 truncate">{c.title} <span className="text-purple ml-1">· {persona.persona}</span></p>
+                    </div>
+                    {c.linkedin && <a href={`https://${c.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-[11px] text-blue hover:underline shrink-0">LinkedIn</a>}
+                    <button
+                      onClick={() => draftEmail(c)}
+                      disabled={isDrafting}
+                      className="text-[11px] font-semibold px-2 py-1 rounded-md bg-blue text-white hover:bg-blue2 disabled:opacity-40 cursor-pointer shrink-0"
+                    >
+                      {isDrafting ? 'Drafting…' : 'Draft'}
+                    </button>
+                  </div>
                 </div>
-                {c.linkedin && <a href={`https://${c.linkedin}`} target="_blank" rel="noopener noreferrer" className="text-[11px] text-blue hover:underline shrink-0">LinkedIn</a>}
-              </div>
-            ))}
+              )
+            })}
           </div>
           <button
             onClick={() => onLogMeeting(account!.id)}
@@ -196,6 +260,34 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
           >
             + Log a meeting
           </button>
+
+          {/* Draft preview */}
+          {draft && (
+            <div className="mt-4 bg-white border border-blue-border rounded-xl overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-2.5 bg-blue-bg border-b border-blue-border">
+                <span className="text-[12px] font-semibold text-blue">Cold email draft to {draft.contactName}</span>
+                <button onClick={() => setDraft(null)} className="text-[11px] text-text3 hover:text-text cursor-pointer">×</button>
+              </div>
+              <div className="px-4 py-3 border-b border-border">
+                <span className="text-[11px] text-text3 uppercase tracking-wide font-semibold">Subject</span>
+                <p className="text-[13px] font-medium text-text mt-0.5">{draft.subject}</p>
+              </div>
+              <div className="px-4 py-3">
+                <p className="text-[13px] text-text leading-relaxed whitespace-pre-wrap">{draft.body}</p>
+              </div>
+              <div className="flex gap-2 px-4 py-3 border-t border-border bg-surface2">
+                <button
+                  onClick={() => { navigator.clipboard.writeText(`Subject: ${draft.subject}\n\n${draft.body}`); alert('Copied!') }}
+                  className="flex-1 py-2 text-[12px] font-semibold text-blue border border-blue-border rounded-lg hover:bg-white cursor-pointer"
+                >
+                  Copy to clipboard
+                </button>
+                <button onClick={() => setDraft(null)} className="flex-1 py-2 text-[12px] font-medium text-text3 hover:bg-white cursor-pointer">
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Meetings & Drip */}
