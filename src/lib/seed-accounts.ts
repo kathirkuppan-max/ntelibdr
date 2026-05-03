@@ -4,7 +4,12 @@ import type { Account } from './types'
 // Data sources: Explorium (firmographics, signals via business-events API),
 // Clay (verified contact profiles).
 // Signals pulled live Apr 2026 from Explorium business-events.
-export const SEED_ACCOUNTS: Account[] = [
+//
+// Every account in this file targets the Recapture product (340B). The
+// CRM↔ERP product universe lives in `seed-semiconductors.ts`. The
+// `products: ['recapture']` tag is applied at the bottom of this file so
+// we don't have to touch every row.
+const RAW_RECAPTURE_ACCOUNTS: Account[] = [
   // ═══ Clay-verified (strong contact data) — ICP CORE ═══
   {id:1,company:"Elite Pharmaceuticals",city:"Northvale, NJ",market:"NJ/NY Metro",vertical:"Specialty Generic · Controlled Substances",rev:"$75M–$200M",emp:"64",priority:"High",pe:false,ownership:"OTC: ELTP",pains:["Partnered products (TAGI, Glenmark, SunGen) — GTN variance","Controlled-substance SKU reconciliation","Chargeback claim leakage"],cxo:"CEO + Controller",website:"elitepharma.com",liSearch:"elite pharmaceuticals",stage:"Prospect",source:"clay",contacted:false,signals:[]},
   {id:2,company:"Bionpharma",city:"Princeton, NJ",market:"NJ/NY Metro",vertical:"Generic · OTC Softgels",rev:"$10M–$25M",emp:"42",priority:"High",pe:false,ownership:"Privately held",pains:["Small contracts team scaling with launches","Softgel chargeback volume spike","844 exceptions processed manually"],cxo:"VP Sales & Ops + Sr Dir Corp Dev",website:"bionpharma.com",liSearch:"bionpharma princeton",stage:"Prospect",source:"clay",contacted:false,signals:[]},
@@ -112,3 +117,10 @@ export const SEED_ACCOUNTS: Account[] = [
     {type:'merger_and_acquisitions',title:'Dynamic Technology Lab takes new $209K position in ANI',date:'2025-11-28',link:'https://www.marketbeat.com/instant-alerts/filing-dynamic-technology-lab-private-ltd-makes-new-investment-in-ani-pharmaceuticals-inc-anip-2025-11-27/'},
   ]},
 ]
+
+// Tag every Recapture seed with products: ['recapture']. Existing fitScore340B
+// reads still work because the store recomputes per-product fit on hydration.
+export const SEED_ACCOUNTS: Account[] = RAW_RECAPTURE_ACCOUNTS.map(a => ({
+  ...a,
+  products: ['recapture'],
+}))

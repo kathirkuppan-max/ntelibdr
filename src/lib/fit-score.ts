@@ -1,92 +1,61 @@
-// 340B Recapture fit scoring
-// Scoring dimensions are tuned to Recapture's actual value prop per
-// the research dossier: catch the 4 leaks (OPAIS terminations, unauthorized
-// contract pharmacies, manufacturer policy violations, duplicate Medicaid).
+// Generalized fit scoring — same five dimensions for every product, but
+// the keywords / weights / signal whitelist come from per-product config
+// in `src/lib/products.ts`.
+//
+// Per-account result: `account.fitScores[productId]: FitScore`.
+// `compute340BFit` is kept as a one-line wrapper so existing callers compile
+// while we migrate.
 
-import type { Account, FitScore340B, SignalType } from './types'
+import type { Account, FitScore, ProductId } from './types'
+import { PRODUCTS, PRODUCT_IDS, type ProductConfig } from './products'
 
-// Therapeutic areas ranked by 340B dispensing concentration.
-// Oncology, rare disease, specialty injectables dominate 340B volume.
-const HIGH_340B_KEYWORDS = [
-  'oncology', 'hospital', 'injectable', 'specialty', 'rare',
-  'cns', 'pain', 'controlled substance', 'hiv', 'hepatitis',
-  'biologic', 'rems', 'pediatric',
-]
-const LOW_340B_KEYWORDS = [
-  'otc', 'softgel', 'cosmetic', 'skin care', 'consumer',
-  'toiletry', 'personal care', 'medical equipment', 'monitoring',
-]
-
-// Revenue band scoring — per dossier, $50M-$5B is sweet spot.
-// <$50M pre-commercial; >$5B Model N territory.
-function scoreRevenue(rev: string): number {
-  const r = rev.toLowerCase()
-  if (r.includes('200m-500m') || r.includes('$200m') || r.includes('$500m')) return 100 // upper mid
-  if (r.includes('75m-200m') || r.includes('$75m')) return 95                             // lower mid
-  if (r.includes('25m-75m')) return 90                                                    // ICP core
-  if (r.includes('500m+') || r.includes('$500m+') || r.includes('500m-1b')) return 75     // upper but accessible
-  if (r.includes('10m-25m') || r.includes('$10m')) return 65                              // small but workable
-  if (r.includes('$1b') && !r.includes('$1b+')) return 50                                 // getting into MN territory
-  if (r.includes('1b+') || r.includes('$1b+') || r.includes('$2b') || r.includes('$4b')) return 25   // Model N entrenched
-  if (r.includes('b+') || r.includes('$10b')) return 10                                   // mega-cap
-  if (r.includes('< $10m') || r.includes('< 10m')) return 20                              // too small
+function scoreRevenue(rev: string, product: ProductConfig): number {
+  const r = (rev || '').toLowerCase()
+  for (const band of product.revenueBands) {
+    if (band.match.test(r)) return band.score
+  }
   return 50
 }
 
-// Channel exposure — hospital/IDN/injectable = high 340B flow
-function scoreChannel(account: Account): number {
-  const vertical = (account.vertical || '').toLowerCase()
-  const description = [vertical, account.ownership].join(' ').toLowerCase()
-
+function scoreChannel(account: Account, product: ProductConfig): number {
+  const description = [account.vertical, account.ownership].join(' ').toLowerCase()
   let score = 50
-  for (const kw of HIGH_340B_KEYWORDS) { if (description.includes(kw)) score += 10 }
-  for (const kw of LOW_340B_KEYWORDS) { if (description.includes(kw)) score -= 15 }
+  for (const kw of product.highVerticalKeywords) { if (description.includes(kw)) score += 10 }
+  for (const kw of product.lowVerticalKeywords) { if (description.includes(kw)) score -= 15 }
   return Math.max(0, Math.min(100, score))
 }
 
-// Therapeutic area gets its own explicit score for transparency
-function scoreTherapeuticArea(account: Account): { score: number; areas: string[] } {
+function scoreTherapeuticArea(account: Account, product: ProductConfig): { score: number; areas: string[] } {
   const vertical = (account.vertical || '').toLowerCase()
   const matched: string[] = []
   let score = 40
-  for (const kw of HIGH_340B_KEYWORDS) {
+  for (const kw of product.highVerticalKeywords) {
     if (vertical.includes(kw)) { matched.push(kw); score += 15 }
   }
-  for (const kw of LOW_340B_KEYWORDS) {
+  for (const kw of product.lowVerticalKeywords) {
     if (vertical.includes(kw)) score -= 20
   }
   return { score: Math.max(0, Math.min(100, score)), areas: matched }
 }
 
-// Competitor risk — Model N tends to be entrenched at big-pharma
-function scoreCompetitor(account: Account): number {
-  const rev = account.rev.toLowerCase()
+function scoreCompetitor(account: Account, product: ProductConfig): number {
+  const rev = (account.rev || '').toLowerCase()
   const owner = (account.ownership || '').toLowerCase()
-  // Public large-cap → almost certainly Model N
-  if (owner.includes('nyse:') || owner.includes('nasdaq:')) {
-    if (rev.includes('b+') || rev.includes('$1b') || rev.includes('$2b') || rev.includes('$4b') || rev.includes('$10b')) {
-      return 20 // Model N likely entrenched
-    }
-    return 50
-  }
-  return 80 // Private / mid-market → fresh opportunity
+  const isPublic = owner.includes('nyse:') || owner.includes('nasdaq:') ||
+                   owner.includes('lse:') || owner.includes('nse:') ||
+                   owner.includes('bse:') || owner.includes('otc:')
+  const isMegacap = /b\+|\$1b|\$2b|\$4b|\$10b/.test(rev)
+  if (isPublic && isMegacap) return product.competitorPenaltyAtMegaCap
+  if (isPublic) return product.publicCompanyAtMegacapScore
+  return product.midMarketCompetitorScore
 }
 
-// Boost based on fresh buying signals that matter for Recapture
-function scoreSignalBoost(account: Account): { score: number; boosts: string[] } {
+function scoreSignalBoost(account: Account, product: ProductConfig): { score: number; boosts: string[] } {
   const signals = account.signals || []
   const boosts: string[] = []
   let score = 0
-  // Types that concretely raise 340B relevance
-  const relevantTypes: SignalType[] = [
-    'merger_and_acquisitions',      // contract setup
-    'new_product',                  // ANDA launch = chargeback volume
-    'govpricing_hiring',            // direct hire-the-buyer signal
-    'hiring_in_finance_department', // AR team overwhelmed
-    'lawsuits_and_legal_issues',    // compliance mandate
-  ]
   for (const s of signals) {
-    if (relevantTypes.includes(s.type)) {
+    if (product.highValueSignals.includes(s.type)) {
       score += 10
       boosts.push(`${s.type}: ${s.title.slice(0, 60)}`)
     } else {
@@ -96,14 +65,13 @@ function scoreSignalBoost(account: Account): { score: number; boosts: string[] }
   return { score: Math.min(30, score), boosts }
 }
 
-export function compute340BFit(account: Account): FitScore340B {
-  const revenueBand = scoreRevenue(account.rev)
-  const channelExposure = scoreChannel(account)
-  const therapeutic = scoreTherapeuticArea(account)
-  const competitorRisk = scoreCompetitor(account)
-  const signalBoost = scoreSignalBoost(account)
+export function computeFitForProduct(account: Account, product: ProductConfig): FitScore {
+  const revenueBand = scoreRevenue(account.rev, product)
+  const channelExposure = scoreChannel(account, product)
+  const therapeutic = scoreTherapeuticArea(account, product)
+  const competitorRisk = scoreCompetitor(account, product)
+  const signalBoost = scoreSignalBoost(account, product)
 
-  // Weighted total
   const total = Math.round(
     revenueBand * 0.25 +
     channelExposure * 0.20 +
@@ -113,12 +81,12 @@ export function compute340BFit(account: Account): FitScore340B {
   )
 
   const rationale: string[] = []
-  if (revenueBand >= 85) rationale.push('Revenue in Recapture sweet spot')
+  if (revenueBand >= 85) rationale.push(`Revenue in ${product.name} sweet spot`)
   else if (revenueBand < 40) rationale.push(`Revenue outside ICP (${account.rev})`)
-  if (therapeutic.areas.length) rationale.push(`340B-heavy therapeutic areas: ${therapeutic.areas.join(', ')}`)
-  if (channelExposure >= 70) rationale.push('Hospital / IDN / specialty channel = high 340B exposure')
-  if (channelExposure < 40) rationale.push('Consumer / OTC channel = limited 340B exposure')
-  if (competitorRisk < 40) rationale.push('Likely Model N / IntegriChain customer already')
+  if (therapeutic.areas.length) rationale.push(`${product.name} keywords matched: ${therapeutic.areas.join(', ')}`)
+  if (channelExposure >= 70) rationale.push(`Strong channel match for ${product.name}`)
+  if (channelExposure < 40) rationale.push(`Weak channel match for ${product.name}`)
+  if (competitorRisk < 40) rationale.push(`Likely ${product.competitors[0]} entrenched already`)
   if (signalBoost.score >= 15) rationale.push(`Fresh signals: ${signalBoost.boosts.length} relevant`)
 
   return {
@@ -132,6 +100,23 @@ export function compute340BFit(account: Account): FitScore340B {
   }
 }
 
+export function computeAllFitScores(account: Account): Partial<Record<ProductId, FitScore>> {
+  const out: Partial<Record<ProductId, FitScore>> = {}
+  for (const pid of PRODUCT_IDS) {
+    out[pid] = computeFitForProduct(account, PRODUCTS[pid])
+  }
+  return out
+}
+
+// Back-compat wrapper — Recapture only. Keeps existing callers compiling
+// until they read account.fitScores instead.
+export function compute340BFit(account: Account): FitScore {
+  return computeFitForProduct(account, PRODUCTS.recapture)
+}
+
 export function scoreAllAccounts(accounts: Account[]): Account[] {
-  return accounts.map(a => ({ ...a, fitScore340B: compute340BFit(a) }))
+  return accounts.map(a => {
+    const fitScores = computeAllFitScores(a)
+    return { ...a, fitScores, fitScore340B: fitScores.recapture }
+  })
 }

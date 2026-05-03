@@ -2,7 +2,8 @@
 
 import { useState, useMemo } from 'react'
 import { useStore } from '@/lib/store'
-import type { Account } from '@/lib/types'
+import type { Account, ProductId } from '@/lib/types'
+import { PRODUCTS, PRODUCT_IDS } from '@/lib/products'
 import { PRE_ENRICHED } from '@/lib/contacts'
 import { MeetingLoggerModal } from './MeetingLoggerModal'
 import { EmailEditorModal } from './EmailEditorModal'
@@ -25,18 +26,24 @@ export function TodayPage({ firstName }: { firstName: string }) {
     })
   })
 
-  // Accounts ranked by 340B fit × signal freshness
-  // This surfaces the accounts that actually buy Recapture, not just the loudest ones.
+  // Combined hot ranking across products. Each account uses its highest fit
+  // score across products (so a great Recapture target and a great CRM↔ERP
+  // target are both eligible to surface here without choosing one product).
   const hotAccounts = useMemo(() => {
     return accounts
       .filter(a => (a.signals?.length ?? 0) > 0)
       .map(a => {
         const latest = [...(a.signals || [])].sort((x, y) => (y.date || '').localeCompare(x.date || ''))[0]
-        const fit = a.fitScore340B?.total ?? 50
+        let topProduct: ProductId = (a.products?.[0] || 'recapture') as ProductId
+        let fit = 0
+        for (const p of PRODUCT_IDS) {
+          const s = a.fitScores?.[p]?.total ?? 0
+          if (s > fit) { fit = s; topProduct = p }
+        }
         const daysSinceSignal = latest?.date ? Math.max(0, (Date.now() - new Date(latest.date).getTime()) / 86400000) : 365
         const freshnessBoost = Math.max(0, 30 - daysSinceSignal) // +30 for today, 0 after 30 days
         const priorityScore = fit + freshnessBoost
-        return { ...a, latestSignal: latest, signalCount: (a.signals || []).length, priorityScore }
+        return { ...a, latestSignal: latest, signalCount: (a.signals || []).length, priorityScore, topProduct, topFit: fit }
       })
       .sort((a, b) => b.priorityScore - a.priorityScore)
       .slice(0, 10)
@@ -169,11 +176,12 @@ export function TodayPage({ firstName }: { firstName: string }) {
                     </div>
                   </div>
                   <div className="text-right shrink-0 flex flex-col items-end gap-1">
-                    {a.fitScore340B && (
-                      <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${a.fitScore340B.total >= 75 ? 'bg-green text-white' : a.fitScore340B.total >= 55 ? 'bg-amber-bg text-amber' : 'bg-surface2 text-text3'}`}>
-                        340B: {a.fitScore340B.total}
-                      </span>
-                    )}
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${PRODUCTS[a.topProduct].badgeColor}`}>
+                      {PRODUCTS[a.topProduct].shortLabel}
+                    </span>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${a.topFit >= 75 ? 'bg-green text-white' : a.topFit >= 55 ? 'bg-amber-bg text-amber' : 'bg-surface2 text-text3'}`}>
+                      Fit: {a.topFit}
+                    </span>
                     <div className="text-[10px] font-semibold text-amber bg-amber-bg px-2 py-0.5 rounded-full inline-block">{a.signalCount} signals</div>
                     {a.latestSignal?.date && <div className="text-[9px] text-text3 font-mono">{a.latestSignal.date}</div>}
                   </div>
@@ -278,6 +286,12 @@ function signalTypeLabel(type: string) {
     lawsuits_and_legal_issues: 'Legal',
     hiring_in_finance_department: 'Finance hire',
     new_executive: 'Exec hire',
+    govpricing_hiring: 'Gov pricing hire',
+    design_win: 'Design win',
+    distributor_expansion: 'Distributor',
+    erp_migration: 'ERP migration',
+    channel_ops_hiring: 'Channel ops hire',
+    supply_chain_hiring: 'Supply chain hire',
     other: 'Signal',
   }
   return m[type] || 'Signal'
