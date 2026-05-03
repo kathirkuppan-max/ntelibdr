@@ -3,10 +3,9 @@
 import { useState } from 'react'
 import { Modal } from './ui/Modal'
 import { useStore } from '@/lib/store'
-import type { Meeting, Stage, Contact } from '@/lib/types'
-import { CASE_STUDY_KB } from '@/lib/case-studies'
+import type { Meeting, Stage, Contact, ProductId } from '@/lib/types'
 import { PRE_ENRICHED } from '@/lib/contacts'
-import { pickPersona } from '@/lib/outreach-templates'
+import { PRODUCTS, pickPersonaForProduct } from '@/lib/products'
 
 interface Props {
   open: boolean
@@ -16,7 +15,7 @@ interface Props {
 }
 
 export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultContactName }: Props) {
-  const { accounts, updateAccount, save } = useStore()
+  const { accounts, updateAccount, save, selectedProduct } = useStore()
 
   const [accountId, setAccountId] = useState<number | null>(defaultAccountId ?? null)
   const [where, setWhere] = useState('')
@@ -64,9 +63,17 @@ export function MeetingLoggerModal({ open, onClose, defaultAccountId, defaultCon
     setGenerating(true)
     try {
       const sig = localStorage.getItem('nteli_sig') || 'Kathir'
-      const stories = localStorage.getItem('nteli_stories') || CASE_STUDY_KB.CRO
+      // Pick the product to pitch: prefer the global selection if the
+      // account is tagged for it; otherwise fall back to the account's first
+      // tagged product.
+      const acctProducts = (acct.products && acct.products.length ? acct.products : ['recapture']) as ProductId[]
+      const drafProduct: ProductId = (selectedProduct !== 'all' && acctProducts.includes(selectedProduct as ProductId))
+        ? (selectedProduct as ProductId)
+        : acctProducts[0]
+      const product = PRODUCTS[drafProduct]
+      const stories = localStorage.getItem('nteli_stories') || product.caseStudies.CRO
       const contactTitle = 'title' in c ? c.title : ''
-      const persona = pickPersona(contactTitle || '')
+      const persona = pickPersonaForProduct(drafProduct, contactTitle || '')
       const signalContext = (acct.signals || []).slice(0, 2).map(s => `· ${s.type}: ${s.title}`).join('\n') || 'none'
 
       const r = await fetch('/api/claude', {
@@ -86,10 +93,7 @@ DOMAIN INSIGHT: ${persona.insight}
 MEETING ASK: ${persona.ask}
 CASE STUDY TO REFERENCE: ${persona.case_study}
 
-Product: Recapture — a real-time 340B chargeback validation engine that
-catches the 4 leaks Model N/Vistex/IQVIA weren't designed for: OPAIS-terminated
-CEs, unauthorized contract pharmacies, manufacturer policy violations, duplicate
-Medicaid. Priced at 5-10% of verified recovery.
+Product: ${product.productLineDescription}
 
 Stories: ${stories}
 

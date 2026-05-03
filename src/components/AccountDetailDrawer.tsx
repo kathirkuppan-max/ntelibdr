@@ -4,9 +4,9 @@ import { useState } from 'react'
 import { Drawer } from './ui/Drawer'
 import { useStore } from '@/lib/store'
 import { DripTimeline } from './DripTimeline'
-import type { Account, Contact, Stage } from '@/lib/types'
+import type { Account, Contact, Stage, ProductId } from '@/lib/types'
 import { PRE_ENRICHED } from '@/lib/contacts'
-import { pickPersona } from '@/lib/outreach-templates'
+import { PRODUCTS, pickPersonaForProduct } from '@/lib/products'
 
 const STAGES: Stage[] = ['Prospect', 'Connected', 'Met', 'Following Up', 'Engaged', 'Meeting', 'Proposal', 'Won', 'Lost']
 const STAGE_COLORS: Record<string, string> = {
@@ -23,7 +23,7 @@ interface Props {
 }
 
 export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmail }: Props) {
-  const { updateAccountWithStage, updateAccount, save } = useStore()
+  const { updateAccountWithStage, updateAccount, save, selectedProduct } = useStore()
   const [notesValue, setNotesValue] = useState(account?.notes || '')
   const [drafting, setDrafting] = useState<string | null>(null)
   const [draft, setDraft] = useState<{ contactName: string; subject: string; body: string } | null>(null)
@@ -32,6 +32,14 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
 
   const contacts = account.contacts || PRE_ENRICHED[account.company] || []
   const meetings = account.meetings || []
+  // Decide which product to draft against. If the global selection is 'all'
+  // or the selected product isn't tagged on this account, fall back to the
+  // first product the account is tagged for.
+  const accountProducts = account.products && account.products.length ? account.products : (['recapture'] as ProductId[])
+  const draftProduct: ProductId = (selectedProduct !== 'all' && accountProducts.includes(selectedProduct as ProductId))
+    ? (selectedProduct as ProductId)
+    : accountProducts[0]
+  const draftProductConfig = PRODUCTS[draftProduct]
 
   // Build activity timeline
   const timeline: { date: string; type: 'stage' | 'meeting' | 'email'; title: string; detail: string }[] = []
@@ -55,7 +63,7 @@ export function AccountDetailDrawer({ account, onClose, onLogMeeting, onEditEmai
     try {
       const sig = localStorage.getItem('nteli_sig') || 'Kathir'
       const senderName = sig.split('|')[0].trim()
-      const persona = pickPersona(contact.title || '')
+      const persona = pickPersonaForProduct(draftProduct, contact.title || '')
       const topSignal = (account.signals || [])[0]
       const signalContext = topSignal ? `\n\nRecent signal at ${account.company}: ${topSignal.title}` : ''
 
@@ -73,10 +81,7 @@ INSIGHT: ${persona.insight}
 MEETING ASK: ${persona.ask}
 CASE STUDY: ${persona.case_study}
 
-Product: Recapture — a real-time 340B chargeback validation engine that
-catches the 4 leaks Model N/Vistex/IQVIA weren't designed for: OPAIS-terminated
-CEs, unauthorized contract pharmacies, manufacturer policy violations,
-duplicate Medicaid. Priced at 5-10% of verified recovery.
+Product: ${draftProductConfig.productLineDescription}
 
 Sender: ${senderName}, CEO of Nteli.
 
@@ -136,39 +141,46 @@ Return ONLY JSON: {"subject":"","body":""}` }],
           </div>
         </div>
 
-        {/* 340B Fit Score */}
-        {account.fitScore340B && (
-          <div>
-            <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">Recapture 340B Fit</h3>
-            <div className="bg-white border border-border rounded-xl p-4">
-              <div className="flex items-center justify-between mb-3">
-                <div>
-                  <div className="text-[28px] font-bold text-text leading-none">{account.fitScore340B.total}<span className="text-[14px] text-text3">/100</span></div>
-                  <div className="text-[11px] text-text3 mt-1">
-                    {account.fitScore340B.total >= 75 ? '🟢 Tier 1 — Prioritize' :
-                     account.fitScore340B.total >= 55 ? '🟡 Tier 2 — Good fit' :
-                     account.fitScore340B.total >= 35 ? '⚪ Tier 3 — Reference only' :
-                     '⛔ Skip — outside ICP'}
+        {/* Per-product fit cards — one per product the account is tagged for */}
+        {accountProducts.map(pid => {
+          const product = PRODUCTS[pid]
+          const score = account.fitScores?.[pid]
+          if (!score) return null
+          const labels = product.fitDimensionLabels
+          return (
+            <div key={pid}>
+              <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">{product.name} Fit</h3>
+              <div className="bg-white border border-border rounded-xl p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <div className="text-[28px] font-bold text-text leading-none">{score.total}<span className="text-[14px] text-text3">/100</span></div>
+                    <div className="text-[11px] text-text3 mt-1">
+                      {score.total >= 75 ? '🟢 Tier 1 — Prioritize' :
+                       score.total >= 55 ? '🟡 Tier 2 — Good fit' :
+                       score.total >= 35 ? '⚪ Tier 3 — Reference only' :
+                       '⛔ Skip — outside ICP'}
+                    </div>
                   </div>
+                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${product.badgeColor}`}>{product.shortLabel}</span>
                 </div>
+                <div className="grid grid-cols-5 gap-2 mb-3">
+                  <FitBar label={labels.revenue} value={score.revenueBand} />
+                  <FitBar label={labels.channel} value={score.channelExposure} />
+                  <FitBar label={labels.ta} value={score.therapeuticArea} />
+                  <FitBar label={labels.compete} value={score.competitorRisk} />
+                  <FitBar label={labels.signals} value={score.signalBoost * 3.33} />
+                </div>
+                {score.rationale.length > 0 && (
+                  <ul className="text-[11px] text-text2 space-y-1 mt-2">
+                    {score.rationale.map((r, i) => (
+                      <li key={i}>· {r}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
-              <div className="grid grid-cols-5 gap-2 mb-3">
-                <FitBar label="Revenue" value={account.fitScore340B.revenueBand} />
-                <FitBar label="Channel" value={account.fitScore340B.channelExposure} />
-                <FitBar label="TA" value={account.fitScore340B.therapeuticArea} />
-                <FitBar label="Compete" value={account.fitScore340B.competitorRisk} />
-                <FitBar label="Signals" value={account.fitScore340B.signalBoost * 3.33} />
-              </div>
-              {account.fitScore340B.rationale.length > 0 && (
-                <ul className="text-[11px] text-text2 space-y-1 mt-2">
-                  {account.fitScore340B.rationale.map((r, i) => (
-                    <li key={i}>· {r}</li>
-                  ))}
-                </ul>
-              )}
             </div>
-          </div>
-        )}
+          )
+        })}
 
         {/* Signals */}
         {account.signals && account.signals.length > 0 && (
@@ -216,7 +228,7 @@ Return ONLY JSON: {"subject":"","body":""}` }],
 
         {/* Pain Points */}
         <div>
-          <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">Chargeback &amp; Ship-Debit Pain Points</h3>
+          <h3 className="text-[12px] font-bold uppercase tracking-widest text-text3 mb-2">{draftProductConfig.name} Pain Points</h3>
           <div className="space-y-1.5">
             {account.pains.map((p, i) => (
               <div key={i} className="text-[13px] text-text2 bg-surface2 rounded-lg px-3 py-2">{p}</div>
@@ -231,7 +243,7 @@ Return ONLY JSON: {"subject":"","body":""}` }],
           </div>
           <div className="space-y-2">
             {contacts.map((c, i) => {
-              const persona = pickPersona(c.title || '')
+              const persona = pickPersonaForProduct(draftProduct, c.title || '')
               const isDrafting = drafting === c.name
               return (
                 <div key={i} className="bg-surface2 rounded-xl px-3 py-2.5">

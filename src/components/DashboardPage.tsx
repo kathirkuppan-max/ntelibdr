@@ -2,7 +2,8 @@
 
 import { useMemo, useState } from 'react'
 import { useStore } from '@/lib/store'
-import type { Account, Stage } from '@/lib/types'
+import type { Account, Stage, ProductId } from '@/lib/types'
+import { PRODUCTS, PRODUCT_IDS } from '@/lib/products'
 import { AccountDetailDrawer } from './AccountDetailDrawer'
 import { MeetingLoggerModal } from './MeetingLoggerModal'
 import { EmailEditorModal } from './EmailEditorModal'
@@ -14,10 +15,31 @@ const STAGE_COLOR: Record<string, string> = {
   Proposal: 'bg-amber-bg text-amber', Won: 'bg-green-bg text-green', Lost: 'bg-red-bg text-red',
 }
 
-type SortKey = 'company' | 'rev' | 'emp' | 'signals' | 'contacts' | 'stage' | 'fit340B'
+type SortKey = 'company' | 'rev' | 'emp' | 'signals' | 'contacts' | 'stage' | 'fit'
+
+// Pull the score the rep currently cares about. With selectedProduct='all'
+// we surface whichever product scored highest so multi-product accounts
+// don't get penalized for being a bad fit on one of two ICPs.
+function effectiveFit(a: Account, selected: 'all' | ProductId): number {
+  if (selected === 'all') {
+    const scores = PRODUCT_IDS.map(p => a.fitScores?.[p]?.total ?? 0)
+    return Math.max(0, ...scores)
+  }
+  return a.fitScores?.[selected]?.total ?? 0
+}
+
+function topProductForAccount(a: Account): ProductId {
+  let best: ProductId = 'recapture'
+  let bestScore = -1
+  for (const p of PRODUCT_IDS) {
+    const s = a.fitScores?.[p]?.total ?? 0
+    if (s > bestScore) { bestScore = s; best = p }
+  }
+  return best
+}
 
 export function DashboardPage() {
-  const { accounts, reloadFromDb } = useStore()
+  const { accounts, reloadFromDb, selectedProduct, setSelectedProduct } = useStore()
   const [expandedStage, setExpandedStage] = useState<Stage | null>(null)
   const [activeAccountId, setActiveAccountId] = useState<number | null>(null)
   const [meetingModal, setMeetingModal] = useState<{ open: boolean; accountId?: number }>({ open: false })
@@ -29,7 +51,7 @@ export function DashboardPage() {
   // Accounts table state
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState<'all' | 'enriched' | 'hot' | 'missing-contacts' | 'missing-signals'>('all')
-  const [sortKey, setSortKey] = useState<SortKey>('fit340B')
+  const [sortKey, setSortKey] = useState<SortKey>('fit')
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc')
 
   async function runImport() {
@@ -86,9 +108,16 @@ export function DashboardPage() {
       const hasContacts = contactCount > 0
       const hasSignals = signalCount > 0
       const enriched = hasContacts && hasSignals
-      return { ...a, contactCount, signalCount, hasContacts, hasSignals, enriched }
+      const fit = effectiveFit(a, selectedProduct)
+      const topProduct = topProductForAccount(a)
+      return { ...a, contactCount, signalCount, hasContacts, hasSignals, enriched, fit, topProduct }
     })
     let filtered = rows
+    // Product scope filter — exclude accounts not tagged for the selected
+    // product (unless 'all' is selected).
+    if (selectedProduct !== 'all') {
+      filtered = filtered.filter(r => (r.products || ['recapture']).includes(selectedProduct))
+    }
     if (search) {
       const q = search.toLowerCase()
       filtered = filtered.filter(r =>
@@ -104,7 +133,7 @@ export function DashboardPage() {
 
     filtered.sort((a, b) => {
       const dir = sortDir === 'asc' ? 1 : -1
-      if (sortKey === 'fit340B') return ((a.fitScore340B?.total || 0) - (b.fitScore340B?.total || 0)) * dir
+      if (sortKey === 'fit') return (a.fit - b.fit) * dir
       if (sortKey === 'signals') return (a.signalCount - b.signalCount) * dir
       if (sortKey === 'contacts') return (a.contactCount - b.contactCount) * dir
       if (sortKey === 'emp') return (String(a.emp) < String(b.emp) ? -1 : 1) * dir
@@ -113,7 +142,11 @@ export function DashboardPage() {
       return (a.company.toLowerCase() < b.company.toLowerCase() ? -1 : 1) * dir
     })
     return filtered
-  }, [accounts, search, filter, sortKey, sortDir])
+  }, [accounts, search, filter, sortKey, sortDir, selectedProduct])
+
+  const fitColumnLabel = selectedProduct === 'all'
+    ? 'Top Fit'
+    : `${PRODUCTS[selectedProduct].shortLabel} Fit`
 
   function handleSort(k: SortKey) {
     if (sortKey === k) setSortDir(d => d === 'asc' ? 'desc' : 'asc')
@@ -152,12 +185,38 @@ export function DashboardPage() {
       )}
 
       {/* Stats */}
-      <div className="grid grid-cols-5 gap-3 mb-10">
+      <div className="grid grid-cols-5 gap-3 mb-6">
         <StatCard label="Accounts" value={stats.total} />
         <StatCard label="Hot (signals)" value={stats.hotAccounts} color="amber" />
         <StatCard label="Meetings" value={stats.totalMeetings} />
         <StatCard label="Emails Sent" value={stats.totalSent} color="green" />
         <StatCard label="Pending" value={stats.totalPending} color={stats.totalPending > 0 ? 'amber' : undefined} />
+      </div>
+
+      {/* Product / ICP selector */}
+      <div className="flex items-center gap-2 mb-10 text-[12px]">
+        <span className="text-text3 uppercase tracking-widest font-semibold">Product</span>
+        {([
+          ['all', 'All'],
+          ['recapture', PRODUCTS.recapture.name],
+          ['crm_erp', PRODUCTS.crm_erp.name],
+        ] as const).map(([key, label]) => {
+          const count = key === 'all'
+            ? accounts.length
+            : accounts.filter(a => (a.products || ['recapture']).includes(key)).length
+          const active = selectedProduct === key
+          return (
+            <button
+              key={key}
+              onClick={() => setSelectedProduct(key)}
+              className={`px-3 py-1.5 rounded-full font-semibold cursor-pointer transition-colors ${
+                active ? 'bg-text text-white' : 'bg-white border border-border text-text2 hover:bg-surface2'
+              }`}
+            >
+              {label} <span className="ml-1 opacity-70">{count}</span>
+            </button>
+          )
+        })}
       </div>
 
       {/* Pipeline */}
@@ -236,7 +295,7 @@ export function DashboardPage() {
             <table className="w-full text-[13px]">
               <thead className="bg-surface2 border-b border-border">
                 <tr>
-                  <Th onClick={() => handleSort('fit340B')} active={sortKey === 'fit340B'} dir={sortDir}>340B Fit</Th>
+                  <Th onClick={() => handleSort('fit')} active={sortKey === 'fit'} dir={sortDir}>{fitColumnLabel}</Th>
                   <Th onClick={() => handleSort('company')} active={sortKey === 'company'} dir={sortDir}>Company</Th>
                   <Th>Location</Th>
                   <Th onClick={() => handleSort('rev')} active={sortKey === 'rev'} dir={sortDir}>Revenue</Th>
@@ -255,7 +314,10 @@ export function DashboardPage() {
                     className={`cursor-pointer hover:bg-surface2 transition-colors ${i < tableRows.length - 1 ? 'border-b border-border' : ''}`}
                   >
                     <td className="px-4 py-3">
-                      <FitScorePill score={r.fitScore340B?.total ?? 0} />
+                      <FitScorePill
+                        score={r.fit}
+                        productLabel={selectedProduct === 'all' ? PRODUCTS[r.topProduct].shortLabel : undefined}
+                      />
                     </td>
                     <td className="px-4 py-3">
                       <div className="font-semibold text-text">{r.company}</div>
@@ -368,13 +430,14 @@ function Th({ children, onClick, active, dir }: { children: React.ReactNode; onC
   )
 }
 
-function FitScorePill({ score }: { score: number }) {
+function FitScorePill({ score, productLabel }: { score: number; productLabel?: string }) {
   const color = score >= 75 ? 'bg-green text-white' : score >= 55 ? 'bg-amber-bg text-amber border border-amber-border' : score >= 35 ? 'bg-surface2 text-text2' : 'bg-surface3 text-text3'
   const label = score >= 75 ? 'Tier 1' : score >= 55 ? 'Tier 2' : score >= 35 ? 'Tier 3' : 'Skip'
   return (
     <div className="flex items-center gap-2">
       <span className={`inline-flex items-center justify-center text-[11px] font-bold px-2 py-0.5 rounded-full min-w-[28px] ${color}`}>{score}</span>
       <span className="text-[11px] text-text3">{label}</span>
+      {productLabel && <span className="text-[10px] text-text3 italic">· {productLabel}</span>}
     </div>
   )
 }
