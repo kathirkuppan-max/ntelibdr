@@ -42,9 +42,9 @@ delivery by audience (see matrix at the bottom).
 | File naming | `nteli-roi-<slug>.mp4` → uploads to `/media/` |
 | Playback | Site plays at 1.25×; pace VO accordingly (slightly deliberate) |
 
-**Hook formula (every episode):**
-> "A $200M [vertical] manufacturer was losing $[X] a [quarter/year] in [leak area].
-> Nobody could see it, because it never looked like a loss."
+**Hook formula (every episode) — outcome first, origin second:**
+> "A $200M [vertical] manufacturer got $[X] a [quarter/year] back from [leak area].
+> They didn't know they'd lost it — it never looked like a loss."
 
 **Claims hygiene:** unnamed "$200M manufacturer" framing = composite, fine for public use.
 Name a company ONLY with signed reference rights. Currently referenceable: **Elite Pharmaceuticals**
