@@ -1,8 +1,24 @@
-# The Leak Ledger — ROI Video Series
+# The Leak Ledger — ROI Video Series & Demo Formula
 
-Working title for the series: **"The Leak Ledger"** — each episode opens one revenue leak,
-shows where it hides in a $200M company, puts a defensible number on it, and closes with the fix.
-Build the bunch, then test delivery by audience (see matrix at the bottom).
+**The principle (Kathir, 2026-10-20): the high level for ANY product demo is a leak ledger.**
+Every demo — vertical demos, ROI episodes, live sales demos, the eventual onboarding flow —
+opens by itemizing where that audience's revenue leaks, in dollars, before anything is shown.
+The demo is then the ledger being closed line by line: each engine action (config check,
+discount policy, three-way match, rev-rec schedule) retires a ledger line. The quote total
+at the end is the proof.
+
+Demo skeleton, universally:
+1. **The ledger** — 3–5 leak lines with dollars for this vertical/audience (≤15s)
+2. **The close** — the engine working; each beat visually ticks a ledger line
+3. **The receipt** — final number + "every line traceable" + CTA
+
+This file's episodes are the per-leak deep dives; the 13 vertical demos are per-vertical
+instances of the same formula. Future renders of the vertical demos should adopt the
+ledger open (current renders open on the quote title card).
+
+Each episode below opens one revenue leak, shows where it hides in a $200M company,
+puts a defensible number on it, and closes with the fix. Build the bunch, then test
+delivery by audience (see matrix at the bottom).
 
 ---
 
