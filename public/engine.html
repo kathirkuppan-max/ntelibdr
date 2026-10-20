@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nteli — Agent Pricing Engine | Deterministic Quoting for Configure-to-Order</title>
-<meta name="description" content="The Nteli Agent Pricing Engine: a deterministic constraint engine for configure-to-order pricing. AI agents gather the facts and talk to your team — the engine decides the price. No invented numbers. Full audit trail. Governed rule changes.">
+<meta name="description" content="The Nteli Agent Pricing Engine: deterministic configure-to-order quoting for safety equipment, hazardous-area electrical, commercial HVAC, pumps & skids, and lab furniture. AI agents gather the facts — the engine decides the price. No invented numbers. Full audit trail.">
 <link rel="canonical" href="https://nteli.io/engine">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nteli">
@@ -72,6 +72,19 @@ h1{font-size:60px;font-weight:800;line-height:1.1;letter-spacing:-1.8px;margin-b
 
 /* VIDEO */
 .video-section{padding:24px 28px 96px;}
+.vid-hdr{text-align:center;margin-bottom:28px;}
+.vid-hdr .eyebrow{color:var(--gold);}
+.vid-hdr h2{font-size:32px;margin-bottom:0;}
+.vid-pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:26px;}
+.vid-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-family:var(--mono);padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:border-color .2s,color .2s,background .2s;white-space:nowrap;}
+.vid-pill:hover{border-color:var(--border2);color:var(--text);}
+.vid-pill .pill-dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5;flex-shrink:0;}
+.vid-pill.vp-safety.active{background:var(--gold-bg);border-color:var(--gold-border);color:var(--gold);}
+.vid-pill.vp-hazloc.active{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber);}
+.vid-pill.vp-hvac.active{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue);}
+.vid-pill.vp-pumps.active{background:var(--teal-bg);border-color:var(--teal-border);color:var(--teal);}
+.vid-pill.vp-lab.active{background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple);}
+.vid-pill.active .pill-dot{opacity:1;}
 .video-frame{max-width:960px;margin:0 auto;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;position:relative;box-shadow:0 40px 80px -24px rgba(0,0,0,.6);}
 .video-frame::before{content:'';position:absolute;inset:-1.5px;border-radius:16px;padding:1.5px;background:linear-gradient(135deg,var(--purple-border),var(--blue-border) 50%,transparent 80%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
 .video-chrome{display:flex;align-items:center;gap:8px;padding:2px 6px 12px;}
@@ -242,7 +255,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <div class="hero-inner">
     <div class="eyebrow">Manufacturing · Configure-to-Order · Agent Pricing Engine</div>
     <h1>Agents talk.<br><span class="accent">The engine decides.</span></h1>
-    <p class="hero-sub">A deterministic constraint engine for configure-to-order pricing. AI agents gather the facts, ask the right questions, and explain every answer — but the price always comes from your rules. No invented numbers. Ever.</p>
+    <p class="hero-sub">A deterministic constraint engine for configure-to-order pricing — live across safety equipment, hazardous-area electrical, commercial HVAC, pumps &amp; skids, and lab furniture. AI agents gather the facts and explain every answer; the price always comes from your rules. No invented numbers. Ever.</p>
     <div class="hero-cta">
       <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io" target="_blank" rel="noopener">Book a demo →</a>
       <a class="btn btn-outline btn-lg" href="mailto:hello@nteli.io">Email us</a>
@@ -257,18 +270,29 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
 
 <!-- VIDEO -->
 <section class="video-section">
+  <div class="vid-hdr reveal">
+    <div class="eyebrow">Five verticals · One engine</div>
+    <h2>Watch it quote your products.</h2>
+  </div>
+  <div class="vid-pills reveal" id="vidPills">
+    <button class="vid-pill vp-safety active" data-v="safety"><span class="pill-dot"></span>Safety Equipment</button>
+    <button class="vid-pill vp-hazloc" data-v="hazloc"><span class="pill-dot"></span>Hazardous-Area Electrical</button>
+    <button class="vid-pill vp-hvac" data-v="hvac"><span class="pill-dot"></span>Commercial HVAC</button>
+    <button class="vid-pill vp-pumps" data-v="pumps"><span class="pill-dot"></span>Pumps &amp; Skids</button>
+    <button class="vid-pill vp-lab" data-v="lab"><span class="pill-dot"></span>Lab &amp; Fume Hoods</button>
+  </div>
   <div class="video-frame reveal">
     <div class="video-chrome">
       <span class="video-dot"></span><span class="video-dot"></span><span class="video-dot"></span>
-      <span class="video-chrome-title">Agent Pricing Engine — Explainer</span>
+      <span class="video-chrome-title" id="vidTitle">Safety &amp; Plumbing Equipment — Demo</span>
       <span class="video-chrome-time">02:00</span>
     </div>
-    <video controls preload="metadata" playsinline>
+    <video id="vidPlayer" controls preload="metadata" playsinline>
       <source src="/media/nteli-quoting-explainer.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
-  <p class="video-caption">Two minutes: how conversational quoting works when the numbers can't be wrong.</p>
+  <p class="video-caption" id="vidCaption">Emergency showers, eyewash, freeze protection — quoted with Div 2 heat trace and scald valves, checked line by line.</p>
 </section>
 
 <!-- PROBLEM -->
@@ -449,6 +473,40 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
 </footer>
 
 <script>
+/* ===== VERTICAL VIDEO SWITCHER ===== */
+(function(){
+  var V = {
+    safety: {src:'/media/nteli-quoting-explainer.mp4', title:'Safety & Plumbing Equipment — Demo',
+      cap:'Emergency showers, eyewash, freeze protection — quoted with Div 2 heat trace and scald valves, checked line by line.'},
+    hazloc: {src:'/media/nteli-quoting-hazloc.mp4', title:'Hazardous-Area Electrical — Demo',
+      cap:'Class I Div 1/2 enclosures, purge panels, and certs — area classification drives every option the engine allows.'},
+    hvac:   {src:'/media/nteli-quoting-hvac.mp4', title:'Commercial HVAC — Demo',
+      cap:'Air handlers, chillers, and controls — capacity, voltage, and refrigerant rules enforced before the number exists.'},
+    pumps:  {src:'/media/nteli-quoting-pumps.mp4', title:'Pumps & Packaged Skids — Demo',
+      cap:'Pump curves, seal plans, and skid options — hydraulic selection validated against the duty point, not a lookup table.'},
+    lab:    {src:'/media/nteli-quoting-lab.mp4', title:'Lab Furniture & Fume Hoods — Demo',
+      cap:'Casework runs, hood face velocity, and SEFA compliance — layout and airflow rules priced together, not separately.'}
+  };
+  var player = document.getElementById('vidPlayer');
+  var title = document.getElementById('vidTitle');
+  var caption = document.getElementById('vidCaption');
+  var pills = Array.from(document.querySelectorAll('.vid-pill'));
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      var v = V[p.dataset.v];
+      if (!v || player.querySelector('source').getAttribute('src') === v.src) return;
+      pills.forEach(function(q){ q.classList.remove('active'); });
+      p.classList.add('active');
+      player.pause();
+      player.querySelector('source').setAttribute('src', v.src);
+      player.load();
+      title.textContent = v.title;
+      caption.textContent = v.cap;
+      player.play().catch(function(){});
+    });
+  });
+})();
+
 /* ===== SCROLL REVEAL ===== */
 (function(){
   const io = new IntersectionObserver(function(entries){
