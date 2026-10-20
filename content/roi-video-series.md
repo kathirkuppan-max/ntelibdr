@@ -124,9 +124,10 @@ different episode. UTM pattern already live: add `utm_content=roi-ep1-cfo` style
 Touch 1 always Streak-tracking OFF (non-negotiable); the deep-link click IS the signal.
 
 **Per-prospect thumbnails:** reuse the `PREPARED FOR <Company>` card pattern →
-`/media/thumb-<company>.jpg` → deep link to the episode landing. Note: current thumbnail tagline
-says "forward-deployed estimator" — refresh tagline in the next render batch to match self-serve
-positioning.
+`/media/thumb-<company>.jpg` → deep link to the episode landing. Note: the FDE framing is dead
+(Kathir, 2026-10-20: "no forward deployed! we are building a full MCP") — next render batch
+replaces the "forward-deployed estimator" tagline; candidate: "An AI estimator on a checked
+quoting engine — works with Claude via MCP."
 
 ---
 
