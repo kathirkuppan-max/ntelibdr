@@ -89,6 +89,8 @@ h1{font-size:60px;font-weight:800;line-height:1.1;letter-spacing:-1.8px;margin-b
 .video-chrome-time{margin-left:auto;font-size:11px;color:var(--text3);font-family:var(--mono);}
 video{display:block;width:100%;aspect-ratio:16/9;border-radius:8px;background:#000;}
 .video-caption{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin-top:18px;}
+.vid-unmute{position:absolute;left:30px;bottom:84px;padding:11px 18px;border-radius:999px;border:0;background:var(--gold);color:#0D1117;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5);transition:transform .15s,background .15s;z-index:2;}
+.vid-unmute:hover{background:#E4BC5B;transform:scale(1.04);}
 
 /* SECTIONS */
 .container{max-width:1240px;margin:0 auto;}
@@ -301,10 +303,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
       <span class="video-chrome-title" id="vidTitle">Safety &amp; Plumbing Equipment — Demo</span>
       <span class="video-chrome-time">02:00</span>
     </div>
-    <video id="vidPlayer" controls preload="metadata" playsinline>
+    <video id="vidPlayer" controls preload="auto" playsinline>
       <source src="/media/nteli-quoting-explainer.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
+    <button id="vidUnmute" class="vid-unmute" hidden>🔊 Tap for sound</button>
   </div>
   <p class="video-caption" id="vidCaption">Emergency showers, eyewash, freeze protection — quoted with Div 2 heat trace and scald valves, checked line by line.</p>
 </section>
@@ -553,13 +556,30 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     if (autoplay) player.play().catch(function(){});
     return true;
   }
-  pills.forEach(function(p){
-    p.addEventListener('click', function(){ select(p.dataset.v, true); });
+  var unmute = document.getElementById('vidUnmute');
+  unmute.addEventListener('click', function(){
+    player.muted = false;
+    player.currentTime = 0;
+    player.play().catch(function(){});
+    unmute.hidden = true;
   });
-  /* Deep links: /engine/<vertical> or /engine#<vertical> preselect the demo */
+  player.addEventListener('volumechange', function(){ if (!player.muted) unmute.hidden = true; });
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){
+      player.muted = false;
+      unmute.hidden = true;
+      select(p.dataset.v, true);
+    });
+  });
+  /* Deep links: /engine/<vertical> or /engine#<vertical> preselect the demo
+     and autoplay muted (browsers allow autoplay only when muted) with a
+     tap-for-sound overlay — the voiceover carries the message. */
   var pre = (location.pathname.match(/\/engine\/([a-z-]+)/) || [])[1] || location.hash.replace('#','');
   if (pre && select(pre, false)){
     document.querySelector('.video-frame').scrollIntoView({block:'center'});
+    player.muted = true;
+    player.play().then(function(){ unmute.hidden = false; })
+                 .catch(function(){ player.muted = false; });
   }
 })();
 
