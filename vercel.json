@@ -29,6 +29,7 @@
     { "src": "/engine",        "dest": "/engine.html" },
     { "src": "/engine/([a-z-]+)", "dest": "/engine.html" },
     { "src": "/manufacturing", "dest": "/engine.html" },
+    { "src": "/pricing",       "dest": "/pricing.html" },
     { "src": "/erp",          "dest": "/erp.html" },
     { "src": "/prm",          "dest": "/prm.html" }
   ]
