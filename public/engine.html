@@ -539,20 +539,28 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   var title = document.getElementById('vidTitle');
   var caption = document.getElementById('vidCaption');
   var pills = Array.from(document.querySelectorAll('.vid-pill'));
-  pills.forEach(function(p){
-    p.addEventListener('click', function(){
-      var v = V[p.dataset.v];
-      if (!v || player.querySelector('source').getAttribute('src') === v.src) return;
-      pills.forEach(function(q){ q.classList.remove('active'); });
-      p.classList.add('active');
+  function select(key, autoplay){
+    var v = V[key];
+    if (!v) return false;
+    pills.forEach(function(q){ q.classList.toggle('active', q.dataset.v === key); });
+    if (player.querySelector('source').getAttribute('src') !== v.src){
       player.pause();
       player.querySelector('source').setAttribute('src', v.src);
       player.load();
-      title.textContent = v.title;
-      caption.textContent = v.cap;
-      player.play().catch(function(){});
-    });
+    }
+    title.textContent = v.title;
+    caption.textContent = v.cap;
+    if (autoplay) player.play().catch(function(){});
+    return true;
+  }
+  pills.forEach(function(p){
+    p.addEventListener('click', function(){ select(p.dataset.v, true); });
   });
+  /* Deep links: /engine/<vertical> or /engine#<vertical> preselect the demo */
+  var pre = (location.pathname.match(/\/engine\/([a-z-]+)/) || [])[1] || location.hash.replace('#','');
+  if (pre && select(pre, false)){
+    document.querySelector('.video-frame').scrollIntoView({block:'center'});
+  }
 })();
 
 /* ===== SCROLL REVEAL ===== */

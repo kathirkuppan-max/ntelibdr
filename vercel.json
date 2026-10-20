@@ -27,6 +27,7 @@
     { "src": "/investor",     "dest": "/investor.html" },
     { "src": "/cpq",          "dest": "/cpq.html" },
     { "src": "/engine",        "dest": "/engine.html" },
+    { "src": "/engine/([a-z-]+)", "dest": "/engine.html" },
     { "src": "/manufacturing", "dest": "/engine.html" },
     { "src": "/erp",          "dest": "/erp.html" },
     { "src": "/prm",          "dest": "/prm.html" }
