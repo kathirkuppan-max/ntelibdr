@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nteli — Salesforce Practice Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0e14;
+  --surface: #141520;
+  --border: rgba(255,255,255,.10);
+  --text: #f0f0f5;
+  --muted: #8b8fa8;
+  --purple: #bc8cff;
+  --blue: #58a6ff;
+  --gold: #d4a843;
+  --teal: #2dd4bf;
+  --green: #3fb950;
+  --sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+}
+
+html, body {
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@page {
+  size: 11in 8.5in landscape;
+  margin: 0;
+}
+
+.page {
+  width: 100%;
+  height: 100vh;
+  padding: 56px 72px;
+  page-break-after: always;
+  overflow: hidden;
+  position: relative;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Radial glow */
+.page::before {
+  content: '';
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 520px;
+  height: 420px;
+  background: radial-gradient(ellipse at 70% 20%, rgba(188,140,255,.13) 0%, rgba(88,166,255,.08) 40%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page > * { position: relative; z-index: 1; }
+
+/* ─── Header ─── */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+  flex-shrink: 0;
+}
+
+.wordmark {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  line-height: 1;
+}
+
+.wordmark em {
+  color: var(--blue);
+  font-style: normal;
+  font-weight: 400;
+}
+
+.page-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+}
+
+/* ─── PAGE 1 ─── */
+.p1-body {
+  display: flex;
+  flex: 1;
+  gap: 40px;
+  align-items: flex-start;
+  min-height: 0;
+}
+
+.p1-hero {
+  flex: 0 0 58%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--purple);
+}
+
+.p1-hero h1 {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  line-height: 1.08;
+  color: var(--text);
+  max-width: 560px;
+}
+
+.p1-hero h1 span {
+  color: var(--blue);
+}
+
+.p1-hero p {
+  font-size: 14.5px;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 500px;
+}
+
+.p1-creds {
+  flex: 0 0 calc(42% - 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+}
+
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.stat-num {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--text);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.stat-num.gold { color: var(--gold); }
+.stat-num.purple { color: var(--purple); }
+.stat-num.blue { color: var(--blue); }
+.stat-num.teal { color: var(--teal); }
+
+.stat-label {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.stat-label strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.stat-label span {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.2;
+}
+
+/* Bottom strip */
+.bottom-strip {
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  margin-top: 16px;
+  flex-shrink: 0;
+}
+
+.bottom-strip-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.pillars {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.pillar {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  color: var(--blue);
+  background: rgba(88,166,255,.08);
+  border: 1px solid rgba(88,166,255,.2);
+  border-radius: 4px;
+  padding: 3px 9px;
+  white-space: nowrap;
+}
+
+/* Client logos strip */
+.clients-strip {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.clients-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--muted);
+  margin-bottom: 9px;
+}
+
+.clients-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: center;
+}
+
+.client-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.client-favicon {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  object-fit: contain;
+  flex-shrink: 0;
+  background: rgba(255,255,255,.05);
+}
+
+.client-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+/* ─── PAGE 2 ─── */
+.p2-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 12px;
+  flex: 1;
+  min-height: 0;
+}
+
+.practice-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-icon {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+}
+
+.card-icon.gold { background: rgba(212,168,67,.12); }
+.card-icon.blue { background: rgba(88,166,255,.12); }
+.card-icon.teal { background: rgba(45,212,191,.12); }
+.card-icon.purple { background: rgba(188,140,255,.12); }
+.card-icon.green { background: rgba(63,185,80,.12); }
+
+.card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.55;
+  flex: 1;
+}
+
+/* Comparison strip */
+.compare-strip {
+  flex-shrink: 0;
+  margin-top: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.compare-table th {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  padding: 8px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+}
+
+.compare-table th.nteli { color: var(--purple); }
+.compare-table th.si { color: var(--muted); }
+.compare-table th.isv { color: var(--muted); }
+
+.compare-table td {
+  font-size: 11px;
+  color: var(--muted);
+  padding: 7px 16px;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+.compare-table td.nteli-val {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.compare-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ─── PAGE 3 ─── */
+.p3-reviews {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  align-content: start;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.review-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.review-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-stars {
+  font-size: 10px;
+  color: var(--gold);
+  letter-spacing: 1px;
+  line-height: 1;
+}
+
+.review-date {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--muted);
+}
+
+.review-text {
+  font-size: 11.5px;
+  color: #d0d0e0;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.review-footer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2px;
+  flex-wrap: wrap;
+}
+
+.review-product {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--blue);
+  background: rgba(88,166,255,.1);
+  border: 1px solid rgba(88,166,255,.18);
+  border-radius: 3px;
+  padding: 2px 6px;
+  white-space: nowrap;
+}
+
+.review-industry {
+  font-size: 9px;
+  color: var(--muted);
+}
+
+/* CTA strip */
+.cta-strip {
+  flex-shrink: 0;
+  margin-top: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cta-links {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.cta-links span {
+  color: var(--blue);
+}
+
+.cta-right {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--muted);
+  text-align: right;
+  line-height: 1.8;
+}
+
+.cta-right strong {
+  color: var(--gold);
+}
+
+/* Stars row for page 3 header */
+.stars-gold {
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.p3-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Print overrides */
+@media print {
+  html, body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .page {
+    page-break-after: always;
+  }
+  .page:last-child {
+    page-break-after: avoid;
+  }
+}
+</style>
+</head>
+<!-- Password Gate -->
+<style>
+#nteli-gate{display:none;position:fixed;inset:0;z-index:99999;background:#0d0e14;align-items:center;justify-content:center;font-family:'IBM Plex Sans',-apple-system,sans-serif;}
+.nteli-card{background:#141520;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:48px 40px;width:360px;text-align:center;}
+.nteli-card-logo{font-size:26px;font-weight:700;color:#f0f0f5;letter-spacing:-.5px;margin-bottom:6px;}
+.nteli-card-sub{font-size:13px;color:#8b8fa8;margin-bottom:32px;line-height:1.5;}
+.nteli-card input{width:100%;background:#0d0e14;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f0f0f5;font-size:15px;padding:12px 16px;outline:none;font-family:inherit;margin-bottom:12px;text-align:center;letter-spacing:.1em;}
+.nteli-card input:focus{border-color:#bc8cff;box-shadow:0 0 0 3px rgba(188,140,255,.15);}
+.nteli-card button{width:100%;background:#bc8cff;color:#0d0e14;border:none;border-radius:8px;font-size:14px;font-weight:600;padding:13px;cursor:pointer;font-family:inherit;transition:background .15s;}
+.nteli-card button:hover{background:#d4b3ff;}
+.nteli-card-err{font-size:12px;color:#f87171;margin-top:10px;min-height:18px;}
+@media print{#nteli-gate{display:none!important;visibility:hidden!important;}}
+</style>
+<script>
+(function(){
+  if(sessionStorage.getItem('nteli_deck_auth')==='ok'){return;}
+  var s=document.createElement('style');
+  s.id='nteli-hide';
+  s.textContent='body{visibility:hidden!important}#nteli-gate{visibility:visible!important;display:flex!important}';
+  document.head.appendChild(s);
+})();
+</script>
+<body>
+<div id="nteli-gate">
+  <div class="nteli-card">
+    <div class="nteli-card-logo">nteli</div>
+    <div class="nteli-card-sub">This document is confidential.<br>Enter your access code to continue.</div>
+    <input type="password" id="nteli-pw" placeholder="Access code" autocomplete="off">
+    <button onclick="nteliAuth()">Access Document</button>
+    <div class="nteli-card-err" id="nteli-err"></div>
+  </div>
+</div>
+<script>
+(function(){
+  function nteliAuth(){
+    var pw=document.getElementById('nteli-pw').value;
+    if(pw==='channel2026'){
+      sessionStorage.setItem('nteli_deck_auth','ok');
+      var s=document.getElementById('nteli-hide');
+      if(s)s.parentNode.removeChild(s);
+      document.getElementById('nteli-gate').style.display='none';
+    }else{
+      document.getElementById('nteli-err').textContent='Incorrect access code. Please try again.';
+      document.getElementById('nteli-pw').value='';
+      document.getElementById('nteli-pw').focus();
+    }
+  }
+  window.nteliAuth=nteliAuth;
+  document.addEventListener('DOMContentLoaded',function(){
+    var inp=document.getElementById('nteli-pw');
+    if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter')nteliAuth();});
+  });
+})();
+</script>
+
+<!-- ════════════════════════════════════════════
+     PAGE 1 — WHO WE ARE
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div style="display:flex;align-items:center;gap:18px;">
+      <div class="wordmark">nteli<em>.io</em></div>
+      <!-- Salesforce Premier Partner badge -->
+      <div style="display:flex;align-items:center;gap:7px;background:rgba(0,161,224,.10);border:1px solid rgba(0,161,224,.28);border-radius:6px;padding:4px 10px 4px 8px;">
+        <svg width="20" height="14" viewBox="0 0 88 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M36.8 10.9C40.3 7.1 45.3 4.8 50.8 4.8c8.5 0 15.8 5.4 18.6 13.1 2.2-1 4.7-1.6 7.3-1.6 9.9 0 17.9 8 17.9 17.9S86.6 52 76.7 52H12.8C5.7 52 0 46.3 0 39.2c0-6.9 5-12.7 11.6-13.9-.5-1.6-.7-3.4-.7-5.2C10.9 11.2 18.1 4 27 4c3.8 0 7.3 1.3 10.1 3.5" fill="#00A1E0"/>
+        </svg>
+        <span style="font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#00A1E0;">Premier Partner</span>
+      </div>
+    </div>
+    <div class="page-label">Salesforce Practice Overview</div>
+  </div>
+
+  <div class="p1-body">
+    <!-- Hero -->
+    <div class="p1-hero">
+      <div class="eyebrow">Salesforce Premier Partner · Since 2019</div>
+      <h1>Channel revenue — reconciled.<br><span>CPQ to GL, no gaps.</span></h1>
+      <p>Nteli is a Salesforce Premier Partner specializing in channel revenue management, CPQ, Revenue Cloud, and Q2C implementation. We sit between CRM and ERP — reconciling distributor claims, design registrations, and POS data before it hits your books. Four verticals: semiconductor, pharma, SaaS, and nonprofit.</p>
+
+      <!-- Mini badges -->
+      <div style="display:flex;gap:12px;margin-top:8px;flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#bc8cff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+          <span>Salesforce Premier Partner</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          <span>AppExchange Verified · 10 Reviews</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+          <span>50+ Certified Experts</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Credentials -->
+    <div class="p1-creds">
+      <div style="font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:4px;">By the numbers</div>
+
+      <div class="stat-box">
+        <div class="stat-num gold">4.9★</div>
+        <div class="stat-label">
+          <strong>AppExchange Rating</strong>
+          <span>10 verified reviews</span>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-num blue">100+</div>
+        <div class="stat-label">
+          <strong>Projects Completed</strong>
+          <span>CPQ · Revenue Cloud · Experience Cloud</span>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-num purple">50+</div>
+        <div class="stat-label">
+          <strong>Certified Salesforce Experts</strong>
+          <span>Architects, developers, consultants</span>
+        </div>
+      </div>
+
+      <div class="stat-box">
+        <div class="stat-num teal">4</div>
+        <div class="stat-label">
+          <strong>Industry Verticals</strong>
+          <span>Semiconductor · Pharma · SaaS · Nonprofit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom cloud strip + client logos -->
+  <div class="bottom-strip">
+    <div class="bottom-strip-label">Certified Salesforce Clouds &amp; Products</div>
+    <div class="pillars">
+      <div class="pillar">Revenue Cloud Advanced</div>
+      <div class="pillar">CPQ</div>
+      <div class="pillar">Sales Cloud</div>
+      <div class="pillar">Manufacturing Cloud</div>
+      <div class="pillar">PRM</div>
+      <div class="pillar">Experience Cloud</div>
+      <div class="pillar">MuleSoft</div>
+      <div class="pillar">Data Cloud</div>
+      <div class="pillar">Service Cloud</div>
+      <div class="pillar">Nonprofit Cloud</div>
+    </div>
+    <div class="clients-strip">
+      <div class="clients-label">Deployed for</div>
+      <div class="clients-row">
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFKElEQVRYha2XbWhWZRjHf/fx8DDGkCFDZMh6EJFhM+VZH9Qs1EakR2emUWuElsnQMKnjvhhR4Ud3+lASSL5F1EIMm3qG2lpLZK5QEZOxhow5RMYYIkOexsPxnD5c99lzP29tiv9P98t17uu6r/t/vRzFTOB4FpDAdydxvA1EUT+d+4ZODT9oAPZuTVZutBu/LAseRcuAv4AkMIzvhtMdbc9AsQ0EwCocrxu4iVILgKEgeNRj27NuAgRBWIZS48ACYDlQA/TgeDYQljJGzeD2+4FjQLk+aHga+dnAHD2ztEGD+O5IMfHiHnC8WmAc3x0HerXioWmNBfDdCWBCn1MH3APulhIv7gHHawCGgDF892HengVUAPOASr36ABgDJgpc7Xjl+G4ax6sA5uO7A+a2nSdcCcwGrgJzgbSxZyNvuwt4CahGXAwQagMu43iHgUv4bgYA343PSAJ7gJbiHnC8MoRszwG3tSvjvSTgAY0FRhciBC4CHyFvH+ozLG1QjoeUsfkqMAL05wg5Xgo4jbA6xn1gAHmmUN9uMVBlyIwCW/DdXlNh1RvfLEKxGjgyfnJ3aBl754HxnBs63gLgrKF8DHHjs8CL+O47+O42YI1e+0DLgHDkNI63KMc/inQUMT5LKT2V2yeR0LmB7wZaeTnwK7BSf9oL7MgnUQGE+d8BKeO7l/HdyWLi8W2rtQEDQMz61w3lA8BmfHeM6eC7t3C8zcAVfe5K4DXgp1hk6fajllJqP3DIQpjcC5yfCjnHSwCtWj4DvDsj5VkjRpDniLm0V0cRAErcPwhkbCSkKpDQu6dlnkdIBfALkt8fF2eAPsQDKaAWuAVw4/h7IXAS5PaXgRsIs2OsJfs8Z2dSVAog3/ysZwnkolNYt+fHmvUftn9rI2xN55Gk3hi7OF5O8ngMmGG51NxQSt0HztpI4pkALhn71cZ42RMqz8d8c9L5VdND4IyNZK18JIxx5ikZkJNBt3/aUQYcsJEyW4dwIYZZgF4A+p+CAfk8CqMouhMXmEocLzFVQGAYWKXHc/Hdq0/BgBycOLApAxyy8N3zSEiYFv5pjFM8KeICVAStbV0LW9u6ai1dBbciZIzRDcRRsUUnpifBbhzvba0jB5Hkh9VKZ6gGJBWfxHcDbfkFvQ6SCU88lmrHW4x4sgLoATbllHgNC3H9TaCTuMGQJHKQ7LMc1GV5psqrgXatHOAuUTRF7C8O/ZH6/OueOWKA74b47j2kA1pvuLsbnS6RhNKB471i5vQiii1dDTvIPuko8Amd+0yONSulFkJubCaB24CF41n6KVqAhUhtmI/0Bud023WdbPou03LbgPeRtg6kV9xSpCOOC12RptTxNiBFYwTfDXG8GuA4Uh9ihFr5KELWKiSlm2QbBnbiu13xQtvRK2sjSLfuWNEXr+WGibC1XB8Ue2IE2Ah8ZtzY0krrtHeShvJJ4ASwwlSuUaZys2zJttxCGtDrU+6TtWqkd1yHlOu4LZ9A6vtvQCdRdDt+88Pt1yygqqWpvmg/UYpQlfrQGmAEx5utQ+gucIT1bcdQKkH2NhmiKJNHNPOs7w+3X3NamuqD/M3Sv2YSDQGQIoqSdO47VVI2Dz+c+TsBrI2i6OK/kwFhGCVamur/tycsRFwXHC9tW1Z3AFy/NfoWMJaqm9cN8HvfnQogvWb5M2FH12AlULupYVEfwqPNSqmenW+mJslm1QKUzNWGIf3BuY9j8g0i/w4xLiBEBAnDHR1d/1jNjUseALuaG5eUVBzjP9EQv/TPb0OOAAAAAElFTkSuQmCC" alt=""><span class="client-name">Elite Pharma</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAANlBMVEVGlU2W1gIPoduV1gQPoNqX1wBStaBHcEwQoNlDfC+W1wGU1QgSoNYAH28Podud2CgPoduX1wA92qomAAAAEHRSTlMCkMxokOYXAFMBw0QpAeUrXRKdQAAAAZNJREFUWIXVl9uShCAMRBGBCAjC///soo6XwNQ6zbzs9vshnaSFUoj/LWu/wmnVN7hRUfbSlmiWqcj0Vp82PKmuFk68GOg44DDfb0AdeIoCPqC4T5cmlLc390WSwBwRqXQXOsFgJOPBCVrWPd5AbR9tgOZY8dAGGvvgAFr7WIRINHyaIV5+xzfjSxHjm/IKucea8ctJIAGq+KjA+HNezeglfOejKutAX4GLl1MpjuJX/Q0n0et/x/2QNeTh2H/c8NHlohBwfsf1iucRyY/ZF1cmT2PepelzAyTW/Mt1716/eMyAejW/uAPPDhrhtLonMeRLC7jE0vzlvmgA3wDLy2cNvoKBl8/Zow2w8nADZBznwQbI50pQA3RGr68BIlfzUITI6JqHBkBLyyP3aDu+7ID6oR2fHqFHpOYHj+C2Sp/z4veLuDo7MF4Phh4uIOLfN6vvfHj2ToYVuPGuBPeT24+VuHi39PyEnPPvw0++Ez/yp6Gt3/ll46HMMd5soRPAu1OpfP+6s/ndwYh9MW9OeArtX9cPTuM0F0DM3iAAAAAASUVORK5CYII=" alt=""><span class="client-name">Intricon</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEyklEQVRYhbWXS3PbVBTHj2Xr4Wec4klDgDakTsiLpgU6FBYsmIFhOt3xLfgGzLBiwUdg2y/AEihsmGEB00UntMGY4ITipontWLYsy7asSPecy0LWw7Hduk2qmTvStY/u/6dz/jqSIpxzmGards35L3699+2PjdatVDbTg2h0OIADWITKYkIpf/f+9c/XMqndadaNTaUOABrRhfuCcMPOpGSNSAYiAD5Q9nccikZ3vdzrL04LIEwLUDb7i4f9k9eBcwDOAYgDcAqOidw9cnjU6y1Nu+5UAMh5pNTprQRiIcGhYwLgBEW9s952nMy5ARgOy+zoxpYr4F29J0xBNgbzom5smAwT5wbQZSxd0I2N4GonDff/UruzYpxnBnTbmSm1OyuTBIEIAIN9rWvO10xr/twAyj3zTcN2Zvw085A4hoAQAYiACIV9o5tHziNnBjhBkgq6semLhUZKgG5KiHSHIQgAOew0W1sWYvzMACay+ING65orgkNXvZpO/X01m9kBwmE4Qii12ssWQ+XMABajeFFrb7jiPFRrhKVk4tFmJlMIxNGFRITdpr5q2E76zAB1y5or6cYyIAEwDGqNCEup5H/5THJPQCT3t0EMEhzoxuVG38qdCQA5j+y2jFXbceSwsJeFfDq1t5hKlmMcHM+AXhwRCbuavvYsIz4VwEaSttXmu0F6g1QrAFZOkdScIqkJQTBHABlCod5820aUXhjAQlS2jxvvDC08qPOcLB3PJ+K1C7LcysliExDd9DP0YwqqtvksIz71adi1nXRJ05eB0H3acXB7AADkJKmZU+RmTBBYNhptAXoxgzbNAUqqtmI6LDGryO0XAjjodC8dtDuXvQXDi+dkqTGXiNeJcyEriW1gNPQ/AIf9hpav98yLr6WT1UkaE0vgEEULDW3DT+mpsRBXKmlJ7M7IkpGT5UZgTu9WdA25q2pvIU024kQARhTbrqrvuYaikAfc44VkvNJnTO45TiKnSA1f3L8VXT/sVOvXGJE4SWdiCRhxsXDc2HRrOzBAqAy/PHryseU4CkOK/f746EM/zhvgxhZr6jojiskQtZ8LQLdOssXjxhog+ouFvXDv8dHNe+XDm2ExAHC7JQSxxaq6bjGmJCXRfC6AfU2/opv9WX/RMVkYmZ8+Bg7lRvNyvdObeyUR18bpjPWAgxR9UK1f9+/t033AGyxU76FnQWBG5qBYrKnrky50ognvP6neGBYM+vzQw8cDOdUpffMSwc5hdctBjI7TGVsCG1HeqRxfDZpL6BXcT7M356fmo/HFSn2dOI8CAE4FUDE6C6WaugwsbMBA8Oqrcw9vreXv2ohSLCIwvd/Pfv/nP7crbWNhFBCgeFSbWIKxAIWqumnbTPb7L0FgOgC4vZb/4avPPvqaOI8KkQhaDlPKqrZY0fQAIJSt/Zp6pWvZKTkVGzHiWA88OKxdD5qK97rlzrOi2MrnZvfioniSlCQzLoons4l4+0Jc1oJXs6ATAhHYjiPvVuurYzNAP3068nH4x/YaAM6OvdWy1Jp9Y/+bO9Q27oTPmalfAqDcUBMKl+Hhz1/+9sG/zSlLoCsgcja80ADmomTDYuJk5JxszAGRYwAMIZAIwF+9FACMAkTw7ifTfR6/pG3qj9OXtf0PTZUVxePaEYkAAAAASUVORK5CYII=" alt=""><span class="client-name">Airgas</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAApCAYAAABz26rUAAADx0lEQVRYhbXZW2gdVRQG4G9OTpM0KaUiFCmK+lKqgrQUBBUE6YMKPqgIRUEEhSIIggqSS9ukuVWUClW0KogFFW9VHwoWL6gVBYOXFBS1wWKtBu9pEts0bTXHh0k0SU/mzMo5+eHAzJ611r//PXuvvWafxIZNL2EjRlCQjeX4FuswkW1ah0kDSb+1Ro1oqBBaPQZwMcYq2E5iBV4t4mGpgBWVGKawBlvQntM+L1qlnScdqDzYUcDn6AuStUmF1AoXYnPQZwf6p6dMF44EA2wP2mehB8WA/a/Yxv9z/qT4lLhh6lctNuDWoM9W/MXsRfs83g0GqsVbiE7fT/D09M3crNMaDLZGdYv5LlwW9GmbeTNXwGd4LBiwAxcEfUgzzbagz3N4f2ZDubzfgT8DQZeIT4NpnpUB+9PS9D0L5QQcLWdYAbfgmoD9pbgvyNGNH+Y2zrfz7kJ/kODBgG1vMPZ38/lklQ4tQZK1uDeH3Y24Phh7s7R8OANZAj7A7iBRF86pYBMd/bfx8nwPKxVvm3EiQLZMuqvOhwdwUSAeFdJ0JQFD6AwS3omryrSvkmaeCB6XpvZ5UUkAPISvgsQzFnQyfdGNpkCMo3IIziOAObtfDlyOlrQ+K8CVuCMYo1OO/SivgL14PT93CY1L1htziVGnFKMb3QAezWOYVwChOqnuAKXunuSgJU7efkyx3JrIQu76KiJgUHaGmUIJzW0bkyOuNdR4TFNPQSlAYw/25TWOCCDN84ezTer3FJzY12UQxa2nFM4NcoSq26iA0zIXdAlL29uTQ1YbXj2iqTU4+n3SN50bUQHwonR3nIMSmvrONzzY4hCW9pZinf9RmmpDWIgAyi7owk8Uu7uTQU3GrxtWf3NyplEWtqp4VFOGNeowhS/MSnMlNG+52tDEbY6YsKw3OHU+FK+7sHABpCP2e3pZ3M/fu3uSQZTuGVe3LhgrulH+h2oEjGL71Oh3bEoOu8IvZ49p7gyO/jP4eKGdiJzFlEHpFZrGlzu+v8NBNGz7R3JWkl/AcfGvv1mo5g2gOMTkU88mA1Y5vn5Y492BzpPuKz9X04MqBTToTr52k8NGLdsV7Pw30kq3KlQhIEHJeSZQLEyyMpg2a3I4XOUbYFwRyWTC/QG3vXijWm5qIGAGXsObOW1rdjRfSwHk69gj+LJWhLUWcAA7M57/Jn6cmIlaCyD9FPxjnmcdKv99FMJiCBhR/mO8H0/WmmwxBMAT+HRO24LrnSwslgBmL+gX8N5ikCymgHfw1tR1VfVOFqos5ipiJz7C94tF8C+u49JZk6B5nQAAAABJRU5ErkJggg==" alt=""><span class="client-name">Vulcan Industrial</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAMFBMVEVHcEz8thX8thT8thT8thX8thX8thT9txX9thXZnCf8thX8nBr8tRT8thTZnCfyrhp6n7SUAAAAC3RSTlMA305vwpHtDh3tK84oY2IAAAK/SURBVFiFnVeJduUgCHVBk8mR6f//bWMQF0STGdrm6Wu8XlbRmIWczgcAewtA8O5cvbdY7cFiyj/0SMmC/4xxeEBVwB+flttUpXCoYt8hnM17pfJXVMA2tG6vO+RtywpM/IuE8pBB2NiCtm/7dZIqKYxLEoH0pfeJCj0aIA3DYn3bMzEOjt+wbioCsMvLvtjPe1/kEaj8xYtbmTgEPXZGI/YiEFzP9huRwRdnrA4vNiCrl3EzTQms/Grs42ER/HuVYFSAoq75v87SNClUsCpxRFb6XfMOqSnhVzxt8LcEiyh9QHPPBChriw05h22rIKe32CvBYVYoeI1qDEPmHz5qKhIFi7PYS0bapb72/GcM+0c9UArPAX1yls+LgniI03ts1cJ12FJganqnJ6ABpZHjxJ/jFcW76d7qirVa8cPr67O/mQFH072XYz6sWdIVIDPUalFy5U6p2YlLAprHPRWCQa9N6T9qfWJ7ggEZHHa9Ptc9IWCsDK9FySUJLZvoM5ooo2tjAiXvkhEx1GW5Jk6cWgkNs6mh/A7Qn/uYVWhRkJ9bFVznMVpmLC9kiK0RXXfGUTYYYK+yLsqhMwJ0BTqrMJ8oux7CjQbPKvhWxgrszggOuWnhfLhLuqxUOx3clAw5ncfI2KRzrwKLVhLjuonRAJRzWSuJa4BrPo7WCIoNTM7HzgT0WLVigkHKDNSDBaNuSZXBGcfQKEO1sdVs0NqjSXKbPkr4kZIBjth1o6K1xZapefbzV8pDzKfaVbaK1RoO7nXSEoBOJ9HcTrM8XwFckXO673JrmaqptgRg97TmrGxa+6VinCWACOhmvaILj9cAjy9rp9BuB3wKFjobgPnQ0QJ0B/DaLr+o8A1hD2DcdM79I8B96dr3qq8Aw71rcOtHBkZcPP+DgWlX36E+pG02TpIv38r+3wFMf/0f5I+UXwxFg2kBKjNCAAAAAElFTkSuQmCC" alt=""><span class="client-name">Applied Adhesives</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAEAAQAMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAAHAQMEBQYCAP/EACwQAAIBBAEDAgUEAwAAAAAAAAECAwAEBRESITFBBiITFFFhgTJxkaEHUmL/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAQMEAv/EAB4RAQEAAgICAwAAAAAAAAAAAAEAAhEDISMxBBIi/9oADAMBAAIRAxEAPwA416kJ13piW6jjkEbOocjYXyaSkUlUl36gtre+Wy9zTNGX9o6AU5BlY5CBs/mkrV2CjZpr5pAe4/mslmbu4vcnYXWHuiws7oxXUQb2lSPdv7iq3NZ3GWGTMk100c8i8ArE8B1/gGt8eBysXlB1EJJQx8U7WMxObjllWMSBjrY6961dtOJVBB6arFEdNqImyclLBSV1vXTf1oPy5O/fNXEeVJS9RvHQFf8An7UT/UGYtsNjzc3fLjyCqAOpJ7ChdnMvDlcol0icAiFRyHXvXlrWnzcCzLeXTIsipw+Ix7LT8GUsb5wbO8jMo8K3f8VmbTleyEMdgORqrW/9K/M2pntSYrpBtHXv+1TUnLydsTKJrSUmGecfMRN15Mx1yX6VTMsV5NcW9wOaFm5Ajts73/dQzkJ760ibn8O4hfTA+emjuq64vZoLzoeL8doynfL967uLyYfXfdhl+HeuqbgrhMVlGtryQhbd+Mb7+vbdF7AXZlQbPegZbtHeZPhdMUaV9EgeT2oxemVZI0XqAOnWnyzSb9zhems/WeJfMYWS0jdVkLK6M3YEUJ8vir7C8TdqhjLceab0KOzrsarCf5MeKzwjqY9tcMEBK/p+5ribewGMvks7/cp1HI36vCn70S8ffQNa8mYcB15UIl2wKKhbprWqSOd0QxxSyqpOigY6/IpKU0qS39w6NxilnYqd+N96tIPT8OSCrJy9vYhutUbQT8UZU5q3+viiD6PtJUgiE42wHWrjkjsibu7D0pbrcpcfBHxVUKGP0FbLG2PwVUcdaqbawrwHt8VJCjVVycu2gB6ujULJ2cd7bPDPGskbjRVhsGptIRsVK2Ag9HWlkClqjAMe7HZP23Wey/oq6kyLTW7IkTgEg9wfNF0xg96be2VqSHOF9ONAiI55EdCdVtcdjVhUEDVWEdqinfSpCgAaFJIi8RoV1Xq9SX//2Q==" alt=""><span class="client-name">G-Tech Elevators</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAY1BMVEUODg7q6uoAAADt7e3w8PAICAjn5+fh4eErKyvIyMivr69wcHDT09OHh4eWlpYiIiIzMzOpqakcHBxSUlJlZWXCwsJ/f3+4uLiioqI4ODhHR0dcXFx3d3ecnJz29vbZ2dkWFhbVR4sUAAADDklEQVRYhbWXa/+yLAyAdQxURM1TZQfz+3/Km6NJ+S/o+T28o7aLbWy4Jcn/uijIRX9WB2j6suwbgB8P7wuGcrGijzZDmV4WSFK9CBZluCva7e7GiVM3CMJv3aeAaDW9lv7YCtxqOwaK9tgvq6CHApgu11vd8uIh3SZko7VhEbllj4K39e16mbahhSrTolKVeIeK+zDchWcOIVY0q1YCHOc3i9Xh42CMHcYdl1IyH8H5n5E3ZRyr3BkJkFcjvkFIZuNAc/TtY0U9UC9KKsZDrdNi4yXmDkCMMsse4lQP07J3XYqxTEN9Eo+MGQjxAKTIm2TngnYuO2nykbwB8Ag0NNcoHHELaDSgiigZqDSg8QD174AuHlBrQGcBi76Tewzgrm9+sYCEKcA5BnBWAJZYAGQK0EYDXCYm8JBBIDwGwJXGw2mAUNtTDOCkNMQKKNR2jAGoTCTFCjh52xBA4dkMLerijACoqD3DbtMiBuCnnklMbILfftqgKT8HKPX+GmwCXLVCuQJ6f/8dYE7snQJt5rh6Nj7PT58B44rBZDI+5WMz6SWPbGqn4Ymgq29bPCYR5tB7pN388gLZqA6BJsDwems2MUIfNWMwdhuDTUGHlpOJudhKmyiSsCCYV9x/gGwQwnJxT5h2LA32QXuQssVvUczH7hBAgIMWfUk7a1bIwwp8z11KM/3Bnr4SYNK9Qfb6JbavUvGtG6QmAu85Y8Ko3rmPBKrfTxnC7k0MKpXg6dx+6owBWiO193bobJQ2jMufBFhGfb6fheu/OTOdDxv23aAwOIl89wzoU/M/crpnIeWm0SPp5Q8b4WIbRszK10jI7j1D2x7+pa+8EFYIi4vfJ15c849i3353Tmu7XoJt4xAUmtaqk8+3pGSv1tIU8Z4ohIzHHd1v2fXr3AEJd00xsloOGV3NrLqMbhJQLBR64ZpnZEKwdSP6wLEHoFq11tYaWRU+vVFYzmRt4bU6OS9RkxuFQ/ucQmTsD9HzJ8CBm+Aj8sNPs6ecxLjUTvn02+iqEXlZ5j+rq0X/y+wdtv4B0XofAlnK8d4AAAAASUVORK5CYII=" alt=""><span class="client-name">Binary Defense</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAWlBMVEVHcEx/vvpssvk/mvdCnPdIn/haqPlQo/hGnvhQovj///8LFj4AADE0lvcADjvy+P7W5/pTpPjm7vmz1fyVmKdtsPkpMlPCxc2JvvpSWHF+gpTZ2+Gwsr1tcoaEMdFyAAAACnRSTlMADR3/89xDbLyP1X/SiAAAA0RJREFUWIWtV4mSpDAIHds7Jh5Ro7bd//+b6wFI4jm7S03V2JaPwAMC/PyciBfFaRIGk4RJGkfe2XfHEsVJ4FsShHH0GB6H/qGE8SN4GhzDFzviW1fiC/hixbUjr+QaPktyYURsfamUch7Aj1MjUg7227osi1l0WfeVpeOEzITB27IQYvoj0bXPVKSXeKV6LQ6kbtWVhg3flkfwRUWlTjWkdHx9Bp+k6EmDwwPyr6rT48EI8sKKxQvfVpw4MXbNLN3I3pUUTZ4PCZ7P8OPbSJTs2+01JHsHGL4bpMwzEinNhzQo1wkP85+ip78cvUguB/SkBg2hE4GN/zGT2V6kRD8wFhgJjD+Zz47Pc/aMGooKeLQZQAc6xOQTfcZMJ4NC+RaOEysL6/2jevQf8Lk0zeJ1MTZmVrHhhYCsXliIwAOMwCDB9s/2vfhMIWV4isSLKCQDPoA3PHsmXs3b+l1tNIIHkMKFWRzIMzelC/snsJBQFle2AbIT16LBBw8oIA+GxQA53ODJhwgpgCTSYMB4jRaUTDHUkYIk6FYF5haPJKTAoQ8cNdLOmHPRyGJgcfhdFXwusYsUWFDrf6wD4PAuBoLqIfhrBeL/KqBSHp5zgApsEt+rguaBAiTRDuOayfl9IgrtQxgTq5ZGqMXD3mZJiYlkp7JYi/GBDzWmslNMDRTDrQlwJ0XUlICEEq6/OxaAw7k92RcKxCGTXwfR2PVR0oWCJGAm6Axt4F5MncausBY53C5VutWhqciswVuhnK5lu0Y1u1Tdax2dmNuC+U7N+WvytTEwDT271rGxEAukYW0trMlSdCGLoLd5vs3CrMFtrQ4twEBw1lzFJ993V7llV+00V2jvanNiYd2BU3enthTSjEITKovc+F7cn2V+YCMK9mY+Z+F8b41IRdcMU3M2Zmg69r7AWY+NOJTPqnI62F4Iv+bAr8c8Xe0mJCsSViwOpD4fVdmoe1rKepuWExfPh3W/P2Si6P0rvDXu+/2OirJnK8Mh3lk4qr7WYEihnY3jcF3gsQAdyq/aSSpn5wkutr/XbmNUfFFZzX+d43/u176r41fx0it8+mSH9v5x9Z0lSnc6wvT58r3IK5q3/8Xtaf+PTpn7A4kVcuCoarkpAAAAAElFTkSuQmCC" alt=""><span class="client-name">Copyleaks</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAJ1BMVEVHcEzwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCOa9I1FAAAADHRSTlMArzONyghP4L5qGPLu3J7DAAABjklEQVRYhe1W25aFIAhN0VLr/793SptJ5GaPZ9bZvRHshWxAl+WLf45YfEWJr0PLCmk7OmwJ1jIb7QHFdizOz4QHPvrmMClWLfzCahAI2T/YDQIr/jh0SYpNoIvhbQK9CGYNjyOrBGATgH6EnHOSg8P529LxRBG03GcasWFnCV7MFFvLidz1FOqP2OFxR2XLxNKwXXakUuIJAnFscJcdjepDgNzrtGRKAORoT0dg98hX8aphRJanJ/EEXGozQ+VZxwbsXuWiBDSxbi6RvR6NNONOa9vJjtwdq2MVx/WWrSOgP4iOmopcamtIJ9zfl2hl+rnGOopLS1JRlmeA7IZ1FJeWqOLQokkiQLU+0C8s+xZYDE4K9xRwnhPbeATezhP3wQhc6okbaQQWO9oBI4Z24xe5BlXiCYSB4HUVSbuaTxMM+lB5qQNzTb06BDtvfvoUu3RNenDuXoaOoNmTc6DfsiAdsRVJf58svy3J7qTGYD0SQIy/GawUlPibQU8BtPjGoKcAAOpLyp8OKsEXn4kfIENOdKKTBLUAAAAASUVORK5CYII=" alt=""><span class="client-name">Studio Designer</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAaVBMVEVdG2n///9MAFpTAGBPAF1bFWdJAFhwO3r7+PxYDmXp4upWAGNHAFZFAFRsLXfMvc+tlrKznrd7ToTHtsqafKD18vbw6vHf1uG6p75mLHGihqhxQHyJZJGCWYt1RH6mjKuTcpvTxtU2AEh9Te6+AAABrUlEQVRYhe1Ty3KDMAy05QcYhxrCy9BAIP//kZUwITOEzrTTQy/eA96RrcVayYxFREREREScQglrFBFjhRAmxJDaQClqQsSc5stkKIZPUAZuZVX5ERRTMN29L69IrR4L72cDV19VtVQn+QsnZP3IAzJmru1Ge3tPiaQ6nGr6NwVRURxPsYY/FTR70u4jrKPDD6m2+igAGK3zy9jkSAbDSlxusJSTnTqkJJV8TD0u14vAf9yOPpCAMyClRtIrlWece6Fza3OFEbqBVKLgfHnoHJdKHC3I1lsXggQStZbkck91+01AhDoDFnns4RQ22scmgGmu2M9vAm4PtEcBJsSwbo9BgJriM7rqJXkJoGr3wCGRYI/5ZtCgycCZjktJrs1klrR2FzC31WoJpn6bJeBtWVO1ZHS6rO2+oP9NPb88YEAtbLrspALYanOPvcxRPGeKL5uA6tPvLDDz0qZNNwMp+Sxtlskykbg2TdvuDr2rHJWtbIl7mXsbA1QQACDNepUeqaBhVWgXzoZFIrbGr5FvntNeS3LyVn6MPwvYsvTvb+1XCtb+KT8iIiIi4h/xBQyOFOe74Y5cAAAAAElFTkSuQmCC" alt=""><span class="client-name">Spare</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAJ1BMVEVHcEyUR5CKQ4aIQoWSR46MRIiNRImORYqORIqHQYOHQYOQRYyKQ4a4duqkAAAADHRSTlMA9hwSzOWpSYIDCmTDBJLsAAABoElEQVRYhe2Xy7aDIAxF5REI4P9/7w1cbUEhiZ100oPLiT07kRKI23ZVLmBgrr0T2Jvz8Ecf4kLByADyo02LZygDavxVbhoA61cAeL8MEPwiQPJLANEvAMjveT8PSLKfBWj8HCBF8NFJsgjGwDkGgPPGB1lYYon1igVHgIXdKIQupUwXKforQCGDuZuzLwO+/wq/DKQM6qI7bx9kYMAHT9dxe56BQdtXIEwBbAbvn5Hc/AmfgQKgz2DxRJ/B9+fgl4F+Hfj33u01S9mVEZBLVWznBv4X0Tn2GaCe5K4HbO2wSKRsQy3jbkwAXCdgKf6wCUwAjD+RP6IAyIWLD9EJAMbf4o9dwB3Ax/cxbXwGUnxqclmAE+PzACvEb5PMARTxN24SAdbxAzVZrXlJlMFL+9j5LP2bCyaUU/juqsgyNFnLTrA2Wa/+rViX22hpdYXp3Mrf7QdUPuUoGYvHtCo0VP0BIH/R+meAR/4JwJF//coygPz4wH8D0JJ/5L8CqOTWf7kCwJWcCiB+PAmA8Nw/dmnmub8eYFCXMdRzQP546vUH36NHuBJ4JuwAAAAASUVORK5CYII=" alt=""><span class="client-name">OPEXUS</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAaVBMVEXpZSv////oXhvpYiXuiWLzrpfoWxToYCDoWg72xrX749rtglf3zL3zs5zpYRzoWArsd0XwnX/528/xo4f51sryqpD40sT86OHnVAD++fb+9PDnTgD2wa/wmXn0u6bsfVHqajPvkW7rcTuVcL4JAAACNUlEQVRYhe2U24KjIAyGCdGAB0brWXuyff+HnATU2W277s1c+l8oEPgIkESpQ4cOHTr02zJa+z9qkUHf0Ro322LY5pMl8+f62rlZ1peOFZ9Ky0ufzl1NsCFGYmgfyu9jVJ10SY24AewI8OAuRhDUzIgZQE5s6wG+tAvjY80jJht9Z7qvBHxy1+kAmKqU7RUJIBFAKoAYoG+4BewUTtzpmNvr9QRX2dQGQHIeFM/IzCugPQ9sTsmc2LWhGDr2erkHfRGHigBgt0mm0ysg1qrgtrIJQGSUeQS7iMfZoSeuANnjYj8AbAMwFxVAyXPvfFC7eDCCG/3pfgBJ8U8P0gDINoCwsglueh/QDrbkk+p3gKkBsIHU7gO69sLPc/sAoBym4QYj7QO8KvpwBOqhGa4yugvomxHGQX0AzBxFA8dSbfbv4Czvh+8AWXU51SNP338F+5AreAescQ79fwA0j9APG2CLA4mONE05fJX5AdyI3yy3IZkoxIGEEB+hevHga4L0XJz5LSO9hDL7dDLIXLmziaM8AOR7NfQSylj6hgBj65OpkGR6YsFbR4M8T754IF7nJKnXcTI1oQT4VGwlL2VY0rmpOF4upHQrOcr+8tUvoazZG62MpHOzpTNxKmZMIjbSWlASHQLMy5G/aC4YMpIh3peCUoaSd3Ju+ceqdHHcttdnSFOKbl3n7iRP7VwkF+ccb4aqzpukXkrnVlDl/1dRlVJqbaisGCosroX2pageOnTo0KFf0TfGbyPZAR16GgAAAABJRU5ErkJggg==" alt=""><span class="client-name">Aduro Advisors</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAMFBMVEVHcEwAP4cAjdUAPocAjdYAj9cARY0AQo0AjtEAP4cAjNUAjtYAjdYAjtYAjtYAP4fs/V6hAAAADnRSTlMA/v26yx5ECgnZknl9gS/Bj3gAAADfSURBVFiF7dTbDoIwEATQbQXUcun//y2oiItu29nWBC/MI8mcDKGUvJTzkS6p7ZCKpR34fsBuvuDjAHO4h25A9Yir0oCZe2JqAPARINCHgVAfBcJ9DAj2wQWRPgTE+ggQ7QNAvJ8GhH5vFYDQb0kBCP2OCH8FaT8pAHG/Buik/RqAnLBfBTwJLamBldBRBsCEpa8DFqGlTGAWepKBAfid3Wr/lIoHuVAc3z/lxANdaU3g+TUIEM1/Ag1PDsArPgcwrGIKAVMKFC/YgRdg+ipIfBjQpxQwmy/YgZ8A3nCQRuQ3lmyF7Tk6AAAAAElFTkSuQmCC" alt=""><span class="client-name">New Leaders</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAVFBMVEVHcEwCn4gEzUkEyFACo4ICoYUDvV8EumMEzUoEwF4EzUoDp30CoYUEyFAEtGsCnIsE1zwE0UQEsm0EvlwEyFAEw1YEt2cDrHUEzEoEumICoYQCp3zhYF9uAAAAD3RSTlMA689yFZ4gNqgITks1kOiatg+hAAAB90lEQVRYha2W7bqCIBCE1TLFrKCg48f93+dRFotdIVlroH70NJvvMmtmWYrqpG/F1cjLV36hpDx9U6CWUhZf+Bs5q9lfQNkCcre/Br/cexKNXFTtK6BeBfb1sZZvHXb4K+lL8AsoVIDfx1rKry6hIn7FvYCOFOB28UL83HOkAOwO/BRA7QFQ3po295ZSWKd6vdgACosLcCJ+xQdY1NnFBTh0WABQJwfhRPydBWjSp7FYjHpeWgNA+l3toI325QCmY9VpALPJzEXmPckBzMFIamZhsKxJdBCpYwKAeSC/A1CQyO1AHR9EAPCKxeZfXOGb+8cDqLslU2qjj6Lpsa4A4I5VTfvzo8LxSQQA61TFVGP7HQC079ef+tjcsRyAxor3URD/HQA0VXSo6j8siJChfhMbqjPx51DVrBUZqpHIApwDfhPsoyiJv7Qf+7l28TJLvAjAMA6+HADOtbF70nqoxG3AAgA6GT289+s+ljcsCyCefUxnCkD8AHAJm5/TupICOSnQ2qp0MnzhoQoCZFc0F8GYOrVBgHLlCQzKJwBqOLVt5es9EhEAkmza900AbL+XUb8gALntTkV+f4z6M3FEcmQ5mYw4QFh4soYxDhBWi+dizJn+LCeTxQYAm+vqcGMDkHO9Mf2rYLIBgsFM1yqY3IfsHwPkG/5/PmZqJMULgcUAAAAASUVORK5CYII=" alt=""><span class="client-name">AP Financing</span></div>
+        <div class="client-item"><img class="client-favicon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAPFBMVEVHcEzwTlLwSEzxVFf////xW17xWVz/+vr////////+7u/94eH2mpv7z8/4qqv5vb71jI7zc3b0foDyZmmWXsNjAAAACnRSTlMA////////90Ks05OVVQAAAoJJREFUWIWll9mWgyAMQCdBoFVUsP//r0NkEWTRVh7mdCL3EgLY8vdH7fWWw5dNvl9/ob2+pr3DK16/4dReD3ln+DF/1+TDBCiF9zPBuzqDcZ7nacwi0znim/wrQqtBoIagZx/ZAPNI0k4CqZAJ7hsDtgzDAhAiggEsXcGKjKdNwEccQudgc1ug97FoHEp5dwkfQbSh3SVQtQSG7YMyZes1Tqv2qQvgyzxSaRexh0DXBTvPPkmGH+rOeBKZOXUCVRMosI8wrdFGnfOEQ7e1FEyYP/B8UXW7KjSruH2igNKFgs+MIQf7gMUyBMFsvWxLupmMX7XZ1JSMheNJoG1/lA1+RbuCgqGRcbZsOQkophq8QhH2lRvXCC54LpjsDGBq8OB2IP39uIzgmIMXUAg6PONKYyzzaPOFORMsjIutze97b7LbUJg9aD+x9SyIK1PhVejEcf9k1yFUMRH4Gn523ieoE35fardSphCsMYM2T518BrwQWLmrcIcfWawBHrvWC6iulF2PF3EV0kUPG8mWxT68GN++Xk7VPAS0jsZc8eiGpblsJ4FE//q6wVMC8eDG46zc6zTw7jAvGe+nTfUSbDgLBsjGz14mGT+I7M1xCGa8Nb7k9I8ZSoHdtQ0exHGSHQ9jTTDolIcOj8fBP3+1leNPfb4iqPHM86LgS8GXfCFYMOMxzb/GlxnYHRhf5o73449VvlID3eBZla+tQvgudbzo8zXBV3xbcCv/jsCPL6/4luA238zAfh8I7nno8O0aaMx4aPCdVVC3+I5guMVfCbLD/IPgmr8QKLjir6agIGzGHwX291GfHy6vTBe8fH7leXzpenzte37xfHz1fX75fnb9/weihEshOHpv0QAAAABJRU5ErkJggg==" alt=""><span class="client-name">Decent</span></div>
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     PAGE 2 — PRACTICE AREAS
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div style="display:flex;align-items:center;gap:18px;">
+      <div class="wordmark">nteli<em>.io</em></div>
+      <div style="display:flex;align-items:center;gap:7px;background:rgba(0,161,224,.10);border:1px solid rgba(0,161,224,.28);border-radius:6px;padding:4px 10px 4px 8px;">
+        <svg width="20" height="14" viewBox="0 0 88 63" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36.8 10.9C40.3 7.1 45.3 4.8 50.8 4.8c8.5 0 15.8 5.4 18.6 13.1 2.2-1 4.7-1.6 7.3-1.6 9.9 0 17.9 8 17.9 17.9S86.6 52 76.7 52H12.8C5.7 52 0 46.3 0 39.2c0-6.9 5-12.7 11.6-13.9-.5-1.6-.7-3.4-.7-5.2C10.9 11.2 18.1 4 27 4c3.8 0 7.3 1.3 10.1 3.5" fill="#00A1E0"/></svg>
+        <span style="font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#00A1E0;">Premier Partner</span>
+      </div>
+    </div>
+    <div class="page-label">Practice Areas</div>
+  </div>
+
+  <!-- 2×3 practice grid -->
+  <div class="p2-grid">
+
+    <!-- Revenue Cloud & CPQ -->
+    <div class="practice-card">
+      <div class="card-header">
+        <div class="card-icon gold">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#d4a843" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <div class="card-title">Revenue Cloud &amp; CPQ</div>
+      </div>
+      <p class="card-desc">End-to-end quote-to-cash — CPQ configuration, Revenue Cloud Advanced, complex volume discounting, and multi-element arrangements. Deployed across manufacturing, pharma, and SaaS.</p>
+    </div>
+
+    <!-- Channel & Partner Programs -->
+    <div class="practice-card">
+      <div class="card-header">
+        <div class="card-icon blue">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/>
+            <path d="M12 7v4m-5.27 6.27L9 15m6 0l2.27 2.27"/>
+            <path d="M9 15l-2 2m8-2l2 2"/>
+          </svg>
+        </div>
+        <div class="card-title">Channel &amp; Partner Programs</div>
+      </div>
+      <p class="card-desc">Ship &amp; Debit, design registrations, MDF, POS reconciliation, and distributor claims — all validated before ERP posting. Our core practice across all three verticals.</p>
+    </div>
+
+    <!-- Experience Cloud & PRM -->
+    <div class="practice-card">
+      <div class="card-header">
+        <div class="card-icon teal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/>
+          </svg>
+        </div>
+        <div class="card-title">Experience Cloud &amp; PRM</div>
+      </div>
+      <p class="card-desc">Partner portals, deal registration, tier management, and self-service tools built on Experience Cloud. Certified PRM architects. Partners self-serve; finance validates automatically.</p>
+    </div>
+
+    <!-- System Integration -->
+    <div class="practice-card">
+      <div class="card-header">
+        <div class="card-icon purple">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#bc8cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="9" width="6" height="6" rx="1"/><rect x="16" y="9" width="6" height="6" rx="1"/>
+            <path d="M8 12h8"/><path d="M11 9V6a1 1 0 011-1h0a1 1 0 011 1v3"/><path d="M11 15v3a1 1 0 001 1h0a1 1 0 001-1v-3"/>
+          </svg>
+        </div>
+        <div class="card-title">System Integration</div>
+      </div>
+      <p class="card-desc">CRM-to-ERP, billing-to-GL, CRM-to-data-warehouse. MuleSoft, custom middleware, or direct API. We build the bridge regardless of stack — NetSuite, SAP, HubSpot, Dynamics 365.</p>
+    </div>
+
+    <!-- Revenue Analytics -->
+    <div class="practice-card">
+      <div class="card-header">
+        <div class="card-icon blue">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#58a6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </div>
+        <div class="card-title">Revenue Analytics</div>
+      </div>
+      <p class="card-desc">ARR bridge, ASC 606 variance, partner performance scorecards, and CFO dashboards. Real-time unified revenue data built on your existing BI layer.</p>
+    </div>
+
+    <!-- Nonprofit & Industry Clouds -->
+    <div class="practice-card">
+      <div class="card-header">
+        <div class="card-icon green">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3fb950" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/>
+          </svg>
+        </div>
+        <div class="card-title">Nonprofit &amp; Industry Clouds</div>
+      </div>
+      <p class="card-desc">Health Cloud, Nonprofit Cloud, Manufacturing Cloud, Industry Products. Certified across Salesforce's vertical clouds with deployment experience in regulated industries.</p>
+    </div>
+
+  </div>
+
+  <!-- Comparison strip -->
+  <div class="compare-strip">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th class="nteli">Nteli</th>
+          <th class="si">Big SI</th>
+          <th class="isv">ISV Platform</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="nteli-val">Fixed-fee, 3–4 week Phase 1</td>
+          <td>T&amp;M, 12–24 month timeline</td>
+          <td>Platform lock-in</td>
+        </tr>
+        <tr>
+          <td class="nteli-val">SI work included in fee</td>
+          <td>SI required separately</td>
+          <td>SI required separately</td>
+        </tr>
+        <tr>
+          <td class="nteli-val">ERP/CRM agnostic</td>
+          <td>Platform-dependent</td>
+          <td>Own platform only</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     PAGE 3 — CLIENT TESTIMONIALS
+════════════════════════════════════════════ -->
+<div class="page">
+  <div class="page-header">
+    <div style="display:flex;align-items:center;gap:18px;">
+      <div class="wordmark">nteli<em>.io</em></div>
+      <div style="display:flex;align-items:center;gap:7px;background:rgba(0,161,224,.10);border:1px solid rgba(0,161,224,.28);border-radius:6px;padding:4px 10px 4px 8px;">
+        <svg width="20" height="14" viewBox="0 0 88 63" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36.8 10.9C40.3 7.1 45.3 4.8 50.8 4.8c8.5 0 15.8 5.4 18.6 13.1 2.2-1 4.7-1.6 7.3-1.6 9.9 0 17.9 8 17.9 17.9S86.6 52 76.7 52H12.8C5.7 52 0 46.3 0 39.2c0-6.9 5-12.7 11.6-13.9-.5-1.6-.7-3.4-.7-5.2C10.9 11.2 18.1 4 27 4c3.8 0 7.3 1.3 10.1 3.5" fill="#00A1E0"/></svg>
+        <span style="font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:#00A1E0;">Premier Partner</span>
+      </div>
+    </div>
+    <div class="p3-label">
+      <div class="page-label">Verified AppExchange Reviews</div>
+      <div class="stars-gold" style="margin-left:8px;font-size:11px;letter-spacing:1px;">★★★★★</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--gold);margin-left:4px;font-weight:600;">4.9</div>
+    </div>
+  </div>
+
+  <div class="p3-reviews">
+
+    <!-- Review 1 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Jul 30, 2025</div>
+      </div>
+      <p class="review-text">"Nteli did exactly what they said they would do. It was on time and on budget. They kept the project on task and ensured that appropriate time was allocated to avoid fire drills. We will definitely use them again when we integrate our ERP with CPQ."</p>
+      <div class="review-footer">
+        <div class="review-product">Sales Cloud, CPQ</div>
+        <div class="review-industry">Manufacturing</div>
+      </div>
+    </div>
+
+    <!-- Review 2 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Feb 24, 2024</div>
+      </div>
+      <p class="review-text">"We had a wonderful experience working with Nteli. They communicated clearly, were extremely responsive, are very knowledgeable, and were all around a pleasure to work with. We are very happy with the Experience Cloud they built for us."</p>
+      <div class="review-footer">
+        <div class="review-product">Experience Cloud</div>
+        <div class="review-industry">Financial Services</div>
+      </div>
+    </div>
+
+    <!-- Review 3 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Aug 17, 2023</div>
+      </div>
+      <p class="review-text">"Nteli is simply the best. Throughout our project, they were extremely professional and timely. Experience Cloud was unchartered territory for my organization. We sincerely appreciated Nteli's attention to detail and willingness to educate our stakeholders."</p>
+      <div class="review-footer">
+        <div class="review-product">Experience Cloud</div>
+        <div class="review-industry">Financial Services</div>
+      </div>
+    </div>
+
+    <!-- Review 4 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Jun 2, 2022</div>
+      </div>
+      <p class="review-text">"The Nteli team were great to work with during the implementation of CPQ. We had some complex volume discounting that the team was able to overcome to not only make work but make scaleable. The team was easily able to communicate with and continue providing updates based on project."</p>
+      <div class="review-footer">
+        <div class="review-product">Revenue Cloud</div>
+        <div class="review-industry">Healthcare &amp; Life Sciences</div>
+      </div>
+    </div>
+
+    <!-- Review 5 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Mar 31, 2022</div>
+      </div>
+      <p class="review-text">"Nteli did an excellent job under very tight (some might say unreasonable) deadlines."</p>
+      <div class="review-footer">
+        <div class="review-product">Sales Cloud, Service Cloud</div>
+        <div class="review-industry">Consumer Goods</div>
+      </div>
+    </div>
+
+    <!-- Review 6 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Jan 18, 2022</div>
+      </div>
+      <p class="review-text">"They are a great partner to work with. Will listen to your needs and will provide amazing solutions."</p>
+      <div class="review-footer">
+        <div class="review-product">Sales Cloud, Revenue Cloud</div>
+        <div class="review-industry">Manufacturing</div>
+      </div>
+    </div>
+
+    <!-- Review 7 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Apr 20, 2021</div>
+      </div>
+      <p class="review-text">"The support from Nteli was very recommendable as it helped in the customization as per our need and helped us initiating the migration of the database."</p>
+      <div class="review-footer">
+        <div class="review-product">Nonprofit Solutions</div>
+        <div class="review-industry">Nonprofit</div>
+      </div>
+    </div>
+
+    <!-- Review 8 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Apr 4, 2021</div>
+      </div>
+      <p class="review-text">"We have engaged Nteli on three separate contracts. All had clear and measurable objectives and launch dates. The value of the results far exceeded what we were charged for the work. We strongly recommend Nteli for value, vision, training, and outcomes."</p>
+      <div class="review-footer">
+        <div class="review-product">Nonprofit Cloud</div>
+        <div class="review-industry">Nonprofit</div>
+      </div>
+    </div>
+
+    <!-- Review 9 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars">★★★★★</div>
+        <div class="review-date">Feb 25, 2023</div>
+      </div>
+      <p class="review-text">"Cost effective, very responsive, easy to work with."</p>
+      <div class="review-footer">
+        <div class="review-product">Service Cloud, Industry Products</div>
+        <div class="review-industry">Healthcare &amp; Life Sciences</div>
+      </div>
+    </div>
+
+    <!-- Review 10 -->
+    <div class="review-card">
+      <div class="review-top">
+        <div class="review-stars" style="color:var(--gold);">★★★★<span style="opacity:0.45;">½</span></div>
+        <div class="review-date">Dec 21, 2020</div>
+      </div>
+      <p class="review-text">"It is very rare to find groups that enter into the business case so well, that they can not only provide a solution, but can steer us to things we hadn't even thought of."</p>
+      <div class="review-footer">
+        <div class="review-product">Sales Cloud, Community Cloud</div>
+        <div class="review-industry">Other</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA strip -->
+  <div class="cta-strip">
+    <div>
+      <div class="wordmark" style="font-size:18px;margin-bottom:5px;">nteli<em>.io</em></div>
+      <div class="cta-links">
+        Book a discovery call —
+        <span>nteli.io/semi</span> ·
+        <span>nteli.io/pharma</span> ·
+        <span>nteli.io/saas</span>
+      </div>
+    </div>
+    <div class="cta-right">
+      Salesforce Premier Partner · AppExchange Verified<br>
+      <strong>★★★★★ 4.9 (10 reviews)</strong>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

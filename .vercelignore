@@ -1,0 +1,14 @@
+# BDR Hub source — not deployed to nteli.io
+public/index.html
+
+# Old BDR Hub API endpoints — explicitly excluded; new marketing endpoints kept
+api/ocean.js
+api/vibe.js
+api/claude.js
+
+# Local + dev artifacts
+.claude/
+node_modules/
+*.log
+.env*
+.DS_Store

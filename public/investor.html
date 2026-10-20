@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nteli — Investor Overview</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#0d0e14;--surface:#141520;--surface2:#1a1b2e;--border:rgba(255,255,255,.07);
+  --text:#f0f0f5;--text2:#a0a3b8;--text3:#5a5d74;
+  --purple:#bc8cff;--purple-bg:rgba(188,140,255,.08);--purple-border:rgba(188,140,255,.2);
+  --blue:#58a6ff;--blue-bg:rgba(88,166,255,.08);--blue-border:rgba(88,166,255,.2);
+  --teal:#2dd4bf;--teal-bg:rgba(45,212,191,.08);--teal-border:rgba(45,212,191,.2);
+  --gold:#d4a843;--gold-bg:rgba(212,168,67,.08);--gold-border:rgba(212,168,67,.2);
+  --orange:#f26522;--orange-bg:rgba(242,101,34,.08);--orange-border:rgba(242,101,34,.2);
+  --green:#3fb950;
+  --r:8px;--r2:12px;--r3:16px;
+  --mono:'IBM Plex Mono',monospace;
+  --sans:'IBM Plex Sans',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{background:var(--bg);color:var(--text);font-family:var(--sans);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+body{width:100%;}
+
+/* ---- PRINT ---- */
+@page{size:11in 8.5in landscape;margin:0;}
+@media print{
+  .page{page-break-after:always;page-break-inside:avoid;}
+  .page:last-child{page-break-after:avoid;}
+}
+
+/* ---- PAGE SHELL ---- */
+.page{
+  width:11in;min-height:8.5in;
+  background:var(--bg);
+  display:grid;
+  position:relative;
+  overflow:hidden;
+  padding:0;
+}
+
+/* ---- SHARED HEADER ---- */
+.deck-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 40px 18px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+.deck-logo{font-size:18px;font-weight:700;letter-spacing:-0.5px;color:var(--text);text-decoration:none;}
+.deck-logo em{color:var(--purple);font-style:normal;}
+.deck-badges{display:flex;gap:10px;align-items:center;}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;font-family:var(--mono);letter-spacing:.04em;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid;}
+.badge-sf{color:var(--blue);border-color:var(--blue-border);background:var(--blue-bg);}
+.badge-av{color:var(--orange);border-color:var(--orange-border);background:var(--orange-bg);}
+.badge-hq{color:var(--text2);border-color:var(--border);background:var(--surface2);}
+.badge-dot{width:6px;height:6px;border-radius:50%;}
+.badge-sf .badge-dot{background:var(--blue);}
+.badge-av .badge-dot{background:var(--orange);}
+.deck-pg{font-size:11px;font-family:var(--mono);color:var(--text3);}
+
+/* ======= PAGE 1 ======= */
+.p1-body{display:grid;grid-template-columns:1fr 1fr;min-height:calc(8.5in - 65px);}
+.p1-left{padding:44px 40px 36px;display:flex;flex-direction:column;border-right:1px solid var(--border);}
+.p1-right{padding:44px 40px 36px;display:flex;flex-direction:column;}
+
+.eyebrow{font-size:10px;font-weight:700;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:14px;}
+.p1-headline{font-size:38px;font-weight:700;line-height:1.15;letter-spacing:-1.2px;color:var(--text);margin-bottom:16px;}
+.p1-headline span{color:var(--purple);}
+.p1-sub{font-size:14px;line-height:1.65;color:var(--text2);max-width:480px;margin-bottom:32px;}
+
+.stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;margin-bottom:32px;}
+.stat-cell{padding:16px 14px;text-align:center;border-right:1px solid var(--border);background:var(--surface);}
+.stat-cell:last-child{border-right:none;}
+.stat-n{font-size:26px;font-weight:700;letter-spacing:-1px;}
+.stat-l{font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-top:3px;}
+
+.market-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:20px;flex:1;}
+.market-box h3{font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;}
+.market-row{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);}
+.market-row:last-child{border-bottom:none;padding-bottom:0;}
+.mrow-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.mrow-label{font-size:12px;color:var(--text);font-weight:500;}
+.mrow-sub{font-size:11px;color:var(--text2);margin-top:1px;line-height:1.4;}
+
+/* right col */
+.p1-right-top{margin-bottom:24px;}
+.p1-right-top h3{font-size:12px;font-weight:700;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--text3);margin-bottom:14px;}
+.client-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.cl{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:8px 10px;}
+.cl-img{width:20px;height:20px;border-radius:4px;object-fit:contain;flex-shrink:0;}
+.cl-text{min-width:0;}
+.cl-name{font-size:11px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cl-cat{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--text3);}
+
+.whitespace-box{background:linear-gradient(135deg,var(--purple-bg),var(--blue-bg));border:1px solid var(--purple-border);border-radius:var(--r2);padding:20px;}
+.whitespace-box h3{font-size:13px;font-weight:600;color:var(--purple);margin-bottom:8px;}
+.whitespace-box p{font-size:12px;line-height:1.6;color:var(--text2);}
+.ws-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;}
+.ws-tag{font-size:10px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.05em;padding:3px 8px;border-radius:12px;border:1px solid;}
+
+/* ======= PAGE 2 ======= */
+.p2-body{padding:36px 40px 32px;min-height:calc(8.5in - 65px);display:flex;flex-direction:column;gap:24px;}
+.p2-top{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.p2-section-label{font-size:10px;font-weight:700;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:12px;}
+
+.practice-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.prac{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:16px;position:relative;overflow:hidden;}
+.prac::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+.prac.semi::before{background:var(--purple);}
+.prac.pharma::before{background:var(--teal);}
+.prac.saas::before{background:var(--blue);}
+.prac.tax::before{background:var(--orange);}
+.prac-icon{width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.prac.semi .prac-icon{background:var(--purple-bg);color:var(--purple);}
+.prac.pharma .prac-icon{background:var(--teal-bg);color:var(--teal);}
+.prac.saas .prac-icon{background:var(--blue-bg);color:var(--blue);}
+.prac.tax .prac-icon{background:var(--orange-bg);color:var(--orange);}
+.prac-label{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.prac.semi .prac-label{color:var(--purple);}
+.prac.pharma .prac-label{color:var(--teal);}
+.prac.saas .prac-label{color:var(--blue);}
+.prac.tax .prac-label{color:var(--orange);}
+.prac-title{font-size:12px;font-weight:600;color:var(--text);margin-bottom:5px;}
+.prac-desc{font-size:10.5px;color:var(--text2);line-height:1.5;}
+
+/* engagement model */
+.model-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r2);padding:18px;}
+.model-steps{display:flex;gap:0;margin-top:8px;}
+.model-step{flex:1;padding:12px;border-right:1px solid var(--border);}
+.model-step:last-child{border-right:none;}
+.ms-num{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:4px;}
+.ms-title{font-size:11px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.ms-desc{font-size:10px;color:var(--text2);line-height:1.4;}
+.ms-tag{display:inline-block;margin-top:6px;font-size:9px;font-family:var(--mono);padding:2px 7px;border-radius:10px;border:1px solid;}
+.ms1{color:var(--purple);border-color:var(--purple-border);background:var(--purple-bg);}
+.ms2{color:var(--blue);border-color:var(--blue-border);background:var(--blue-bg);}
+.ms3{color:var(--green);border-color:rgba(63,185,80,.2);background:rgba(63,185,80,.08);}
+
+/* competitive table */
+.comp-table{width:100%;border-collapse:collapse;font-size:11px;}
+.comp-table th{font-size:9px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--text3);padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);}
+.comp-table th.us{color:var(--purple);}
+.comp-table td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;}
+.comp-table tr:last-child td{border-bottom:none;}
+.comp-table td.row-label{font-weight:500;color:var(--text);font-size:10.5px;}
+.comp-table td.us-cell{color:var(--text);background:rgba(188,140,255,.04);}
+.yes{color:var(--green);font-weight:600;}
+.partial{color:var(--gold);font-weight:600;}
+.no{color:var(--text3);}
+
+/* ======= PAGE 3 ======= */
+.p3-body{padding:36px 40px 32px;min-height:calc(8.5in - 65px);display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+.p3-left{display:flex;flex-direction:column;gap:20px;}
+.p3-right{display:flex;flex-direction:column;gap:20px;}
+
+.growth-section h3{font-size:13px;font-weight:600;color:var(--text);margin-bottom:12px;}
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.use-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px;}
+.use-card-icon{font-size:18px;margin-bottom:6px;}
+.use-card-title{font-size:11px;font-weight:600;color:var(--text);margin-bottom:3px;}
+.use-card-desc{font-size:10px;color:var(--text2);line-height:1.45;}
+
+.tailwind-list{display:flex;flex-direction:column;gap:8px;}
+.tw-item{display:flex;gap:10px;align-items:flex-start;}
+.tw-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px;}
+.tw-text{font-size:11px;color:var(--text2);line-height:1.5;}
+.tw-text strong{color:var(--text);}
+
+.moat-list{display:flex;flex-direction:column;gap:8px;}
+.moat-item{background:var(--surface);border:1px solid var(--border);border-left:2px solid;border-radius:var(--r);padding:10px 12px;}
+.moat-title{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;}
+.moat-desc{font-size:10px;color:var(--text2);line-height:1.4;}
+
+.cta-box{background:linear-gradient(135deg,var(--purple-bg),var(--blue-bg));border:1px solid var(--purple-border);border-radius:var(--r2);padding:20px;margin-top:auto;}
+.cta-box h3{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px;}
+.cta-box p{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:12px;}
+.cta-contact{font-size:11px;font-family:var(--mono);color:var(--purple);}
+
+/* responsive for screen */
+@media screen{
+  body{display:flex;flex-direction:column;align-items:center;gap:32px;padding:32px 16px;background:#08090f;}
+  .page{box-shadow:0 0 0 1px rgba(255,255,255,.06),0 32px 80px rgba(0,0,0,.6);border-radius:4px;overflow:hidden;transform-origin:top center;}
+  @media(max-width:1200px){
+    .page{transform:scale(0.65);margin-bottom:-220px;}
+  }
+}
+</style>
+</head>
+<!-- Password Gate -->
+<style>
+#nteli-gate{display:none;position:fixed;inset:0;z-index:99999;background:#0d0e14;align-items:center;justify-content:center;font-family:'IBM Plex Sans',-apple-system,sans-serif;}
+.nteli-card{background:#141520;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:48px 40px;width:360px;text-align:center;}
+.nteli-card-logo{font-size:26px;font-weight:700;color:#f0f0f5;letter-spacing:-.5px;margin-bottom:6px;}
+.nteli-card-sub{font-size:13px;color:#8b8fa8;margin-bottom:32px;line-height:1.5;}
+.nteli-card input{width:100%;background:#0d0e14;border:1px solid rgba(255,255,255,.15);border-radius:8px;color:#f0f0f5;font-size:15px;padding:12px 16px;outline:none;font-family:inherit;margin-bottom:12px;text-align:center;letter-spacing:.1em;}
+.nteli-card input:focus{border-color:#bc8cff;box-shadow:0 0 0 3px rgba(188,140,255,.15);}
+.nteli-card button{width:100%;background:#bc8cff;color:#0d0e14;border:none;border-radius:8px;font-size:14px;font-weight:600;padding:13px;cursor:pointer;font-family:inherit;transition:background .15s;}
+.nteli-card button:hover{background:#d4b3ff;}
+.nteli-card-err{font-size:12px;color:#f87171;margin-top:10px;min-height:18px;}
+@media print{#nteli-gate{display:none!important;visibility:hidden!important;}}
+</style>
+<script>
+(function(){
+  if(sessionStorage.getItem('nteli_deck_auth')==='ok'){return;}
+  var s=document.createElement('style');
+  s.id='nteli-hide';
+  s.textContent='body{visibility:hidden!important}#nteli-gate{visibility:visible!important;display:flex!important}';
+  document.head.appendChild(s);
+})();
+</script>
+<body>
+<div id="nteli-gate">
+  <div class="nteli-card">
+    <div class="nteli-card-logo">nteli</div>
+    <div class="nteli-card-sub">This document is confidential.<br>Enter your access code to continue.</div>
+    <input type="password" id="nteli-pw" placeholder="Access code" autocomplete="off">
+    <button onclick="nteliAuth()">Access Document</button>
+    <div class="nteli-card-err" id="nteli-err"></div>
+  </div>
+</div>
+<script>
+(function(){
+  function nteliAuth(){
+    var pw=document.getElementById('nteli-pw').value;
+    if(pw==='channel2026'){
+      sessionStorage.setItem('nteli_deck_auth','ok');
+      var s=document.getElementById('nteli-hide');
+      if(s)s.parentNode.removeChild(s);
+      document.getElementById('nteli-gate').style.display='none';
+    }else{
+      document.getElementById('nteli-err').textContent='Incorrect access code. Please try again.';
+      document.getElementById('nteli-pw').value='';
+      document.getElementById('nteli-pw').focus();
+    }
+  }
+  window.nteliAuth=nteliAuth;
+  document.addEventListener('DOMContentLoaded',function(){
+    var inp=document.getElementById('nteli-pw');
+    if(inp)inp.addEventListener('keydown',function(e){if(e.key==='Enter')nteliAuth();});
+  });
+})();
+</script>
+
+<!-- ========== PAGE 1: THE OPPORTUNITY ========== -->
+<div class="page">
+  <div class="deck-header">
+    <div class="deck-logo">nteli<em>.io</em></div>
+    <div class="deck-badges">
+      <span class="badge badge-sf"><span class="badge-dot"></span>Salesforce Premier Partner</span>
+      <span class="badge badge-av"><span class="badge-dot"></span>Avalara Certified Partner</span>
+      <span class="badge badge-hq">Austin, TX · Est. 2019</span>
+    </div>
+    <div class="deck-pg">01 / 03</div>
+  </div>
+
+  <div class="p1-body">
+    <div class="p1-left">
+      <div class="eyebrow">Investor Overview · Confidential</div>
+      <h1 class="p1-headline">Channel revenue ops.<br><span>A $40B+ market</span><br>still running on spreadsheets.</h1>
+      <p class="p1-sub">Every manufacturer, pharma company, and SaaS business selling through distributors loses 5–15% of channel revenue to unreconciled claims, tax misalignment, and recognition errors. No software vendor owns the full data layer. Nteli does.</p>
+
+      <div class="stat-strip">
+        <div class="stat-cell"><div class="stat-n" style="color:var(--purple)">100+</div><div class="stat-l">Engagements</div></div>
+        <div class="stat-cell"><div class="stat-n" style="color:var(--blue)">50+</div><div class="stat-l">Specialists</div></div>
+        <div class="stat-cell"><div class="stat-n" style="color:var(--teal)">4.9★</div><div class="stat-l">AppExchange</div></div>
+        <div class="stat-cell"><div class="stat-n" style="color:var(--orange)">4</div><div class="stat-l">Verticals</div></div>
+      </div>
+
+      <div class="market-box">
+        <h3>Why this market is hard to crack</h3>
+        <div class="market-row">
+          <div class="mrow-icon" style="background:var(--purple-bg)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          </div>
+          <div><div class="mrow-label">Domain depth × system breadth required</div><div class="mrow-sub">You need Semi, Pharma, SaaS, and tax expertise — and adapter knowledge for 10+ ERP/CRM stacks simultaneously.</div></div>
+        </div>
+        <div class="market-row">
+          <div class="mrow-icon" style="background:var(--blue-bg)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2" stroke-linecap="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+          </div>
+          <div><div class="mrow-label">Embedded infrastructure, not SaaS</div><div class="mrow-sub">Clients need reconciliation logic inside their own infrastructure — behind their firewall, wired to their GL. Not a vendor portal.</div></div>
+        </div>
+        <div class="market-row">
+          <div class="mrow-icon" style="background:var(--gold-bg)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div><div class="mrow-label">Regulatory clock pressure</div><div class="mrow-sub">IRA MFP, 340B deduplication mandates, multi-state tax nexus, ASC 606 — all driving urgency in 2025–2026.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p1-right">
+      <div class="p1-right-top">
+        <h3>Deployed for</h3>
+        <div class="client-grid">
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAFKElEQVRYha2XbWhWZRjHf/fx8DDGkCFDZMh6EJFhM+VZH9Qs1EakR2emUWuElsnQMKnjvhhR4Ud3+lASSL5F1EIMm3qG2lpLZK5QEZOxhow5RMYYIkOexsPxnD5c99lzP29tiv9P98t17uu6r/t/vRzFTOB4FpDAdydxvA1EUT+d+4ZODT9oAPZuTVZutBu/LAseRcuAv4AkMIzvhtMdbc9AsQ0EwCocrxu4iVILgKEgeNRj27NuAgRBWIZS48ACYDlQA/TgeDYQljJGzeD2+4FjQLk+aHga+dnAHD2ztEGD+O5IMfHiHnC8WmAc3x0HerXioWmNBfDdCWBCn1MH3APulhIv7gHHawCGgDF892HengVUAPOASr36ABgDJgpc7Xjl+G4ax6sA5uO7A+a2nSdcCcwGrgJzgbSxZyNvuwt4CahGXAwQagMu43iHgUv4bgYA343PSAJ7gJbiHnC8MoRszwG3tSvjvSTgAY0FRhciBC4CHyFvH+ozLG1QjoeUsfkqMAL05wg5Xgo4jbA6xn1gAHmmUN9uMVBlyIwCW/DdXlNh1RvfLEKxGjgyfnJ3aBl754HxnBs63gLgrKF8DHHjs8CL+O47+O42YI1e+0DLgHDkNI63KMc/inQUMT5LKT2V2yeR0LmB7wZaeTnwK7BSf9oL7MgnUQGE+d8BKeO7l/HdyWLi8W2rtQEDQMz61w3lA8BmfHeM6eC7t3C8zcAVfe5K4DXgp1hk6fajllJqP3DIQpjcC5yfCjnHSwCtWj4DvDsj5VkjRpDniLm0V0cRAErcPwhkbCSkKpDQu6dlnkdIBfALkt8fF2eAPsQDKaAWuAVw4/h7IXAS5PaXgRsIs2OsJfs8Z2dSVAog3/ysZwnkolNYt+fHmvUftn9rI2xN55Gk3hi7OF5O8ngMmGG51NxQSt0HztpI4pkALhn71cZ42RMqz8d8c9L5VdND4IyNZK18JIxx5ikZkJNBt3/aUQYcsJEyW4dwIYZZgF4A+p+CAfk8CqMouhMXmEocLzFVQGAYWKXHc/Hdq0/BgBycOLApAxyy8N3zSEiYFv5pjFM8KeICVAStbV0LW9u6ai1dBbciZIzRDcRRsUUnpifBbhzvba0jB5Hkh9VKZ6gGJBWfxHcDbfkFvQ6SCU88lmrHW4x4sgLoATbllHgNC3H9TaCTuMGQJHKQ7LMc1GV5psqrgXatHOAuUTRF7C8O/ZH6/OueOWKA74b47j2kA1pvuLsbnS6RhNKB471i5vQiii1dDTvIPuko8Amd+0yONSulFkJubCaB24CF41n6KVqAhUhtmI/0Bud023WdbPou03LbgPeRtg6kV9xSpCOOC12RptTxNiBFYwTfDXG8GuA4Uh9ihFr5KELWKiSlm2QbBnbiu13xQtvRK2sjSLfuWNEXr+WGibC1XB8Ue2IE2Ah8ZtzY0krrtHeShvJJ4ASwwlSuUaZys2zJttxCGtDrU+6TtWqkd1yHlOu4LZ9A6vtvQCdRdDt+88Pt1yygqqWpvmg/UYpQlfrQGmAEx5utQ+gucIT1bcdQKkH2NhmiKJNHNPOs7w+3X3NamuqD/M3Sv2YSDQGQIoqSdO47VVI2Dz+c+TsBrI2i6OK/kwFhGCVamur/tycsRFwXHC9tW1Z3AFy/NfoWMJaqm9cN8HvfnQogvWb5M2FH12AlULupYVEfwqPNSqmenW+mJslm1QKUzNWGIf3BuY9j8g0i/w4xLiBEBAnDHR1d/1jNjUseALuaG5eUVBzjP9EQv/TPb0OOAAAAAElFTkSuQmCC" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Elite Pharma</div><div class="cl-cat">Pharma</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAANlBMVEVGlU2W1gIPoduV1gQPoNqX1wBStaBHcEwQoNlDfC+W1wGU1QgSoNYAH28Podud2CgPoduX1wA92qomAAAAEHRSTlMCkMxokOYXAFMBw0QpAeUrXRKdQAAAAZNJREFUWIXVl9uShCAMRBGBCAjC///soo6XwNQ6zbzs9vshnaSFUoj/LWu/wmnVN7hRUfbSlmiWqcj0Vp82PKmuFk68GOg44DDfb0AdeIoCPqC4T5cmlLc390WSwBwRqXQXOsFgJOPBCVrWPd5AbR9tgOZY8dAGGvvgAFr7WIRINHyaIV5+xzfjSxHjm/IKucea8ctJIAGq+KjA+HNezeglfOejKutAX4GLl1MpjuJX/Q0n0et/x/2QNeTh2H/c8NHlohBwfsf1iucRyY/ZF1cmT2PepelzAyTW/Mt1716/eMyAejW/uAPPDhrhtLonMeRLC7jE0vzlvmgA3wDLy2cNvoKBl8/Zow2w8nADZBznwQbI50pQA3RGr68BIlfzUITI6JqHBkBLyyP3aDu+7ID6oR2fHqFHpOYHj+C2Sp/z4veLuDo7MF4Phh4uIOLfN6vvfHj2ToYVuPGuBPeT24+VuHi39PyEnPPvw0++Ez/yp6Gt3/ll46HMMd5soRPAu1OpfP+6s/ndwYh9MW9OeArtX9cPTuM0F0DM3iAAAAAASUVORK5CYII=" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Intricon</div><div class="cl-cat">Medtech</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAEyklEQVRYhbWXS3PbVBTHj2Xr4Wec4klDgDakTsiLpgU6FBYsmIFhOt3xLfgGzLBiwUdg2y/AEihsmGEB00UntMGY4ITipontWLYsy7asSPecy0LWw7Hduk2qmTvStY/u/6dz/jqSIpxzmGards35L3699+2PjdatVDbTg2h0OIADWITKYkIpf/f+9c/XMqndadaNTaUOABrRhfuCcMPOpGSNSAYiAD5Q9nccikZ3vdzrL04LIEwLUDb7i4f9k9eBcwDOAYgDcAqOidw9cnjU6y1Nu+5UAMh5pNTprQRiIcGhYwLgBEW9s952nMy5ARgOy+zoxpYr4F29J0xBNgbzom5smAwT5wbQZSxd0I2N4GonDff/UruzYpxnBnTbmSm1OyuTBIEIAIN9rWvO10xr/twAyj3zTcN2Zvw085A4hoAQAYiACIV9o5tHziNnBjhBkgq6semLhUZKgG5KiHSHIQgAOew0W1sWYvzMACay+ING65orgkNXvZpO/X01m9kBwmE4Qii12ssWQ+XMABajeFFrb7jiPFRrhKVk4tFmJlMIxNGFRITdpr5q2E76zAB1y5or6cYyIAEwDGqNCEup5H/5THJPQCT3t0EMEhzoxuVG38qdCQA5j+y2jFXbceSwsJeFfDq1t5hKlmMcHM+AXhwRCbuavvYsIz4VwEaSttXmu0F6g1QrAFZOkdScIqkJQTBHABlCod5820aUXhjAQlS2jxvvDC08qPOcLB3PJ+K1C7LcysliExDd9DP0YwqqtvksIz71adi1nXRJ05eB0H3acXB7AADkJKmZU+RmTBBYNhptAXoxgzbNAUqqtmI6LDGryO0XAjjodC8dtDuXvQXDi+dkqTGXiNeJcyEriW1gNPQ/AIf9hpav98yLr6WT1UkaE0vgEEULDW3DT+mpsRBXKmlJ7M7IkpGT5UZgTu9WdA25q2pvIU024kQARhTbrqrvuYaikAfc44VkvNJnTO45TiKnSA1f3L8VXT/sVOvXGJE4SWdiCRhxsXDc2HRrOzBAqAy/PHryseU4CkOK/f746EM/zhvgxhZr6jojiskQtZ8LQLdOssXjxhog+ouFvXDv8dHNe+XDm2ExAHC7JQSxxaq6bjGmJCXRfC6AfU2/opv9WX/RMVkYmZ8+Bg7lRvNyvdObeyUR18bpjPWAgxR9UK1f9+/t033AGyxU76FnQWBG5qBYrKnrky50ognvP6neGBYM+vzQw8cDOdUpffMSwc5hdctBjI7TGVsCG1HeqRxfDZpL6BXcT7M356fmo/HFSn2dOI8CAE4FUDE6C6WaugwsbMBA8Oqrcw9vreXv2ohSLCIwvd/Pfv/nP7crbWNhFBCgeFSbWIKxAIWqumnbTPb7L0FgOgC4vZb/4avPPvqaOI8KkQhaDlPKqrZY0fQAIJSt/Zp6pWvZKTkVGzHiWA88OKxdD5qK97rlzrOi2MrnZvfioniSlCQzLoons4l4+0Jc1oJXs6ATAhHYjiPvVuurYzNAP3068nH4x/YaAM6OvdWy1Jp9Y/+bO9Q27oTPmalfAqDcUBMKl+Hhz1/+9sG/zSlLoCsgcja80ADmomTDYuJk5JxszAGRYwAMIZAIwF+9FACMAkTw7ifTfR6/pG3qj9OXtf0PTZUVxePaEYkAAAAASUVORK5CYII=" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Airgas</div><div class="cl-cat">Manufacturing</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAApCAYAAABz26rUAAADx0lEQVRYhbXZW2gdVRQG4G9OTpM0KaUiFCmK+lKqgrQUBBUE6YMKPqgIRUEEhSIIggqSS9ukuVWUClW0KogFFW9VHwoWL6gVBYOXFBS1wWKtBu9pEts0bTXHh0k0SU/mzMo5+eHAzJ611r//PXuvvWafxIZNL2EjRlCQjeX4FuswkW1ah0kDSb+1Ro1oqBBaPQZwMcYq2E5iBV4t4mGpgBWVGKawBlvQntM+L1qlnScdqDzYUcDn6AuStUmF1AoXYnPQZwf6p6dMF44EA2wP2mehB8WA/a/Yxv9z/qT4lLhh6lctNuDWoM9W/MXsRfs83g0GqsVbiE7fT/D09M3crNMaDLZGdYv5LlwW9GmbeTNXwGd4LBiwAxcEfUgzzbagz3N4f2ZDubzfgT8DQZeIT4NpnpUB+9PS9D0L5QQcLWdYAbfgmoD9pbgvyNGNH+Y2zrfz7kJ/kODBgG1vMPZ38/lklQ4tQZK1uDeH3Y24Phh7s7R8OANZAj7A7iBRF86pYBMd/bfx8nwPKxVvm3EiQLZMuqvOhwdwUSAeFdJ0JQFD6AwS3omryrSvkmaeCB6XpvZ5UUkAPISvgsQzFnQyfdGNpkCMo3IIziOAObtfDlyOlrQ+K8CVuCMYo1OO/SivgL14PT93CY1L1htziVGnFKMb3QAezWOYVwChOqnuAKXunuSgJU7efkyx3JrIQu76KiJgUHaGmUIJzW0bkyOuNdR4TFNPQSlAYw/25TWOCCDN84ezTer3FJzY12UQxa2nFM4NcoSq26iA0zIXdAlL29uTQ1YbXj2iqTU4+n3SN50bUQHwonR3nIMSmvrONzzY4hCW9pZinf9RmmpDWIgAyi7owk8Uu7uTQU3GrxtWf3NyplEWtqp4VFOGNeowhS/MSnMlNG+52tDEbY6YsKw3OHU+FK+7sHABpCP2e3pZ3M/fu3uSQZTuGVe3LhgrulH+h2oEjGL71Oh3bEoOu8IvZ49p7gyO/jP4eKGdiJzFlEHpFZrGlzu+v8NBNGz7R3JWkl/AcfGvv1mo5g2gOMTkU88mA1Y5vn5Y492BzpPuKz9X04MqBTToTr52k8NGLdsV7Pw30kq3KlQhIEHJeSZQLEyyMpg2a3I4XOUbYFwRyWTC/QG3vXijWm5qIGAGXsObOW1rdjRfSwHk69gj+LJWhLUWcAA7M57/Jn6cmIlaCyD9FPxjnmcdKv99FMJiCBhR/mO8H0/WmmwxBMAT+HRO24LrnSwslgBmL+gX8N5ikCymgHfw1tR1VfVOFqos5ipiJz7C94tF8C+u49JZk6B5nQAAAABJRU5ErkJggg==" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Vulcan Industrial</div><div class="cl-cat">Industrial</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAMFBMVEVHcEz8thX8thT8thT8thX8thX8thT9txX9thXZnCf8thX8nBr8tRT8thTZnCfyrhp6n7SUAAAAC3RSTlMA305vwpHtDh3tK84oY2IAAAK/SURBVFiFnVeJduUgCHVBk8mR6f//bWMQF0STGdrm6Wu8XlbRmIWczgcAewtA8O5cvbdY7cFiyj/0SMmC/4xxeEBVwB+flttUpXCoYt8hnM17pfJXVMA2tG6vO+RtywpM/IuE8pBB2NiCtm/7dZIqKYxLEoH0pfeJCj0aIA3DYn3bMzEOjt+wbioCsMvLvtjPe1/kEaj8xYtbmTgEPXZGI/YiEFzP9huRwRdnrA4vNiCrl3EzTQms/Grs42ER/HuVYFSAoq75v87SNClUsCpxRFb6XfMOqSnhVzxt8LcEiyh9QHPPBChriw05h22rIKe32CvBYVYoeI1qDEPmHz5qKhIFi7PYS0bapb72/GcM+0c9UArPAX1yls+LgniI03ts1cJ12FJganqnJ6ABpZHjxJ/jFcW76d7qirVa8cPr67O/mQFH072XYz6sWdIVIDPUalFy5U6p2YlLAprHPRWCQa9N6T9qfWJ7ggEZHHa9Ptc9IWCsDK9FySUJLZvoM5ooo2tjAiXvkhEx1GW5Jk6cWgkNs6mh/A7Qn/uYVWhRkJ9bFVznMVpmLC9kiK0RXXfGUTYYYK+yLsqhMwJ0BTqrMJ8oux7CjQbPKvhWxgrszggOuWnhfLhLuqxUOx3clAw5ncfI2KRzrwKLVhLjuonRAJRzWSuJa4BrPo7WCIoNTM7HzgT0WLVigkHKDNSDBaNuSZXBGcfQKEO1sdVs0NqjSXKbPkr4kZIBjth1o6K1xZapefbzV8pDzKfaVbaK1RoO7nXSEoBOJ9HcTrM8XwFckXO673JrmaqptgRg97TmrGxa+6VinCWACOhmvaILj9cAjy9rp9BuB3wKFjobgPnQ0QJ0B/DaLr+o8A1hD2DcdM79I8B96dr3qq8Aw71rcOtHBkZcPP+DgWlX36E+pG02TpIv38r+3wFMf/0f5I+UXwxFg2kBKjNCAAAAAElFTkSuQmCC" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Applied Adhesives</div><div class="cl-cat">Industrial</div></div></div>
+<div class="cl"><img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAEAAQAMBIgACEQEDEQH/xAAbAAABBQEBAAAAAAAAAAAAAAAHAQMEBQYCAP/EACwQAAIBBAEDAgUEAwAAAAAAAAECAwAEBRESITFBBiITFFFhgTJxkaEHUmL/xAAYAQEBAQEBAAAAAAAAAAAAAAAAAQMEAv/EAB4RAQEAAgICAwAAAAAAAAAAAAEAAhEDISMxBBIi/9oADAMBAAIRAxEAPwA416kJ13piW6jjkEbOocjYXyaSkUlUl36gtre+Wy9zTNGX9o6AU5BlY5CBs/mkrV2CjZpr5pAe4/mslmbu4vcnYXWHuiws7oxXUQb2lSPdv7iq3NZ3GWGTMk100c8i8ArE8B1/gGt8eBysXlB1EJJQx8U7WMxObjllWMSBjrY6961dtOJVBB6arFEdNqImyclLBSV1vXTf1oPy5O/fNXEeVJS9RvHQFf8An7UT/UGYtsNjzc3fLjyCqAOpJ7ChdnMvDlcol0icAiFRyHXvXlrWnzcCzLeXTIsipw+Ix7LT8GUsb5wbO8jMo8K3f8VmbTleyEMdgORqrW/9K/M2pntSYrpBtHXv+1TUnLydsTKJrSUmGecfMRN15Mx1yX6VTMsV5NcW9wOaFm5Ajts73/dQzkJ760ibn8O4hfTA+emjuq64vZoLzoeL8doynfL967uLyYfXfdhl+HeuqbgrhMVlGtryQhbd+Mb7+vbdF7AXZlQbPegZbtHeZPhdMUaV9EgeT2oxemVZI0XqAOnWnyzSb9zhems/WeJfMYWS0jdVkLK6M3YEUJ8vir7C8TdqhjLceab0KOzrsarCf5MeKzwjqY9tcMEBK/p+5ribewGMvks7/cp1HI36vCn70S8ffQNa8mYcB15UIl2wKKhbprWqSOd0QxxSyqpOigY6/IpKU0qS39w6NxilnYqd+N96tIPT8OSCrJy9vYhutUbQT8UZU5q3+viiD6PtJUgiE42wHWrjkjsibu7D0pbrcpcfBHxVUKGP0FbLG2PwVUcdaqbawrwHt8VJCjVVycu2gB6ujULJ2cd7bPDPGskbjRVhsGptIRsVK2Ag9HWlkClqjAMe7HZP23Wey/oq6kyLTW7IkTgEg9wfNF0xg96be2VqSHOF9ONAiI55EdCdVtcdjVhUEDVWEdqinfSpCgAaFJIi8RoV1Xq9SX//2Q==" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">G-Tech Elevators</div><div class="cl-cat">Industrial</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAY1BMVEUODg7q6uoAAADt7e3w8PAICAjn5+fh4eErKyvIyMivr69wcHDT09OHh4eWlpYiIiIzMzOpqakcHBxSUlJlZWXCwsJ/f3+4uLiioqI4ODhHR0dcXFx3d3ecnJz29vbZ2dkWFhbVR4sUAAADDklEQVRYhbWXa/+yLAyAdQxURM1TZQfz+3/Km6NJ+S/o+T28o7aLbWy4Jcn/uijIRX9WB2j6suwbgB8P7wuGcrGijzZDmV4WSFK9CBZluCva7e7GiVM3CMJv3aeAaDW9lv7YCtxqOwaK9tgvq6CHApgu11vd8uIh3SZko7VhEbllj4K39e16mbahhSrTolKVeIeK+zDchWcOIVY0q1YCHOc3i9Xh42CMHcYdl1IyH8H5n5E3ZRyr3BkJkFcjvkFIZuNAc/TtY0U9UC9KKsZDrdNi4yXmDkCMMsse4lQP07J3XYqxTEN9Eo+MGQjxAKTIm2TngnYuO2nykbwB8Ag0NNcoHHELaDSgiigZqDSg8QD174AuHlBrQGcBi76Tewzgrm9+sYCEKcA5BnBWAJZYAGQK0EYDXCYm8JBBIDwGwJXGw2mAUNtTDOCkNMQKKNR2jAGoTCTFCjh52xBA4dkMLerijACoqD3DbtMiBuCnnklMbILfftqgKT8HKPX+GmwCXLVCuQJ6f/8dYE7snQJt5rh6Nj7PT58B44rBZDI+5WMz6SWPbGqn4Ymgq29bPCYR5tB7pN388gLZqA6BJsDwems2MUIfNWMwdhuDTUGHlpOJudhKmyiSsCCYV9x/gGwQwnJxT5h2LA32QXuQssVvUczH7hBAgIMWfUk7a1bIwwp8z11KM/3Bnr4SYNK9Qfb6JbavUvGtG6QmAu85Y8Ko3rmPBKrfTxnC7k0MKpXg6dx+6owBWiO193bobJQ2jMufBFhGfb6fheu/OTOdDxv23aAwOIl89wzoU/M/crpnIeWm0SPp5Q8b4WIbRszK10jI7j1D2x7+pa+8EFYIi4vfJ15c849i3353Tmu7XoJt4xAUmtaqk8+3pGSv1tIU8Z4ohIzHHd1v2fXr3AEJd00xsloOGV3NrLqMbhJQLBR64ZpnZEKwdSP6wLEHoFq11tYaWRU+vVFYzmRt4bU6OS9RkxuFQ/ucQmTsD9HzJ8CBm+Aj8sNPs6ecxLjUTvn02+iqEXlZ5j+rq0X/y+wdtv4B0XofAlnK8d4AAAAASUVORK5CYII=" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Binary Defense</div><div class="cl-cat">SaaS</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAWlBMVEVHcEx/vvpssvk/mvdCnPdIn/haqPlQo/hGnvhQovj///8LFj4AADE0lvcADjvy+P7W5/pTpPjm7vmz1fyVmKdtsPkpMlPCxc2JvvpSWHF+gpTZ2+Gwsr1tcoaEMdFyAAAACnRSTlMADR3/89xDbLyP1X/SiAAAA0RJREFUWIWtV4mSpDAIHds7Jh5Ro7bd//+b6wFI4jm7S03V2JaPwAMC/PyciBfFaRIGk4RJGkfe2XfHEsVJ4FsShHH0GB6H/qGE8SN4GhzDFzviW1fiC/hixbUjr+QaPktyYURsfamUch7Aj1MjUg7227osi1l0WfeVpeOEzITB27IQYvoj0bXPVKSXeKV6LQ6kbtWVhg3flkfwRUWlTjWkdHx9Bp+k6EmDwwPyr6rT48EI8sKKxQvfVpw4MXbNLN3I3pUUTZ4PCZ7P8OPbSJTs2+01JHsHGL4bpMwzEinNhzQo1wkP85+ip78cvUguB/SkBg2hE4GN/zGT2V6kRD8wFhgJjD+Zz47Pc/aMGooKeLQZQAc6xOQTfcZMJ4NC+RaOEysL6/2jevQf8Lk0zeJ1MTZmVrHhhYCsXliIwAOMwCDB9s/2vfhMIWV4isSLKCQDPoA3PHsmXs3b+l1tNIIHkMKFWRzIMzelC/snsJBQFle2AbIT16LBBw8oIA+GxQA53ODJhwgpgCTSYMB4jRaUTDHUkYIk6FYF5haPJKTAoQ8cNdLOmHPRyGJgcfhdFXwusYsUWFDrf6wD4PAuBoLqIfhrBeL/KqBSHp5zgApsEt+rguaBAiTRDuOayfl9IgrtQxgTq5ZGqMXD3mZJiYlkp7JYi/GBDzWmslNMDRTDrQlwJ0XUlICEEq6/OxaAw7k92RcKxCGTXwfR2PVR0oWCJGAm6Axt4F5MncausBY53C5VutWhqciswVuhnK5lu0Y1u1Tdax2dmNuC+U7N+WvytTEwDT271rGxEAukYW0trMlSdCGLoLd5vs3CrMFtrQ4twEBw1lzFJ993V7llV+00V2jvanNiYd2BU3enthTSjEITKovc+F7cn2V+YCMK9mY+Z+F8b41IRdcMU3M2Zmg69r7AWY+NOJTPqnI62F4Iv+bAr8c8Xe0mJCsSViwOpD4fVdmoe1rKepuWExfPh3W/P2Si6P0rvDXu+/2OirJnK8Mh3lk4qr7WYEihnY3jcF3gsQAdyq/aSSpn5wkutr/XbmNUfFFZzX+d43/u176r41fx0it8+mSH9v5x9Z0lSnc6wvT58r3IK5q3/8Xtaf+PTpn7A4kVcuCoarkpAAAAAElFTkSuQmCC" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Copyleaks</div><div class="cl-cat">SaaS / AI</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAJ1BMVEVHcEzwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCPwTCOa9I1FAAAADHRSTlMArzONyghP4L5qGPLu3J7DAAABjklEQVRYhe1W25aFIAhN0VLr/793SptJ5GaPZ9bZvRHshWxAl+WLf45YfEWJr0PLCmk7OmwJ1jIb7QHFdizOz4QHPvrmMClWLfzCahAI2T/YDQIr/jh0SYpNoIvhbQK9CGYNjyOrBGATgH6EnHOSg8P529LxRBG03GcasWFnCV7MFFvLidz1FOqP2OFxR2XLxNKwXXakUuIJAnFscJcdjepDgNzrtGRKAORoT0dg98hX8aphRJanJ/EEXGozQ+VZxwbsXuWiBDSxbi6RvR6NNONOa9vJjtwdq2MVx/WWrSOgP4iOmopcamtIJ9zfl2hl+rnGOopLS1JRlmeA7IZ1FJeWqOLQokkiQLU+0C8s+xZYDE4K9xRwnhPbeATezhP3wQhc6okbaQQWO9oBI4Z24xe5BlXiCYSB4HUVSbuaTxMM+lB5qQNzTb06BDtvfvoUu3RNenDuXoaOoNmTc6DfsiAdsRVJf58svy3J7qTGYD0SQIy/GawUlPibQU8BtPjGoKcAAOpLyp8OKsEXn4kfIENOdKKTBLUAAAAASUVORK5CYII=" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Studio Designer</div><div class="cl-cat">SaaS</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAaVBMVEVdG2n///9MAFpTAGBPAF1bFWdJAFhwO3r7+PxYDmXp4upWAGNHAFZFAFRsLXfMvc+tlrKznrd7ToTHtsqafKD18vbw6vHf1uG6p75mLHGihqhxQHyJZJGCWYt1RH6mjKuTcpvTxtU2AEh9Te6+AAABrUlEQVRYhe1Ty3KDMAy05QcYhxrCy9BAIP//kZUwITOEzrTTQy/eA96RrcVayYxFREREREScQglrFBFjhRAmxJDaQClqQsSc5stkKIZPUAZuZVX5ERRTMN29L69IrR4L72cDV19VtVQn+QsnZP3IAzJmru1Ge3tPiaQ6nGr6NwVRURxPsYY/FTR70u4jrKPDD6m2+igAGK3zy9jkSAbDSlxusJSTnTqkJJV8TD0u14vAf9yOPpCAMyClRtIrlWece6Fza3OFEbqBVKLgfHnoHJdKHC3I1lsXggQStZbkck91+01AhDoDFnns4RQ22scmgGmu2M9vAm4PtEcBJsSwbo9BgJriM7rqJXkJoGr3wCGRYI/5ZtCgycCZjktJrs1klrR2FzC31WoJpn6bJeBtWVO1ZHS6rO2+oP9NPb88YEAtbLrspALYanOPvcxRPGeKL5uA6tPvLDDz0qZNNwMp+Sxtlskykbg2TdvuDr2rHJWtbIl7mXsbA1QQACDNepUeqaBhVWgXzoZFIrbGr5FvntNeS3LyVn6MPwvYsvTvb+1XCtb+KT8iIiIi4h/xBQyOFOe74Y5cAAAAAElFTkSuQmCC" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">spare</div><div class="cl-cat">SaaS</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAJ1BMVEVHcEyUR5CKQ4aIQoWSR46MRIiNRImORYqORIqHQYOHQYOQRYyKQ4a4duqkAAAADHRSTlMA9hwSzOWpSYIDCmTDBJLsAAABoElEQVRYhe2Xy7aDIAxF5REI4P9/7w1cbUEhiZ100oPLiT07kRKI23ZVLmBgrr0T2Jvz8Ecf4kLByADyo02LZygDavxVbhoA61cAeL8MEPwiQPJLANEvAMjveT8PSLKfBWj8HCBF8NFJsgjGwDkGgPPGB1lYYon1igVHgIXdKIQupUwXKforQCGDuZuzLwO+/wq/DKQM6qI7bx9kYMAHT9dxe56BQdtXIEwBbAbvn5Hc/AmfgQKgz2DxRJ/B9+fgl4F+Hfj33u01S9mVEZBLVWznBv4X0Tn2GaCe5K4HbO2wSKRsQy3jbkwAXCdgKf6wCUwAjD+RP6IAyIWLD9EJAMbf4o9dwB3Ax/cxbXwGUnxqclmAE+PzACvEb5PMARTxN24SAdbxAzVZrXlJlMFL+9j5LP2bCyaUU/juqsgyNFnLTrA2Wa/+rViX22hpdYXp3Mrf7QdUPuUoGYvHtCo0VP0BIH/R+meAR/4JwJF//coygPz4wH8D0JJ/5L8CqOTWf7kCwJWcCiB+PAmA8Nw/dmnmub8eYFCXMdRzQP546vUH36NHuBJ4JuwAAAAASUVORK5CYII=" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">OPEXUS</div><div class="cl-cat">Gov Tech</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAaVBMVEXpZSv////oXhvpYiXuiWLzrpfoWxToYCDoWg72xrX749rtglf3zL3zs5zpYRzoWArsd0XwnX/528/xo4f51sryqpD40sT86OHnVAD++fb+9PDnTgD2wa/wmXn0u6bsfVHqajPvkW7rcTuVcL4JAAACNUlEQVRYhe2U24KjIAyGCdGAB0brWXuyff+HnATU2W277s1c+l8oEPgIkESpQ4cOHTr02zJa+z9qkUHf0Ro322LY5pMl8+f62rlZ1peOFZ9Ky0ufzl1NsCFGYmgfyu9jVJ10SY24AewI8OAuRhDUzIgZQE5s6wG+tAvjY80jJht9Z7qvBHxy1+kAmKqU7RUJIBFAKoAYoG+4BewUTtzpmNvr9QRX2dQGQHIeFM/IzCugPQ9sTsmc2LWhGDr2erkHfRGHigBgt0mm0ysg1qrgtrIJQGSUeQS7iMfZoSeuANnjYj8AbAMwFxVAyXPvfFC7eDCCG/3pfgBJ8U8P0gDINoCwsglueh/QDrbkk+p3gKkBsIHU7gO69sLPc/sAoBym4QYj7QO8KvpwBOqhGa4yugvomxHGQX0AzBxFA8dSbfbv4Czvh+8AWXU51SNP338F+5AreAescQ79fwA0j9APG2CLA4mONE05fJX5AdyI3yy3IZkoxIGEEB+hevHga4L0XJz5LSO9hDL7dDLIXLmziaM8AOR7NfQSylj6hgBj65OpkGR6YsFbR4M8T754IF7nJKnXcTI1oQT4VGwlL2VY0rmpOF4upHQrOcr+8tUvoazZG62MpHOzpTNxKmZMIjbSWlASHQLMy5G/aC4YMpIh3peCUoaSd3Ju+ceqdHHcttdnSFOKbl3n7iRP7VwkF+ccb4aqzpukXkrnVlDl/1dRlVJqbaisGCosroX2pageOnTo0KFf0TfGbyPZAR16GgAAAABJRU5ErkJggg==" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Aduro Advisors</div><div class="cl-cat">PE / Finance</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAMFBMVEVHcEwAP4cAjdUAPocAjdYAj9cARY0AQo0AjtEAP4cAjNUAjtYAjdYAjtYAjtYAP4fs/V6hAAAADnRSTlMA/v26yx5ECgnZknl9gS/Bj3gAAADfSURBVFiF7dTbDoIwEATQbQXUcun//y2oiItu29nWBC/MI8mcDKGUvJTzkS6p7ZCKpR34fsBuvuDjAHO4h25A9Yir0oCZe2JqAPARINCHgVAfBcJ9DAj2wQWRPgTE+ggQ7QNAvJ8GhH5vFYDQb0kBCP2OCH8FaT8pAHG/Buik/RqAnLBfBTwJLamBldBRBsCEpa8DFqGlTGAWepKBAfid3Wr/lIoHuVAc3z/lxANdaU3g+TUIEM1/Ag1PDsArPgcwrGIKAVMKFC/YgRdg+ipIfBjQpxQwmy/YgZ8A3nCQRuQ3lmyF7Tk6AAAAAElFTkSuQmCC" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">New Leaders</div><div class="cl-cat">Nonprofit</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAVFBMVEVHcEwCn4gEzUkEyFACo4ICoYUDvV8EumMEzUoEwF4EzUoDp30CoYUEyFAEtGsCnIsE1zwE0UQEsm0EvlwEyFAEw1YEt2cDrHUEzEoEumICoYQCp3zhYF9uAAAAD3RSTlMA689yFZ4gNqgITks1kOiatg+hAAAB90lEQVRYha2W7bqCIBCE1TLFrKCg48f93+dRFotdIVlroH70NJvvMmtmWYrqpG/F1cjLV36hpDx9U6CWUhZf+Bs5q9lfQNkCcre/Br/cexKNXFTtK6BeBfb1sZZvHXb4K+lL8AsoVIDfx1rKry6hIn7FvYCOFOB28UL83HOkAOwO/BRA7QFQ3po295ZSWKd6vdgACosLcCJ+xQdY1NnFBTh0WABQJwfhRPydBWjSp7FYjHpeWgNA+l3toI325QCmY9VpALPJzEXmPckBzMFIamZhsKxJdBCpYwKAeSC/A1CQyO1AHR9EAPCKxeZfXOGb+8cDqLslU2qjj6Lpsa4A4I5VTfvzo8LxSQQA61TFVGP7HQC079ef+tjcsRyAxor3URD/HQA0VXSo6j8siJChfhMbqjPx51DVrBUZqpHIApwDfhPsoyiJv7Qf+7l28TJLvAjAMA6+HADOtbF70nqoxG3AAgA6GT289+s+ljcsCyCefUxnCkD8AHAJm5/TupICOSnQ2qp0MnzhoQoCZFc0F8GYOrVBgHLlCQzKJwBqOLVt5es9EhEAkmza900AbL+XUb8gALntTkV+f4z6M3FEcmQ5mYw4QFh4soYxDhBWi+dizJn+LCeTxQYAm+vqcGMDkHO9Mf2rYLIBgsFM1yqY3IfsHwPkG/5/PmZqJMULgcUAAAAASUVORK5CYII=" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">AP Financing</div><div class="cl-cat">Finance</div></div></div>
+<div class="cl"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAMAAACdt4HsAAAAPFBMVEVHcEzwTlLwSEzxVFf////xW17xWVz/+vr////////+7u/94eH2mpv7z8/4qqv5vb71jI7zc3b0foDyZmmWXsNjAAAACnRSTlMA////////90Ks05OVVQAAAoJJREFUWIWll9mWgyAMQCdBoFVUsP//r0NkEWTRVh7mdCL3EgLY8vdH7fWWw5dNvl9/ob2+pr3DK16/4dReD3ln+DF/1+TDBCiF9zPBuzqDcZ7nacwi0znim/wrQqtBoIagZx/ZAPNI0k4CqZAJ7hsDtgzDAhAiggEsXcGKjKdNwEccQudgc1ug97FoHEp5dwkfQbSh3SVQtQSG7YMyZes1Tqv2qQvgyzxSaRexh0DXBTvPPkmGH+rOeBKZOXUCVRMosI8wrdFGnfOEQ7e1FEyYP/B8UXW7KjSruH2igNKFgs+MIQf7gMUyBMFsvWxLupmMX7XZ1JSMheNJoG1/lA1+RbuCgqGRcbZsOQkophq8QhH2lRvXCC54LpjsDGBq8OB2IP39uIzgmIMXUAg6PONKYyzzaPOFORMsjIutze97b7LbUJg9aD+x9SyIK1PhVejEcf9k1yFUMRH4Gn523ieoE35fardSphCsMYM2T518BrwQWLmrcIcfWawBHrvWC6iulF2PF3EV0kUPG8mWxT68GN++Xk7VPAS0jsZc8eiGpblsJ4FE//q6wVMC8eDG46zc6zTw7jAvGe+nTfUSbDgLBsjGz14mGT+I7M1xCGa8Nb7k9I8ZSoHdtQ0exHGSHQ9jTTDolIcOj8fBP3+1leNPfb4iqPHM86LgS8GXfCFYMOMxzb/GlxnYHRhf5o73449VvlID3eBZla+tQvgudbzo8zXBV3xbcCv/jsCPL6/4luA238zAfh8I7nno8O0aaMx4aPCdVVC3+I5guMVfCbLD/IPgmr8QKLjir6agIGzGHwX291GfHy6vTBe8fH7leXzpenzte37xfHz1fX75fnb9/weihEshOHpv0QAAAABJRU5ErkJggg==" alt="" class="cl-img"><div class="cl-text"><div class="cl-name">Decent</div><div class="cl-cat">SaaS / HR</div></div></div>
+        </div>
+      </div>
+
+      <div class="whitespace-box">
+        <h3>The structural white space</h3>
+        <p>Large SIs (Deloitte, Accenture, PwC) are too expensive and too generalist for mid-market channel ops. Off-the-shelf platforms (Model N, Vistex) require 18-month implementations and don't handle the full claim-to-GL loop. Boutique consultancies lack cross-vertical data and partner credentials. Nteli occupies the gap: embedded advisory + implementation, purpose-built per vertical, with the partner certifications that let us go deep on the platform layer.</p>
+        <div class="ws-tags">
+          <span class="ws-tag" style="color:var(--purple);border-color:var(--purple-border);background:var(--purple-bg)">Not Model N</span>
+          <span class="ws-tag" style="color:var(--blue);border-color:var(--blue-border);background:var(--blue-bg)">Not Big 4</span>
+          <span class="ws-tag" style="color:var(--teal);border-color:var(--teal-border);background:var(--teal-bg)">Not a SaaS vendor</span>
+          <span class="ws-tag" style="color:var(--orange);border-color:var(--orange-border);background:var(--orange-bg)">Not a generalist SI</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE 2: THE MODEL ========== -->
+<div class="page">
+  <div class="deck-header">
+    <div class="deck-logo">nteli<em>.io</em></div>
+    <div class="deck-badges">
+      <span class="badge badge-sf"><span class="badge-dot"></span>Salesforce Premier Partner</span>
+      <span class="badge badge-av"><span class="badge-dot"></span>Avalara Certified Partner</span>
+    </div>
+    <div class="deck-pg">02 / 03</div>
+  </div>
+
+  <div class="p2-body">
+    <div>
+      <div class="p2-section-label">Four vertical practices</div>
+      <div class="practice-grid">
+        <div class="prac semi">
+          <div class="prac-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 3v4M12 3v4M15 3v4M9 17v4M12 17v4M15 17v4M3 9h4M3 12h4M3 15h4M17 9h4M17 12h4M17 15h4"/></svg>
+          </div>
+          <div class="prac-label">Semiconductor</div>
+          <div class="prac-title">Ship &amp; Debit · Design Reg</div>
+          <div class="prac-desc">Three-way match (Claim ↔ DR ↔ POS) for fabless semi and component manufacturers with multi-tier distribution. ASC 606 sell-through rev rec and inventory position reporting.</div>
+        </div>
+        <div class="prac pharma">
+          <div class="prac-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M10 2h4v7l5.5 9.5A1 1 0 0 1 18.6 20H5.4a1 1 0 0 1-.9-1.5L10 9V2z"/><line x1="8" y1="14" x2="16" y2="14"/></svg>
+          </div>
+          <div class="prac-label">Pharma &amp; Life Sciences</div>
+          <div class="prac-title">340B · Chargebacks · GPO</div>
+          <div class="prac-desc">Chargeback reconciliation with EDI 844/867/849, 340B covered-entity eligibility, IRA MFP deduplication, GPO contract management, Medicaid rebate accruals. SAP and Oracle native.</div>
+        </div>
+        <div class="prac saas">
+          <div class="prac-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          </div>
+          <div class="prac-label">SaaS &amp; Subscription</div>
+          <div class="prac-title">Quote-to-Cash · ASC 606</div>
+          <div class="prac-desc">End-to-end Q2C: CPQ, contracts, billing, revenue recognition, partner channel programs. Technology-agnostic across Salesforce, NetSuite, SAP, HubSpot, and custom stacks.</div>
+        </div>
+        <div class="prac tax">
+          <div class="prac-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="15" y2="17"/></svg>
+          </div>
+          <div class="prac-label">Tax Compliance</div>
+          <div class="prac-title">Avalara · Multi-state Filing</div>
+          <div class="prac-desc">AvaTax implementation, CertCapture exemption cert management, channel-specific tax logic (claim-to-tax feedback loop), and automated Returns filing across 47 states.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p2-top">
+      <div>
+        <div class="p2-section-label">Engagement model</div>
+        <div class="model-box">
+          <div class="model-steps">
+            <div class="model-step">
+              <div class="ms-num">Phase 1</div>
+              <div class="ms-title">Audit &amp; Build</div>
+              <div class="ms-desc">One distributor, one business unit. Reconciliation layer deployed alongside existing process. 3–4 weeks.</div>
+              <span class="ms-tag ms1">Fixed fee</span>
+            </div>
+            <div class="model-step">
+              <div class="ms-num">Phase 2</div>
+              <div class="ms-title">Full Rollout</div>
+              <div class="ms-desc">Full distributor network, all business units, ERP integration, GL posting automation, multi-vertical overlay.</div>
+              <span class="ms-tag ms2">Scoped engagement</span>
+            </div>
+            <div class="model-step">
+              <div class="ms-num">Ongoing</div>
+              <div class="ms-title">Managed Layer</div>
+              <div class="ms-desc">Nteli operates the reconciliation infrastructure: monthly close support, exception handling, regulatory updates.</div>
+              <span class="ms-tag ms3">Recurring retainer</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="p2-section-label">Competitive positioning</div>
+        <table class="comp-table">
+          <thead>
+            <tr>
+              <th>Capability</th>
+              <th class="us">Nteli</th>
+              <th>Large SI</th>
+              <th>Boutique</th>
+              <th>Platform vendor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-label">Cross-vertical expertise</td>
+              <td class="us-cell"><span class="yes">4 verticals</span></td>
+              <td><span class="partial">Generalist</span></td>
+              <td><span class="no">1–2 max</span></td>
+              <td><span class="no">None</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Embedded (client infra)</td>
+              <td class="us-cell"><span class="yes">Always</span></td>
+              <td><span class="partial">Sometimes</span></td>
+              <td><span class="partial">Varies</span></td>
+              <td><span class="no">Vendor-hosted</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Salesforce Premier Partner</td>
+              <td class="us-cell"><span class="yes">Yes</span></td>
+              <td><span class="yes">Yes (some)</span></td>
+              <td><span class="no">Rarely</span></td>
+              <td><span class="no">N/A</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Avalara Certified</td>
+              <td class="us-cell"><span class="yes">Yes</span></td>
+              <td><span class="partial">Some</span></td>
+              <td><span class="no">Rarely</span></td>
+              <td><span class="partial">Avalara only</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Fixed-fee Phase 1</td>
+              <td class="us-cell"><span class="yes">Yes</span></td>
+              <td><span class="no">T&amp;M only</span></td>
+              <td><span class="partial">Varies</span></td>
+              <td><span class="no">License + impl</span></td>
+            </tr>
+            <tr>
+              <td class="row-label">Mid-market accessible</td>
+              <td class="us-cell"><span class="yes">Yes</span></td>
+              <td><span class="no">$50M+ min</span></td>
+              <td><span class="partial">Varies</span></td>
+              <td><span class="no">18-mo impl</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== PAGE 3: GROWTH THESIS ========== -->
+<div class="page">
+  <div class="deck-header">
+    <div class="deck-logo">nteli<em>.io</em></div>
+    <div class="deck-badges">
+      <span class="badge badge-sf"><span class="badge-dot"></span>Salesforce Premier Partner</span>
+      <span class="badge badge-av"><span class="badge-dot"></span>Avalara Certified Partner</span>
+    </div>
+    <div class="deck-pg">03 / 03</div>
+  </div>
+
+  <div class="p3-body">
+    <div class="p3-left">
+      <div class="growth-section">
+        <h3>Use of growth capital</h3>
+        <div class="use-grid">
+          <div class="use-card">
+            <div class="use-card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="use-card-title">Specialist Hiring</div>
+            <div class="use-card-desc">Expand certified headcount across all four practices — particularly Pharma EDI specialists and Avalara-certified tax engineers to meet inbound demand.</div>
+          </div>
+          <div class="use-card">
+            <div class="use-card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div class="use-card-title">Geographic Expansion</div>
+            <div class="use-card-desc">Open a second hub (Pacific Northwest or Northeast) to cover semiconductor corridor clients and East Coast pharma manufacturers without remote-only delivery.</div>
+          </div>
+          <div class="use-card">
+            <div class="use-card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </div>
+            <div class="use-card-title">IP &amp; Accelerators</div>
+            <div class="use-card-desc">Package the reconciliation methodology into reusable accelerators — pre-built data models, rule templates, and ERP adapters — to compress Phase 1 from 4 weeks to 2.</div>
+          </div>
+          <div class="use-card">
+            <div class="use-card-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="1.5" stroke-linecap="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            </div>
+            <div class="use-card-title">New Verticals</div>
+            <div class="use-card-desc">International VAT/GST (EMEA distributor programs), medtech reimbursement, and industrial channel programs are adjacencies already emerging in client conversations.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="growth-section">
+        <h3>Defensible moat</h3>
+        <div class="moat-list">
+          <div class="moat-item" style="border-left-color:var(--purple)">
+            <div class="moat-title">Cross-vertical data flywheel</div>
+            <div class="moat-desc">Every engagement enriches pattern libraries used across verticals — claim anomaly detection, benchmark rates, rule templates. Competitors without cross-vertical presence can't replicate this.</div>
+          </div>
+          <div class="moat-item" style="border-left-color:var(--blue)">
+            <div class="moat-title">Embedded infrastructure = high switching cost</div>
+            <div class="moat-desc">Clients run Nteli-built reconciliation logic inside their own ERP/CRM. Replacing it means rebuilding the layer from scratch. Average client tenure is multi-year.</div>
+          </div>
+          <div class="moat-item" style="border-left-color:var(--orange)">
+            <div class="moat-title">Dual partner credentialing</div>
+            <div class="moat-desc">Salesforce Premier + Avalara Certified together is rare. Most SIs hold one. Nteli's clients get both platforms expertly implemented without splitting the engagement.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p3-right">
+      <div class="growth-section">
+        <h3>Regulatory tailwinds — 2025–2027</h3>
+        <div class="tailwind-list">
+          <div class="tw-item">
+            <div class="tw-dot" style="background:var(--teal)"></div>
+            <div class="tw-text"><strong>IRA Maximum Fair Price &amp; 340B deduplication</strong> — CMS-negotiated drug prices took effect Jan 1, 2026. Manufacturers must identify, deduplicate, and document every covered-entity Medicare transaction. Nteli has built this into Rule R-08.</div>
+          </div>
+          <div class="tw-item">
+            <div class="tw-dot" style="background:var(--orange)"></div>
+            <div class="tw-text"><strong>Multi-state tax nexus expansion</strong> — Economic nexus thresholds have brought 47 states into compliance scope for most mid-market distributors. Channel transaction tax is newly material for clients who previously filed in 3–5 states.</div>
+          </div>
+          <div class="tw-item">
+            <div class="tw-dot" style="background:var(--purple)"></div>
+            <div class="tw-text"><strong>ASC 606 / IFRS 15 audit scrutiny</strong> — Revenue recognition in channel programs (sell-through, consignment, price protection) is under increasing audit pressure. Nteli's GL-level accrual architecture is purpose-built for this.</div>
+          </div>
+          <div class="tw-item">
+            <div class="tw-dot" style="background:var(--blue)"></div>
+            <div class="tw-text"><strong>Salesforce Manufacturing Cloud adoption</strong> — Salesforce's push into manufacturing and distribution is creating demand for implementation partners who understand channel data, not just CRM configuration. Nteli is already certified and active here.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cta-box">
+        <h3>Confidential discussions welcome</h3>
+        <p>Nteli is selectively exploring growth equity partnerships with firms that have portfolio depth in enterprise software services, distribution-adjacent businesses, or vertical SaaS. We're not running a process — we're having conversations.</p>
+        <div class="cta-contact">hello@nteli.io &nbsp;·&nbsp; nteli.io &nbsp;·&nbsp; Austin, TX</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /deck
+Disallow: /overview
+Disallow: /investor
+
+Sitemap: https://nteli.io/sitemap.xml

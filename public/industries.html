@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nteli — Revenue Operations & Channel Advisory | CPQ, ERP, PRM, Pharma, Semi, SaaS</title>
+<meta name="description" content="End-to-end revenue operations advisory: channel reconciliation for pharma, semis, and SaaS — plus CPQ, ERP integration, and partner portals across any stack. Salesforce Premier Partner. Avalara Certified. Phase 1 in 3–4 weeks.">
+<link rel="canonical" href="https://nteli.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Nteli — Revenue Operations & Channel Advisory">
+<meta property="og:description" content="Channel reconciliation + CPQ, ERP, and partner portals. Advisory and implementation for pharma, semis, and SaaS. Phase 1 in 3–4 weeks.">
+<meta property="og:url" content="https://nteli.io/">
+<meta property="og:image" content="https://nteli.io/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Nteli — Revenue Operations & Channel Advisory">
+<meta name="twitter:description" content="Channel reconciliation + CPQ, ERP, and partner portals. Advisory and implementation for pharma, semis, and SaaS. Phase 1 in 3–4 weeks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--surface3:#21293A;
+  --border:#2A3446;--border2:#374458;
+  --text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;
+  --blue:#58A6FF;--blue2:#388BFD;--blue-bg:#0D2137;--blue-border:#1F4068;
+  --gold:#D4A843;--gold-bg:#1A1500;--gold-border:#3D2E00;
+  --green:#3FB950;--green-bg:#0A1E0D;--green-border:#1B4D22;
+  --amber:#F0A500;--amber-bg:#1C1200;--amber-border:#3D2A00;
+  --red:#F85149;--red-bg:#1C0A0A;--red-border:#4A1515;
+  --purple:#BC8CFF;--purple-bg:#1A0E2E;--purple-border:#3D2066;
+  --teal:#2DD4BF;--teal-bg:#051a17;--teal-border:#0d4039;
+  --sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono','JetBrains Mono','SF Mono',Consolas,monospace;
+  --r:6px;--r2:8px;--r3:12px;
+}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+body{overflow-x:hidden;}
+a{color:inherit;text-decoration:none;}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:32px;}
+.brand{font-size:18px;font-weight:800;letter-spacing:-0.3px;text-decoration:none;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;letter-spacing:-0.2px;}
+.nav-cta{margin-left:auto;}
+/* IND SWITCHER (home + verticals) */
+.ind-switcher{display:flex;gap:1px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:2px;}
+.ind-sw{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--text2);padding:4px 12px;border-radius:18px;transition:all .15s;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;text-decoration:none;}
+.ind-sw:hover{color:var(--text);}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:var(--r);cursor:pointer;transition:all .15s;font-family:var(--sans);text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.btn-outline{background:transparent;border-color:var(--border2);color:var(--text);}
+.btn-outline:hover{background:var(--surface2);border-color:var(--text2);}
+.btn-lg{padding:13px 26px;font-size:15px;}
+
+/* ROLLING HERO */
+.hero-carousel{position:relative;overflow:hidden;}
+.hero-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .7s ease,visibility 0s linear .7s;padding:96px 28px 72px;text-align:center;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.hero-slide.active{position:relative;opacity:1;visibility:visible;transition:opacity .7s ease,visibility 0s;}
+.hero-slide::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:900px;height:600px;pointer-events:none;z-index:0;}
+.slide-brand::before{background:radial-gradient(ellipse,var(--purple-bg) 0%,transparent 65%);opacity:.55;}
+.slide-semi::before{background:radial-gradient(ellipse,var(--purple-bg) 0%,transparent 65%);opacity:.6;}
+.slide-pharma::before{background:radial-gradient(ellipse,var(--teal-bg) 0%,transparent 65%);opacity:.7;}
+.slide-saas::before{background:radial-gradient(ellipse,var(--blue-bg) 0%,transparent 65%);opacity:.6;}
+.hero-inner{max-width:760px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);font-family:var(--sans);margin-bottom:12px;}
+h1{font-size:60px;font-weight:800;line-height:1.1;letter-spacing:-1.8px;margin-bottom:20px;}
+.accent{background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 55%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.accent-semi{background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 70%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.accent-pharma{background:linear-gradient(135deg,var(--teal) 0%,var(--blue) 70%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.accent-saas{background:linear-gradient(135deg,var(--blue) 0%,var(--purple) 60%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:21px;color:var(--text2);line-height:1.65;margin-bottom:40px;max-width:680px;margin-left:auto;margin-right:auto;}
+.hero-cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.hero-meta{display:flex;justify-content:center;gap:28px;font-size:12px;color:var(--text2);font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-top:48px;}
+.hero-meta-item{display:flex;align-items:center;gap:6px;}
+.hero-meta-item::before{content:'✓';color:var(--check,var(--green));font-weight:700;}
+/* Vertical-tinted CTAs */
+.btn-semi{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border);}
+.btn-semi:hover{background:var(--purple-border);border-color:var(--purple);}
+.btn-pharma{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-border);}
+.btn-pharma:hover{background:var(--teal-border);border-color:var(--teal);}
+.btn-saas{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border);}
+.btn-saas:hover{background:var(--blue-border);border-color:var(--blue);}
+/* CAROUSEL PILLS */
+.carousel-pills{display:flex;justify-content:center;gap:8px;padding:0 28px 56px;flex-wrap:wrap;}
+.carousel-pill{display:flex;flex-direction:column;align-items:center;gap:0;padding:7px 18px 9px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:border-color .2s,color .2s,background .2s;line-height:1;overflow:hidden;}
+.carousel-pill:hover{border-color:var(--border2);color:var(--text);}
+.pill-label{pointer-events:none;}
+.pill-bar{display:block;height:2px;border-radius:1px;background:currentColor;width:0;margin-top:5px;opacity:0;}
+.carousel-pill.p-brand.active{background:var(--surface2);border-color:var(--border2);color:var(--text);}
+.carousel-pill.p-semi.active{background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple);}
+.carousel-pill.p-pharma.active{background:var(--teal-bg);border-color:var(--teal-border);color:var(--teal);}
+.carousel-pill.p-saas.active{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue);}
+.carousel-pill.active .pill-bar{opacity:.6;width:100%;animation:pillFill 5s linear forwards;}
+@keyframes pillFill{from{width:0}to{width:100%}}
+
+/* INDUSTRY CARDS */
+.industries{padding:80px 28px 140px;}
+.container{max-width:1240px;margin:0 auto;}
+.cards-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+
+.ind-card{background:var(--surface);border:1.5px solid var(--border);border-radius:20px;padding:48px 40px 40px;position:relative;overflow:hidden;cursor:pointer;transition:transform .25s,border-color .25s,box-shadow .25s;display:flex;flex-direction:column;}
+.ind-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .25s;pointer-events:none;}
+.ind-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px -12px rgba(0,0,0,.5);}
+
+/* Semi — purple */
+.ind-card.semi{border-color:#3D2066;}
+.ind-card.semi::before{background:linear-gradient(135deg,var(--purple-bg) 0%,transparent 60%);}
+.ind-card.semi:hover{border-color:var(--purple);box-shadow:0 24px 48px -12px rgba(188,140,255,.12);}
+.ind-card.semi .card-icon-wrap{background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple);}
+.ind-card.semi .card-tag{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border);}
+.ind-card.semi .card-arrow{color:var(--purple);}
+
+/* Pharma — teal */
+.ind-card.pharma{border-color:var(--teal-border);}
+.ind-card.pharma::before{background:linear-gradient(135deg,var(--teal-bg) 0%,transparent 60%);}
+.ind-card.pharma:hover{border-color:var(--teal);box-shadow:0 24px 48px -12px rgba(45,212,191,.1);}
+.ind-card.pharma .card-icon-wrap{background:var(--teal-bg);border-color:var(--teal-border);color:var(--teal);}
+.ind-card.pharma .card-tag{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-border);}
+.ind-card.pharma .card-arrow{color:var(--teal);}
+
+/* SaaS — blue */
+.ind-card.saas{border-color:var(--blue-border);}
+.ind-card.saas::before{background:linear-gradient(135deg,var(--blue-bg) 0%,transparent 60%);}
+.ind-card.saas:hover{border-color:var(--blue);box-shadow:0 24px 48px -12px rgba(88,166,255,.1);}
+.ind-card.saas .card-icon-wrap{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue);}
+.ind-card.saas .card-tag{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border);}
+.ind-card.saas .card-arrow{color:var(--blue);}
+
+.card-icon-wrap{width:56px;height:56px;border-radius:12px;border:1px solid;display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:28px;position:relative;z-index:1;flex-shrink:0;}
+.card-vertical{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text2);font-family:var(--mono);margin-bottom:10px;position:relative;z-index:1;}
+.card-title{font-size:26px;font-weight:800;letter-spacing:-0.5px;margin-bottom:14px;position:relative;z-index:1;}
+.card-desc{font-size:15px;color:var(--text2);line-height:1.7;margin-bottom:28px;position:relative;z-index:1;flex:1;}
+.card-bullets{display:flex;flex-direction:column;gap:10px;margin-bottom:36px;position:relative;z-index:1;}
+.card-bullet{font-size:14px;color:var(--text2);display:flex;align-items:flex-start;gap:8px;}
+.card-bullet::before{content:'→';font-family:var(--mono);font-weight:700;flex-shrink:0;margin-top:1px;opacity:.6;}
+.card-footer{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1;padding-top:20px;border-top:1px solid var(--border);}
+.card-cta{font-size:12px;font-weight:600;color:var(--text2);letter-spacing:.01em;}
+.card-arrow{font-size:20px;font-weight:300;transition:transform .15s;}
+.ind-card:hover .card-arrow{transform:translateX(4px);}
+
+/* TRUST STRIP — MARQUEE */
+.trust-strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface);overflow:hidden;}
+.trust-strip-label{text-align:center;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-family:var(--mono);padding:28px 28px 0;}
+.trust-marquee-wrap{overflow:hidden;padding:20px 0 28px;-webkit-mask-image:linear-gradient(to right,transparent,#000 100px,#000 calc(100% - 100px),transparent);mask-image:linear-gradient(to right,transparent,#000 100px,#000 calc(100% - 100px),transparent);}
+.trust-marquee{display:flex;gap:0;width:max-content;animation:marqueeScroll 55s linear infinite;}
+.trust-marquee:hover{animation-play-state:paused;}
+.trust-logo{display:inline-flex;align-items:center;gap:9px;padding:10px 20px;border-right:1px solid var(--border);flex-shrink:0;cursor:default;}
+.trust-logo-img{width:22px;height:22px;border-radius:4px;object-fit:contain;flex-shrink:0;opacity:.8;}
+.trust-logo-name{font-size:12px;font-weight:700;color:var(--text2);letter-spacing:-.1px;line-height:1;white-space:nowrap;}
+.trust-logo-cat{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);color:var(--text3);line-height:1;margin-top:2px;}
+@keyframes marqueeScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* COMMON PROBLEM STRIP */
+.common{padding:80px 28px;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.common-inner{max-width:1080px;margin:0 auto;text-align:center;}
+.common h2{font-size:44px;font-weight:800;line-height:1.12;letter-spacing:-0.8px;margin-bottom:16px;}
+.common p{font-size:17px;color:var(--text2);line-height:1.65;margin-bottom:0;max-width:640px;margin-left:auto;margin-right:auto;}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:72px;border-top:1px solid var(--border);}
+.stat-item{text-align:center;padding:56px 40px;}
+.stat-item:not(:last-child){border-right:1px solid var(--border);}
+.stat-num{font-size:72px;font-weight:800;font-family:var(--sans);letter-spacing:-2.5px;line-height:1;}
+.stat-num.purple{color:var(--purple);}
+.stat-num.teal{color:var(--teal);}
+.stat-num.blue{color:var(--blue);}
+.stat-lbl{font-size:14px;color:var(--text2);margin-top:16px;line-height:1.55;max-width:220px;margin-left:auto;margin-right:auto;}
+
+/* HOW IT WORKS */
+.how{padding:80px 28px;}
+.section-hdr{text-align:center;margin-bottom:80px;}
+h2{font-size:44px;font-weight:800;line-height:1.12;letter-spacing:-0.8px;margin-bottom:16px;}
+.lead{font-size:17px;color:var(--text2);line-height:1.65;max-width:640px;margin:0 auto;}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:36px 32px;transition:border-color .2s,transform .2s;}
+.step:hover{border-color:var(--border2);transform:translateY(-3px);}
+.step-num{font-size:48px;font-weight:800;letter-spacing:-2px;font-family:var(--mono);color:var(--gold);opacity:.35;line-height:1;margin-bottom:20px;}
+.step h3{font-size:19px;font-weight:700;margin-bottom:10px;letter-spacing:-.3px;}
+.step p{font-size:15px;color:var(--text2);line-height:1.65;}
+
+/* FINAL CTA */
+.final-cta{padding:140px 28px;text-align:center;background:radial-gradient(ellipse at 50% 0%,var(--surface2) 0%,var(--bg) 70%);}
+.final-cta p{font-size:18px;color:var(--text2);margin-bottom:40px;line-height:1.65;}
+.cta-btns{display:flex;justify-content:center;gap:12px;}
+
+/* FOOTER */
+footer{background:var(--surface);border-top:1px solid var(--border);padding:56px 28px 32px;}
+.footer-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:48px;align-items:start;}
+.footer-brand{font-size:16px;font-weight:800;margin-bottom:14px;}
+.footer-brand em{color:var(--gold);font-style:normal;}
+.footer-addr{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px;}
+.footer-mail{font-size:13px;color:var(--blue);}
+.footer-col{display:flex;flex-direction:column;gap:10px;font-size:13px;color:var(--text2);}
+.footer-col a:hover{color:var(--text);}
+.footer-col-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-family:var(--mono);margin-bottom:4px;}
+.footer-copy{max-width:1240px;margin:40px auto 0;padding-top:24px;border-top:1px solid var(--border);font-size:12px;color:var(--text3);font-family:var(--mono);}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);}
+.reveal.visible{opacity:1;transform:translateY(0);}
+.reveal-delay-1{transition-delay:.1s;}
+.reveal-delay-2{transition-delay:.2s;}
+.reveal-delay-3{transition-delay:.3s;}
+
+/* INDUSTRIES SECTION HEADER */
+.industries-hdr{text-align:center;padding:0 28px;margin-bottom:64px;}
+
+/* DUAL NAV SWITCHERS */
+.nav-switchers{display:flex;align-items:center;gap:18px;}
+.nav-group{display:flex;align-items:center;gap:8px;}
+.nav-group-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-family:var(--mono);}
+
+/* ABOUT / FIRM BAND */
+.about-band{padding:100px 28px;background:var(--surface);border-top:1px solid var(--border);}
+.about-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.25fr 1fr;gap:72px;align-items:center;}
+.about-copy h2{margin-bottom:18px;}
+.about-copy .lead{margin:0 0 28px;max-width:none;}
+.about-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.about-chip{font-size:11px;font-weight:600;font-family:var(--mono);letter-spacing:.04em;color:var(--blue);background:var(--blue-bg);border:1px solid var(--blue-border);border-radius:14px;padding:5px 12px;white-space:nowrap;}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.about-stat{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:28px 24px;}
+.about-stat-num{font-size:38px;font-weight:800;letter-spacing:-1.5px;line-height:1;}
+.about-stat-lbl{font-size:12px;color:var(--text2);font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-top:10px;}
+
+/* PRACTICES SECTION (horizontal) */
+.practices{padding:0 28px 100px;}
+.practices-hdr{text-align:center;padding:0 28px;margin-bottom:64px;}
+.practice-section-divider{border:none;border-top:1px solid var(--border);max-width:1240px;margin:0 auto 100px;}
+
+/* CPQ card — blue */
+.ind-card.cpq{border-color:var(--blue-border);}
+.ind-card.cpq::before{background:linear-gradient(135deg,var(--blue-bg) 0%,transparent 60%);}
+.ind-card.cpq:hover{border-color:var(--blue);box-shadow:0 24px 48px -12px rgba(88,166,255,.1);}
+.ind-card.cpq .card-icon-wrap{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue);}
+.ind-card.cpq .card-tag{background:var(--blue-bg);color:var(--blue);border-color:var(--blue-border);}
+.ind-card.cpq .card-arrow{color:var(--blue);}
+
+/* ERP card — teal */
+.ind-card.erp-card{border-color:var(--teal-border);}
+.ind-card.erp-card::before{background:linear-gradient(135deg,var(--teal-bg) 0%,transparent 60%);}
+.ind-card.erp-card:hover{border-color:var(--teal);box-shadow:0 24px 48px -12px rgba(45,212,191,.1);}
+.ind-card.erp-card .card-icon-wrap{background:var(--teal-bg);border-color:var(--teal-border);color:var(--teal);}
+.ind-card.erp-card .card-tag{background:var(--teal-bg);color:var(--teal);border-color:var(--teal-border);}
+.ind-card.erp-card .card-arrow{color:var(--teal);}
+
+/* PRM card — purple */
+.ind-card.prm-card{border-color:var(--purple-border);}
+.ind-card.prm-card::before{background:linear-gradient(135deg,var(--purple-bg) 0%,transparent 60%);}
+.ind-card.prm-card:hover{border-color:var(--purple);box-shadow:0 24px 48px -12px rgba(188,140,255,.12);}
+.ind-card.prm-card .card-icon-wrap{background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple);}
+.ind-card.prm-card .card-tag{background:var(--purple-bg);color:var(--purple);border-color:var(--purple-border);}
+.ind-card.prm-card .card-arrow{color:var(--purple);}
+
+@media(max-width:900px){
+  h1{font-size:48px;}
+  h2{font-size:38px;}
+  .common h2{font-size:38px;}
+  .stat-num{font-size:60px;letter-spacing:-2px;}
+  .stat-item{padding:40px 24px;}
+  .stat-row{grid-template-columns:1fr;}
+  .stat-item:not(:last-child){border-right:none;border-bottom:1px solid var(--border);}
+  .cards-grid{grid-template-columns:1fr;}
+  .steps-grid{grid-template-columns:1fr 1fr;}
+  .cta-btns{flex-direction:column;align-items:center;}
+  .footer-inner{grid-template-columns:1fr;gap:32px;}
+  .about-inner{grid-template-columns:1fr;gap:48px;}
+  .hero-slide{padding:100px 24px 70px;}
+}
+@media(max-width:600px){
+  h1{font-size:38px;letter-spacing:-1.2px;}
+  h2{font-size:30px;}
+  .steps-grid{grid-template-columns:1fr;}
+  .hero-sub{font-size:17px;}
+  .stat-num{font-size:52px;}
+  .carousel-pills{gap:6px;}
+  .nav-switchers{display:none;}
+}
+</style>
+<!-- Vercel Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
+<!-- Microsoft Clarity -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","CLARITY_PROJECT_ID");</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","@id":"https://nteli.io/#org","name":"Nteli","url":"https://nteli.io","description":"Revenue operations advisory and implementation — channel reconciliation for semiconductor, pharma, and SaaS verticals plus CPQ, ERP integration, and partner portals across any platform.","foundingDate":"2019","address":{"@type":"PostalAddress","addressLocality":"Austin","addressRegion":"TX","addressCountry":"US"},"sameAs":["https://www.linkedin.com/company/nteli"]}
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="brand">nteli<em>.io</em></a>
+    <div class="nav-switchers">
+      <div class="nav-group">
+        <span class="nav-group-lbl">Industries</span>
+        <div class="ind-switcher">
+          <a href="/semi" class="ind-sw">Semi</a>
+          <a href="/pharma" class="ind-sw">Pharma</a>
+          <a href="/saas" class="ind-sw">SaaS</a>
+        </div>
+      </div>
+      <div class="nav-group">
+        <span class="nav-group-lbl">Services</span>
+        <div class="ind-switcher">
+          <a href="/cpq" class="ind-sw">CPQ</a>
+          <a href="/erp" class="ind-sw">ERP</a>
+          <a href="/prm" class="ind-sw">PRM</a>
+          <a href="/tax" class="ind-sw">Tax</a>
+        </div>
+      </div>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io" target="_blank" rel="noopener">Book a call →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ROLLING HERO -->
+<div class="hero-carousel" id="heroCarousel">
+
+  <!-- Slide 0: Brand / Overview -->
+  <div class="hero-slide slide-brand active">
+    <div class="hero-inner">
+      <div class="eyebrow">Salesforce Premier Partner · Avalara Certified · Austin, TX</div>
+      <h1>Revenue gaps cost<br>you real money.<br><span class="accent">We close them.</span></h1>
+      <p class="hero-sub">From channel reconciliation (pharma, semis, SaaS) to CPQ configuration, ERP integration, and partner portals — we implement and connect the revenue stack across any platform. Salesforce Premier Partner. Fixed-fee engagements. Phase 1 in 3–4 weeks.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io" target="_blank" rel="noopener">Book a call →</a>
+        <a class="btn btn-outline btn-lg" href="mailto:hello@nteli.io">Email us</a>
+      </div>
+      <div class="hero-meta">
+        <span class="hero-meta-item">4.9★ AppExchange rated</span>
+        <span class="hero-meta-item">Fixed-fee engagement</span>
+        <span class="hero-meta-item">Phase 1 in 3–4 weeks</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 1: Semiconductor -->
+  <div class="hero-slide slide-semi">
+    <div class="hero-inner">
+      <div class="eyebrow" style="color:var(--purple)">Semiconductor &amp; Electronics</div>
+      <h2>Ship &amp; Debit.<br>Design Registration.<br><span class="accent-semi">Finally connected.</span></h2>
+      <p class="hero-sub">Fabless semi and component manufacturers lose 5–15% of channel revenue to unreconciled claims. Nteli matches every Ship &amp; Debit claim against POS data, distributor inventory, and price agreements — before AP approves anything.</p>
+      <div class="hero-cta">
+        <a class="btn btn-semi btn-lg" href="/semi">Semiconductor deep-dive →</a>
+        <a class="btn btn-outline btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io" target="_blank" rel="noopener">Book a call</a>
+      </div>
+      <div class="hero-meta">
+        <span class="hero-meta-item" style="--check:var(--purple)">Ship &amp; Debit reconciliation</span>
+        <span class="hero-meta-item" style="--check:var(--purple)">Design Registration lifecycle</span>
+        <span class="hero-meta-item" style="--check:var(--purple)">ASC 606 sell-through rev rec</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 2: Pharma -->
+  <div class="hero-slide slide-pharma">
+    <div class="hero-inner">
+      <div class="eyebrow" style="color:var(--teal)">Pharma &amp; Life Sciences</div>
+      <h2>Chargeback.<br>340B compliance.<br><span class="accent-pharma">Audit-ready.</span></h2>
+      <p class="hero-sub">Pharmaceutical manufacturers running chargebacks through spreadsheets carry growing compliance and financial exposure. Nteli validates every claim against DEA license, class-of-trade, and contracted price — automatically, at scale.</p>
+      <div class="hero-cta">
+        <a class="btn btn-pharma btn-lg" href="/pharma">Pharma deep-dive →</a>
+        <a class="btn btn-outline btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io" target="_blank" rel="noopener">Book a call</a>
+      </div>
+      <div class="hero-meta">
+        <span class="hero-meta-item" style="--check:var(--teal)">Chargeback reconciliation</span>
+        <span class="hero-meta-item" style="--check:var(--teal)">340B eligibility validation</span>
+        <span class="hero-meta-item" style="--check:var(--teal)">Medicaid rebate accrual</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: SaaS -->
+  <div class="hero-slide slide-saas">
+    <div class="hero-inner">
+      <div class="eyebrow" style="color:var(--blue)">SaaS &amp; Subscription</div>
+      <h2>Quote to cash.<br>Any platform.<br><span class="accent-saas">No gaps.</span></h2>
+      <p class="hero-sub">SaaS companies hitting $10M ARR run into the same wall: billing doesn't connect to contracts, rev rec lives in Excel, and partner incentives are paid on trust. We close every gap in the Q2C cycle — on whatever stack you run.</p>
+      <div class="hero-cta">
+        <a class="btn btn-saas btn-lg" href="/saas">Q2C deep-dive →</a>
+        <a class="btn btn-outline btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io" target="_blank" rel="noopener">Book a call</a>
+      </div>
+      <div class="hero-meta">
+        <span class="hero-meta-item" style="--check:var(--blue)">CPQ &amp; rev rec automation</span>
+        <span class="hero-meta-item" style="--check:var(--blue)">Partner channel programs</span>
+        <span class="hero-meta-item" style="--check:var(--blue)">Platform agnostic</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- CAROUSEL PILLS -->
+<div class="carousel-pills" id="carouselPills">
+  <button class="carousel-pill p-brand active" onclick="carouselGo(0)"><span class="pill-label">Overview</span><span class="pill-bar"></span></button>
+  <button class="carousel-pill p-semi" onclick="carouselGo(1)"><span class="pill-label">Semiconductor</span><span class="pill-bar"></span></button>
+  <button class="carousel-pill p-pharma" onclick="carouselGo(2)"><span class="pill-label">Pharma</span><span class="pill-bar"></span></button>
+  <button class="carousel-pill p-saas" onclick="carouselGo(3)"><span class="pill-label">SaaS</span><span class="pill-bar"></span></button>
+</div>
+
+<!-- CUSTOMER TRUST STRIP — marquee -->
+<div class="trust-strip">
+  <div class="trust-strip-label">Clients across manufacturing, pharma, and SaaS · 4.9★ on the Salesforce AppExchange</div>
+  <div class="trust-marquee-wrap">
+    <div class="trust-marquee">
+      <!-- Set 1 -->
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://elitepharma.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Elite Pharma</div><div class="trust-logo-cat">Pharma</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://intricon.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Intricon</div><div class="trust-logo-cat">Medtech</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://airgas.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Airgas</div><div class="trust-logo-cat">Manufacturing</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://vulcanindustrial.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Vulcan Industrial</div><div class="trust-logo-cat">Industrial</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://appliedadhesives.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Applied Adhesives</div><div class="trust-logo-cat">Manufacturing</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://gtechelevators.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">G-Tech Elevators</div><div class="trust-logo-cat">Industrial</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://binarydefense.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Binary Defense</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://copyleaks.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Copyleaks</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://studiodesigner.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Studio Designer</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://spare.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">spare</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://opexustech.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">OPEXUS</div><div class="trust-logo-cat">Gov Tech</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://aduroadvisors.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Aduro Advisors</div><div class="trust-logo-cat">PE</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://newleaders.org&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">New Leaders</div><div class="trust-logo-cat">Nonprofit</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://apfinancing.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">AP Financing</div><div class="trust-logo-cat">Finance</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://decent.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Decent</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <!-- Set 2 — duplicate for seamless loop -->
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://elitepharma.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Elite Pharma</div><div class="trust-logo-cat">Pharma</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://intricon.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Intricon</div><div class="trust-logo-cat">Medtech</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://airgas.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Airgas</div><div class="trust-logo-cat">Manufacturing</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://vulcanindustrial.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Vulcan Industrial</div><div class="trust-logo-cat">Industrial</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://appliedadhesives.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Applied Adhesives</div><div class="trust-logo-cat">Manufacturing</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://gtechelevators.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">G-Tech Elevators</div><div class="trust-logo-cat">Industrial</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://binarydefense.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Binary Defense</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://copyleaks.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Copyleaks</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://studiodesigner.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Studio Designer</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://spare.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">spare</div><div class="trust-logo-cat">SaaS</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://opexustech.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">OPEXUS</div><div class="trust-logo-cat">Gov Tech</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://aduroadvisors.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Aduro Advisors</div><div class="trust-logo-cat">PE</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://newleaders.org&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">New Leaders</div><div class="trust-logo-cat">Nonprofit</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://apfinancing.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">AP Financing</div><div class="trust-logo-cat">Finance</div></div></div>
+      <div class="trust-logo"><img src="https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://decent.com&size=64" alt="" class="trust-logo-img" loading="lazy" onerror="this.style.display='none'"><div class="trust-logo-text"><div class="trust-logo-name">Decent</div><div class="trust-logo-cat">SaaS</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- INDUSTRY CARDS — VERTICALS -->
+<section class="industries">
+  <div class="container">
+    <div class="industries-hdr reveal">
+      <div class="eyebrow" style="color:var(--gold)">Industry specializations</div>
+      <h2>Channel revenue, by vertical.</h2>
+      <p class="lead">Purpose-built reconciliation for the three industries where distributor complexity — and the margin leaking through manual claims — is highest.</p>
+    </div>
+    <div class="cards-grid">
+
+      <!-- Semiconductor -->
+      <a href="/semi" class="ind-card semi">
+        <div class="card-icon-wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 3v4M12 3v4M15 3v4M9 17v4M12 17v4M15 17v4M3 9h4M3 12h4M3 15h4M17 9h4M17 12h4M17 15h4"/></svg></div>
+        <div class="card-vertical">Ship &amp; Debit</div>
+        <div class="card-title">Semiconductor &amp; Electronics</div>
+        <p class="card-desc">Fabless semi, power electronics, and component manufacturers with multi-tier distribution and Ship &amp; Debit programs running across hundreds of SKUs.</p>
+        <div class="card-bullets">
+          <span class="card-bullet">Ship &amp; Debit claim reconciliation</span>
+          <span class="card-bullet">Design Registration lifecycle</span>
+          <span class="card-bullet">Three-way match: Claim ↔ DR ↔ POS</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta">Explore this practice</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- Pharma -->
+      <a href="/pharma" class="ind-card pharma">
+        <div class="card-icon-wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2h4v7l5.5 9.5A1 1 0 0 1 18.6 20H5.4a1 1 0 0 1-.9-1.5L10 9V2z"/><line x1="8" y1="14" x2="16" y2="14"/></svg></div>
+        <div class="card-vertical">340B · Compliance</div>
+        <div class="card-title">Pharma &amp; Life Sciences</div>
+        <p class="card-desc">Pharmaceutical manufacturers navigating chargeback reconciliation, 340B program compliance, GPO contract management, and Medicaid rebate accruals at distributor level.</p>
+        <div class="card-bullets">
+          <span class="card-bullet">Chargeback reconciliation &amp; validation</span>
+          <span class="card-bullet">340B covered-entity eligibility checks</span>
+          <span class="card-bullet">DEA license &amp; class-of-trade controls</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta">Explore this practice</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- SaaS -->
+      <a href="/saas" class="ind-card saas">
+        <div class="card-icon-wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+        <div class="card-vertical">Quote-to-Cash</div>
+        <div class="card-title">SaaS &amp; Subscription</div>
+        <p class="card-desc">Full Quote-to-Cash for SaaS and subscription businesses — CPQ, contracts, billing, ASC 606 rev rec, and partner channel programs. Technology-agnostic: we implement on your existing stack or build the right one for the job.</p>
+        <div class="card-bullets">
+          <span class="card-bullet">Subscription renewal &amp; expansion events</span>
+          <span class="card-bullet">ASC 606 / IFRS 15 standalone selling price allocation</span>
+          <span class="card-bullet">Partner channel &amp; MDF (Marketing Development Funds) management</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta">Explore this practice</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- HORIZONTAL PRACTICES — CPQ / ERP / PRM -->
+<section class="practices">
+  <div class="container">
+    <hr class="practice-section-divider">
+    <div class="practices-hdr reveal">
+      <div class="eyebrow" style="color:var(--purple)">Revenue operations</div>
+      <h2>Quote to cash, fully connected.</h2>
+      <p class="lead">Beyond channel reconciliation, we implement and integrate the full revenue stack — CPQ, ERP, and partner portals — across whatever platform you run.</p>
+    </div>
+    <div class="cards-grid">
+
+      <!-- CPQ -->
+      <a href="/cpq" class="ind-card cpq">
+        <div class="card-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <div class="card-vertical">Revenue Cloud · CPQ</div>
+        <div class="card-title">CPQ &amp; Revenue Cloud</div>
+        <p class="card-desc">Configure, Price, Quote to invoicing. We implement Revenue Cloud and leading CPQ platforms — turning your quoting process into a closed-loop revenue engine with accurate billing and rev rec.</p>
+        <div class="card-bullets">
+          <span class="card-bullet">Salesforce Revenue Cloud implementation</span>
+          <span class="card-bullet">CPQ rules, pricing waterfall &amp; approvals</span>
+          <span class="card-bullet">Billing automation &amp; ASC 606 rev rec</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta">Explore this practice</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- ERP -->
+      <a href="/erp" class="ind-card erp-card">
+        <div class="card-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+        </div>
+        <div class="card-vertical">CRM · ERP · Billing</div>
+        <div class="card-title">ERP &amp; System Integration</div>
+        <p class="card-desc">Salesforce to NetSuite, SAP, Dynamics, or Sage — bidirectional, real-time, and reliable. We close the gap between your CRM and back-office so finance always has the right numbers.</p>
+        <div class="card-bullets">
+          <span class="card-bullet">Salesforce ↔ ERP bidirectional sync</span>
+          <span class="card-bullet">Revenue recognition &amp; billing automation</span>
+          <span class="card-bullet">Real-time data flow, exception management</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta">Explore this practice</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+      <!-- PRM -->
+      <a href="/prm" class="ind-card prm-card">
+        <div class="card-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="card-vertical">Experience Cloud · PRM</div>
+        <div class="card-title">PRM &amp; Partner Portals</div>
+        <p class="card-desc">Partner portals that actually drive pipeline. Deal registration, MDF management, tiered incentive programs, and training — built on Salesforce Experience Cloud, operational on day one.</p>
+        <div class="card-bullets">
+          <span class="card-bullet">Salesforce Experience Cloud &amp; PRM build</span>
+          <span class="card-bullet">Deal registration &amp; MDF automation</span>
+          <span class="card-bullet">Partner tiers, incentives &amp; training</span>
+        </div>
+        <div class="card-footer">
+          <span class="card-cta">Explore this practice</span>
+          <span class="card-arrow">→</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- COMMON PROBLEM STRIP -->
+<div class="common">
+  <div class="common-inner">
+    <h2 class="reveal">Every distributor channel has the same leak.</h2>
+    <p class="reveal reveal-delay-1">No matter the industry — when you sell through distributors, claim reconciliation lives in spreadsheets, disputes take weeks, and revenue hits your books wrong. Our channel practice designs and deploys the reconciliation layer inside your own infrastructure — no SaaS vendor, no per-seat fees, no black box between you and your data.</p>
+    <div class="stat-row">
+      <div class="stat-item reveal">
+        <div class="stat-num purple">5–15%</div>
+        <div class="stat-lbl">of channel revenue leaked through manual claim errors and undisputed overbilling</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-num teal">3–4 wks</div>
+        <div class="stat-lbl">Phase 1: one distributor, one business unit, running alongside your existing process for one quarter</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-num blue">$0</div>
+        <div class="stat-lbl">Recurring license fees — the technology we build lives in your infrastructure, owned and controlled by you</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <div class="container">
+    <div class="section-hdr reveal">
+      <div class="eyebrow" style="color:var(--gold);">Channel reconciliation — how it works</div>
+      <h2>The layer between your CRM and ERP</h2>
+      <p class="lead">Our channel practice designs, builds, and operates the reconciliation layer between your distributor data and your back office. It doesn't replace your CRM or ERP — it connects them. Your team runs it. You own it.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <h3>Ingest</h3>
+        <p>We pull POS files, claim submissions, and distributor inventory reports via SFTP, API, or EDI. Normalize to a canonical data model purpose-built for channel revenue.</p>
+      </div>
+      <div class="step reveal reveal-delay-1">
+        <div class="step-num">02</div>
+        <h3>Reconcile</h3>
+        <p>Three-way match every claim against your price agreement, distributor POS, and inventory position. Flag exceptions before they reach AP.</p>
+      </div>
+      <div class="step reveal reveal-delay-2">
+        <div class="step-num">03</div>
+        <h3>Approve</h3>
+        <p>Route exceptions to the right owner. Approval workflows with segregation of duties enforced and a full audit trail. Period lockdown prevents retroactive edits.</p>
+      </div>
+      <div class="step reveal reveal-delay-3">
+        <div class="step-num">04</div>
+        <h3>Post</h3>
+        <p>We generate GAAP-compliant journal entries and push to your ERP. Close faster, audit easier. Every entry traceable back to the originating claim.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / FIRM BAND -->
+<section class="about-band">
+  <div class="about-inner">
+    <div class="about-copy reveal">
+      <div class="eyebrow" style="color:var(--gold)">About Nteli</div>
+      <h2>A Salesforce practice built around revenue.</h2>
+      <p class="lead">Founded in 2019 and headquartered at Capital Factory in Austin, TX, Nteli is a Salesforce Premier Partner and Avalara Certified consultancy. One focus across every engagement: the number your team closes matches the number finance recognizes — CRM, CPQ, and GL, fully connected.</p>
+      <div class="about-chips">
+        <span class="about-chip">Revenue Cloud Advanced</span>
+        <span class="about-chip">CPQ</span>
+        <span class="about-chip">Sales Cloud</span>
+        <span class="about-chip">Experience Cloud</span>
+        <span class="about-chip">MuleSoft</span>
+        <span class="about-chip">Data Cloud</span>
+        <span class="about-chip">Avalara AvaTax</span>
+      </div>
+    </div>
+    <div class="about-stats reveal reveal-delay-1">
+      <div class="about-stat"><div class="about-stat-num" style="color:var(--purple)">100+</div><div class="about-stat-lbl">Projects delivered</div></div>
+      <div class="about-stat"><div class="about-stat-num" style="color:var(--gold)">4.9★</div><div class="about-stat-lbl">AppExchange rating</div></div>
+      <div class="about-stat"><div class="about-stat-num" style="color:var(--blue)">15+</div><div class="about-stat-lbl">Active clients</div></div>
+      <div class="about-stat"><div class="about-stat-num" style="color:var(--teal)">2019</div><div class="about-stat-lbl">Founded · Austin, TX</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <h2 class="reveal">Ready to stop the leak?</h2>
+  <p class="reveal reveal-delay-1">Book a 30-minute call. We'll map your channel process, show you where the money goes, and tell you exactly what a Phase 1 engagement looks like.</p>
+  <div class="cta-btns">
+    <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io" target="_blank" rel="noopener">Book a 30-min call →</a>
+    <a class="btn btn-outline btn-lg" href="mailto:hello@nteli.io">Email us</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-co">
+      <div class="footer-brand">nteli<em>.io</em></div>
+      <div class="footer-addr">Capital Factory · 701 Brazos St<br>Austin, TX 78701</div>
+      <a class="footer-mail" href="mailto:hello@nteli.io">hello@nteli.io</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-lbl">Industries</div>
+      <a href="/semi">Semiconductor</a>
+      <a href="/pharma">Pharma &amp; Life Sciences</a>
+      <a href="/saas">SaaS &amp; Subscription</a>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-lbl">Services</div>
+      <a href="/cpq">CPQ &amp; Revenue Cloud</a>
+      <a href="/erp">ERP Integration</a>
+      <a href="/prm">PRM &amp; Partner Portals</a>
+      <a href="/tax">Tax Compliance</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2026 Nteli · Salesforce Premier Partner · Avalara Certified Partner</div>
+</footer>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.hero-slide'));
+  const pills  = Array.from(document.querySelectorAll('.carousel-pill'));
+  let current = 0, timer = null;
+
+  function activate(n) {
+    slides[current].classList.remove('active');
+    pills[current].classList.remove('active');
+    current = (n + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    pills[current].classList.add('active');
+    // restart bar animation
+    pills.forEach(p => { const b = p.querySelector('.pill-bar'); if(b){ b.style.animation='none'; b.offsetHeight; b.style.animation=''; }});
+  }
+
+  function next() { activate(current + 1); }
+
+  function start() { timer = setInterval(next, 5000); }
+  function stop()  { clearInterval(timer); }
+
+  window.carouselGo = function(n) { stop(); activate(n); start(); };
+
+  const carousel = document.getElementById('heroCarousel');
+  carousel.addEventListener('mouseenter', stop);
+  carousel.addEventListener('mouseleave', start);
+
+  start();
+})();
+
+/* ===== SCROLL REVEAL ===== */
+(function(){
+  const io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+})();
+
+/* ===== IND CARD STAGGER REVEAL ===== */
+(function(){
+  const cards = document.querySelectorAll('.ind-card');
+  cards.forEach(function(card, i){
+    card.classList.add('reveal');
+    card.style.transitionDelay = (i * 0.1) + 's';
+  });
+  const io2 = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io2.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08});
+  document.querySelectorAll('.ind-card').forEach(function(el){ io2.observe(el); });
+})();
+</script>
+</body>
+</html>

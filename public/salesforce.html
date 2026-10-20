@@ -1,0 +1,1772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nteli — Same Functionality on the Salesforce Stack | Platform Comparison</title>
+<meta name="description" content="Side-by-side comparison: the same channel revenue functionality delivered on the Salesforce stack. Nteli — Salesforce Premier Partner, Austin TX.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Salesforce+Sans:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  /* Salesforce Lightning Design System palette */
+  --sf-navy:#032D60;
+  --sf-navy-2:#014486;
+  --sf-blue:#0176D3;
+  --sf-blue-hover:#014486;
+  --sf-bg:#F3F3F3;
+  --sf-bg2:#FAFAFB;
+  --sf-card:#FFFFFF;
+  --sf-border:#DDDBDA;
+  --sf-border-light:#E5E5E5;
+  --sf-text:#181818;
+  --sf-text2:#444444;
+  --sf-text3:#747474;
+  --sf-text-link:#0176D3;
+  --sf-success:#2E844A;
+  --sf-success-bg:#CDEFC4;
+  --sf-warn:#FE9339;
+  --sf-warn-bg:#FEF1EE;
+  --sf-error:#BA0517;
+  --sf-error-bg:#FEDED7;
+  --sf-purple:#9050E9;
+  --sf-purple-bg:#EEDDFF;
+  --sf-mulesoft:#00A3E0;
+  --sf-anypoint:#1C7DE8;
+  --sans:'Salesforce Sans','IBM Plex Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+  --mono:'Source Code Pro',Consolas,monospace;
+}
+html,body{background:var(--sf-bg);font-family:var(--sans);color:var(--sf-text);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+a{color:var(--sf-text-link);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* ============ TOP NAVY BAR (Salesforce Lightning) ============ */
+.sf-topnav{height:48px;background:var(--sf-navy);display:flex;align-items:center;padding:0 16px;gap:14px;color:#fff;position:sticky;top:0;z-index:100;}
+.sf-launcher{display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;background:#fff;border-radius:4px;color:var(--sf-navy);font-size:18px;cursor:pointer;flex-shrink:0;}
+.sf-launcher:hover{background:#F3F3F3;}
+.sf-launcher-icon{display:grid;grid-template-columns:repeat(3,4px);gap:2px;}
+.sf-launcher-icon span{width:4px;height:4px;background:var(--sf-navy);border-radius:1px;}
+.sf-app-name{font-weight:600;font-size:14px;color:#fff;}
+.sf-app-sub{font-size:11px;color:#B0C4DE;font-family:var(--mono);margin-left:6px;}
+.sf-search{flex:1;max-width:560px;height:32px;background:#fff;border-radius:4px;display:flex;align-items:center;padding:0 12px;gap:8px;margin:0 14px;}
+.sf-search input{flex:1;border:none;outline:none;font-size:13px;color:var(--sf-text);background:transparent;}
+.sf-search-icon{color:var(--sf-text3);font-size:14px;}
+.sf-topnav-icons{display:flex;gap:6px;align-items:center;margin-left:auto;}
+.sf-ic{width:32px;height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;font-size:14px;}
+.sf-ic:hover{background:rgba(255,255,255,.1);}
+.sf-avatar{width:28px;height:28px;border-radius:50%;background:#FFAA00;color:#fff;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+
+/* ============ APP TAB STRIP (under topnav) ============ */
+.sf-app-strip{height:44px;background:#fff;border-bottom:1px solid var(--sf-border);display:flex;align-items:center;padding:0 16px;gap:0;overflow-x:auto;}
+.sf-app-tab{padding:0 16px;height:100%;display:flex;align-items:center;gap:6px;font-size:13px;color:var(--sf-text2);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;}
+.sf-app-tab:hover{color:var(--sf-text);background:var(--sf-bg2);}
+.sf-app-tab.on{color:var(--sf-blue);border-bottom-color:var(--sf-blue);font-weight:600;}
+.sf-app-tab .ic{font-size:12px;}
+.sf-app-tab .x{font-size:14px;color:var(--sf-text3);margin-left:6px;cursor:pointer;}
+.sf-app-tab .x:hover{color:var(--sf-error);}
+
+/* ============ LICENSE BANNER ============ */
+.license-banner{background:linear-gradient(90deg,#FFF8E1 0%,#FEF1EE 100%);border-bottom:1px solid var(--sf-warn-bg);padding:7px 16px;font-size:11px;font-family:var(--mono);color:var(--sf-text2);display:flex;align-items:center;gap:12px;}
+.license-banner b{color:var(--sf-text);}
+.license-banner .sep{color:var(--sf-border);}
+
+/* ============ APP CONTENT ============ */
+.app-pg{display:none;padding:0;}
+.app-pg.on{display:block;}
+
+/* Record-header pattern (Salesforce style) */
+.sf-record-hdr{background:var(--sf-card);border-bottom:1px solid var(--sf-border);padding:14px 20px 12px;}
+.sf-record-bc{font-size:11px;color:var(--sf-text3);margin-bottom:6px;}
+.sf-record-bc a{color:var(--sf-text-link);}
+.sf-record-top{display:flex;align-items:center;gap:14px;}
+.sf-record-icon{width:40px;height:40px;background:var(--sf-blue);border-radius:4px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:18px;flex-shrink:0;}
+.sf-record-title{font-size:20px;font-weight:700;line-height:1.2;}
+.sf-record-sub{font-size:12px;color:var(--sf-text3);margin-top:2px;}
+.sf-record-actions{margin-left:auto;display:flex;gap:6px;}
+.sf-btn{padding:6px 12px;font-size:13px;font-weight:500;background:#fff;border:1px solid var(--sf-border);color:var(--sf-text);border-radius:4px;cursor:pointer;font-family:var(--sans);}
+.sf-btn:hover{background:var(--sf-bg2);}
+.sf-btn-primary{background:var(--sf-blue);color:#fff;border-color:var(--sf-blue);}
+.sf-btn-primary:hover{background:var(--sf-blue-hover);}
+.sf-btn-sm{padding:4px 10px;font-size:12px;}
+
+/* Record key fields strip */
+.sf-record-fields{background:var(--sf-card);border-bottom:1px solid var(--sf-border);padding:8px 20px 10px;display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.sf-rf{}
+.sf-rf-l{font-size:10px;color:var(--sf-text3);font-weight:600;letter-spacing:.02em;margin-bottom:2px;}
+.sf-rf-v{font-size:13px;color:var(--sf-text);font-weight:500;}
+.sf-rf-v.link{color:var(--sf-text-link);}
+
+/* Tabs (Related / Details / etc) */
+.sf-rec-tabs{background:var(--sf-card);border-bottom:1px solid var(--sf-border);padding:0 20px;display:flex;gap:0;}
+.sf-rec-tab{padding:10px 14px;font-size:13px;color:var(--sf-text2);cursor:pointer;border-bottom:3px solid transparent;}
+.sf-rec-tab.on{color:var(--sf-blue);border-bottom-color:var(--sf-blue);font-weight:600;}
+
+/* Main content area */
+.sf-body{padding:16px 20px;display:flex;flex-direction:column;gap:14px;}
+.sf-grid-2{display:grid;grid-template-columns:1fr 320px;gap:14px;}
+.sf-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+
+/* Card */
+.sf-card{background:var(--sf-card);border:1px solid var(--sf-border);border-radius:4px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+.sf-card-hdr{padding:10px 14px;border-bottom:1px solid var(--sf-border);display:flex;align-items:center;justify-content:space-between;}
+.sf-card-title{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px;}
+.sf-card-body{padding:14px;}
+.sf-card-body.flush{padding:0;}
+
+/* Pills/badges */
+.sf-pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;}
+.sf-pill-blue{background:#EAF5FE;color:var(--sf-blue);}
+.sf-pill-green{background:var(--sf-success-bg);color:var(--sf-success);}
+.sf-pill-warn{background:var(--sf-warn-bg);color:var(--sf-warn);}
+.sf-pill-error{background:var(--sf-error-bg);color:var(--sf-error);}
+.sf-pill-purple{background:var(--sf-purple-bg);color:var(--sf-purple);}
+.sf-pill-gray{background:#F0F0F0;color:var(--sf-text3);}
+.sf-pill-custom{background:#FFEDC2;color:#7C5E00;font-family:var(--mono);}
+
+/* Tables */
+.sf-table{width:100%;border-collapse:collapse;}
+.sf-table th{background:var(--sf-bg2);text-align:left;padding:9px 12px;font-size:11px;font-weight:600;color:var(--sf-text3);text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--sf-border);white-space:nowrap;}
+.sf-table td{padding:10px 12px;border-bottom:1px solid var(--sf-border-light);font-size:13px;color:var(--sf-text);vertical-align:middle;}
+.sf-table tr:hover{background:var(--sf-bg2);}
+.sf-table tr:last-child td{border-bottom:none;}
+.sf-table td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.sf-table td.mono{font-family:var(--mono);font-size:11px;}
+.sf-table tr.total{background:#F8F8F8;font-weight:700;}
+
+/* RIGHT RAIL — license/cost reminder */
+.sf-rail{display:flex;flex-direction:column;gap:14px;}
+.license-card{background:linear-gradient(180deg,#FFF8E1 0%,#FFFFFF 100%);border:1px solid var(--sf-warn-bg);border-left:3px solid var(--sf-warn);border-radius:4px;padding:14px;}
+.license-card h4{font-size:11px;font-weight:700;color:var(--sf-warn);text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;}
+.license-card ul{list-style:none;font-size:12px;color:var(--sf-text2);}
+.license-card li{padding:4px 0;border-bottom:1px dashed var(--sf-border-light);display:flex;justify-content:space-between;}
+.license-card li:last-child{border-bottom:none;}
+.license-card li.total{font-weight:700;color:var(--sf-text);padding-top:8px;border-top:1px solid var(--sf-border);}
+
+/* INFO BANNERS */
+.sf-banner{padding:10px 14px;border-radius:4px;font-size:12px;display:flex;gap:10px;line-height:1.5;}
+.sf-banner-info{background:#EAF5FE;color:#014486;border-left:3px solid var(--sf-blue);}
+.sf-banner-warn{background:var(--sf-warn-bg);color:#7A4500;border-left:3px solid var(--sf-warn);}
+.sf-banner-custom{background:#FFEDC2;color:#5C4500;border-left:3px solid #C58F00;}
+
+/* CUSTOM OBJECT TAG */
+.custom-tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-family:var(--mono);color:#7C5E00;background:#FFEDC2;padding:1px 6px;border-radius:3px;font-weight:600;}
+
+/* FORECAST GRID (custom LWC mockup) */
+.lwc-frame{border:2px dashed var(--sf-warn);border-radius:4px;padding:0;position:relative;background:#fff;}
+.lwc-tag{position:absolute;top:-10px;left:14px;background:var(--sf-warn);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;font-family:var(--mono);letter-spacing:.04em;}
+.lwc-hdr{padding:10px 14px;background:#FFF8E1;border-bottom:1px solid var(--sf-warn-bg);display:flex;align-items:center;justify-content:space-between;font-size:12px;}
+.lwc-hdr-l{display:flex;align-items:center;gap:8px;font-weight:600;}
+.lwc-hdr-r{font-size:10px;color:var(--sf-text3);font-family:var(--mono);}
+
+.fcst-grid{}
+.fcst-row{display:grid;grid-template-columns:90px 80px 90px 90px 100px 130px 90px 80px;gap:0;border-bottom:1px solid var(--sf-border-light);align-items:center;padding:8px 12px;font-size:12px;}
+.fcst-row.head{background:var(--sf-bg2);font-size:10px;font-weight:600;color:var(--sf-text3);text-transform:uppercase;letter-spacing:.04em;}
+.fcst-row.tot{background:#F8F8F8;font-weight:700;}
+.fcst-cell{}
+.fcst-cell.num{text-align:right;font-variant-numeric:tabular-nums;}
+.fcst-cell.mono{font-family:var(--mono);font-size:11px;}
+.fcst-edit{background:#FFFAE6;border:1px solid #F2C94C;border-radius:2px;padding:3px 6px;display:inline-block;font-family:var(--mono);}
+
+/* FLOW BUILDER MOCKUP */
+.flow-canvas{background:#FAFAFA;background-image:radial-gradient(circle,#DDD 1px,transparent 1px);background-size:16px 16px;border:1px solid var(--sf-border);border-radius:4px;padding:30px;min-height:380px;position:relative;display:flex;flex-direction:column;align-items:center;gap:20px;}
+.flow-node{background:#fff;border:2px solid var(--sf-blue);border-radius:4px;padding:12px 16px;min-width:200px;text-align:center;position:relative;box-shadow:0 1px 4px rgba(0,0,0,.08);}
+.flow-node.start{border-color:var(--sf-success);background:var(--sf-success-bg);}
+.flow-node.decision{border-color:#FFB75D;background:#FFF6E6;}
+.flow-node.action{border-color:var(--sf-blue);background:#EAF5FE;}
+.flow-node.end{border-color:var(--sf-error);background:var(--sf-error-bg);}
+.flow-node-icon{font-size:11px;color:var(--sf-text3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;margin-bottom:3px;}
+.flow-node-title{font-size:12px;font-weight:600;color:var(--sf-text);}
+.flow-arr{color:var(--sf-text3);font-size:18px;}
+
+/* MULESOFT / ANYPOINT MOCKUP */
+.anypoint-frame{background:#1A2233;border-radius:4px;color:#E8EAED;border:1px solid #303A52;overflow:hidden;}
+.anypoint-tabs{display:flex;background:#0F1722;border-bottom:1px solid #303A52;}
+.anypoint-tab{padding:8px 14px;font-size:11px;color:#8893A7;font-family:var(--mono);cursor:pointer;border-right:1px solid #303A52;}
+.anypoint-tab.on{color:#fff;background:#1A2233;border-bottom:2px solid var(--sf-mulesoft);}
+.anypoint-body{display:grid;grid-template-columns:1fr 1fr;}
+.anypoint-pane{padding:14px;font-size:11px;font-family:var(--mono);line-height:1.6;}
+.anypoint-pane:first-child{border-right:1px solid #303A52;}
+.anypoint-pane-hdr{font-size:10px;color:#8893A7;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:600;}
+.dw-line{color:#E8EAED;}
+.dw-comment{color:#5C7785;}
+.dw-keyword{color:#82AAFF;}
+.dw-string{color:#C3E88D;}
+.dw-fn{color:#C792EA;}
+.dw-num{color:#F78C6C;}
+
+/* OBJECT MANAGER ROWS */
+.om-row{display:grid;grid-template-columns:1fr 200px 200px 100px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--sf-border-light);font-size:12px;}
+.om-row:hover{background:var(--sf-bg2);}
+.om-row.head{background:var(--sf-bg2);font-size:10px;font-weight:600;color:var(--sf-text3);text-transform:uppercase;letter-spacing:.04em;}
+
+/* CRM ANALYTICS */
+.ca-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.ca-tile{background:#fff;border:1px solid var(--sf-border);border-radius:4px;padding:14px;}
+.ca-tile-lbl{font-size:11px;color:var(--sf-text3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;}
+.ca-tile-val{font-size:28px;font-weight:700;color:var(--sf-text);font-variant-numeric:tabular-nums;margin-top:6px;}
+.ca-tile-sub{font-size:11px;color:var(--sf-text3);margin-top:4px;}
+
+/* APP LAUNCHER MODAL */
+.launcher-modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:200;align-items:flex-start;justify-content:center;padding-top:80px;}
+.launcher-modal.on{display:flex;}
+.launcher-card{background:#fff;border-radius:8px;padding:24px;max-width:680px;width:100%;box-shadow:0 24px 56px rgba(0,0,0,.3);}
+.launcher-card h2{font-size:18px;font-weight:700;margin-bottom:6px;}
+.launcher-card p{font-size:13px;color:var(--sf-text3);margin-bottom:16px;}
+.launcher-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.launcher-item{padding:12px;background:var(--sf-bg2);border:1px solid var(--sf-border);border-radius:4px;cursor:pointer;text-align:center;transition:all .12s;}
+.launcher-item:hover{background:#EAF5FE;border-color:var(--sf-blue);}
+.launcher-item.on{background:#EAF5FE;border-color:var(--sf-blue);}
+.launcher-icon{width:36px;height:36px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff;margin:0 auto 8px;font-weight:700;}
+.launcher-name{font-size:11px;font-weight:600;color:var(--sf-text);line-height:1.3;}
+.launcher-lic{font-size:9px;color:var(--sf-text3);font-family:var(--mono);margin-top:4px;}
+
+/* COMPARISON FOOTER */
+.comparison-foot{background:linear-gradient(135deg,#0D1117 0%,#1A0E2E 100%);color:#E6EDF3;padding:32px 40px;border-top:3px solid var(--sf-warn);}
+.cf-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;}
+.cf-l h3{font-size:18px;font-weight:700;color:#E6EDF3;margin-bottom:6px;}
+.cf-l p{font-size:13px;color:#8B949E;max-width:560px;line-height:1.55;}
+.cf-l a{color:#BC8CFF;}
+.cf-r{display:flex;flex-direction:column;gap:8px;align-items:flex-end;}
+.cf-r .badge{font-size:11px;font-family:var(--mono);background:rgba(188,140,255,.15);color:#BC8CFF;border:1px solid #3D2066;padding:3px 9px;border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP NAV (Lightning) ============ -->
+<div class="sf-topnav">
+  <div class="sf-launcher" onclick="toggleLauncher()" title="App Launcher">
+    <div class="sf-launcher-icon"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+  <span class="sf-app-name" id="active-app-name">Manufacturing Cloud</span>
+  <span class="sf-app-sub" id="active-app-sub">Sales Agreements</span>
+  <div class="sf-search">
+    <span class="sf-search-icon">⌕</span>
+    <input placeholder="Search Salesforce…">
+  </div>
+  <div class="sf-topnav-icons">
+    <div class="sf-ic" title="Setup">⚙</div>
+    <div class="sf-ic" title="Help">?</div>
+    <div class="sf-ic" title="Notifications">🔔</div>
+    <div class="sf-avatar">AS</div>
+  </div>
+</div>
+
+<!-- ============ APP TAB STRIP ============ -->
+<div class="sf-app-strip">
+  <div class="sf-app-tab" data-pg="sales" onclick="goApp('sales')"><span class="ic">☁</span> Sales Cloud</div>
+  <div class="sf-app-tab on" data-pg="mfg" onclick="goApp('mfg')"><span class="ic">🏭</span> Manufacturing Cloud</div>
+  <div class="sf-app-tab" data-pg="rca" onclick="goApp('rca')"><span class="ic">💰</span> Revenue Cloud Advanced</div>
+  <div class="sf-app-tab" data-pg="chrm" onclick="goApp('chrm')"><span class="ic">🔄</span> Channel Revenue Mgmt</div>
+  <div class="sf-app-tab" data-pg="exp" onclick="goApp('exp')"><span class="ic">🌐</span> Experience Cloud</div>
+  <div class="sf-app-tab" data-pg="setup" onclick="goApp('setup')"><span class="ic">⚙</span> Object Manager</div>
+  <div class="sf-app-tab" data-pg="perms" onclick="goApp('perms')"><span class="ic">🔑</span> Permission Sets</div>
+  <div class="sf-app-tab" data-pg="flow" onclick="goApp('flow')"><span class="ic">⚡</span> Flow Builder</div>
+  <div class="sf-app-tab" data-pg="mule" onclick="goApp('mule')"><span class="ic">🔌</span> MuleSoft Anypoint</div>
+  <div class="sf-app-tab" data-pg="ca" onclick="goApp('ca')"><span class="ic">📊</span> CRM Analytics</div>
+</div>
+
+<!-- ORG INFO BANNER -->
+<div class="license-banner" style="background:linear-gradient(90deg,#EAF5FE 0%,#FFFFFF 100%);border-bottom:1px solid var(--sf-blue);">
+  <span>☁ <b>Salesforce SaaS · Multi-tenant cloud:</b></span>
+  <span>Sales Cloud</span><span class="sep">·</span>
+  <span>Manufacturing Cloud</span><span class="sep">·</span>
+  <span>Revenue Cloud Advanced</span><span class="sep">·</span>
+  <span>Channel Revenue Management</span><span class="sep">·</span>
+  <span>Experience Cloud</span><span class="sep">·</span>
+  <span>CRM Analytics</span><span class="sep">·</span>
+  <span>MuleSoft Anypoint</span>
+  <span style="margin-left:auto;color:var(--sf-text3);">Subscription · 99.9% SLA · Spring/Summer/Winter releases · trust.salesforce.com</span>
+</div>
+
+<!-- ============ APP LAUNCHER MODAL ============ -->
+<div class="launcher-modal" id="launcher" onclick="if(event.target===this)toggleLauncher()">
+  <div class="launcher-card">
+    <h2>App Launcher</h2>
+    <p>Switch between Salesforce apps used by your channel revenue functions.</p>
+    <div class="launcher-grid">
+      <div class="launcher-item" onclick="goApp('sales')"><div class="launcher-icon" style="background:#0070D2;">☁</div><div class="launcher-name">Sales Cloud</div><div class="launcher-lic">CRM</div></div>
+      <div class="launcher-item on" onclick="goApp('mfg')"><div class="launcher-icon" style="background:#0070D2;">🏭</div><div class="launcher-name">Manufacturing Cloud</div><div class="launcher-lic">Industry Cloud</div></div>
+      <div class="launcher-item" onclick="goApp('rca')"><div class="launcher-icon" style="background:#06A59A;">💰</div><div class="launcher-name">Revenue Cloud Advanced</div><div class="launcher-lic">Revenue</div></div>
+      <div class="launcher-item" onclick="goApp('chrm')"><div class="launcher-icon" style="background:#0176D3;">🔄</div><div class="launcher-name">Channel Revenue Management</div><div class="launcher-lic">Channel</div></div>
+      <div class="launcher-item" onclick="goApp('exp')"><div class="launcher-icon" style="background:#9050E9;">🌐</div><div class="launcher-name">Experience Cloud (Partner Portal)</div><div class="launcher-lic">Partner Community</div></div>
+      <div class="launcher-item" onclick="goApp('setup')"><div class="launcher-icon" style="background:#5C5C5C;">⚙</div><div class="launcher-name">Setup · Object Manager</div><div class="launcher-lic">Platform</div></div>
+      <div class="launcher-item" onclick="goApp('perms')"><div class="launcher-icon" style="background:#5C5C5C;">🔑</div><div class="launcher-name">Permission Sets</div><div class="launcher-lic">Platform</div></div>
+      <div class="launcher-item" onclick="goApp('flow')"><div class="launcher-icon" style="background:#FF9A3C;">⚡</div><div class="launcher-name">Flow Builder</div><div class="launcher-lic">Platform</div></div>
+      <div class="launcher-item" onclick="goApp('mule')"><div class="launcher-icon" style="background:#00A3E0;">🔌</div><div class="launcher-name">MuleSoft Anypoint</div><div class="launcher-lic">Integration</div></div>
+      <div class="launcher-item" onclick="goApp('ca')"><div class="launcher-icon" style="background:#FFB75D;">📊</div><div class="launcher-name">CRM Analytics</div><div class="launcher-lic">Analytics</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SALES CLOUD ============ -->
+<div class="app-pg" id="pg-sales">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Sales Cloud</a> › <a>Accounts</a> › NVIDIA Corp</div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon" style="background:#0070D2;">☁</div>
+      <div>
+        <div class="sf-record-title">NVIDIA Corp · NVDA-001</div>
+        <div class="sf-record-sub">Account · Owner A. Squeri · 12 opportunities · 38 contacts · 3 record types (Customer · Prospect · Distributor)</div>
+      </div>
+      <div class="sf-record-actions">
+        <button class="sf-btn sf-btn-sm">Edit</button>
+        <button class="sf-btn sf-btn-sm">Sharing</button>
+        <button class="sf-btn sf-btn-sm">Printable View</button>
+        <button class="sf-btn sf-btn-sm">Change Owner</button>
+        <button class="sf-btn sf-btn-primary sf-btn-sm">+ New Opportunity</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-record-fields">
+    <div class="sf-rf"><div class="sf-rf-l">Account Number</div><div class="sf-rf-v">NVDA-001</div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Industry</div><div class="sf-rf-v">Semiconductors</div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Billing Country</div><div class="sf-rf-v">US</div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Annual Revenue</div><div class="sf-rf-v">$60.9B</div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Tier</div><div class="sf-rf-v"><span class="sf-pill sf-pill-green">Tier 1</span></div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Hierarchy</div><div class="sf-rf-v link">3 child accounts</div></div>
+  </div>
+
+  <div class="sf-rec-tabs">
+    <div class="sf-rec-tab on">Related</div>
+    <div class="sf-rec-tab">Details</div>
+    <div class="sf-rec-tab">News</div>
+    <div class="sf-rec-tab">Activity</div>
+    <div class="sf-rec-tab">Chatter</div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-banner sf-banner-info">
+      <div>☁</div>
+      <div><b>Sales Cloud is the foundation</b> — Account, Contact, Opportunity, Lead, Activity, Task, Event, Campaign. Required for any other Salesforce product to function. The OEM hierarchy and ship-to relationships live here as native Account records with parent/child relationships.</div>
+    </div>
+
+    <div class="sf-grid-2">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">Account hierarchy <span class="sf-pill sf-pill-green">OOB · standard</span></div></div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <thead><tr><th>Account</th><th>Type</th><th>Parent</th><th class="num">Open Opps</th><th class="num">Pipeline $</th></tr></thead>
+              <tbody>
+                <tr><td class="mono"><b>NVIDIA Corp</b> · NVDA-001</td><td><span class="sf-pill sf-pill-blue">Corporate</span></td><td>—</td><td class="num">12</td><td class="num">$148.2M</td></tr>
+                <tr><td>↳ NVIDIA US · NVDA-001-US</td><td><span class="sf-pill sf-pill-blue">Legal entity</span></td><td>NVDA-001</td><td class="num">8</td><td class="num">$96.4M</td></tr>
+                <tr><td>↳↳ NVIDIA San Jose</td><td><span class="sf-pill sf-pill-gray">Ship-to</span></td><td>NVDA-001-US</td><td class="num">3</td><td class="num">$24.7M</td></tr>
+                <tr><td>↳↳ NVIDIA Santa Clara</td><td><span class="sf-pill sf-pill-gray">Ship-to</span></td><td>NVDA-001-US</td><td class="num">2</td><td class="num">$18.4M</td></tr>
+                <tr><td>↳ NVIDIA Taiwan · NVDA-TW-003</td><td><span class="sf-pill sf-pill-blue">Legal entity</span></td><td>NVDA-001</td><td class="num">4</td><td class="num">$51.8M</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">Open Opportunities · NVIDIA Corp</div><span class="sf-pill sf-pill-blue">OOB · standard Pipeline</span></div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <thead><tr><th>Opportunity</th><th>Stage</th><th>Product Family</th><th class="num">Amount</th><th class="num">Probability</th><th>Close Date</th></tr></thead>
+              <tbody>
+                <tr><td class="link">NVIDIA GB200 PSU · FY27</td><td><span class="sf-pill sf-pill-green">Closed Won</span></td><td>GaN</td><td class="num">$8.4M</td><td class="num">100%</td><td class="mono">2025-12-15</td></tr>
+                <tr><td class="link">NVIDIA GB300 expansion</td><td><span class="sf-pill sf-pill-blue">Proposal</span></td><td>GaN</td><td class="num">$14.2M</td><td class="num">75%</td><td class="mono">2026-Q3</td></tr>
+                <tr><td class="link">NVIDIA DGX H200 PSU</td><td><span class="sf-pill sf-pill-warn">Discovery</span></td><td>GaN + SiC</td><td class="num">$22.8M</td><td class="num">25%</td><td class="mono">2026-Q4</td></tr>
+                <tr><td class="link">NVIDIA Edge AI ref design</td><td><span class="sf-pill sf-pill-warn">Discovery</span></td><td>GaN</td><td class="num">$4.1M</td><td class="num">15%</td><td class="mono">2027-Q1</td></tr>
+                <tr><td class="link">NVIDIA HPC liquid cool</td><td><span class="sf-pill sf-pill-blue">Negotiation</span></td><td>SiC</td><td class="num">$11.6M</td><td class="num">60%</td><td class="mono">2026-Q2</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">📋 Design Registration · custom object on Sales Cloud</div><span class="sf-pill sf-pill-blue">Configured</span></div>
+          <div class="sf-card-body" style="font-size:13px;color:var(--sf-text2);line-height:1.6;">
+            <code>Design_Registration__c</code> is configured on the Sales Cloud Platform with 30+ fields including caps, tier locking, FX rate source, EOL window, and multi-distributor allocation. Lookup relationships to Account / Product2 / Distributor__c, validation rules for cap dimensions, an approval process for BU sign-off, and a record-triggered Flow that auto-creates linked Forecast Schedule and Sales Agreement records. Combined with Apex for multi-dimensional cap math.
+          </div>
+        </div>
+
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">Activity Timeline · NVIDIA</div><span class="sf-pill sf-pill-green">OOB</span></div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <tbody>
+                <tr><td><b>2026-04-22</b> · Call logged · A. Squeri</td><td>Q2 forecast review · committed 167K units / mo MP from Mar '27</td></tr>
+                <tr><td><b>2026-04-15</b> · Email · DC sales</td><td>Re: GB300 timeline · expects ramp Q3</td></tr>
+                <tr><td><b>2026-04-08</b> · Meeting · A. Squeri + B. Chen</td><td>QBR · attainment 37% YTD · forecast amend approved</td></tr>
+                <tr><td><b>2026-03-22</b> · Email · Channel ops</td><td>SA-512 amend pending · −150K chassis re-spec</td></tr>
+                <tr><td><b>2026-03-15</b> · Call logged · A. Squeri</td><td>GB200 BU price negotiation · MPP confirmed $1.49</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="sf-rail">
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">Related Lists</div></div>
+          <div class="sf-card-body flush">
+            <table class="sf-table" style="font-size:12px;">
+              <tbody>
+                <tr><td>Opportunities</td><td class="num">12</td></tr>
+                <tr><td>Contacts</td><td class="num">38</td></tr>
+                <tr><td>Cases</td><td class="num">7</td></tr>
+                <tr><td>Tasks &amp; Events</td><td class="num">142</td></tr>
+                <tr><td>Files</td><td class="num">24</td></tr>
+                <tr><td>Notes</td><td class="num">11</td></tr>
+                <tr><td><b>Custom · Design Regs</b></td><td class="num">14</td></tr>
+                <tr><td><b>Custom · Sales Agreements</b></td><td class="num">3</td></tr>
+                <tr><td><b>Custom · Forecast Schedules</b></td><td class="num">14</td></tr>
+                <tr><td><b>Custom · Account Aliases</b></td><td class="num">8</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">📋 Sales Cloud editions</div></div>
+          <div class="sf-card-body" style="font-size:12px;color:var(--sf-text2);line-height:1.7;">
+            <div>Professional · Enterprise · Unlimited tiers available · multi-currency, advanced reporting, and API access included from Enterprise onward. SaaS subscription pricing — see your Salesforce account team for current rates.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MANUFACTURING CLOUD · SALES AGREEMENT ============ -->
+<div class="app-pg on" id="pg-mfg">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Manufacturing Cloud</a> › <a>Sales Agreements</a> › SA-512</div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon">🏭</div>
+      <div>
+        <div class="sf-record-title">SA-512 · NVIDIA · FY26</div>
+        <div class="sf-record-sub">Sales Agreement · Owner A. Squeri · Linked to DR-1209 (custom)</div>
+      </div>
+      <div class="sf-record-actions">
+        <button class="sf-btn sf-btn-sm">+ Recalculate</button>
+        <button class="sf-btn sf-btn-sm">Clone</button>
+        <button class="sf-btn sf-btn-sm">Submit for Approval</button>
+        <button class="sf-btn sf-btn-primary sf-btn-sm">Edit</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-record-fields">
+    <div class="sf-rf"><div class="sf-rf-l">Customer</div><div class="sf-rf-v link">NVIDIA Corp</div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Agreement Term</div><div class="sf-rf-v">FY26 · 12 months</div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Status</div><div class="sf-rf-v"><span class="sf-pill sf-pill-green">Active</span></div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Planned Revenue</div><div class="sf-rf-v">$8,400,000</div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Actual Revenue YTD</div><div class="sf-rf-v">$3,120,000</div></div>
+    <div class="sf-rf"><div class="sf-rf-l">Attainment</div><div class="sf-rf-v">37%</div></div>
+  </div>
+
+  <div class="sf-rec-tabs">
+    <div class="sf-rec-tab on">Related</div>
+    <div class="sf-rec-tab">Details</div>
+    <div class="sf-rec-tab">Forecast Schedule <span class="custom-tag" style="margin-left:6px;">CUSTOM</span></div>
+    <div class="sf-rec-tab">Account Forecast</div>
+    <div class="sf-rec-tab">Attainment</div>
+    <div class="sf-rec-tab">News</div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-grid-2">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+
+        <!-- OOB MFG CLOUD: Sales Agreement Product (vertical, planned_qty per month) -->
+        <div class="sf-card">
+          <div class="sf-card-hdr">
+            <div class="sf-card-title">📅 Sales Agreement Products <span class="sf-pill sf-pill-blue">OOB · Mfg Cloud</span></div>
+            <div style="font-size:11px;color:var(--sf-text3);">2 products · monthly buckets only · no per-month price field</div>
+          </div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <thead><tr><th>Product</th><th class="num">FY26 Planned Qty</th><th class="num">FY26 Planned Revenue</th><th>Implicit price</th><th>Actual YTD</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">GPE0H024W7</td><td class="num">5,600,000</td><td class="num">$8,400,000</td><td><span class="sf-pill sf-pill-gray">$1.50 avg · derived</span></td><td class="num">$3.12M</td></tr>
+                <tr><td class="mono">GP6128</td><td class="num">—</td><td class="num">—</td><td><span class="sf-pill sf-pill-gray">—</span></td><td class="num">—</td></tr>
+              </tbody>
+            </table>
+            <div class="sf-banner sf-banner-info" style="margin:12px 14px;">
+              <div>ℹ️</div>
+              <div>Sales Agreement Product provides the standard quarterly &amp; monthly bucket framework. For time-phased forecasts requiring distinct month-by-month pricing (e.g. prototype at $3 in Dec '26, ramp at $2 in Jan–Feb '27, MP at $1.50 from Mar '27 onward), the implementation extends this with a dedicated <code>Forecast_Schedule_Line__c</code> object — surfaced through the Lightning Web Component below.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Time-phased Forecast Grid (Lightning Web Component) -->
+        <div class="lwc-frame" style="border-color:var(--sf-blue);">
+          <span class="lwc-tag" style="background:var(--sf-blue);">⚡ Lightning Web Component</span>
+          <div class="lwc-hdr" style="background:#EAF5FE;border-bottom-color:#C2DFFF;">
+            <div class="lwc-hdr-l">
+              <span style="color:var(--sf-blue);">⚡</span>
+              <span>Forecast Schedule Grid <span class="custom-tag">Forecast_Schedule_Line__c</span></span>
+            </div>
+            <div class="lwc-hdr-r">c-forecast-schedule-grid · inline editing</div>
+          </div>
+          <div class="fcst-grid">
+            <div class="fcst-row head">
+              <div>Month</div><div>Phase</div><div class="num">Qty</div><div class="num">Unit Price</div><div class="num">Revenue</div><div>Price Basis</div><div class="num">Shipped</div><div>Status</div>
+            </div>
+            <div class="fcst-row"><div class="mono">Dec 2026</div><div><span class="sf-pill sf-pill-warn">Prototype</span></div><div class="num"><span class="fcst-edit">2,000</span></div><div class="num"><span class="fcst-edit">$3.00</span></div><div class="num">$6,000</div><div><span class="sf-pill sf-pill-warn">⚠ Off-tier</span></div><div class="num">—</div><div><span class="sf-pill sf-pill-gray">Future</span></div></div>
+            <div class="fcst-row"><div class="mono">Jan 2027</div><div><span class="sf-pill sf-pill-blue">Ramp</span></div><div class="num"><span class="fcst-edit">10,000</span></div><div class="num"><span class="fcst-edit">$2.00</span></div><div class="num">$20,000</div><div><span class="sf-pill sf-pill-warn">⚠ Off-tier</span></div><div class="num">—</div><div><span class="sf-pill sf-pill-gray">Future</span></div></div>
+            <div class="fcst-row"><div class="mono">Feb 2027</div><div><span class="sf-pill sf-pill-blue">Ramp</span></div><div class="num"><span class="fcst-edit">30,000</span></div><div class="num"><span class="fcst-edit">$2.00</span></div><div class="num">$60,000</div><div><span class="sf-pill sf-pill-warn">⚠ Off-tier</span></div><div class="num">—</div><div><span class="sf-pill sf-pill-gray">Future</span></div></div>
+            <div class="fcst-row"><div class="mono">Mar 2027</div><div><span class="sf-pill sf-pill-green">MP</span></div><div class="num"><span class="fcst-edit">100,000</span></div><div class="num"><span class="fcst-edit">$1.50</span></div><div class="num">$150,000</div><div><span class="sf-pill sf-pill-blue">✓ DBC linked</span></div><div class="num">—</div><div><span class="sf-pill sf-pill-gray">Future</span></div></div>
+            <div class="fcst-row"><div class="mono">Apr 2027</div><div><span class="sf-pill sf-pill-green">MP</span></div><div class="num"><span class="fcst-edit">120,000</span></div><div class="num"><span class="fcst-edit">$1.50</span></div><div class="num">$180,000</div><div><span class="sf-pill sf-pill-blue">✓ DBC linked</span></div><div class="num">—</div><div><span class="sf-pill sf-pill-gray">Future</span></div></div>
+            <div class="fcst-row tot">
+              <div>FY27 Total</div><div></div><div class="num">1,062,000</div><div class="num">$1.55 avg</div><div class="num">$1,646,000</div><div>× 75% conf</div><div class="num">—</div><div>$1.24M weighted</div>
+            </div>
+          </div>
+          <div class="sf-banner sf-banner-info" style="margin:0;border-radius:0;">
+            <div>⚡</div>
+            <div>This grid is delivered as a custom Lightning Web Component on the Salesforce Platform — inline editing, per-cell off-tier flagging, and partner portal variant for distributor self-service. Backed by the canonical <code>Forecast_Schedule__c</code> data model with Base / Upside / Downside scenario support.</div>
+          </div>
+        </div>
+
+        <!-- ACCOUNT FORECAST (OOB) -->
+        <div class="sf-card">
+          <div class="sf-card-hdr">
+            <div class="sf-card-title">📊 Account Forecast · NVIDIA · FY26 quarterly view <span class="sf-pill sf-pill-green">OOB</span></div>
+            <div style="font-size:11px;color:var(--sf-text3);">Manufacturing Cloud native · rolls up from Sales Agreement actuals</div>
+          </div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <thead><tr><th>Period</th><th class="num">Plan Qty</th><th class="num">Plan Revenue</th><th class="num">Actual Qty</th><th class="num">Actual Revenue</th><th class="num">Attainment</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">FY26 Q1</td><td class="num">1,400,000</td><td class="num">$2.10M</td><td class="num">1,470,000</td><td class="num">$2.21M</td><td class="num">105%</td><td><span class="sf-pill sf-pill-green">Closed</span></td></tr>
+                <tr><td class="mono">FY26 Q2</td><td class="num">1,400,000</td><td class="num">$2.10M</td><td class="num">650,000</td><td class="num">$0.91M</td><td class="num">43%</td><td><span class="sf-pill sf-pill-warn">In progress</span></td></tr>
+                <tr><td class="mono">FY26 Q3</td><td class="num">1,400,000</td><td class="num">$2.10M</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><span class="sf-pill sf-pill-blue">Future</span></td></tr>
+                <tr><td class="mono">FY26 Q4</td><td class="num">1,400,000</td><td class="num">$2.10M</td><td class="num">—</td><td class="num">—</td><td class="num">—</td><td><span class="sf-pill sf-pill-blue">Future</span></td></tr>
+                <tr class="total"><td>FY26 Total</td><td class="num">5,600,000</td><td class="num">$8.40M</td><td class="num">2,120,000</td><td class="num">$3.12M</td><td class="num">37%</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ACCOUNT MANAGER TARGETS (OOB) -->
+        <div class="sf-card">
+          <div class="sf-card-hdr">
+            <div class="sf-card-title">🎯 Account Manager Targets · A. Squeri · 2026 <span class="sf-pill sf-pill-green">OOB</span></div>
+            <div style="font-size:11px;color:var(--sf-text3);">Mfg Cloud quota tracking per AM per product family</div>
+          </div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <thead><tr><th>Product Family</th><th>Owner</th><th class="num">Target</th><th class="num">Attained YTD</th><th class="num">% Attained</th><th>Forecast Gap</th></tr></thead>
+              <tbody>
+                <tr><td>GaN Power IC · AI Data Center</td><td>A. Squeri</td><td class="num">$28M</td><td class="num">$11.4M</td><td class="num">41%</td><td><span class="sf-pill sf-pill-green">On track</span></td></tr>
+                <tr><td>GaN Power IC · Consumer</td><td>A. Squeri</td><td class="num">$14M</td><td class="num">$6.2M</td><td class="num">44%</td><td><span class="sf-pill sf-pill-green">On track</span></td></tr>
+                <tr><td>SiC · EV / BESS</td><td>A. Squeri</td><td class="num">$18M</td><td class="num">$4.1M</td><td class="num">23%</td><td><span class="sf-pill sf-pill-warn">−$2.4M risk</span></td></tr>
+                <tr><td>SiC · Industrial</td><td>A. Squeri</td><td class="num">$8M</td><td class="num">$1.8M</td><td class="num">23%</td><td><span class="sf-pill sf-pill-warn">−$1.1M risk</span></td></tr>
+                <tr class="total"><td colspan="2">Total 2026</td><td class="num">$68M</td><td class="num">$23.5M</td><td class="num">35%</td><td>—</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- SALES AGREEMENTS LIST -->
+        <div class="sf-card">
+          <div class="sf-card-hdr">
+            <div class="sf-card-title">📑 Sales Agreements · all active <span class="sf-pill sf-pill-green">OOB Mfg Cloud</span></div>
+            <div style="font-size:11px;color:var(--sf-text3);">38 active agreements · sorted by attainment risk</div>
+          </div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <thead><tr><th>Agreement</th><th>OEM</th><th>Linked DR</th><th class="num">Plan FY26</th><th class="num">Shipped</th><th class="num">Attainment</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td class="mono">SA-512</td><td>NVIDIA</td><td class="mono">DR-1209</td><td class="num">$8.40M</td><td class="num">$3.12M</td><td class="num">37%</td><td><span class="sf-pill sf-pill-warn">Ramp pending</span></td></tr>
+                <tr><td class="mono">SA-419</td><td>Lenovo (Shenzhen)</td><td class="mono">DR-1142</td><td class="num">$2.40M</td><td class="num">$1.87M</td><td class="num">78%</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+                <tr><td class="mono">SA-401</td><td>Anker Innovations</td><td class="mono">DR-0987</td><td class="num">$1.20M</td><td class="num">$1.04M</td><td class="num">87%</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+                <tr><td class="mono">SA-388</td><td>Dell ISG</td><td class="mono">DR-1098</td><td class="num">$2.80M</td><td class="num">$1.97M</td><td class="num">70%</td><td><span class="sf-pill sf-pill-warn">Under</span></td></tr>
+                <tr><td class="mono">SA-604</td><td>Tesla Megapack</td><td class="mono">DR-1188</td><td class="num">$1.18M</td><td class="num">$0.41M</td><td class="num">35%</td><td><span class="sf-pill sf-pill-warn">Ramp pending</span></td></tr>
+                <tr><td class="mono">SA-272</td><td>ABB Robotics</td><td class="mono">DR-1119</td><td class="num">$1.46M</td><td class="num">$0.34M</td><td class="num">23%</td><td><span class="sf-pill sf-pill-error">At risk</span></td></tr>
+                <tr><td class="mono">SA-555</td><td>Schneider Electric</td><td class="mono">DR-1175</td><td class="num">$2.18M</td><td class="num">$0.71M</td><td class="num">33%</td><td><span class="sf-pill sf-pill-warn">Under</span></td></tr>
+                <tr><td class="mono">SA-298</td><td>Belkin</td><td class="mono">DR-1077</td><td class="num">$0.84M</td><td class="num">$0.81M</td><td class="num">96%</td><td><span class="sf-pill sf-pill-green">On track</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ARCHITECTURE TABLE -->
+        <div class="sf-card">
+          <div class="sf-card-hdr">
+            <div class="sf-card-title">🔗 Solution architecture · components delivered</div>
+            <span class="sf-pill sf-pill-blue">Salesforce Platform</span>
+          </div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <thead><tr><th>Component</th><th>Salesforce product</th><th>Type</th></tr></thead>
+              <tbody>
+                <tr><td>Sales Agreement object</td><td>Manufacturing Cloud</td><td><span class="sf-pill sf-pill-green">Standard</span></td></tr>
+                <tr><td>Monthly bucket framework (planned_qty)</td><td>Manufacturing Cloud</td><td><span class="sf-pill sf-pill-green">Standard</span></td></tr>
+                <tr><td><span class="custom-tag">Forecast_Schedule__c</span> object</td><td>Platform · Object Manager</td><td><span class="sf-pill sf-pill-purple">Configured</span></td></tr>
+                <tr><td><span class="custom-tag">Forecast_Schedule_Line__c</span> (year_month, qty, unit_price, phase)</td><td>Platform · Object Manager</td><td><span class="sf-pill sf-pill-purple">Configured</span></td></tr>
+                <tr><td><span class="custom-tag">Forecast_Scenario__c</span> (Base/Upside/Downside)</td><td>Platform · Object Manager</td><td><span class="sf-pill sf-pill-purple">Configured</span></td></tr>
+                <tr><td>3-tier price book (List/DBC/MPP)</td><td>Revenue Cloud Advanced</td><td><span class="sf-pill sf-pill-green">Standard</span></td></tr>
+                <tr><td>Off-tier detection</td><td>Flow Builder</td><td><span class="sf-pill sf-pill-purple">Declarative Flow</span></td></tr>
+                <tr><td>Inline editable grid + per-cell off-tier flag</td><td>Lightning Web Component</td><td><span class="sf-pill sf-pill-blue">LWC</span></td></tr>
+                <tr><td>Demand publish to ERP / MES</td><td>MuleSoft Anypoint</td><td><span class="sf-pill sf-pill-blue">DataWeave flow</span></td></tr>
+                <tr><td>Forecast version snapshot</td><td>Flow Builder</td><td><span class="sf-pill sf-pill-purple">Declarative Flow</span></td></tr>
+                <tr><td>Approval routing for amends</td><td>Approval Process</td><td><span class="sf-pill sf-pill-purple">Declarative</span></td></tr>
+                <tr><td>Cross-cloud publish</td><td>MuleSoft Anypoint</td><td><span class="sf-pill sf-pill-blue">Integration</span></td></tr>
+                <tr><td>Scenario rollup analytics</td><td>CRM Analytics</td><td><span class="sf-pill sf-pill-purple">Dashboard</span></td></tr>
+                <tr><td>Partner portal grid variant</td><td>Experience Cloud + LWC</td><td><span class="sf-pill sf-pill-blue">LWC</span></td></tr>
+                <tr><td>EOL auto-zero</td><td>Schedule-Triggered Flow / Apex batch</td><td><span class="sf-pill sf-pill-purple">Declarative + Apex</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT RAIL: Salesforce platform info -->
+      <div class="sf-rail">
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">☁ Salesforce Platform</div></div>
+          <div class="sf-card-body" style="font-size:12px;color:var(--sf-text2);line-height:1.7;">
+            <div><b style="color:var(--sf-text);">Hosting</b> · Multi-tenant SaaS · hosted by Salesforce</div>
+            <div style="margin-top:6px;"><b style="color:var(--sf-text);">SLA</b> · 99.9% uptime guarantee</div>
+            <div style="margin-top:6px;"><b style="color:var(--sf-text);">Releases</b> · 3× / year (Spring · Summer · Winter)</div>
+            <div style="margin-top:6px;"><b style="color:var(--sf-text);">Data residency</b> · Configurable per region (US · EU · APAC · Japan)</div>
+            <div style="margin-top:6px;"><b style="color:var(--sf-text);">Compliance</b> · SOC 1/2/3 · ISO 27001 · HIPAA · GDPR · CCPA</div>
+          </div>
+        </div>
+
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">📦 Products in use</div></div>
+          <div class="sf-card-body flush">
+            <table class="sf-table">
+              <tbody>
+                <tr><td>Sales Cloud</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+                <tr><td>Manufacturing Cloud</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+                <tr><td>Revenue Cloud Advanced</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+                <tr><td>Channel Revenue Management</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+                <tr><td>Experience Cloud</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+                <tr><td>CRM Analytics</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+                <tr><td>MuleSoft Anypoint</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="sf-card">
+          <div class="sf-card-hdr"><div class="sf-card-title">🔗 Integrations live</div></div>
+          <div class="sf-card-body" style="font-size:12px;color:var(--sf-text2);line-height:1.7;">
+            <div>• MuleSoft flows for ERP ↔ Salesforce data sync</div>
+            <div>• EDI 850/855/867/852 for both distributors</div>
+            <div>• SAML SSO with Avnet (Okta) + WT Micro (Azure AD)</div>
+            <div>• SIEM event forwarding for security monitoring</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ RCA · PRICEBOOK ============ -->
+<div class="app-pg" id="pg-rca">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Revenue Cloud Advanced</a> › <a>Pricebooks</a> › Standard 2026</div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon" style="background:#06A59A;">💰</div>
+      <div>
+        <div class="sf-record-title">Standard Pricebook · 2026 GaN/SiC</div>
+        <div class="sf-record-sub">PricebookEntry · Contract Item Prices · 3-tier waterfall config</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-banner sf-banner-info">
+      <div>ℹ️</div>
+      <div><b>RCA supports tiered pricing OOB</b> via Pricebook2 + PricebookEntry + Contract Item Price. List / DBC / MPP modeled as separate price entries with effective dates. But — the per-month price override on the forecast grid lives on the custom <code>Forecast_Schedule_Line__c</code> object, not here. RCA tells you what the tier <i>should</i> be; the forecast tells you what sales actually expects.</div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">PricebookEntry · per part per distributor <span class="sf-pill sf-pill-green">OOB · RCA</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">7 entries shown · effective_from 2025-01-15</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Product</th><th>Distributor</th><th class="num">List</th><th class="num">DBC</th><th class="num">MPP Floor</th><th>Currency</th><th>Effective</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">GPE0H024W7</td><td>Avnet Americas</td><td class="num">$1.84</td><td class="num">$1.67</td><td class="num">$1.49</td><td>USD</td><td class="mono">2025-01-15</td></tr>
+            <tr><td class="mono">GP6128</td><td>Avnet Americas</td><td class="num">$2.18</td><td class="num">$1.94</td><td class="num">$1.71</td><td>USD</td><td class="mono">2024-09-01</td></tr>
+            <tr><td class="mono">GP6169</td><td>Avnet Americas</td><td class="num">$3.42</td><td class="num">$3.05</td><td class="num">$2.68</td><td>USD</td><td class="mono">2024-09-01</td></tr>
+            <tr><td class="mono">SC25MPS06A</td><td>Avnet Americas</td><td class="num">$48.20</td><td class="num">$42.40</td><td class="num">$36.80</td><td>USD</td><td class="mono">2025-04-01</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PRODUCT CATALOG -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📦 Product2 catalog · 328 active SKUs <span class="sf-pill sf-pill-green">OOB · RCA</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">Synced from ERP via MuleSoft I-7 · Product Family + Product Code</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Product Code</th><th>Name</th><th>Family</th><th>BU__c</th><th>Std Cost</th><th>EOL Status</th><th>Successor</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">GPE0H024W7</td><td>GaNSense Half-Bridge IC</td><td>GaN</td><td>GaN</td><td class="num">$0.92</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>—</td></tr>
+            <tr><td class="mono">GP6128</td><td>GaNFast 650V 80mΩ</td><td>GaN</td><td>GaN</td><td class="num">$0.74</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>—</td></tr>
+            <tr><td class="mono">GP6128B</td><td>GaNFast 650V 80mΩ Gen2</td><td>GaN</td><td>GaN</td><td class="num">$0.74</td><td><span class="sf-pill sf-pill-blue">Planned</span></td><td>—</td></tr>
+            <tr><td class="mono">GP6169</td><td>GaNFast 650V TOLL</td><td>GaN</td><td>GaN</td><td class="num">$1.42</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>—</td></tr>
+            <tr><td class="mono">GP6172</td><td>GaNFast 650V PQFN 4×6</td><td>GaN</td><td>GaN</td><td class="num">$1.18</td><td><span class="sf-pill sf-pill-warn">Last-time-buy</span></td><td class="mono">GP6172A</td></tr>
+            <tr><td class="mono">SC25MPS06A</td><td>SiC MOSFET 1200V 25mΩ</td><td>SiC</td><td>SiC</td><td class="num">$24.40</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>—</td></tr>
+            <tr><td class="mono">SC45MPS12</td><td>SiC MOSFET 1200V 45mΩ</td><td>SiC</td><td>SiC</td><td class="num">$36.10</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>—</td></tr>
+            <tr><td class="mono">SC60MPS17</td><td>SiC MOSFET 1700V 60mΩ</td><td>SiC</td><td>SiC</td><td class="num">$48.20</td><td><span class="sf-pill sf-pill-warn">EOL announced</span></td><td class="mono">SC60MPS17B</td></tr>
+          </tbody>
+        </table>
+        <div class="sf-banner sf-banner-warn" style="margin:12px 14px;">
+          <div>⚠️</div>
+          <div><b>BU__c, std_cost, EOL Status, EOL claim window, Successor</b> are all custom fields on the standard Product2 object — declarative additions, but require validation rules and Flow to keep ERP-synced. <b>Application focus, BOM bundles, RoHS/REACH compliance flags</b> all custom fields too.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUOTES -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📝 Quote · Q-NV-1011 · NVIDIA · Avnet <span class="sf-pill sf-pill-green">OOB · RCA</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">Quote object with QuoteLineItem (8 fields) · linked Opportunity</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Line</th><th>Product</th><th class="num">Qty</th><th class="num">List Price</th><th class="num">Tier Price</th><th class="num">Discount</th><th class="num">Net Unit</th><th class="num">Subtotal</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td class="mono">GPE0H024W7</td><td class="num">167,000</td><td class="num">$1.84</td><td class="num">$1.67 (DBC)</td><td class="num">0.0%</td><td class="num">$1.67</td><td class="num">$278,890</td></tr>
+            <tr class="total"><td colspan="7">Total</td><td class="num">$278,890</td></tr>
+          </tbody>
+        </table>
+        <div style="padding:10px 14px;background:var(--sf-bg2);font-size:11px;color:var(--sf-text3);">Approval routed automatically — deviation 0.0% &lt; 5% auto-threshold · Status: Sent to disti</div>
+      </div>
+    </div>
+
+    <!-- ORDER MANAGEMENT -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📦 Order · ORD-NV-1011 · ERP fulfillment status <span class="sf-pill sf-pill-green">OOB · RCA + OMS</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">Order Management for Salesforce · status writeback from ERP via MuleSoft I-9</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Order</th><th>OEM</th><th>Distributor</th><th>BU / Legal Entity</th><th class="num">Qty</th><th>Status</th><th>Ship Date</th><th>Sales Doc</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">ORD-NV-1011</td><td>NVIDIA</td><td>Avnet</td><td>GaN · Acme GaN Inc.</td><td class="num">167,000</td><td><span class="sf-pill sf-pill-green">Shipped &amp; Invoiced</span></td><td class="mono">2026-04-26</td><td class="mono">SD-44099</td></tr>
+            <tr><td class="mono">ORD-2294</td><td>Anker</td><td>Avnet</td><td>GaN · Acme GaN Inc.</td><td class="num">38,400</td><td><span class="sf-pill sf-pill-warn">In Production</span></td><td class="mono">2026-05-08 (est)</td><td class="mono">—</td></tr>
+            <tr><td class="mono">ORD-2301a</td><td>Vertiv</td><td>Avnet</td><td>GaN · Acme GaN Inc.</td><td class="num">360,000</td><td><span class="sf-pill sf-pill-blue">Confirmed</span></td><td class="mono">2026-05-22 (est)</td><td class="mono">—</td></tr>
+            <tr><td class="mono">ORD-2301b</td><td>Vertiv</td><td>Avnet</td><td>SiC · Acme SiC Inc.</td><td class="num">10,500</td><td><span class="sf-pill sf-pill-blue">Confirmed</span></td><td class="mono">2026-06-01 (est)</td><td class="mono">—</td></tr>
+          </tbody>
+        </table>
+        <div class="sf-banner sf-banner-warn" style="margin:12px 14px;">
+          <div>⚠️</div>
+          <div><b>Mixed-BU auto-split (ORD-2301a + ORD-2301b)</b> — the single Avnet PO with GaN + SiC lines is split into two ERP orders, routed to the correct legal entity. Implemented via Apex on Order with the canonical BU tag on each Product2.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDI INBOX -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📥 EDI 850 inbound · validation queue <span class="sf-pill sf-pill-warn">Custom Apex + MuleSoft</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">Custom Apex to validate PO against quote · ack via EDI 855 outbound</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>PO Ref</th><th>Distributor</th><th>Quote</th><th class="num">Δ qty</th><th class="num">Δ price</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">AV-PO-89001</td><td>Avnet</td><td class="mono">Q-NV-1011</td><td class="num">0%</td><td class="num">0%</td><td><span class="sf-pill sf-pill-green">855 sent · Order released</span></td></tr>
+            <tr><td class="mono">WT-778219</td><td>WT Micro</td><td class="mono">Q-2278</td><td class="num">+2%</td><td class="num">−6.2%</td><td><span class="sf-pill sf-pill-warn">Sales Ops review</span></td></tr>
+            <tr><td class="mono">AV-PO-89441</td><td>Avnet</td><td class="mono">Q-2289</td><td class="num">0%</td><td class="num">−3.1%</td><td><span class="sf-pill sf-pill-warn">BU Mgr review</span></td></tr>
+            <tr><td class="mono">WT-778294</td><td>WT Micro</td><td class="mono">Q-2294</td><td class="num">0%</td><td class="num">0%</td><td><span class="sf-pill sf-pill-green">855 sent</span></td></tr>
+            <tr><td class="mono">AV-PO-89544</td><td>Avnet</td><td class="mono">— (no match)</td><td class="num">—</td><td class="num">—</td><td><span class="sf-pill sf-pill-error">No quote match</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- APPROVAL WORKFLOW -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📋 Quote Discount Approval Process <span class="sf-pill sf-pill-purple">Declarative</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">Standard Salesforce Approval Process · multi-step routing by $ threshold</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Step</th><th>Condition</th><th>Approver Role</th><th>SLA</th><th>Action on Reject</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Deviation 0–5%</td><td>Auto-approve</td><td>Instant</td><td>—</td></tr>
+            <tr><td>2</td><td>Deviation 5–10% &amp; &lt;$250K</td><td>Sales Ops</td><td>4 hrs</td><td>Return to rep</td></tr>
+            <tr><td>3</td><td>Deviation 5–10% &amp; ≥$250K</td><td>BU Manager</td><td>1 day</td><td>Escalate to CCO</td></tr>
+            <tr><td>4</td><td>Deviation 10–20% (any value)</td><td>CCO</td><td>1 day</td><td>Reject + reason</td></tr>
+            <tr><td>5</td><td>Deviation &gt;20%</td><td>CCO + CFO</td><td>2 days</td><td>Hard reject</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📋 Price Change Request · downstream impact preview</div>
+        <span class="sf-pill sf-pill-blue">Custom object + LWC</span>
+      </div>
+      <div class="sf-card-body">
+        <p style="font-size:13px;color:var(--sf-text2);line-height:1.6;">A custom <code>Price_Change_Request__c</code> object orchestrates effective-dated tier changes with a downstream impact preview shown before publish — affected DRs, open quotes, EDI in flight, PUI accrual estimate, customer notifications. Approval Process routes by dollar threshold.</p>
+        <ul style="margin-top:10px;font-size:12px;color:var(--sf-text2);line-height:1.7;padding-left:18px;">
+          <li><code>Price_Change_Request__c</code> custom object with effective_date, direction (forward/retroactive), proposer/approver fields</li>
+          <li>Apex aggregator queries DRs, Quotes, Orders, Forecast Schedule Lines, and PUI buckets to compute impact</li>
+          <li>Lightning Web Component modal renders the impact preview before approval</li>
+          <li>Approval Process for sign-off routing (declarative)</li>
+          <li>Schedule-Triggered Flow fires the price-protection JE on effective date</li>
+          <li>Record-Triggered Flow notifies affected forecast lines</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ChRM ============ -->
+<div class="app-pg" id="pg-chrm">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Channel Revenue Management</a> › <a>Programs</a></div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon">🔄</div>
+      <div>
+        <div class="sf-record-title">Ship & Debit Programs · Q2 2026</div>
+        <div class="sf-record-sub">Native ChRM · Programs, PUI, Claims, Aggregates</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-banner sf-banner-info">
+      <div>ℹ️</div>
+      <div><b>ChRM ships the core claim adjudication primitives OOB</b> — Programs, PUI buckets, POS records, Claims, Claim Aggregates, Data Processing Engine (DPE). Solid foundation for the Ship & Debit half. The custom work happens at the edges: GL-level accounting depth (14 JE templates beyond ChRM's claim aggregate writeback), 5-dim cap engine, three debit methods, margin pollution analytics.</div>
+    </div>
+
+    <!-- ChRM KPIs -->
+    <div class="sf-grid-3">
+      <div class="ca-tile">
+        <div class="ca-tile-lbl">PUI Open Balance</div>
+        <div class="ca-tile-val">$28.6M</div>
+        <div class="ca-tile-sub">2.1M units · 38 SKUs · ChRM ledger</div>
+      </div>
+      <div class="ca-tile">
+        <div class="ca-tile-lbl">Open Claims</div>
+        <div class="ca-tile-val" style="color:var(--sf-warn);">17</div>
+        <div class="ca-tile-sub">5 short-pay flagged · 4 FX hold</div>
+      </div>
+      <div class="ca-tile">
+        <div class="ca-tile-lbl">Aggregates Ready for ERP</div>
+        <div class="ca-tile-val" style="color:var(--sf-blue);">3</div>
+        <div class="ca-tile-sub">$487K · next I-2 batch 06:00</div>
+      </div>
+    </div>
+
+    <!-- PROGRAMS LIST -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📋 Ship &amp; Debit Programs · all active <span class="sf-pill sf-pill-green">OOB ChRM · Rebate_Program__c</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">142 active · sorted by expiration · 38 expiring &lt;90d</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Program</th><th>End Customer</th><th>Distributor</th><th>BU</th><th class="num">Cap</th><th class="num">Used</th><th class="num">Accrual</th><th>Window</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">PRG-2026-G-441</td><td>Lenovo</td><td>WT Micro</td><td><span class="sf-pill sf-pill-purple">GaN</span></td><td class="num">200,000</td><td class="num">141,500 (71%)</td><td class="num">$487K</td><td class="mono">→ 2026-05-03</td><td><span class="sf-pill sf-pill-warn">Expiring</span></td></tr>
+            <tr><td class="mono">PRG-2026-G-389</td><td>Anker Innovations</td><td>Avnet</td><td><span class="sf-pill sf-pill-purple">GaN</span></td><td class="num">60,000</td><td class="num">42,100 (70%)</td><td class="num">$184K</td><td class="mono">→ 2026-09-12</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">PRG-2026-G-512</td><td>NVIDIA</td><td>Avnet</td><td><span class="sf-pill sf-pill-purple">GaN</span></td><td class="num">1,800,000</td><td class="num">365,000 (20%)</td><td class="num">$612K</td><td class="mono">→ 2026-12-31</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">PRG-2026-S-091</td><td>Tesla Megapack</td><td>WT Micro</td><td><span class="sf-pill sf-pill-warn">SiC</span></td><td class="num">24,000</td><td class="num">8,400 (35%)</td><td class="num">$294K</td><td class="mono">→ 2027-03-15</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">PRG-2026-S-104</td><td>ABB Robotics</td><td>Avnet</td><td><span class="sf-pill sf-pill-warn">SiC</span></td><td class="num">18,000</td><td class="num">4,100 (23%)</td><td class="num">$198K</td><td class="mono">→ 2027-01-08</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">PRG-2026-G-301</td><td>Belkin</td><td>WT Micro</td><td><span class="sf-pill sf-pill-purple">GaN</span></td><td class="num">45,000</td><td class="num">38,900 (86%)</td><td class="num">$108K</td><td class="mono">→ 2026-05-29</td><td><span class="sf-pill sf-pill-warn">Expiring</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PUI LEDGER -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📊 PUI Ledger · by part · top exposures <span class="sf-pill sf-pill-green">OOB · PUI_Bucket__c</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">FIFO depletion · ChRM standard sub-ledger</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Part</th><th>BU</th><th class="num">PUI Qty</th><th class="num">PUI Value</th><th class="num">Avg Age</th><th>Top End-Customer</th><th>Tier Mix</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">GP6128</td><td><span class="sf-pill sf-pill-purple">GaN</span></td><td class="num">412,300</td><td class="num">$721K</td><td class="num">42d</td><td>Lenovo, Xiaomi, Samsung</td><td><span class="sf-pill sf-pill-warn">MPP 64%</span> <span class="sf-pill sf-pill-purple">DBC 36%</span></td></tr>
+            <tr><td class="mono">GP6169</td><td><span class="sf-pill sf-pill-purple">GaN</span></td><td class="num">218,700</td><td class="num">$601K</td><td class="num">38d</td><td>Anker, Belkin</td><td><span class="sf-pill sf-pill-warn">MPP 81%</span></td></tr>
+            <tr><td class="mono">GPE0H024W7</td><td><span class="sf-pill sf-pill-purple">GaN</span></td><td class="num">94,200</td><td class="num">$157K</td><td class="num">28d</td><td>NVIDIA, Vertiv</td><td><span class="sf-pill sf-pill-purple">DBC 100%</span></td></tr>
+            <tr><td class="mono">GP6172</td><td><span class="sf-pill sf-pill-purple">GaN</span></td><td class="num">142,800</td><td class="num">$298K</td><td class="num">61d</td><td>Dell ISG</td><td><span class="sf-pill sf-pill-warn">MPP 100%</span></td></tr>
+            <tr><td class="mono">SC25MPS06A</td><td><span class="sf-pill sf-pill-warn">SiC</span></td><td class="num">38,900</td><td class="num">$1.84M</td><td class="num">94d</td><td>Tesla, Schneider</td><td><span class="sf-pill sf-pill-purple">DBC 100%</span></td></tr>
+            <tr><td class="mono">SC45MPS12</td><td><span class="sf-pill sf-pill-warn">SiC</span></td><td class="num">22,400</td><td class="num">$1.47M</td><td class="num">112d</td><td>Schneider, Eaton</td><td><span class="sf-pill sf-pill-warn">MPP 78%</span></td></tr>
+            <tr><td class="mono">SC60MPS17</td><td><span class="sf-pill sf-pill-warn">SiC</span></td><td class="num">14,600</td><td class="num">$1.21M</td><td class="num">128d</td><td>ABB Robotics</td><td><span class="sf-pill sf-pill-purple">DBC 100%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FULL CLAIMS QUEUE -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">⚖️ Claims Adjudication Queue · 17 in review <span class="sf-pill sf-pill-green">OOB Claim__c</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">DPE three-way match · 10 validators · approve / short-pay / reject</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Claim#</th><th>Distributor</th><th>End Customer</th><th>Part</th><th class="num">Qty</th><th class="num">Amount</th><th>Flag</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">NV-CL-4519</td><td>Avnet</td><td>NVIDIA</td><td class="mono">GPE0H024W7</td><td class="num">167,000</td><td class="num">$30,060</td><td><span class="sf-pill sf-pill-green">Auto-validated</span></td><td><span class="sf-pill sf-pill-green">Approved</span></td></tr>
+            <tr><td class="mono">NV-CL-4471</td><td>Avnet</td><td>Anker</td><td class="mono">GP6169</td><td class="num">1,200</td><td class="num">$48,212</td><td><span class="sf-pill sf-pill-error">Below MPP floor</span></td><td><span class="sf-pill sf-pill-warn">Auto short-pay</span></td></tr>
+            <tr><td class="mono">NV-CL-4502</td><td>WT Micro</td><td>Lenovo</td><td class="mono">GP6128</td><td class="num">4,800</td><td class="num">¥312,400</td><td><span class="sf-pill sf-pill-error">FX 4.1% &gt; tol</span></td><td><span class="sf-pill sf-pill-warn">Hold for Finance</span></td></tr>
+            <tr><td class="mono">NV-CL-4528</td><td>WT Micro</td><td>Tesla</td><td class="mono">SC25MPS06A</td><td class="num">2,400</td><td class="num">$8,402</td><td><span class="sf-pill sf-pill-warn">DR expiring &lt;30d</span></td><td><span class="sf-pill sf-pill-warn">In review</span></td></tr>
+            <tr><td class="mono">NV-CL-4533</td><td>Avnet</td><td>Schneider</td><td class="mono">SC45MPS12</td><td class="num">1,600</td><td class="num">$11,920</td><td><span class="sf-pill sf-pill-green">Auto-validated</span></td><td><span class="sf-pill sf-pill-green">Approved</span></td></tr>
+            <tr><td class="mono">NV-CL-4540</td><td>WT Micro</td><td>Xiaomi</td><td class="mono">GP6128</td><td class="num">28,400</td><td class="num">$31,108</td><td><span class="sf-pill sf-pill-warn">Qty exceeds DR cap</span></td><td><span class="sf-pill sf-pill-warn">In review</span></td></tr>
+            <tr><td class="mono">NV-CL-4544</td><td>Avnet</td><td>Belkin</td><td class="mono">GP6169</td><td class="num">1,800</td><td class="num">$4,712</td><td><span class="sf-pill sf-pill-error">Duplicate POS</span></td><td><span class="sf-pill sf-pill-error">Rejected</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CLAIM AGGREGATES -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📤 Claim Aggregates · ready for ERP (I-2) <span class="sf-pill sf-pill-green">OOB ChRM Claim_Aggregate__c</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">DPE batch · 06:00 UTC · auto-post to ERP credit memo via MuleSoft</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Aggregate#</th><th>Period</th><th>Distributor</th><th>BU / Legal Entity</th><th class="num">Claims</th><th class="num">Net Payable</th><th>Mode</th><th>ERP Doc Ref</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">AGG-2026Q2-AV-013</td><td class="mono">2026-04 W17</td><td>Avnet</td><td>GaN · Acme GaN Inc.</td><td class="num">38</td><td class="num">$211,608</td><td><span class="sf-pill sf-pill-blue">Auto-post</span></td><td><span class="sf-pill sf-pill-green">CM-9908 (ERP) ✓</span></td></tr>
+            <tr><td class="mono">AGG-2026Q2-AV-014</td><td class="mono">2026-04 W17</td><td>Avnet</td><td>GaN · Acme GaN Inc.</td><td class="num">42</td><td class="num">$248,712</td><td><span class="sf-pill sf-pill-blue">Auto-post</span></td><td><span class="sf-pill sf-pill-gray">pending I-2</span></td></tr>
+            <tr><td class="mono">AGG-2026Q2-AV-015</td><td class="mono">2026-04 W17</td><td>Avnet</td><td>SiC · Acme SiC Inc.</td><td class="num">11</td><td class="num">$87,420</td><td><span class="sf-pill sf-pill-blue">Auto-post</span></td><td><span class="sf-pill sf-pill-gray">pending I-2</span></td></tr>
+            <tr><td class="mono">AGG-2026Q2-WT-009</td><td class="mono">2026-04 W17</td><td>WT Micro</td><td>GaN · Acme GaN Inc.</td><td class="num">28</td><td class="num">$151,082</td><td><span class="sf-pill sf-pill-warn">Draft</span></td><td><span class="sf-pill sf-pill-gray">Finance review</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DPE RULES -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">⚡ Data Processing Engine (DPE) · Rule Sets v4.2 <span class="sf-pill sf-pill-green">OOB · ChRM DPE</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">6 core rules shown · last published 2026-04-12</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Rule</th><th>Object</th><th>Condition</th><th>Action</th><th class="num">Hits 30d</th><th class="num">Block Rate</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">CLM-001</td><td>Claim</td><td>resale_price &lt; mpp_floor</td><td>Short-pay to floor · FLOOR_VIOL</td><td class="num">487</td><td class="num">12.4%</td></tr>
+            <tr><td class="mono">CLM-002</td><td>Claim</td><td>fx_variance &gt; tolerance</td><td>Hold for Finance · FX_OUT</td><td class="num">42</td><td class="num">100%</td></tr>
+            <tr><td class="mono">CLM-003</td><td>Claim</td><td>qty &gt; quarterly_cap</td><td>Hold · QCAP</td><td class="num">14</td><td class="num">100%</td></tr>
+            <tr><td class="mono">CLM-004</td><td>Claim</td><td>pos_fingerprint duplicate</td><td>Reject · DUP</td><td class="num">21</td><td class="num">100%</td></tr>
+            <tr><td class="mono">CLM-005</td><td>Claim</td><td>resale_date OUTSIDE DR window</td><td>Reject · WINDOW</td><td class="num">8</td><td class="num">100%</td></tr>
+            <tr><td class="mono">POS-001</td><td>POS Line</td><td>end_customer NOT in alias</td><td>Route to unmatched queue</td><td class="num">142</td><td class="num">5.4%</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- THREE-WAY MATCH MOCKUP -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">🔍 Claim NV-CL-4519 · Three-way Match Detail <span class="sf-pill sf-pill-warn">Custom UI for 5-dim caps</span></div>
+      </div>
+      <div class="sf-card-body">
+        <div class="sf-grid-3">
+          <div style="background:var(--sf-success-bg);border:1px solid var(--sf-success);border-radius:4px;padding:12px;">
+            <div style="font-size:10px;font-weight:700;color:var(--sf-success);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">Claim ✓</div>
+            <div style="font-size:11px;line-height:1.7;font-family:var(--mono);">
+              Part · GPE0H024W7<br>
+              Qty · 167,000<br>
+              Method · Resale-based<br>
+              Amount · $30,060
+            </div>
+          </div>
+          <div style="background:var(--sf-success-bg);border:1px solid var(--sf-success);border-radius:4px;padding:12px;">
+            <div style="font-size:10px;font-weight:700;color:var(--sf-success);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">DR-1209 ✓</div>
+            <div style="font-size:11px;line-height:1.7;font-family:var(--mono);">
+              OEM · NVIDIA<br>
+              MPP floor · $1.49<br>
+              Cap remaining · 100,700 ea<br>
+              Window · → 2026-12-31
+            </div>
+          </div>
+          <div style="background:var(--sf-success-bg);border:1px solid var(--sf-success);border-radius:4px;padding:12px;">
+            <div style="font-size:10px;font-weight:700;color:var(--sf-success);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px;">PUI Bucket ✓</div>
+            <div style="font-size:11px;line-height:1.7;font-family:var(--mono);">
+              FIFO order · 1 (oldest)<br>
+              Acq price · $1.67<br>
+              Available · 167,000<br>
+              Status · Depleting →
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ChRM PLATFORM EXTENSIONS -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">⚡ ChRM platform extensions · delivered as part of this implementation</div>
+        <span class="sf-pill sf-pill-blue">Apex + LWC + Flow</span>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Capability</th><th>Implementation approach</th></tr></thead>
+          <tbody>
+            <tr><td>5-dimensional cap engine (quarterly / annual / customer / part / application)</td><td>Apex service layered on ChRM Programs · cross-dimensional validation</td></tr>
+            <tr><td>3 debit methods (resale-based · DRP · NLP)</td><td>Pluggable Apex strategy pattern · selectable per program</td></tr>
+            <tr><td>GL JE templates (14 JEs covering sell-in / sell-through / PP / SR / VR / MDF / FX)</td><td>Apex services + Flow Builder · posts to ERP via MuleSoft I-2</td></tr>
+            <tr><td>Margin pollution analytics</td><td>CRM Analytics datasets &amp; recipes · realized ASP by channel</td></tr>
+            <tr><td>Sub-ledger ↔ GL daily reconciliation</td><td>Apex schedulable batch · variance reporting in CRM Analytics</td></tr>
+            <tr><td>SOX Segregation of Duties enforcement</td><td>Permission sets + sharing rules + Apex guard · creator ≠ approver</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PERMISSION SETS / SHARING ============ -->
+<div class="app-pg" id="pg-perms">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Setup</a> › <a>Permission Sets</a></div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon" style="background:#5C5C5C;">🔑</div>
+      <div>
+        <div class="sf-record-title">Permission Sets · Roles · Sharing Rules</div>
+        <div class="sf-record-sub">Foundation for SOX segregation of duties · 12 core permission sets for the ChRM functionality</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-banner sf-banner-info">
+      <div>🔑</div>
+      <div>Permission sets enforce SoD across Sales Cloud + Manufacturing Cloud + Revenue Cloud Advanced + Channel Revenue Management. Permission set groups, sharing rules, role hierarchy, OWD defaults, and external user sharing rules for partners are all configured as part of the implementation and managed by your Salesforce admin team.</div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr"><div class="sf-card-title">Permission Sets · ChRM functionality</div><span class="sf-pill sf-pill-purple">12 core sets</span></div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Permission Set</th><th>Object Access</th><th>System Permissions</th><th>Assigned Users</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">PS_Claims_Analyst</td><td>Claim__c (R/W), Aggregate (R)</td><td>Approve ≤$10K · No edit own approvals</td><td class="num">8</td></tr>
+            <tr><td class="mono">PS_Channel_Admin</td><td>All ChRM (R/W), Distributor__c (R/W)</td><td>Approve ≤$50K (not own) · Bulk ops</td><td class="num">3</td></tr>
+            <tr><td class="mono">PS_Director_Ops</td><td>All ChRM (R/W), Programs (R/W)</td><td>Approve ≤$250K (not own)</td><td class="num">1</td></tr>
+            <tr><td class="mono">PS_Finance_Analyst</td><td>Journal_Entry__c (R/W), Accrual__c (R)</td><td>Post JE batch · No claim approval</td><td class="num">4</td></tr>
+            <tr><td class="mono">PS_Controller</td><td>All financial objects (R/W)</td><td>Period close + lockdown · Cannot create claims</td><td class="num">1</td></tr>
+            <tr><td class="mono">PS_CFO</td><td>All (R) + approval auth (R/W)</td><td>Approve all · CFO sign-off · Retroactive correction</td><td class="num">1</td></tr>
+            <tr><td class="mono">PS_Sales_Rep</td><td>Account, Opp, DR, Forecast (R/W own)</td><td>Edit own forecasts · No approval auth</td><td class="num">24</td></tr>
+            <tr><td class="mono">PS_BU_Approver</td><td>DR (R/W), Forecast (R) within BU</td><td>Approve DR · BU-scoped</td><td class="num">4</td></tr>
+            <tr><td class="mono">PS_Product_Manager</td><td>Product2 (R/W), Price_Change (R/W draft)</td><td>Propose price change · Cannot approve</td><td class="num">3</td></tr>
+            <tr><td class="mono">PS_Distributor_Portal_User</td><td>Own DR, PUI, Claims (R/W limited)</td><td>External user · License: Partner Community</td><td class="num">42</td></tr>
+            <tr><td class="mono">PS_Demand_Planner</td><td>Forecast, Sales Agreement (R/W)</td><td>Publish demand signal</td><td class="num">2</td></tr>
+            <tr><td class="mono">PS_Auditor_Read_Only</td><td>All (R) · audit pack export</td><td>Big-4 access · time-bound</td><td class="num">5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="sf-grid-2">
+      <div class="sf-card">
+        <div class="sf-card-hdr"><div class="sf-card-title">Sharing Rules · Account-based</div></div>
+        <div class="sf-card-body flush">
+          <table class="sf-table">
+            <thead><tr><th>Rule</th><th>Object</th><th>Access</th></tr></thead>
+            <tbody>
+              <tr><td>Sales rep sees own Account hierarchy</td><td>Account</td><td>R/W</td></tr>
+              <tr><td>Channel Admin sees all GaN BU</td><td>DR, Program, Claim</td><td>R/W</td></tr>
+              <tr><td>Distributor sees own DRs</td><td>DR (criteria: Distributor__c)</td><td>R</td></tr>
+              <tr><td>Distributor sees own Claims</td><td>Claim__c (criteria: Distributor__c)</td><td>R/W on Submitted only</td></tr>
+              <tr><td>Distributor sees own PUI</td><td>PUI_Bucket__c (criteria)</td><td>R</td></tr>
+              <tr><td>Distributor does NOT see std_cost</td><td>Product2 (Field-level security)</td><td>Hidden</td></tr>
+              <tr><td>Distributor does NOT see other distis</td><td>Implicit · OWD Private</td><td>Hidden</td></tr>
+              <tr><td>Finance sees all JEs</td><td>Journal_Entry__c</td><td>R/W</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-card-hdr"><div class="sf-card-title">Role Hierarchy</div></div>
+        <div class="sf-card-body" style="font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--sf-text2);">
+<pre style="white-space:pre-wrap;font-family:var(--mono);">
+CEO
+├── CFO
+│   └── Controller
+│       └── Finance Analyst (4)
+├── CCO
+│   ├── BU Manager (GaN)
+│   │   ├── Channel Sales Manager
+│   │   │   └── Sales Rep (12)
+│   │   └── BU Approver (GaN)
+│   └── BU Manager (SiC)
+│       ├── Channel Sales Manager
+│       │   └── Sales Rep (12)
+│       └── BU Approver (SiC)
+├── COO
+│   └── Director of Ops
+│       ├── Channel Admin (3)
+│       └── Claims Analyst (8)
+└── External · Distributor Portal Users
+    ├── Avnet · 18 users
+    └── WT Micro · 24 users
+</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr"><div class="sf-card-title">🔄 Onboarding playbook</div></div>
+      <div class="sf-card-body" style="font-size:13px;color:var(--sf-text2);line-height:1.6;">
+        Adding a new distributor follows a documented playbook: provision portal users, assign Partner Community license, create permission set group, configure sharing rules, and train. Adding a new BU: clone permission sets, update role hierarchy, audit sharing rules. Managed by your Salesforce admin team with optional managed services support.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ EXPERIENCE CLOUD (PARTNER PORTAL) ============ -->
+<div class="app-pg" id="pg-exp">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Experience Cloud</a> › <a>Sites</a> › Avnet Partner Portal</div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon" style="background:#9050E9;">🌐</div>
+      <div>
+        <div class="sf-record-title">Avnet Partner Portal · Experience Builder</div>
+        <div class="sf-record-sub">LWR site · partner community licensing · role-restricted</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-banner sf-banner-warn">
+      <div>⚠️</div>
+      <div><b>Partner portal forecast grid</b> — a dedicated Experience Cloud variant of the Forecast Schedule grid is provided to distributors, with role-aware fields (internal std_cost hidden), partner-license-friendly Apex services, and consistent inline editing UX.</div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr"><div class="sf-card-title">Configured pages</div></div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Page</th><th>Components</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Distributor home</td><td>OOB cards · my DRs, my PUI, my claims, my forecasts</td><td><span class="sf-pill sf-pill-green">Declarative</span></td></tr>
+            <tr><td>Forecast input</td><td><code>c-forecast-schedule-grid-portal</code></td><td><span class="sf-pill sf-pill-blue">LWC</span></td></tr>
+            <tr><td>POS upload</td><td><code>c-pos-upload</code> + LWC for file validation</td><td><span class="sf-pill sf-pill-blue">LWC</span></td></tr>
+            <tr><td>Claim status</td><td>OOB · related records on Claim object</td><td><span class="sf-pill sf-pill-green">Declarative</span></td></tr>
+            <tr><td>PUI lookup</td><td>OOB Lightning Datatable on PUI_Bucket__c</td><td><span class="sf-pill sf-pill-green">Declarative</span></td></tr>
+            <tr><td>Stock rotation request</td><td>Screen Flow + custom approval</td><td><span class="sf-pill sf-pill-purple">Flow Builder</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- PORTAL USERS -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">👥 Portal Users · Avnet (sample) <span class="sf-pill sf-pill-green">OOB · Partner Community License</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">42 active partner users across Avnet + WT Micro · Partner Community licensing</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>User</th><th>Role</th><th>Region</th><th>Last Login</th><th>Permission Set</th></tr></thead>
+          <tbody>
+            <tr><td>J. Martinez</td><td>Channel Sales Rep</td><td>Americas</td><td class="mono">2026-04-26 14:22</td><td class="mono">PS_Distributor_Portal_User</td></tr>
+            <tr><td>S. Patel</td><td>Channel Sales Mgr</td><td>Americas</td><td class="mono">2026-04-26 09:14</td><td class="mono">PS_Distributor_Portal_Mgr</td></tr>
+            <tr><td>K. Tanaka</td><td>Field App Engineer</td><td>Asia</td><td class="mono">2026-04-25 22:48</td><td class="mono">PS_Distributor_Portal_FAE</td></tr>
+            <tr><td>M. Schultz</td><td>Ops Analyst</td><td>EMEA</td><td class="mono">2026-04-26 08:01</td><td class="mono">PS_Distributor_Portal_Ops</td></tr>
+            <tr><td>L. Chen</td><td>Finance Analyst</td><td>Asia</td><td class="mono">2026-04-24 19:30</td><td class="mono">PS_Distributor_Portal_Finance</td></tr>
+            <tr><td>+ 13 more Avnet users</td><td>—</td><td>—</td><td class="mono">—</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- EXPERIENCE BUILDER CANVAS -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">🎨 Experience Builder · Page Composition <span class="sf-pill sf-pill-purple">Declarative · drag-drop</span></div>
+      </div>
+      <div class="sf-card-body" style="background:var(--sf-bg2);">
+        <div style="background:#fff;border:1px solid var(--sf-border);border-radius:4px;padding:14px;">
+          <div style="display:flex;gap:10px;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--sf-border);margin-bottom:10px;">
+            <div style="background:#9050E9;color:#fff;width:24px;height:24px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;">🌐</div>
+            <span style="font-weight:600;font-size:13px;">avnet-partner.acme.com / forecast-input</span>
+            <span class="sf-pill sf-pill-purple" style="margin-left:auto;">LWR Template</span>
+          </div>
+          <div style="display:grid;grid-template-columns:160px 1fr;gap:10px;">
+            <div style="background:var(--sf-bg2);border:1px dashed var(--sf-border);border-radius:4px;padding:10px;font-size:11px;color:var(--sf-text3);">
+              <div style="font-weight:600;color:var(--sf-text);margin-bottom:6px;">Components Palette</div>
+              <div style="padding:3px 0;">📋 Datatable</div>
+              <div style="padding:3px 0;">📅 Calendar</div>
+              <div style="padding:3px 0;">📤 File Upload</div>
+              <div style="padding:3px 0;">📝 Record Form</div>
+              <div style="padding:3px 0;color:var(--sf-warn);">⚡ c-forecast-grid-portal</div>
+              <div style="padding:3px 0;color:var(--sf-warn);">⚡ c-pos-upload</div>
+            </div>
+            <div style="background:var(--sf-bg2);border:1px dashed var(--sf-border);border-radius:4px;padding:14px;min-height:240px;">
+              <div style="background:#fff;border:1px solid var(--sf-border);border-radius:4px;padding:10px;margin-bottom:10px;">
+                <div style="font-size:11px;color:var(--sf-text3);">Header banner · "Avnet Channel Portal"</div>
+              </div>
+              <div style="background:#fff;border:1px solid var(--sf-border);border-radius:4px;padding:10px;margin-bottom:10px;">
+                <div style="font-size:11px;color:var(--sf-text3);">KPI tiles row · my DRs, my PUI, my claims</div>
+              </div>
+              <div style="background:#FFF8E1;border:2px dashed var(--sf-warn);border-radius:4px;padding:10px;">
+                <div style="font-size:11px;color:var(--sf-warn);font-weight:600;">⚡ c-forecast-schedule-grid-portal · custom LWC</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sf-banner sf-banner-warn" style="margin-top:14px;">
+          <div>⚠️</div>
+          <div><b>Experience Builder</b> composes the portal page through drag-and-drop. Lightning Web Components (highlighted in the canvas) deliver the inline-editable grid, with Apex services behind them. Permission sets, sharing rules, branding, and login flow are configured as part of the implementation.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SSO & LOGIN -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">🔐 SSO &amp; Login Configuration <span class="sf-pill sf-pill-purple">Declarative</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">SAML 2.0 federation with distributor IdP</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Distributor</th><th>IdP</th><th>Protocol</th><th>Just-In-Time Provisioning</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Avnet</td><td>Okta · avnet.okta.com</td><td>SAML 2.0</td><td>Auto-create + role mapping</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>WT Microelectronics</td><td>Azure AD · wtmec.onmicrosoft.com</td><td>SAML 2.0</td><td>Auto-create + role mapping</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SETUP · OBJECT MANAGER ============ -->
+<div class="app-pg" id="pg-setup">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Setup</a> › <a>Object Manager</a></div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon" style="background:#5C5C5C;">⚙</div>
+      <div>
+        <div class="sf-record-title">Object Manager · Custom Objects</div>
+        <div class="sf-record-sub">Custom objects required to support forecast functionality on Salesforce</div>
+      </div>
+      <div class="sf-record-actions">
+        <button class="sf-btn sf-btn-primary sf-btn-sm">+ New Custom Object</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-card">
+      <div class="sf-card-hdr"><div class="sf-card-title">Custom objects built for this feature</div><span class="sf-pill sf-pill-warn">Low-code · Object Manager</span></div>
+      <div class="sf-card-body flush">
+        <div class="om-row head"><div>Object Label</div><div>API Name</div><div>Parent / Lookup</div><div>Records</div></div>
+        <div class="om-row"><div>Forecast Schedule</div><div class="mono">Forecast_Schedule__c</div><div class="mono">Design_Registration__c</div><div>142</div></div>
+        <div class="om-row"><div>Forecast Schedule Line</div><div class="mono">Forecast_Schedule_Line__c</div><div class="mono">Forecast_Schedule__c</div><div>3,408</div></div>
+        <div class="om-row"><div>Forecast Scenario</div><div class="mono">Forecast_Scenario__c</div><div class="mono">Forecast_Schedule__c</div><div>426 (3×142)</div></div>
+        <div class="om-row"><div>Forecast Version</div><div class="mono">Forecast_Version__c</div><div class="mono">Forecast_Schedule__c</div><div>1,184</div></div>
+        <div class="om-row"><div>Forecast Schedule Alert</div><div class="mono">Forecast_Schedule_Alert__c</div><div class="mono">Forecast_Schedule_Line__c</div><div>23</div></div>
+        <div class="om-row"><div>Price Change Request</div><div class="mono">Price_Change_Request__c</div><div class="mono">Product2 · PricebookEntry</div><div>14</div></div>
+        <div class="om-row"><div>Design Registration</div><div class="mono">Design_Registration__c</div><div class="mono">Account · Opportunity</div><div>142</div></div>
+        <div class="om-row"><div>PUI Bucket</div><div class="mono">PUI_Bucket__c</div><div class="mono">Sales_Document__c</div><div>8,412</div></div>
+        <div class="om-row"><div>POS Line</div><div class="mono">POS_Line__c</div><div class="mono">Account · Product2</div><div>4,302</div></div>
+        <div class="om-row"><div>Channel Inventory Adjustment</div><div class="mono">Channel_Inv_Adj__c</div><div class="mono">Distributor__c · Product2</div><div>18</div></div>
+        <div class="om-row"><div>Distributor (Account record type)</div><div class="mono">Account (RT: Distributor)</div><div class="mono">Standard Account</div><div>7</div></div>
+        <div class="om-row"><div>Account Alias</div><div class="mono">Account_Alias__c</div><div class="mono">Account</div><div>312</div></div>
+      </div>
+    </div>
+
+    <div class="sf-banner sf-banner-custom">
+      <div>📐</div>
+      <div><b>12 custom objects</b> model the Channel Revenue Management data layer on the Salesforce Platform. Each object includes page layouts, list views, validation rules, sharing rules, permission sets, field history tracking, and (for grid-displayed records) Lightning Web Component editors — all configured as part of the implementation.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ FLOW BUILDER ============ -->
+<div class="app-pg" id="pg-flow">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Setup</a> › <a>Flows</a> › Forecast Line · Off-Tier Detection</div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon" style="background:#FF9A3C;">⚡</div>
+      <div>
+        <div class="sf-record-title">Flow · Forecast Line · Off-Tier Detection</div>
+        <div class="sf-record-sub">Record-Triggered Flow · runs after save on Forecast_Schedule_Line__c</div>
+      </div>
+      <div class="sf-record-actions">
+        <button class="sf-btn sf-btn-sm">Debug</button>
+        <button class="sf-btn sf-btn-primary sf-btn-sm">Activate</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-banner sf-banner-info">
+      <div>⚡</div>
+      <div><b>This flow is fully declarative</b> — built in Flow Builder, no code. Sets <code>is_off_tier__c</code> when the manual unit price doesn't match any active Price Tier for the part / distributor / effective-month. Triggers on record save. A companion Apex service handles cross-object alerts when a Price Tier change publishes, optimized for scale.</div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr"><div class="sf-card-title">Flow canvas</div><span class="sf-pill sf-pill-purple">Declarative</span></div>
+      <div class="sf-card-body">
+        <div class="flow-canvas">
+          <div class="flow-node start">
+            <div class="flow-node-icon">▶ Start</div>
+            <div class="flow-node-title">Record-Triggered · Forecast_Schedule_Line__c</div>
+          </div>
+          <div class="flow-arr">↓</div>
+          <div class="flow-node action">
+            <div class="flow-node-icon">Get Records</div>
+            <div class="flow-node-title">Find active Price Tier for {part, disti, month}</div>
+          </div>
+          <div class="flow-arr">↓</div>
+          <div class="flow-node decision">
+            <div class="flow-node-icon">Decision</div>
+            <div class="flow-node-title">Does unit_price match List, DBC, or MPP?</div>
+          </div>
+          <div style="display:flex;gap:80px;align-items:center;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+              <div style="font-size:10px;color:var(--sf-text3);font-weight:600;">YES — matches a tier</div>
+              <div class="flow-arr">↓</div>
+              <div class="flow-node action">
+                <div class="flow-node-icon">Update Record</div>
+                <div class="flow-node-title">is_off_tier__c = false<br>matched_tier__c = (List|DBC|MPP)</div>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+              <div style="font-size:10px;color:var(--sf-text3);font-weight:600;">NO — manual override</div>
+              <div class="flow-arr">↓</div>
+              <div class="flow-node action">
+                <div class="flow-node-icon">Update Record</div>
+                <div class="flow-node-title">is_off_tier__c = true<br>price_basis__c = 'manual'</div>
+              </div>
+            </div>
+          </div>
+          <div class="flow-arr">↓</div>
+          <div class="flow-node end">
+            <div class="flow-node-icon">End</div>
+            <div class="flow-node-title">UI shows warning ⚠ — rep override allowed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr"><div class="sf-card-title">Related Flows in this org</div></div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Flow Name</th><th>Type</th><th>Status</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>Forecast Line · Off-Tier Detection</td><td>Record-Triggered</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>Above</td></tr>
+            <tr><td>Forecast Schedule · Version Snapshot on Save</td><td>Record-Triggered</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>Clones lines to Forecast_Version__c</td></tr>
+            <tr><td>Price Tier · Affected Forecast Alert</td><td>Record-Triggered + Apex helper</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>Bulkified for scale</td></tr>
+            <tr><td>EOL · Zero Future Forecast Lines</td><td>Schedule-Triggered (nightly)</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>Apex batch alternative built</td></tr>
+            <tr><td>Forecast Schedule · Approval Routing</td><td>Approval Process</td><td><span class="sf-pill sf-pill-green">Active</span></td><td>Manager → CCO based on $ threshold</td></tr>
+            <tr><td>Scenario Rollup Aggregator</td><td>Apex Trigger</td><td><span class="sf-pill sf-pill-blue">Apex</span></td><td>Bulkified for scale</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MULESOFT ANYPOINT ============ -->
+<div class="app-pg" id="pg-mule">
+  <div class="sf-record-hdr" style="background:#0F1722;border-bottom:1px solid #303A52;color:#E8EAED;">
+    <div class="sf-record-bc" style="color:#8893A7;"><a style="color:#C3E88D;">Anypoint Platform</a> › <a style="color:#C3E88D;">Design Center</a> › Forecast Demand Publish</div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon" style="background:var(--sf-mulesoft);">🔌</div>
+      <div>
+        <div class="sf-record-title" style="color:#E8EAED;">Mule Application · forecast-demand-publish-flow</div>
+        <div class="sf-record-sub" style="color:#8893A7;">Publishes hand-typed monthly forecasts to ERP / MES at month-level granularity</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-banner sf-banner-warn">
+      <div>🔌</div>
+      <div>MuleSoft Anypoint orchestrates the demand-publish integration. The DataWeave mapping below preserves the per-month qty + price + phase from <code>Forecast_Schedule_Line__c</code> through to your ERP / MES / demand-planning tool — month-level granularity is honored end-to-end so the forecast your sales rep typed is the forecast supply planning consumes.</div>
+    </div>
+
+    <div class="anypoint-frame">
+      <div class="anypoint-tabs">
+        <div class="anypoint-tab on">forecast-demand-publish.xml</div>
+        <div class="anypoint-tab">transform-message.dwl</div>
+        <div class="anypoint-tab">api-spec.raml</div>
+        <div class="anypoint-tab">deployment.yaml</div>
+      </div>
+      <div class="anypoint-body">
+        <div class="anypoint-pane">
+          <div class="anypoint-pane-hdr">Mule Flow XML</div>
+<pre class="dw-line" style="white-space:pre-wrap;">
+<span class="dw-keyword">&lt;flow</span> <span class="dw-string">name="forecast-demand-publish"</span><span class="dw-keyword">&gt;</span>
+  <span class="dw-keyword">&lt;scheduler&gt;</span>
+    <span class="dw-keyword">&lt;scheduling-strategy&gt;</span>
+      <span class="dw-keyword">&lt;fixed-frequency</span> <span class="dw-string">frequency="86400000"</span><span class="dw-keyword">/&gt;</span>
+    <span class="dw-keyword">&lt;/scheduling-strategy&gt;</span>
+  <span class="dw-keyword">&lt;/scheduler&gt;</span>
+
+  <span class="dw-comment">&lt;!-- Pull approved forecast lines from SF --&gt;</span>
+  <span class="dw-keyword">&lt;salesforce:query</span>
+    <span class="dw-string">config-ref="SF_Mfg_Cloud"</span><span class="dw-keyword">&gt;</span>
+    <span class="dw-keyword">&lt;salesforce:salesforce-query&gt;</span>
+      SELECT Id, Year_Month__c, Qty__c,
+             Unit_Price__c, Phase__c,
+             Forecast_Scenario__r.Confidence__c,
+             Part__r.SKU__c
+      FROM Forecast_Schedule_Line__c
+      WHERE Status__c = 'Approved'
+    <span class="dw-keyword">&lt;/salesforce:salesforce-query&gt;</span>
+  <span class="dw-keyword">&lt;/salesforce:query&gt;</span>
+
+  <span class="dw-keyword">&lt;ee:transform&gt;</span>
+    <span class="dw-comment">&lt;!-- DataWeave below --&gt;</span>
+  <span class="dw-keyword">&lt;/ee:transform&gt;</span>
+
+  <span class="dw-keyword">&lt;http:request</span>
+    <span class="dw-string">config-ref="ERP_Demand_API"</span>
+    <span class="dw-string">method="POST"</span>
+    <span class="dw-string">path="/demand/import"</span><span class="dw-keyword">/&gt;</span>
+<span class="dw-keyword">&lt;/flow&gt;</span></pre>
+        </div>
+        <div class="anypoint-pane">
+          <div class="anypoint-pane-hdr">DataWeave 2.0 · transform-message.dwl</div>
+<pre class="dw-line" style="white-space:pre-wrap;">
+<span class="dw-fn">%dw</span> <span class="dw-num">2.0</span>
+<span class="dw-keyword">output</span> application/json
+<span class="dw-comment">// Preserve month-level granularity</span>
+<span class="dw-comment">// Do NOT smooth · do NOT average</span>
+---
+{
+  source: <span class="dw-string">"salesforce-forecast"</span>,
+  publishedAt: <span class="dw-fn">now()</span>,
+  lines: payload <span class="dw-keyword">map</span> ((line, i) -&gt; {
+    sku: line.Part__r.SKU__c,
+    yearMonth: line.Year_Month__c,
+    qty: <span class="dw-fn">line</span>.Qty__c <span class="dw-keyword">as</span> Number,
+    unitPrice: line.Unit_Price__c <span class="dw-keyword">as</span> Number,
+    revenue: (line.Qty__c <span class="dw-keyword">as</span> Number)
+            * (line.Unit_Price__c <span class="dw-keyword">as</span> Number),
+    phase: line.Phase__c,
+    confidence: (line.Forecast_Scenario__r
+                .Confidence__c <span class="dw-keyword">as</span> Number) / <span class="dw-num">100</span>,
+    weightedRevenue: (line.Qty__c <span class="dw-keyword">as</span> Number)
+                   * (line.Unit_Price__c <span class="dw-keyword">as</span> Number)
+                   * ((line.Forecast_Scenario__r
+                      .Confidence__c <span class="dw-keyword">as</span> Number) / <span class="dw-num">100</span>),
+    canonicalKey: line.Id
+  })
+}</pre>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf-grid-3" style="margin-top:14px;">
+      <div class="sf-card">
+        <div class="sf-card-hdr"><div class="sf-card-title">Why custom?</div></div>
+        <div class="sf-card-body" style="font-size:12px;line-height:1.6;color:var(--sf-text2);">
+          This Mule flow queries the canonical Forecast_Schedule_Line__c records directly and ships (part, year_month, qty, unit_price, phase, confidence) tuples to the downstream planning system — preserving the per-month detail the sales rep typed without any averaging or smoothing in transit.
+        </div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-card-hdr"><div class="sf-card-title">Components</div></div>
+        <div class="sf-card-body" style="font-size:12px;line-height:1.6;color:var(--sf-text2);">
+          <ul style="padding-left:18px;">
+            <li>Anypoint Designer flow with DataWeave 2.0 transformer</li>
+            <li>Canonical schema for SKU × Year-Month × Qty × Unit Price tuples</li>
+            <li>Direct connector to ERP / MES demand API</li>
+            <li>Anypoint Monitor for flow health, DLQ for retries</li>
+          </ul>
+        </div>
+      </div>
+      <div class="sf-card">
+        <div class="sf-card-hdr"><div class="sf-card-title">Operational</div></div>
+        <div class="sf-card-body" style="font-size:12px;line-height:1.6;color:var(--sf-text2);">
+          Anypoint Monitor for flow health · DLQ for failed deliveries · CloudHub 2.0 or Runtime Fabric for execution · standard MuleSoft operations practice with alerting and on-call playbook.
+        </div>
+      </div>
+    </div>
+
+    <!-- ALL INTEGRATION FLOWS -->
+    <div class="sf-card" style="margin-top:14px;">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">🔌 All MuleSoft flows for ChRM functionality <span class="sf-pill sf-pill-blue">13 flows</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">Anypoint Platform · separate runtime per environment (dev/staging/prod)</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Code</th><th>Direction</th><th>Trigger</th><th>Payload</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">I-1</td><td>ERP → Salesforce</td><td>New acquisition invoice posted</td><td>Invoice header + lines (qty, acq_price, currency, BU)</td><td><span class="sf-pill sf-pill-green">Polled hourly</span></td></tr>
+            <tr><td class="mono">I-2</td><td>Salesforce → ERP</td><td>Claim Aggregate · Ready_For_ERP</td><td>Aggregate $ + claim refs + currency + auto/draft</td><td><span class="sf-pill sf-pill-green">Event-driven</span></td></tr>
+            <tr><td class="mono">I-3</td><td>Distributor EDI → SF</td><td>EDI 867 POS file</td><td>POS lines (cust, sku, qty, resale, date)</td><td><span class="sf-pill sf-pill-green">Per distri</span></td></tr>
+            <tr><td class="mono">I-4</td><td>Distributor SFTP → SF</td><td>CSV drop (fallback)</td><td>Same as I-3</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">I-5</td><td>SF → Demand Planning</td><td>Daily scheduled</td><td>Forecast Schedule Lines · SA actuals · month-level granularity preserved</td><td><span class="sf-pill sf-pill-blue">DataWeave flow</span></td></tr>
+            <tr><td class="mono">I-7</td><td>ERP → SF</td><td>SKU master change</td><td>Product2 (sku, family, voltage, package, BU, EOL)</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">I-8</td><td>SF → ERP</td><td>SF Order confirmed</td><td>Sales order (qty, contracted price, BU, ship-to)</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">I-9</td><td>ERP → SF</td><td>Order status change</td><td>Status (Confirmed → In Production → Shipped → Invoiced)</td><td><span class="sf-pill sf-pill-green">Real-time</span></td></tr>
+            <tr><td class="mono">EDI 850</td><td>Distributor → SF</td><td>Inbound PO</td><td>PO header + lines</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">EDI 855</td><td>SF → Distributor</td><td>PO ack</td><td>SF Order# + qty + prices + ship date</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">EDI 867</td><td>Distributor → SF</td><td>POS sell-through</td><td>POS line records</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">EDI 852</td><td>Distributor → SF</td><td>POI inventory snapshot</td><td>SKU + on-hand qty per location</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td class="mono">SIEM</td><td>Salesforce → SIEM</td><td>Real-time event streaming</td><td>Login, API, Apex, Report Export events</td><td><span class="sf-pill sf-pill-blue">Event stream</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ANYPOINT RUNTIME / MONITOR -->
+    <div class="sf-card" style="margin-top:14px;background:#0F1722;border-color:#303A52;">
+      <div class="sf-card-hdr" style="background:#0F1722;border-bottom-color:#303A52;">
+        <div class="sf-card-title" style="color:#E8EAED;">🖥️ Anypoint Runtime Manager · Production Cluster</div>
+        <span class="sf-pill" style="background:#303A52;color:#C3E88D;">CloudHub 2.0</span>
+      </div>
+      <div class="sf-card-body" style="background:#1A2233;color:#E8EAED;">
+        <div class="sf-grid-3">
+          <div style="background:#0F1722;border:1px solid #303A52;border-radius:4px;padding:12px;">
+            <div style="font-size:10px;color:#8893A7;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mono);margin-bottom:6px;">Health</div>
+            <div style="font-size:24px;font-weight:700;color:#C3E88D;font-family:var(--mono);">96%</div>
+            <div style="font-size:11px;color:#8893A7;margin-top:4px;font-family:var(--mono);">13/13 flows healthy · 1 DLQ msg</div>
+          </div>
+          <div style="background:#0F1722;border:1px solid #303A52;border-radius:4px;padding:12px;">
+            <div style="font-size:10px;color:#8893A7;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mono);margin-bottom:6px;">Throughput · last 24h</div>
+            <div style="font-size:24px;font-weight:700;color:#82AAFF;font-family:var(--mono);">14.2K msg</div>
+            <div style="font-size:11px;color:#8893A7;margin-top:4px;font-family:var(--mono);">~9.8 msg/sec avg · 142 ms p99</div>
+          </div>
+          <div style="background:#0F1722;border:1px solid #303A52;border-radius:4px;padding:12px;">
+            <div style="font-size:10px;color:#8893A7;text-transform:uppercase;letter-spacing:.08em;font-family:var(--mono);margin-bottom:6px;">DLQ · last 7d</div>
+            <div style="font-size:24px;font-weight:700;color:#F78C6C;font-family:var(--mono);">3</div>
+            <div style="font-size:11px;color:#8893A7;margin-top:4px;font-family:var(--mono);">All replayed · 0 unresolved</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ CRM ANALYTICS ============ -->
+<div class="app-pg" id="pg-ca">
+  <div class="sf-record-hdr">
+    <div class="sf-record-bc"><a>Analytics Studio</a> › <a>Dashboards</a> › Channel Revenue Mgmt</div>
+    <div class="sf-record-top">
+      <div class="sf-record-icon" style="background:#FFB75D;">📊</div>
+      <div>
+        <div class="sf-record-title">Channel Revenue Cockpit · CRM Analytics</div>
+        <div class="sf-record-sub">CRM Analytics dashboard · 6 datasets joined · scheduled refresh</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sf-body">
+    <div class="sf-banner sf-banner-info">
+      <div>📊</div>
+      <div><b>CRM Analytics powers the executive cockpit</b> — KPIs, leakage taxonomy, sampling strata, BU split, and attention feed are surfaced as CRMA dashboards built on top of joined datasets from Sales Cloud, Manufacturing Cloud, Channel Revenue Management, Revenue Cloud Advanced, and the custom objects. Refresh schedules, security predicates, and Einstein Discovery models are configured as part of the implementation.</div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr"><div class="sf-card-title">Cockpit KPIs</div></div>
+      <div class="sf-card-body">
+        <div class="ca-grid">
+          <div class="ca-tile">
+            <div class="ca-tile-lbl">S&D Claim Leakage YTD</div>
+            <div class="ca-tile-val" style="color:var(--sf-error);">$1.84M</div>
+            <div class="ca-tile-sub">▲ 4.2% vs Q1 · 6.1% of $30.2M claimed</div>
+          </div>
+          <div class="ca-tile">
+            <div class="ca-tile-lbl">Deferred Channel Revenue</div>
+            <div class="ca-tile-val" style="color:var(--sf-warn);">$28.6M</div>
+            <div class="ca-tile-sub">Sell-in awaiting POS · ASC 606</div>
+          </div>
+          <div class="ca-tile">
+            <div class="ca-tile-lbl">Active Design Regs</div>
+            <div class="ca-tile-val" style="color:var(--sf-success);">142</div>
+            <div class="ca-tile-sub">21 expiring &lt;30d</div>
+          </div>
+        </div>
+
+        <h4 style="margin-top:18px;font-size:13px;font-weight:600;color:var(--sf-text);">Datasets joined</h4>
+        <table class="sf-table" style="margin-top:8px;">
+          <thead><tr><th>Dataset</th><th>Source</th><th>Refresh</th></tr></thead>
+          <tbody>
+            <tr><td>Opportunity_Pipeline</td><td>Sales Cloud</td><td>Hourly</td></tr>
+            <tr><td>Sales_Agreement_Actuals</td><td>Manufacturing Cloud</td><td>Daily</td></tr>
+            <tr><td>Forecast_Schedule_Lines</td><td>Custom · Forecast_Schedule_Line__c</td><td>Hourly</td></tr>
+            <tr><td>Claim_Aggregates</td><td>ChRM</td><td>Daily</td></tr>
+            <tr><td>PUI_Snapshot</td><td>ChRM</td><td>Daily</td></tr>
+            <tr><td>External_GL</td><td>MuleSoft → ERP feed</td><td>Daily</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- LEAKAGE TAXONOMY -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📉 Claim Leakage Decomposition · YTD <span class="sf-pill sf-pill-purple">CRMA · Custom dashboard</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">5-category breakdown · sourced from custom Apex aggregator</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Type</th><th>What it is</th><th class="num">$ Leak</th><th class="num">% of Total</th><th>Owner</th></tr></thead>
+          <tbody>
+            <tr><td><span class="sf-pill sf-pill-error">Validation</span></td><td>Bad claim passed weak rule</td><td class="num">$612K</td><td class="num">33%</td><td>Product · DPE</td></tr>
+            <tr><td><span class="sf-pill sf-pill-warn">Math</span></td><td>Wrong tier or method applied</td><td class="num">$487K</td><td class="num">26%</td><td>Catalog · Pricing</td></tr>
+            <tr><td><span class="sf-pill sf-pill-warn">Window</span></td><td>Accepted outside protection period</td><td class="num">$311K</td><td class="num">17%</td><td>Process</td></tr>
+            <tr><td><span class="sf-pill sf-pill-warn">Duplicate</span></td><td>POS dedup miss</td><td class="num">$248K</td><td class="num">13%</td><td>Integration</td></tr>
+            <tr><td><span class="sf-pill sf-pill-gray">Process</span></td><td>Eligible never filed by disti</td><td class="num">$184K</td><td class="num">10%</td><td>Disti relationship</td></tr>
+            <tr class="total"><td colspan="2">Total YTD</td><td class="num">$1.84M</td><td class="num">100%</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DASHBOARDS LIST -->
+    <div class="sf-card">
+      <div class="sf-card-hdr">
+        <div class="sf-card-title">📊 CRMA Dashboards · ChRM cockpit <span class="sf-pill sf-pill-purple">12 dashboards</span></div>
+        <div style="font-size:11px;color:var(--sf-text3);">Each dashboard pulls from 2–6 datasets · refresh schedules per dataset</div>
+      </div>
+      <div class="sf-card-body flush">
+        <table class="sf-table">
+          <thead><tr><th>Dashboard</th><th>Audience</th><th class="num">Datasets</th><th>Refresh</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Channel Revenue Cockpit</td><td>CRO · Director Ops</td><td class="num">6</td><td>Hourly</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>Claim Adjudication Aging</td><td>Claims Analyst</td><td class="num">3</td><td>Hourly</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>PUI &amp; Channel Inventory</td><td>Supply Chain</td><td class="num">4</td><td>Daily</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>Margin Pollution by Channel</td><td>CRO · BU Mgr</td><td class="num">5</td><td>Daily</td><td><span class="sf-pill sf-pill-warn">Custom recipe required</span></td></tr>
+            <tr><td>Accrual Rollforward</td><td>Finance · Controller</td><td class="num">4</td><td>Nightly</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>Sub-ledger ↔ GL Reconciliation</td><td>Controller</td><td class="num">3</td><td>Nightly</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>Forecast Attainment by Rep</td><td>Sales Mgmt</td><td class="num">2</td><td>Daily</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>Distributor Scorecard</td><td>Channel Sales Mgr</td><td class="num">5</td><td>Daily</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>Price Change Impact Tracker</td><td>Pricing · Product Mgmt</td><td class="num">4</td><td>On-demand</td><td><span class="sf-pill sf-pill-warn">Custom recipe required</span></td></tr>
+            <tr><td>FX Variance &amp; Currency Exposure</td><td>Finance · Treasury</td><td class="num">3</td><td>Daily</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>EOL Transition Pipeline</td><td>Product Mgmt</td><td class="num">3</td><td>Weekly</td><td><span class="sf-pill sf-pill-green">Active</span></td></tr>
+            <tr><td>Audit Pack Generation Status</td><td>Controller · Big-4</td><td class="num">2</td><td>Quarterly</td><td><span class="sf-pill sf-pill-warn">Apex required</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- DATASETS / RECIPES -->
+    <div class="sf-grid-2">
+      <div class="sf-card">
+        <div class="sf-card-hdr">
+          <div class="sf-card-title">🗂️ Datasets &amp; Recipes</div>
+          <span class="sf-pill sf-pill-purple">14 datasets · 6 recipes</span>
+        </div>
+        <div class="sf-card-body flush">
+          <table class="sf-table">
+            <thead><tr><th>Dataset</th><th>Recipe / Source</th><th>Size</th></tr></thead>
+            <tbody>
+              <tr><td class="mono">Opportunity_Pipeline</td><td>Sales Cloud direct</td><td>12K rows</td></tr>
+              <tr><td class="mono">Sales_Agreement_Actuals</td><td>Mfg Cloud join</td><td>38 agreements × 24 mo</td></tr>
+              <tr><td class="mono">Forecast_Schedule_Lines</td><td>Custom recipe · joins 3 objects</td><td>3.4K rows</td></tr>
+              <tr><td class="mono">Forecast_Scenarios</td><td>Custom recipe</td><td>426 rows</td></tr>
+              <tr><td class="mono">Claim_Aggregates</td><td>ChRM direct</td><td>196 aggregates</td></tr>
+              <tr><td class="mono">PUI_Snapshot</td><td>ChRM direct · daily</td><td>8.4K buckets</td></tr>
+              <tr><td class="mono">External_GL</td><td>MuleSoft → ERP feed</td><td>4.2K JE lines</td></tr>
+              <tr><td class="mono">DPE_Rule_Hits</td><td>Custom recipe · ChRM events</td><td>3.1K events</td></tr>
+              <tr><td class="mono">Pricebook_History</td><td>Field history snapshot</td><td>284 tier changes</td></tr>
+              <tr><td class="mono">FX_Rates</td><td>External · Bloomberg API</td><td>Daily snapshots</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sf-card">
+        <div class="sf-card-hdr">
+          <div class="sf-card-title">🤖 Einstein Discovery Models</div>
+          <span class="sf-pill sf-pill-purple">Einstein 1 Studio</span>
+        </div>
+        <div class="sf-card-body flush">
+          <table class="sf-table">
+            <thead><tr><th>Model</th><th>Predicts</th><th>Accuracy</th></tr></thead>
+            <tbody>
+              <tr><td>Claim Risk Score</td><td>P(claim will short-pay)</td><td class="num">84%</td></tr>
+              <tr><td>Distributor POS Quality</td><td>P(POS file needs alias mapping)</td><td class="num">79%</td></tr>
+              <tr><td>Forecast Attainment Risk</td><td>P(SA will under-deliver by &gt;10%)</td><td class="num">71%</td></tr>
+              <tr><td>EOL Stranded Inventory</td><td>$ stranded if EOL announced today</td><td class="num">$1.4M est</td></tr>
+            </tbody>
+          </table>
+          <div style="padding:10px 14px;font-size:11px;color:var(--sf-text3);background:var(--sf-bg2);border-top:1px solid var(--sf-border);">Each model requires training data, feature engineering, retraining cadence, and Einstein Predictions license · separate ML engineer skill set.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sf-card">
+      <div class="sf-card-hdr"><div class="sf-card-title">📊 CRM Analytics · platform capabilities</div></div>
+      <div class="sf-card-body" style="font-size:13px;color:var(--sf-text2);line-height:1.6;">
+        CRM Analytics provides native dashboards, recipes for dataset transformation, visual joins, scheduled refreshes, row-level security predicates, and Einstein Discovery for predictive modeling. Connects natively to Sales Cloud, Manufacturing Cloud, Revenue Cloud Advanced, and Channel Revenue Management data — and extends to external sources via MuleSoft.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SALESFORCE PLATFORM FOOTER ============ -->
+<div style="background:#FAFAFB;border-top:1px solid var(--sf-border);padding:24px 40px;color:var(--sf-text2);">
+  <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div style="width:36px;height:36px;background:var(--sf-navy);border-radius:6px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;">☁</div>
+      <div>
+        <div style="font-size:14px;font-weight:600;color:var(--sf-text);">Channel Revenue Management on Salesforce</div>
+        <div style="font-size:12px;color:var(--sf-text3);">Unified platform · trusted by manufacturers worldwide</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:24px;font-size:12px;">
+      <a style="color:var(--sf-text-link);">Trust &amp; Compliance</a>
+      <a style="color:var(--sf-text-link);">Documentation</a>
+      <a style="color:var(--sf-text-link);">Trailhead</a>
+      <a style="color:var(--sf-text-link);">Help</a>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleLauncher(){
+  document.getElementById('launcher').classList.toggle('on');
+}
+const APP_NAMES = {
+  sales:['Sales Cloud','Accounts · Opportunities · Pipeline'],
+  mfg:['Manufacturing Cloud','Sales Agreements'],
+  rca:['Revenue Cloud Advanced','Pricebooks · Quotes · Orders'],
+  chrm:['Channel Revenue Management','Programs · PUI · Claims'],
+  exp:['Experience Cloud','Avnet Partner Portal'],
+  setup:['Setup','Object Manager'],
+  perms:['Setup · Permission Sets','Roles · Sharing · SoD'],
+  flow:['Setup · Flow Builder','Off-Tier Detection'],
+  mule:['MuleSoft Anypoint','Forecast Demand Publish'],
+  ca:['CRM Analytics','Channel Revenue Cockpit'],
+};
+function goApp(id){
+  document.querySelectorAll('.sf-app-tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.app-pg').forEach(p=>p.classList.remove('on'));
+  const tab = document.querySelector(`.sf-app-tab[data-pg="${id}"]`);
+  if(tab) tab.classList.add('on');
+  const pg = document.getElementById('pg-'+id);
+  if(pg) pg.classList.add('on');
+  // Update topbar app name
+  const [n, s] = APP_NAMES[id] || ['',''];
+  document.getElementById('active-app-name').textContent = n;
+  document.getElementById('active-app-sub').textContent = s;
+  // Close launcher if open
+  document.getElementById('launcher').classList.remove('on');
+  // Update launcher selection
+  document.querySelectorAll('.launcher-item').forEach(i => i.classList.remove('on'));
+  // Scroll to top
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>

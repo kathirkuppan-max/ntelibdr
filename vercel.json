@@ -1,9 +1,32 @@
 {
   "version": 2,
   "routes": [
-    { "src": "/api/ocean",  "dest": "/api/ocean.js"  },
-    { "src": "/api/vibe",   "dest": "/api/vibe.js"   },
-    { "src": "/api/claude", "dest": "/api/claude.js" },
-    { "src": "/(.*)",       "dest": "/public/$1"     }
+    {
+      "src": "/(.*)",
+      "headers": {
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "SAMEORIGIN",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://fonts.googleapis.com https://www.clarity.ms https://clarity.ms https://www.googletagmanager.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; frame-src https://calendly.com; connect-src 'self' https://vitals.vercel-insights.com https://www.clarity.ms https://region1.google-analytics.com; object-src 'none'"
+      },
+      "continue": true
+    },
+    { "src": "/api/lead",     "dest": "/api/lead.js" },
+    { "src": "/api/chat",     "dest": "/api/chat.js" },
+    { "src": "/api/onepager", "dest": "/api/onepager.js" },
+    { "src": "/",             "dest": "/industries.html" },
+    { "src": "/semi",         "dest": "/landing.html" },
+    { "src": "/pharma",       "dest": "/pharma.html" },
+    { "src": "/saas",         "dest": "/saas.html" },
+    { "src": "/channel",      "dest": "/channel.html" },
+    { "src": "/salesforce",   "dest": "/salesforce.html" },
+    { "src": "/deck",         "dest": "/deck.html" },
+    { "src": "/tax",          "dest": "/tax.html" },
+    { "src": "/overview",     "dest": "/overview.html" },
+    { "src": "/investor",     "dest": "/investor.html" },
+    { "src": "/cpq",          "dest": "/cpq.html" },
+    { "src": "/erp",          "dest": "/erp.html" },
+    { "src": "/prm",          "dest": "/prm.html" }
   ]
 }
