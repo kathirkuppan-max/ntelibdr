@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nteli — Agent Pricing Engine | Deterministic Quoting for Configure-to-Order</title>
-<meta name="description" content="The Nteli Agent Pricing Engine: deterministic configure-to-order quoting for safety equipment, hazardous-area electrical, commercial HVAC, pumps & skids, and lab furniture. AI agents gather the facts — the engine decides the price. No invented numbers. Full audit trail.">
+<meta name="description" content="The Nteli Agent Pricing Engine: deterministic configure-to-order quoting across 13 verticals — safety equipment, HVAC, hazardous-area electrical, medical gas, boilers, cranes, switchgear, and more. AI agents gather the facts — the engine decides the price. No invented numbers.">
 <link rel="canonical" href="https://nteli.io/engine">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nteli">
@@ -75,15 +75,11 @@ h1{font-size:60px;font-weight:800;line-height:1.1;letter-spacing:-1.8px;margin-b
 .vid-hdr{text-align:center;margin-bottom:28px;}
 .vid-hdr .eyebrow{color:var(--gold);}
 .vid-hdr h2{font-size:32px;margin-bottom:0;}
-.vid-pills{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:26px;}
-.vid-pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;font-family:var(--mono);padding:8px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:border-color .2s,color .2s,background .2s;white-space:nowrap;}
+.vid-pills{display:flex;justify-content:center;gap:7px;flex-wrap:wrap;margin-bottom:26px;max-width:880px;margin-left:auto;margin-right:auto;}
+.vid-pill{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono);padding:7px 13px;border-radius:18px;border:1px solid var(--border);background:transparent;color:var(--text2);cursor:pointer;transition:border-color .2s,color .2s,background .2s;white-space:nowrap;}
 .vid-pill:hover{border-color:var(--border2);color:var(--text);}
-.vid-pill .pill-dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.5;flex-shrink:0;}
-.vid-pill.vp-safety.active{background:var(--gold-bg);border-color:var(--gold-border);color:var(--gold);}
-.vid-pill.vp-hazloc.active{background:var(--amber-bg);border-color:var(--amber-border);color:var(--amber);}
-.vid-pill.vp-hvac.active{background:var(--blue-bg);border-color:var(--blue-border);color:var(--blue);}
-.vid-pill.vp-pumps.active{background:var(--teal-bg);border-color:var(--teal-border);color:var(--teal);}
-.vid-pill.vp-lab.active{background:var(--purple-bg);border-color:var(--purple-border);color:var(--purple);}
+.vid-pill .pill-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5;flex-shrink:0;}
+.vid-pill.active{background:var(--pb);border-color:var(--pbr);color:var(--pc);}
 .vid-pill.active .pill-dot{opacity:1;}
 .video-frame{max-width:960px;margin:0 auto;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;position:relative;box-shadow:0 40px 80px -24px rgba(0,0,0,.6);}
 .video-frame::before{content:'';position:absolute;inset:-1.5px;border-radius:16px;padding:1.5px;background:linear-gradient(135deg,var(--purple-border),var(--blue-border) 50%,transparent 80%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
@@ -265,7 +261,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <div class="hero-inner">
     <div class="eyebrow">Manufacturing · Configure-to-Order · Agent Pricing Engine</div>
     <h1>Agents talk.<br><span class="accent">The engine decides.</span></h1>
-    <p class="hero-sub">A deterministic constraint engine for configure-to-order pricing — live across safety equipment, hazardous-area electrical, commercial HVAC, pumps &amp; skids, and lab furniture. AI agents gather the facts and explain every answer; the price always comes from your rules. No invented numbers. Ever.</p>
+    <p class="hero-sub">A deterministic constraint engine for configure-to-order pricing — live across thirteen verticals, from safety equipment and HVAC to medical gas and switchgear. AI agents gather the facts and explain every answer; the price always comes from your rules. No invented numbers. Ever.</p>
     <div class="hero-cta">
       <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io" target="_blank" rel="noopener">Book a demo →</a>
       <a class="btn btn-outline btn-lg" href="mailto:hello@nteli.io">Email us</a>
@@ -281,15 +277,23 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
 <!-- VIDEO -->
 <section class="video-section">
   <div class="vid-hdr reveal">
-    <div class="eyebrow">Five verticals · One engine</div>
+    <div class="eyebrow">Thirteen verticals · One engine</div>
     <h2>Watch it quote your products.</h2>
   </div>
   <div class="vid-pills reveal" id="vidPills">
-    <button class="vid-pill vp-safety active" data-v="safety"><span class="pill-dot"></span>Safety Equipment</button>
-    <button class="vid-pill vp-hazloc" data-v="hazloc"><span class="pill-dot"></span>Hazardous-Area Electrical</button>
-    <button class="vid-pill vp-hvac" data-v="hvac"><span class="pill-dot"></span>Commercial HVAC</button>
-    <button class="vid-pill vp-pumps" data-v="pumps"><span class="pill-dot"></span>Pumps &amp; Skids</button>
-    <button class="vid-pill vp-lab" data-v="lab"><span class="pill-dot"></span>Lab &amp; Fume Hoods</button>
+    <button class="vid-pill active" data-v="safety" style="--pc:var(--gold);--pb:var(--gold-bg);--pbr:var(--gold-border)"><span class="pill-dot"></span>Safety Equipment</button>
+    <button class="vid-pill" data-v="hazloc" style="--pc:var(--amber);--pb:var(--amber-bg);--pbr:var(--amber-border)"><span class="pill-dot"></span>HazLoc Electrical</button>
+    <button class="vid-pill" data-v="hvac" style="--pc:var(--blue);--pb:var(--blue-bg);--pbr:var(--blue-border)"><span class="pill-dot"></span>Commercial HVAC</button>
+    <button class="vid-pill" data-v="pumps" style="--pc:var(--teal);--pb:var(--teal-bg);--pbr:var(--teal-border)"><span class="pill-dot"></span>Pumps &amp; Skids</button>
+    <button class="vid-pill" data-v="lab" style="--pc:var(--purple);--pb:var(--purple-bg);--pbr:var(--purple-border)"><span class="pill-dot"></span>Lab &amp; Fume Hoods</button>
+    <button class="vid-pill" data-v="doors" style="--pc:var(--red);--pb:var(--red-bg);--pbr:var(--red-border)"><span class="pill-dot"></span>Fire Doors</button>
+    <button class="vid-pill" data-v="cooling" style="--pc:var(--blue);--pb:var(--blue-bg);--pbr:var(--blue-border)"><span class="pill-dot"></span>Cooling Towers</button>
+    <button class="vid-pill" data-v="medgas" style="--pc:var(--green);--pb:var(--green-bg);--pbr:var(--green-border)"><span class="pill-dot"></span>Medical Gas</button>
+    <button class="vid-pill" data-v="water" style="--pc:var(--teal);--pb:var(--teal-bg);--pbr:var(--teal-border)"><span class="pill-dot"></span>Water Treatment</button>
+    <button class="vid-pill" data-v="kitchen" style="--pc:var(--amber);--pb:var(--amber-bg);--pbr:var(--amber-border)"><span class="pill-dot"></span>Kitchen Ventilation</button>
+    <button class="vid-pill" data-v="cranes" style="--pc:var(--purple);--pb:var(--purple-bg);--pbr:var(--purple-border)"><span class="pill-dot"></span>Cranes &amp; Hoists</button>
+    <button class="vid-pill" data-v="boilers" style="--pc:var(--red);--pb:var(--red-bg);--pbr:var(--red-border)"><span class="pill-dot"></span>Boilers</button>
+    <button class="vid-pill" data-v="panels" style="--pc:var(--gold);--pb:var(--gold-bg);--pbr:var(--gold-border)"><span class="pill-dot"></span>Panels &amp; Switchgear</button>
   </div>
   <div class="video-frame reveal">
     <div class="video-chrome">
@@ -513,7 +517,23 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     pumps:  {src:'/media/nteli-quoting-pumps.mp4', title:'Pumps & Packaged Skids — Demo',
       cap:'Pump curves, seal plans, and skid options — hydraulic selection validated against the duty point, not a lookup table.'},
     lab:    {src:'/media/nteli-quoting-lab.mp4', title:'Lab Furniture & Fume Hoods — Demo',
-      cap:'Casework runs, hood face velocity, and SEFA compliance — layout and airflow rules priced together, not separately.'}
+      cap:'Casework runs, hood face velocity, and SEFA compliance — layout and airflow rules priced together, not separately.'},
+    doors:  {src:'/media/nteli-quoting-doors.mp4', title:'Fire Doors & Hardware — Demo',
+      cap:'Openings schedules, fire ratings, and hardware sets — every leaf, frame, and closer checked against the label requirement.'},
+    cooling:{src:'/media/nteli-quoting-cooling.mp4', title:'Cooling Towers — Demo',
+      cap:'Tonnage, fan and basin options, drift and plume packages — thermal duty validated before the number exists.'},
+    medgas: {src:'/media/nteli-quoting-medgas.mp4', title:'Medical Gas & Headwalls — Demo',
+      cap:'NFPA 99 manifolds, alarms, outlets, and headwalls — pipeline sizing and compliance quoted as one system.'},
+    water:  {src:'/media/nteli-quoting-water.mp4', title:'Water Treatment — Demo',
+      cap:'RO skids, filtration trains, and dosing — flow, recovery, and water chemistry rules priced together.'},
+    kitchen:{src:'/media/nteli-quoting-kitchen.mp4', title:'Kitchen Ventilation — Demo',
+      cap:'Hoods, exhaust fans, and fire suppression — airflow balance and code clearances enforced in the quote.'},
+    cranes: {src:'/media/nteli-quoting-cranes.mp4', title:'Cranes & Hoists — Demo',
+      cap:'Span, capacity, and CMAA duty class — runway, hoist, and controls configured as one checked system.'},
+    boilers:{src:'/media/nteli-quoting-boilers.mp4', title:'Commercial Boilers — Demo',
+      cap:'Pressure ratings, burner turndown, and trim — ASME code options and venting validated line by line.'},
+    panels: {src:'/media/nteli-quoting-panels.mp4', title:'Control Panels & Switchgear — Demo',
+      cap:'UL 508A panels and switchgear — breaker schedules, enclosure ratings, and heat loads checked before pricing.'}
   };
   var player = document.getElementById('vidPlayer');
   var title = document.getElementById('vidTitle');
