@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nteli — Engine Documentation</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Documentation for the Nteli Agent Pricing Engine: concepts, roles, credits, governance, and connecting AI assistants via MCP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--gold:#D4A843;--purple:#BC8CFF;--teal:#2DD4BF;--green:#3FB950;--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.nav a.back{font-size:13px;color:var(--text2);}
+.doc{max-width:880px;margin:0 auto;padding:56px 28px 96px;}
+h1{font-size:36px;font-weight:800;letter-spacing:-.8px;margin-bottom:10px;}
+.lead{font-size:17px;color:var(--text2);margin-bottom:44px;max-width:680px;}
+h2{font-size:22px;font-weight:700;letter-spacing:-.3px;margin:44px 0 12px;}
+h3{font-size:16px;font-weight:700;margin:24px 0 6px;}
+p,li{font-size:15px;color:var(--text2);}
+ul,ol{padding-left:22px;margin:10px 0;}
+li{margin-bottom:6px;}
+strong{color:var(--text);font-weight:600;}
+code{font-family:var(--mono);font-size:13px;background:var(--surface2);border:1px solid var(--border);border-radius:5px;padding:2px 7px;color:var(--teal);}
+.callout{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--purple);border-radius:8px;padding:16px 20px;margin:18px 0;font-size:14px;color:var(--text2);}
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;}
+th,td{text-align:left;padding:10px 14px;border:1px solid var(--border);color:var(--text2);}
+th{color:var(--text);font-family:var(--mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;background:var(--surface);}
+footer{border-top:1px solid var(--border);padding:32px 28px;max-width:880px;margin:0 auto;font-size:12px;color:var(--text3);font-family:var(--mono);}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="brand">nteli<em>.io</em></a><a class="back" href="/engine">← Engine</a></div></nav>
+<main class="doc">
+<h1>Engine Documentation</h1>
+<p class="lead">How the Agent Pricing Engine works: the concepts, the roles, what costs a credit, and how rule changes are governed. Self-serve sign-up is launching soon — until then, <a href="/engine">watch the demos</a> or <a href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=docs" target="_blank" rel="noopener">book a walkthrough</a>.</p>
+
+<h2>Core concepts</h2>
+<h3>Workspace</h3>
+<p>Your company's private instance, created from your work email domain. Colleagues who sign up with the same domain join it automatically. Each workspace has its own engine database — rule packs, quotes, and audit history are isolated per company.</p>
+<h3>Rule pack (product model)</h3>
+<p>The variables, allowed values, constraints, and pricing logic for one product family. The pack is the source of truth: every question the engine asks, every option it blocks, and every price it returns traces to a rule in the pack. Packs are versioned; quotes record the pack version they were priced against.</p>
+<h3>Configuration session</h3>
+<p>A conversation toward a quote. The engine ranks which question to ask next by how much it narrows the result. Answers can be firm or assumptions (<em>"not sure, assume 480&nbsp;V"</em>) — assumptions are flagged on the finished quote for confirmation.</p>
+<h3>Deterministic pricing</h3>
+<p>Identical facts produce identical quotes — always. The engine never improvises a number. If a combination is invalid, it says why and lists every minimal way out.</p>
+
+<h2>What's free vs. what costs a credit</h2>
+<table>
+<tr><th>Action</th><th>Cost</th></tr>
+<tr><td>Configuration sessions, questions, answers</td><td>Free, unlimited</td></tr>
+<tr><td>What-if exploration, option enumeration, optimization</td><td>Free</td></tr>
+<tr><td>"Why not X?" explanations and conflict diagnosis</td><td>Free</td></tr>
+<tr><td>Rule proposals, impact previews, approvals</td><td>Free — governance is included</td></tr>
+<tr><td><strong>Submitting a quote</strong> (incl. routing, review packet, audit trail)</td><td><strong>1 credit</strong></td></tr>
+<tr><td>Re-working a rejected quote in the same session</td><td>No additional credit</td></tr>
+</table>
+<p>See <a href="/pricing">pricing</a> for tier allowances.</p>
+
+<h2>Roles</h2>
+<ul>
+<li><strong>Rep</strong> — runs sessions, submits quotes. Approval routing is decided by policy, not by the rep.</li>
+<li><strong>Reviewer / manager</strong> — receives a review packet per submitted quote: the facts, decisions, price build-up, flagged assumptions, and any disagreements, with history.</li>
+<li><strong>Engineer</strong> — teaches the engine in plain language. A proposed rule is previewed against the workspace's quote history (see exactly which past quotes it would have changed) and requires approval by a <em>second</em> engineer before going live.</li>
+<li><strong>Admin</strong> — manages people, roles, approval policies (e.g. who approves discounts beyond the band, large orders, or quotes relying on unverified rules), and workspace controls.</li>
+</ul>
+<div class="callout">Every approval, rule change, and self-approval is recorded in the audit trail. Small teams can enable self-approval; each use is flagged in the audit record by design.</div>
+
+<h2>Connecting AI assistants (MCP)</h2>
+<p>The engine is a full <strong>MCP server</strong>. Connect it to Claude or any MCP-capable assistant and your team works conversationally — "quote three freeze-protected units for a Class I Div 2 site" — while every configuration check and price still comes from your rule pack. The assistant talks; the engine decides.</p>
+<p>Connection instructions (OAuth) ship with self-serve launch.</p>
+
+<h2>Integrations</h2>
+<p>Quotes sync to your CRM and post toward your ERP — Salesforce, NetSuite, SAP, Dynamics 365, HubSpot — via Nteli's integration practice. See <a href="/erp">ERP integration</a> and <a href="/cpq">CPQ &amp; Revenue Cloud</a>.</p>
+
+<h2>Importing your catalog</h2>
+<p>Rule packs can be authored in-app or imported from your existing price books; your historical quotes can be replayed against the pack to validate it before go-live. Enterprise plans include onboarding help — <a href="/pricing">pricing</a>.</p>
+</main>
+<footer>© 2026 Nteli · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>

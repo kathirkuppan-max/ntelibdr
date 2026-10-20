@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nteli — Support</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Support for nteli.io and the Nteli Agent Pricing Engine.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--border:#2A3446;--border2:#374458;--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.nav a.back{font-size:13px;color:var(--text2);}
+.doc{max-width:880px;margin:0 auto;padding:56px 28px 96px;}
+h1{font-size:36px;font-weight:800;letter-spacing:-.8px;margin-bottom:10px;}
+.lead{font-size:17px;color:var(--text2);margin-bottom:44px;max-width:640px;}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:48px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:28px 30px;}
+.card h3{font-size:17px;font-weight:700;margin-bottom:8px;}
+.card p{font-size:14px;color:var(--text2);}
+.card .mono{font-family:var(--mono);font-size:13px;color:var(--gold);}
+h2{font-size:22px;font-weight:700;letter-spacing:-.3px;margin:40px 0 16px;}
+.faq-item{margin-bottom:22px;}
+.faq-item h3{font-size:15.5px;font-weight:700;margin-bottom:5px;}
+.faq-item p{font-size:14px;color:var(--text2);}
+footer{border-top:1px solid var(--border);padding:32px 28px;max-width:880px;margin:0 auto;font-size:12px;color:var(--text3);font-family:var(--mono);}
+@media(max-width:640px){.cards{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="/" class="brand">nteli<em>.io</em></a><a class="back" href="/">← nteli.io</a></div></nav>
+<main class="doc">
+<h1>Support</h1>
+<p class="lead">Questions about the engine, your workspace, billing, or an engagement — one inbox, real humans, Texas hours.</p>
+
+<div class="cards">
+<div class="card">
+<h3>Email</h3>
+<p class="mono"><a href="mailto:hello@nteli.io">hello@nteli.io</a></p>
+<p>We reply within one business day (US Central). Include your workspace domain for account questions.</p>
+</div>
+<div class="card">
+<h3>Talk to us</h3>
+<p><a href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=support" target="_blank" rel="noopener">Book a 30-minute call →</a></p>
+<p>Demos, scoping, onboarding help, or anything that's faster to show than to type.</p>
+</div>
+</div>
+
+<h2>Common questions</h2>
+<div class="faq-item"><h3>Where are the product demos?</h3><p><a href="/engine">nteli.io/engine</a> — thirteen two-minute demos, one per vertical. Deep links like <a href="/engine/hvac">/engine/hvac</a> open a specific vertical.</p></div>
+<div class="faq-item"><h3>How does pricing work?</h3><p>By credits — one credit per submitted quote; the configuration conversation is free. Details on the <a href="/pricing">pricing page</a> and in the <a href="/docs">documentation</a>.</p></div>
+<div class="faq-item"><h3>When can I sign up?</h3><p>Self-serve sign-up is launching soon. <a href="mailto:hello@nteli.io?subject=Engine%20early%20access">Email us</a> to be first in line, or book a call for a guided start.</p></div>
+<div class="faq-item"><h3>Something looks wrong on a quote</h3><p>Every number traces to a rule. Ask the engine "why?" first — then email us with the quote ID if the rule itself needs attention. Rule fixes go through your workspace's approval flow.</p></div>
+<div class="faq-item"><h3>Data export or deletion</h3><p>Workspace admins can email <a href="mailto:hello@nteli.io">hello@nteli.io</a> to request export or deletion — see the <a href="/privacy">privacy policy</a>.</p></div>
+<div class="faq-item"><h3>Consulting engagements</h3><p>For CPQ, ERP integration, channel revenue, or tax practice questions, the same inbox works — or go straight to <a href="/cpq">CPQ</a>, <a href="/erp">ERP</a>, <a href="/prm">PRM</a>, <a href="/tax">Tax</a>.</p></div>
+</main>
+<footer>© 2026 Nteli · Capital Factory, 701 Brazos St, Austin, TX 78701 · <a href="/docs">Docs</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
