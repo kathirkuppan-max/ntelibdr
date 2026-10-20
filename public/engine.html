@@ -556,6 +556,9 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     if (autoplay) player.play().catch(function(){});
     return true;
   }
+  /* Faster playback tightens the demo's pauses; defaultPlaybackRate survives load() on source switches */
+  player.defaultPlaybackRate = 1.25;
+  player.playbackRate = 1.25;
   var unmute = document.getElementById('vidUnmute');
   unmute.addEventListener('click', function(){
     player.muted = false;
