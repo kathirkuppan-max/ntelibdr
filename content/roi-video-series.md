@@ -7,10 +7,17 @@ The demo is then the ledger being closed line by line: each engine action (confi
 discount policy, three-way match, rev-rec schedule) retires a ledger line. The quote total
 at the end is the proof.
 
+**And it is outcome-driven (Kathir):** every ledger line is written as an outcome, not a
+problem or a feature — "$1.4M recovered from quoting errors," "close in hours, not days,"
+"zero invalid configs shipped." The product appears only as the mechanism that makes an
+outcome line credible. Never open with what the engine *is*; open with what the viewer *gets*.
+
 Demo skeleton, universally:
-1. **The ledger** — 3–5 leak lines with dollars for this vertical/audience (≤15s)
-2. **The close** — the engine working; each beat visually ticks a ledger line
-3. **The receipt** — final number + "every line traceable" + CTA
+1. **The ledger** — 3–5 OUTCOME lines with dollars for this vertical/audience (≤15s):
+   what a company like theirs gets back, per leak
+2. **The close** — the engine working; each beat visibly earns a ledger line
+   (mechanism shown just long enough to make the outcome believable)
+3. **The receipt** — outcomes totaled + "every line traceable" + CTA
 
 This file's episodes are the per-leak deep dives; the 13 vertical demos are per-vertical
 instances of the same formula. Future renders of the vertical demos should adopt the
