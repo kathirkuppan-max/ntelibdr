@@ -36,12 +36,13 @@ footer{border-top:1px solid var(--border);padding:32px 28px;max-width:880px;marg
 <h1>Privacy Policy</h1>
 <div class="meta">Effective: October 20, 2026 · Contact: hello@nteli.io</div>
 
-<p>This policy describes how Nteli LLC ("Nteli", "we") handles personal information for visitors to nteli.io and users of the Nteli Agent Pricing Engine (the "Service").</p>
+<p>This policy describes how Nteli LLC ("Nteli", "we") handles personal information for visitors to nteli.io and users of the Nteli Agent Pricing Engine at quote.nteli.io (the "Service"; sign-up at quote.nteli.io/signup).</p>
 
 <h2>1. Information we collect</h2>
 <ul>
 <li><strong>Account information.</strong> When you sign up, we collect your work email address and name. Sign-up uses work email domains; a workspace is created for your company's domain.</li>
 <li><strong>Workspace content.</strong> Product models (rule packs), quotes, configuration sessions, approvals, and audit records your team creates in the Service. This content belongs to your company (see our <a href="/terms">Terms</a>).</li>
+<li><strong>Catalog uploads.</strong> If you upload a price sheet or catalog at quote.nteli.io/welcome (PDF, Excel, CSV, or Word, up to 10&nbsp;MB), we store it in our database and it is sent by email to Nteli (kathir@nteli.io) so we can build your workspace's product pack. Uploaded catalogs are treated as your workspace's confidential information, are used only to build and validate your rule pack, and are never used for other customers. Email hello@nteli.io to request deletion of an uploaded catalog.</li>
 <li><strong>Usage data.</strong> Sessions, quotes submitted, and engine calls, used for billing (credits) and service operation.</li>
 <li><strong>Website analytics.</strong> On nteli.io we use Vercel Analytics, Microsoft Clarity, and Google Analytics to understand site usage. These may use cookies or similar technologies.</li>
 </ul>
@@ -55,10 +56,11 @@ footer{border-top:1px solid var(--border);padding:32px 28px;max-width:880px;marg
 </ul>
 
 <h2>3. AI and your data</h2>
-<p>The engine's pricing decisions are computed by a deterministic rules engine from your workspace's rule packs — not by a machine-learning model trained on your data. When you connect an AI assistant (for example Claude, via MCP), your conversation is processed by that assistant under its provider's terms; the engine receives the facts needed to configure and price a quote. <strong>We do not use your workspace content to train AI models.</strong></p>
+<p>The Service is used through Claude (Anthropic) as a connector at quote.nteli.io/mcp, signed in via OAuth. Nteli receives only your work email (from sign-in) and the facts and choices Claude sends to the Service's tools — for example a site's conditions, your configuration answers, and the customer name when a quote is submitted. <strong>Nteli never receives or reads your Claude chat history, memory, or files.</strong> Your conversation with Claude itself is processed by Anthropic under its own terms.</p>
+<p>The engine's pricing decisions are computed by a deterministic rules engine from your workspace's rule packs — not by a machine-learning model trained on your data. <strong>We do not use your workspace content to train AI models.</strong></p>
 
 <h2>4. Service providers</h2>
-<p>We use subprocessors to run the Service: Fly.io (application hosting), Resend (authentication and transactional email), Vercel (website hosting and analytics), Microsoft Clarity and Google Analytics (website analytics), Calendly (scheduling). Each receives only the data needed for its function.</p>
+<p>We use subprocessors to run the Service: Fly.io (application hosting), Tigris Data (S3-compatible object storage on Fly.io, for continuous encrypted database backups), Resend (authentication and transactional email), Vercel (website hosting and analytics), Microsoft Clarity and Google Analytics (website analytics), Calendly (scheduling). Each receives only the data needed for its function.</p>
 
 <h2>5. Retention and deletion</h2>
 <p>Workspace content is retained while your workspace is active. Workspace admins may request export or deletion of their workspace by emailing hello@nteli.io; we will complete deletion within 30 days, except records we must keep for legal or billing purposes. Audit trails within an active workspace are retained by design — that is the product.</p>
