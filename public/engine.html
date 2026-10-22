@@ -313,6 +313,26 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <p class="video-caption" id="vidCaption">Emergency showers, eyewash, freeze protection — quoted with Div 2 heat trace and scald valves, checked line by line.</p>
 </section>
 
+
+<!-- ONBOARDING VIDEO -->
+<section class="video-section" style="padding-top:8px;">
+  <div class="vid-hdr reveal">
+    <div class="eyebrow" style="color:var(--purple);">Onboarding</div>
+    <h2>The rule pack is the onboarding.</h2>
+  </div>
+  <div class="video-frame reveal" style="max-width:860px;">
+    <div class="video-chrome">
+      <span class="video-dot"></span><span class="video-dot"></span><span class="video-dot"></span>
+      <span class="video-chrome-title">Onboarding · The Rule Pack</span>
+      <span class="video-chrome-time">~01:15</span>
+    </div>
+    <video id="obVid" controls preload="metadata" playsinline>
+      <source src="/media/nteli-onboarding.mp4" type="video/mp4">
+    </video>
+  </div>
+  <p class="video-caption">We bring the rule pack — from twenty years of configuring these products. Override it with your own rules, governed and audited — and you're onboarded. Then the math: ten estimators, three times the quotes.</p>
+</section>
+
 <!-- MCP BAND -->
 <div class="stack-band" style="background:var(--bg);">
   <div class="stack-inner">
@@ -570,6 +590,8 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   /* Faster playback tightens the demo's pauses; defaultPlaybackRate survives load() on source switches */
   player.defaultPlaybackRate = 1.25;
   player.playbackRate = 1.25;
+  var ob=document.getElementById('obVid');
+  if(ob){ ob.defaultPlaybackRate=1.25; ob.playbackRate=1.25; }
   var unmute = document.getElementById('vidUnmute');
   unmute.addEventListener('click', function(){
     player.muted = false;
