@@ -27,7 +27,7 @@ Safe public phrasing: "At industry error rates, a claim flow of Elite's size put
 figures a year at stake**." (Estimate of category stakes from public scale — NOT a claim of
 dollars Nteli recovered.)
 
-## Tier C — results claims (REQUIRE Elite sign-off before any use)
+## Tier C — results claims — **ON HOLD (Kathir, 2026-10-24: "not yet")** — do not send the ask or publish
 
 Draft asks, most-likely-to-approve first:
 1. "100% of chargebacks validated against DEA license, class of trade, and contracted price — before payment."
