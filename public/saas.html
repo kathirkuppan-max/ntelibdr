@@ -226,6 +226,33 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:40px
 .xlink-links a{color:var(--text2,#9BA8B4);text-decoration:none;transition:color .15s;}
 .xlink-links a:hover{color:var(--text,#F0F6FC);}
 .xlink-sep{color:var(--border2,#374458);}
+
+/* REVENUE LEVERS */
+.levers-sec{padding:84px 28px;border-top:1px solid var(--border);}
+.levers-wrap{max-width:1240px;margin:0 auto;}
+.levers-hd{text-align:center;margin-bottom:48px;}
+.levers-hd h2{font-size:38px;font-weight:800;letter-spacing:-.8px;margin-bottom:12px;}
+.levers-hd p{font-size:16px;color:var(--text2);max-width:660px;margin:0 auto;}
+.levers-hd a{color:var(--blue);}
+.lever{display:grid;grid-template-columns:190px 1fr 290px;gap:30px;align-items:start;background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:32px 36px;margin-bottom:16px;}
+.lever-num{font-family:var(--mono);font-size:12px;color:var(--text3);letter-spacing:.12em;}
+.lever-name{font-size:25px;font-weight:800;letter-spacing:-.5px;margin-top:4px;}
+.lever-sub{font-family:var(--mono);font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5;}
+.lever-body h3{font-size:17px;font-weight:700;margin-bottom:6px;}
+.lever-body p{font-size:14.5px;color:var(--text2);line-height:1.65;margin-bottom:0;}
+.lever-body a{color:var(--blue);}
+.lever-math{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px 18px;font-family:var(--mono);}
+.lever-math .m-line{font-size:12px;color:var(--text3);line-height:1.7;}
+.lever-math .m-big{font-size:24px;font-weight:700;font-family:var(--sans);margin:6px 0 12px;}
+.lv-gold .lever-name,.lv-gold .m-big{color:var(--gold);}
+.lv-blue .lever-name,.lv-blue .m-big{color:var(--blue);}
+.lv-teal .lever-name,.lv-teal .m-big{color:var(--teal);}
+.lv-purple .lever-name,.lv-purple .m-big{color:var(--purple);}
+.lever-cta{display:inline-flex;align-items:center;gap:6px;font-family:var(--sans);font-size:13px;font-weight:700;padding:9px 15px;border-radius:7px;border:1.5px solid var(--border2);color:var(--text);}
+.lever-cta:hover{background:var(--surface2);}
+.lever-cta.hot{background:var(--blue2);border-color:var(--blue2);color:#0D1117;}
+.lever-cta.hot:hover{background:var(--blue);}
+@media(max-width:960px){.lever{grid-template-columns:1fr;gap:16px;}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","CLARITY_PROJECT_ID");</script>
@@ -243,10 +270,10 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:40px
       <div class="nav-group">
         <span class="nav-group-lbl">Industries</span>
         <div class="ind-switcher">
+          <a href="/manufacturing" class="ind-sw">Mfg</a>
           <a href="/semi" class="ind-sw">Semi</a>
           <a href="/pharma" class="ind-sw">Pharma</a>
           <a href="/saas" class="ind-sw active">SaaS</a>
-          <a href="/manufacturing" class="ind-sw">Mfg</a>
         </div>
       </div>
       <div class="nav-group">
@@ -588,6 +615,37 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:40px
 </section>
 
 <!-- FOOTER -->
+
+
+<!-- REVENUE LEVERS -->
+<section class="levers-sec">
+  <div class="levers-wrap">
+    <div class="levers-hd">
+      <h2>Quote → Order → Recognize → Comply.</h2>
+      <p>Subscription revenue leaks quietly — no truck ever ships wrong, the number just erodes. Illustrative for a $200M company — <a href="/roi">compute yours in 30 seconds</a>.</p>
+    </div>
+    <div class="lever lv-gold">
+      <div><div class="lever-num">LEVER 01</div><div class="lever-name">Quote</div><div class="lever-sub">CPQ · Q2C</div></div>
+      <div class="lever-body"><h3>Quote configuration and discounting leak margin on signed deals</h3><p>Mis-bundled SKUs, unapproved discounts, terms billing cannot execute. Deterministic quoting from rules — watch the <a href="/engine">Agent Pricing Engine</a> do it conversationally.</p></div>
+      <div class="lever-math"><div class="m-line">$80M quoted × 2% error × 60% unrecovered</div><div class="m-big">$960K / yr</div><a class="lever-cta" href="/engine">Watch the engine quote →</a></div>
+    </div>
+    <div class="lever lv-blue">
+      <div><div class="lever-num">LEVER 02</div><div class="lever-name">Order</div><div class="lever-sub">Provisioning · Billing handoff</div></div>
+      <div class="lever-body"><h3>What was sold is not what gets provisioned or billed</h3><p>The contract says one thing; provisioning and the first invoice say another. The handoff from closed-won to billing is an integration problem with a revenue number attached.</p></div>
+      <div class="lever-math"><div class="m-line">$200M × 0.3% handoff loss</div><div class="m-big">$600K / yr</div><a class="lever-cta" href="/erp">CRM↔billing integration →</a></div>
+    </div>
+    <div class="lever lv-teal">
+      <div><div class="lever-num">LEVER 03</div><div class="lever-name">Recognize</div><div class="lever-sub">ASC 606 · Renewals</div></div>
+      <div class="lever-body"><h3>Uplift clauses unapplied; rev rec rebuilt in Excel every close</h3><p>Contractual uplift that never reaches the renewal invoice, SSP allocation by spreadsheet, co-terms by hand. Recognition built where the contract lives — close in hours.</p></div>
+      <div class="lever-math"><div class="m-line">$60M renewals × 3% uplift × 50% unapplied</div><div class="m-big">$900K / yr</div><a class="lever-cta hot" href="/workshop">Book the Leak Ledger Workshop →</a></div>
+    </div>
+    <div class="lever lv-purple">
+      <div><div class="lever-num">LEVER 04</div><div class="lever-name">Comply</div><div class="lever-sub">Multi-state SaaS tax</div></div>
+      <div class="lever-body"><h3>SaaS taxability varies by state; exposure accrues silently</h3><p>Where SaaS is taxable keeps changing. AvaTax wired to the billing feed, exemption certificates managed automatically.</p></div>
+      <div class="lever-math"><div class="m-line">$200M × 0.1% exposure</div><div class="m-big">$200K / yr</div><a class="lever-cta" href="/tax">The tax practice →</a></div>
+    </div>
+  </div>
+</section>
 
 <!-- FIRM CROSS-LINKS -->
 <div class="xlink-band">
