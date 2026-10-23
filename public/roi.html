@@ -157,9 +157,10 @@ footer a{color:var(--text3);}
     var est=Math.max(2,Math.round(q/40));
     $('cap').innerHTML='Capacity bonus: ~'+est+' estimators at ~2 hand-built quotes/day today → <b>3× throughput</b> on the engine. Same team, '+(q*3).toLocaleString()+' quotes a month.';
     var isCh=(vert==='semi'||vert==='pharma');
+    var isSaas=(vert==='saas');
     $('s1').textContent=isCh?'Agree':'Quote';
-    $('s2').textContent=isCh?'Transact':'Order';
-    $('s3').textContent=isCh?'Settle':'Recognize';
+    $('s2').textContent=isCh?'Transact':(isSaas?'Contract':'Order');
+    $('s3').textContent=isCh?'Settle':(isSaas?'Recur':'Recognize');
     $('s4').textContent='Comply';
     $('l3').textContent=isCh?'% of revenue through channel / contracts':(vert==='saas'?'% of revenue from renewals':'% of revenue through channel (if any)');
   }
