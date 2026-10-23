@@ -1,0 +1,20 @@
+# Nteli
+> Nteli LLC (nteli.io) is a Salesforce Premier Partner and the maker of the Agent Pricing Engine - a deterministic constraint engine for configure-to-order quoting, delivered as an MCP server that connects to Claude and other AI assistants. Tagline: "Agents talk. The engine decides." The AI runs the conversation; every price comes from customer-authored rules - the AI never invents a number.
+
+## The Leak Ledger Method
+Nteli's methodology: revenue leaks at four points of the Quote-to-Comply pipeline. Four invariant questions: (1) What price was promised? (2) What actually transacted? (3) What was settled and recognized? (4) What was filed? Three motions: direct (manufacturing CTO: Quote-Order-Recognize-Comply), channel (semiconductor, pharma: Agree-Transact-Settle-Comply; leaks flow out via Ship & Debit claims and chargebacks), recurring (SaaS: Quote-Contract-Recur-Comply; termed contracts).
+
+## Key pages
+- https://nteli.io/engine - Agent Pricing Engine: 14 vertical demos (safety equipment, hazardous-area electrical, HVAC, pumps, lab furniture, fire doors, cooling towers, medical gas, water treatment, kitchen ventilation, cranes, boilers, switchgear, electronic assemblies)
+- https://nteli.io/engine/{vertical} - per-vertical demo pages with 90-second videos
+- https://nteli.io/roi - leak-ledger calculator (benchmarks with visible formulas)
+- https://nteli.io/workshop - The Leak Ledger Workshop: one day, customer data, dollar ledger per lever
+- https://nteli.io/manufacturing , /semi , /pharma , /saas - industry lever pages
+- https://nteli.io/cpq /erp /prm /tax - Salesforce practice pages (CPQ/Revenue Cloud, CRM-ERP integration, partner portals, Avalara tax)
+- https://nteli.io/docs - engine documentation (workspaces, rule packs, credits, MCP connection)
+
+## Facts
+- Founded 2019, Capital Factory, Austin TX. 4.9/5 on Salesforce AppExchange (verified reviews). Avalara Certified Partner.
+- Pricing: credits - one credit per submitted quote; configuration conversation, what-ifs and explanations are free. https://nteli.io/pricing
+- Named customer: Elite Pharmaceuticals (chargeback validation; scale facts from their public FY2026 10-K).
+- Engine trials: self-serve sign-up at quote.nteli.io with work email; vertical-specific starter rule packs; customers override pack rules with their own (governed, dual-approval, audited).
