@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nteli — Manufacturing | Recover Revenue Across Quote, Order, Recognize, Comply</title>
+<meta name="description" content="Revenue recovery for configure-to-order manufacturers: deterministic quoting (Agent Pricing Engine), CRM-to-ERP order fidelity, revenue recognition, and channel tax. Semiconductor flagship practice. Four levers, one pipeline.">
+<link rel="canonical" href="https://nteli.io/manufacturing">
+<meta property="og:title" content="Nteli — Manufacturing Revenue Recovery">
+<meta property="og:description" content="Four levers: Quote, Order, Recognize, Comply. The Agent Pricing Engine plus the practices that close every leak between quote and GL.">
+<meta property="og:url" content="https://nteli.io/manufacturing">
+<meta property="og:image" content="https://nteli.io/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--blue-bg:#0D2137;--blue-border:#1F4068;
+--gold:#D4A843;--gold-bg:#1A1500;--gold-border:#3D2E00;--green:#3FB950;--green-bg:#0A1E0D;--green-border:#1B4D22;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--purple-border:#3D2066;--teal:#2DD4BF;--teal-bg:#051a17;--teal-border:#0d4039;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1280px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;gap:28px;}
+.brand{font-size:18px;font-weight:800;}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.nav-switchers{display:flex;align-items:center;gap:18px;}
+.nav-group{display:flex;align-items:center;gap:8px;}
+.nav-group-lbl{font-size:9px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-family:var(--mono);}
+.ind-switcher{display:flex;gap:1px;background:var(--surface2);border:1px solid var(--border);border-radius:20px;padding:2px;}
+.ind-sw{display:inline-flex;align-items:center;font-size:11px;font-weight:700;color:var(--text2);padding:4px 12px;border-radius:18px;font-family:var(--mono);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap;}
+.ind-sw:hover{color:var(--text);}
+.ind-sw.active{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-border);}
+.nav-cta{margin-left:auto;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;font-family:var(--sans);}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.btn-outline{background:transparent;border-color:var(--border2);color:var(--text);}
+.btn-outline:hover{background:var(--surface2);}
+.btn-lg{padding:13px 26px;font-size:15px;}
+.hero{position:relative;padding:88px 28px 56px;text-align:center;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,var(--gold-bg) 0%,transparent 65%);opacity:.75;pointer-events:none;}
+.hero-inner{max-width:840px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+h1{font-size:52px;font-weight:800;line-height:1.1;letter-spacing:-1.5px;margin-bottom:18px;}
+.accent{background:linear-gradient(135deg,var(--gold) 0%,var(--blue) 60%,var(--purple) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:19px;color:var(--text2);line-height:1.65;max-width:720px;margin:0 auto 36px;}
+.hero-cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+h2{font-size:38px;font-weight:800;line-height:1.14;letter-spacing:-.8px;margin-bottom:14px;}
+.lead{font-size:16.5px;color:var(--text2);max-width:680px;margin:0 auto;}
+.levers{padding:72px 28px 40px;max-width:1240px;margin:0 auto;}
+.levers-hdr{text-align:center;margin-bottom:52px;}
+.lever{display:grid;grid-template-columns:200px 1fr 300px;gap:32px;align-items:start;background:var(--surface);border:1.5px solid var(--border);border-radius:18px;padding:34px 38px;margin-bottom:18px;}
+.lever-stage{font-family:var(--mono);}
+.lever-num{font-size:12px;color:var(--text3);letter-spacing:.12em;}
+.lever-name{font-size:26px;font-weight:800;font-family:var(--sans);letter-spacing:-.5px;margin-top:4px;}
+.lever-body h3{font-size:17px;font-weight:700;margin-bottom:6px;}
+.lever-body p{font-size:14.5px;color:var(--text2);line-height:1.65;}
+.lever-body a{color:var(--blue);}
+.lever-math{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:18px 20px;font-family:var(--mono);}
+.lever-math .m-line{font-size:12.5px;color:var(--text3);line-height:1.8;}
+.lever-math .m-big{font-size:26px;font-weight:700;font-family:var(--sans);margin-top:6px;}
+.lv-quote .lever-name{color:var(--gold);} .lv-quote .m-big{color:var(--gold);}
+.lv-order .lever-name{color:var(--blue);} .lv-order .m-big{color:var(--blue);}
+.lv-rec .lever-name{color:var(--teal);} .lv-rec .m-big{color:var(--teal);}
+.lv-comply .lever-name{color:var(--purple);} .lv-comply .m-big{color:var(--purple);}
+.semi-flag{max-width:1240px;margin:30px auto 0;background:linear-gradient(135deg,var(--purple-bg),var(--surface));border:1.5px solid var(--purple-border);border-radius:18px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:28px;flex-wrap:wrap;}
+.semi-flag h3{font-size:24px;font-weight:800;letter-spacing:-.4px;}
+.semi-flag p{font-size:14.5px;color:var(--text2);max-width:640px;margin-top:6px;}
+.semi-tag{font-size:10px;font-weight:700;font-family:var(--mono);letter-spacing:.12em;color:var(--purple);text-transform:uppercase;}
+.funnel{padding:72px 28px;background:var(--surface);border-top:1px solid var(--border);margin-top:64px;}
+.funnel-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;text-align:center;}
+.fstep{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:30px 24px;}
+.fstep .ft{font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+.fstep h3{font-size:19px;font-weight:700;margin:8px 0 6px;}
+.fstep p{font-size:13.5px;color:var(--text2);}
+.fstep a{color:var(--blue);font-size:13.5px;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);} footer a:hover{color:var(--text2);}
+@media(max-width:960px){.lever{grid-template-columns:1fr;gap:18px;}h1{font-size:38px;}.funnel-inner{grid-template-columns:1fr;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <div class="nav-switchers">
+    <div class="nav-group"><span class="nav-group-lbl">Industries</span>
+      <div class="ind-switcher">
+        <a href="/manufacturing" class="ind-sw active">Mfg</a>
+        <a href="/semi" class="ind-sw">Semi</a>
+        <a href="/pharma" class="ind-sw">Pharma</a>
+        <a href="/saas" class="ind-sw">SaaS</a>
+      </div>
+    </div>
+    <div class="nav-group"><span class="nav-group-lbl">Start</span>
+      <div class="ind-switcher">
+        <a href="/engine" class="ind-sw">Engine</a>
+        <a href="/workshop" class="ind-sw">Workshop</a>
+        <a href="/roi" class="ind-sw">ROI</a>
+      </div>
+    </div>
+  </div>
+  <div class="nav-cta"><a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=manufacturing" target="_blank" rel="noopener">Book a call →</a></div>
+</div></nav>
+
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">Manufacturing · Configure-to-Order</div>
+  <h1>Four places your revenue leaks.<br><span class="accent">Four levers that close them.</span></h1>
+  <p class="hero-sub">Between the quote and the GL, configure-to-order revenue leaks at four known points. Every Nteli solution — the Agent Pricing Engine and the practices behind it — closes one of them.</p>
+  <div class="hero-cta">
+    <a class="btn btn-primary btn-lg" href="/roi">See your leaks →</a>
+    <a class="btn btn-outline btn-lg" href="/engine">Watch the engine quote →</a>
+  </div>
+</div></section>
+
+<section class="levers">
+  <div class="levers-hdr">
+    <h2>Quote → Order → Recognize → Comply</h2>
+    <p class="lead">The same pipeline every manufacturer runs. Illustrative numbers for a $200M configure-to-order company — <a href="/roi" style="color:var(--blue)">compute yours</a>.</p>
+  </div>
+
+  <div class="lever lv-quote">
+    <div class="lever-stage"><div class="lever-num">LEVER 01</div><div class="lever-name">Quote</div></div>
+    <div class="lever-body">
+      <h3>Config errors and rogue discounts leak margin on deals you win</h3>
+      <p>Veteran knowledge in spreadsheets, discounts nobody approved, configurations that can't be built. The <a href="/engine">Agent Pricing Engine</a> quotes deterministically from your rules — self-serve, live in your Claude today — with <a href="/cpq">CPQ &amp; Revenue Cloud</a> for the full stack. Ten estimators handle 3× the RFQs.</p>
+    </div>
+    <div class="lever-math"><div class="m-line">$80M quoted × 3% error<br>× 60% unrecovered</div><div class="m-big">$1.4M / yr</div></div>
+  </div>
+
+  <div class="lever lv-order">
+    <div class="lever-stage"><div class="lever-num">LEVER 02</div><div class="lever-name">Order</div></div>
+    <div class="lever-body">
+      <h3>The quote-to-order handoff re-keys what sales already won</h3>
+      <p>Configuration fidelity dies between CPQ and ERP; corrections and concessions follow. <a href="/erp">CRM↔ERP integration</a> carries the quote to the order without translation — the number finance books is the number sales closed.</p>
+    </div>
+    <div class="lever-math"><div class="m-line">6,000 orders × 2% re-key<br>× $1,800 correction</div><div class="m-big">$220K / yr</div></div>
+  </div>
+
+  <div class="lever lv-rec">
+    <div class="lever-stage"><div class="lever-num">LEVER 03</div><div class="lever-name">Recognize</div></div>
+    <div class="lever-body">
+      <h3>Billing slips, schedules live in Excel, claims post unvalidated</h3>
+      <p>Milestones bill late, rev rec is rebuilt each close, and channel claims hit the GL unmatched. Revenue recognition built where the quote was born; <a href="/prm">partner claims validated</a> before payment. Close in hours.</p>
+    </div>
+    <div class="lever-math"><div class="m-line">1.5% billed 45 days late<br>+ 0.3% never billed</div><div class="m-big">$600K / yr</div></div>
+  </div>
+
+  <div class="lever lv-comply">
+    <div class="lever-stage"><div class="lever-num">LEVER 04</div><div class="lever-name">Comply</div></div>
+    <div class="lever-body">
+      <h3>Tax filed on pre-adjustment numbers; certs expire silently</h3>
+      <p>Claims and rebates change the tax basis after filing. <a href="/tax">Avalara-certified tax practice</a> wires the post-claim number into AvaTax, with exemption certs managed automatically.</p>
+    </div>
+    <div class="lever-math"><div class="m-line">amended returns + over-remitted<br>tax + audit exposure</div><div class="m-big">$150–400K / yr</div></div>
+  </div>
+</section>
+
+<div class="semi-flag">
+  <div>
+    <div class="semi-tag">Flagship practice</div>
+    <h3>Semiconductor &amp; Electronics</h3>
+    <p>Multi-tier distribution runs these levers at their hardest setting: Design Registration at Quote, POS and inventory at Order, Ship &amp; Debit three-way match at Recognize — where 5–15% of channel revenue leaks — and post-claim tax basis at Comply.</p>
+  </div>
+  <a class="btn btn-outline btn-lg" href="/semi">The semiconductor deep-dive →</a>
+</div>
+
+<section class="funnel">
+  <div style="text-align:center;margin-bottom:36px;"><h2>Start small. Recover big.</h2></div>
+  <div class="funnel-inner">
+    <div class="fstep"><div class="ft">Minutes</div><h3>Try the engine</h3><p>Self-serve on your vertical's rule pack, from Claude.</p><a href="/engine">Watch a demo →</a></div>
+    <div class="fstep"><div class="ft">One day</div><h3>The Leak Ledger Workshop</h3><p>Your quotes, your claims — your dollar ledger per lever.</p><a href="/workshop">How it works →</a></div>
+    <div class="fstep"><div class="ft">One quarter</div><h3>Close the levers</h3><p>Fixed-fee engagements, one lever at a time. You own the result.</p><a href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=manufacturing-funnel" target="_blank" rel="noopener">Book a call →</a></div>
+  </div>
+</section>
+
+<footer>© 2026 Nteli LLC · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>

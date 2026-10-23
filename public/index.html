@@ -96,6 +96,30 @@ h1{font-size:60px;font-weight:800;line-height:1.1;letter-spacing:-1.8px;margin-b
 .carousel-pill.active .pill-bar{opacity:.6;width:100%;animation:pillFill 5s linear forwards;}
 @keyframes pillFill{from{width:0}to{width:100%}}
 
+
+/* PIPELINE */
+.pipeline{padding:84px 28px 64px;}
+.pipe-grid{max-width:1240px;margin:44px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative;}
+.pstage{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:28px 24px;position:relative;}
+.pstage::after{content:'→';position:absolute;right:-16px;top:42%;font-size:22px;color:var(--border2);z-index:2;}
+.pstage:last-child::after{content:'';}
+.pstage .pn{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--text3);}
+.pstage h3{font-size:22px;font-weight:800;letter-spacing:-.4px;margin:4px 0 10px;}
+.pstage p{font-size:13px;color:var(--text2);line-height:1.6;}
+.pstage .pv{font-family:var(--mono);font-size:13px;font-weight:700;margin-top:14px;}
+.ps-quote h3,.ps-quote .pv{color:var(--gold);}
+.ps-order h3,.ps-order .pv{color:var(--blue);}
+.ps-rec h3,.ps-rec .pv{color:var(--teal);}
+.ps-comply h3,.ps-comply .pv{color:var(--purple);}
+/* FUNNEL STRIP */
+.funnel-strip{max-width:1080px;margin:56px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.fstep{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:26px 24px;text-align:center;}
+.fstep .ft{font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--gold);}
+.fstep h3{font-size:18px;font-weight:700;margin:8px 0 6px;}
+.fstep p{font-size:13px;color:var(--text2);margin-bottom:8px;}
+.fstep a{color:var(--blue);font-size:13.5px;}
+@media(max-width:900px){.pipe-grid{grid-template-columns:1fr;}.pstage::after{content:'';}.funnel-strip{grid-template-columns:1fr;}}
+
 /* INDUSTRY CARDS */
 .industries{padding:80px 28px 140px;}
 .container{max-width:1240px;margin:0 auto;}
@@ -304,19 +328,18 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
       <div class="nav-group">
         <span class="nav-group-lbl">Industries</span>
         <div class="ind-switcher">
+          <a href="/manufacturing" class="ind-sw">Mfg</a>
           <a href="/semi" class="ind-sw">Semi</a>
           <a href="/pharma" class="ind-sw">Pharma</a>
           <a href="/saas" class="ind-sw">SaaS</a>
-          <a href="/engine" class="ind-sw">Mfg</a>
         </div>
       </div>
       <div class="nav-group">
-        <span class="nav-group-lbl">Services</span>
+        <span class="nav-group-lbl">Start</span>
         <div class="ind-switcher">
-          <a href="/cpq" class="ind-sw">CPQ</a>
-          <a href="/erp" class="ind-sw">ERP</a>
-          <a href="/prm" class="ind-sw">PRM</a>
-          <a href="/tax" class="ind-sw">Tax</a>
+          <a href="/engine" class="ind-sw">Engine</a>
+          <a href="/workshop" class="ind-sw">Workshop</a>
+          <a href="/roi" class="ind-sw">ROI</a>
         </div>
       </div>
     </div>
@@ -333,11 +356,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <div class="hero-slide slide-brand active">
     <div class="hero-inner">
       <div class="eyebrow">Salesforce Premier Partner · Avalara Certified · Austin, TX</div>
-      <h1>Revenue gaps cost<br>you real money.<br><span class="accent">We close them.</span></h1>
-      <p class="hero-sub">From channel reconciliation (pharma, semis, SaaS) to CPQ configuration, ERP integration, and partner portals — we implement and connect the revenue stack across any platform. Salesforce Premier Partner. Fixed-fee engagements. Phase 1 in 3–4 weeks.</p>
+      <h1>Recover the revenue<br>you're already<br><span class="accent">earning.</span></h1>
+      <p class="hero-sub">Between the quote and the GL, revenue leaks at four known points: Quote, Order, Recognize, Comply. Every Nteli solution — from the self-serve Agent Pricing Engine to fixed-fee integration practices — closes one of them.</p>
       <div class="hero-cta">
-        <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=home" target="_blank" rel="noopener">Book a call →</a>
-        <a class="btn btn-outline btn-lg" href="mailto:hello@nteli.io">Email us</a>
+        <a class="btn btn-primary btn-lg" href="/roi">See your leaks →</a>
+        <a class="btn btn-outline btn-lg" href="/engine">Try the engine →</a>
       </div>
       <div class="hero-meta">
         <span class="hero-meta-item">4.9★ AppExchange rated</span>
@@ -452,29 +475,50 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   </div>
 </div>
 
+
+<!-- PIPELINE -->
+<section class="pipeline">
+  <div class="section-hdr reveal" style="margin-bottom:0;">
+    <div class="eyebrow" style="color:var(--gold)">One pipeline · four levers</div>
+    <h2>Quote → Order → Recognize → Comply.</h2>
+    <p class="lead">Wherever revenue leaks, it leaks at one of four points. Illustrative numbers for a $200M company — <a href="/roi" style="color:var(--blue)">compute yours in 30 seconds</a>.</p>
+  </div>
+  <div class="pipe-grid reveal">
+    <div class="pstage ps-quote"><div class="pn">LEVER 01</div><h3>Quote</h3><p>Config errors and rogue discounts leak margin on deals you win.</p><div class="pv">~$1.4M / yr</div></div>
+    <div class="pstage ps-order"><div class="pn">LEVER 02</div><h3>Order</h3><p>The quote-to-order handoff re-keys what sales already closed.</p><div class="pv">~$220K / yr</div></div>
+    <div class="pstage ps-rec"><div class="pn">LEVER 03</div><h3>Recognize</h3><p>Late billing, Excel rev rec, channel claims posted unvalidated.</p><div class="pv">~$600K–1.2M / yr</div></div>
+    <div class="pstage ps-comply"><div class="pn">LEVER 04</div><h3>Comply</h3><p>Tax filed on pre-claim numbers; exemption certs expire silently.</p><div class="pv">~$150–400K / yr</div></div>
+  </div>
+  <div class="funnel-strip reveal">
+    <div class="fstep"><div class="ft">Minutes</div><h3>Try the engine</h3><p>Self-serve deterministic quoting, from Claude.</p><a href="/engine">Watch a 2-min demo →</a></div>
+    <div class="fstep"><div class="ft">One day</div><h3>The Leak Ledger Workshop</h3><p>Your data, your dollar ledger per lever.</p><a href="/workshop">How it works →</a></div>
+    <div class="fstep"><div class="ft">One quarter</div><h3>Close the levers</h3><p>Fixed-fee engagements. You own the result.</p><a href="/manufacturing">The levers, by industry →</a></div>
+  </div>
+</section>
+
 <!-- INDUSTRY CARDS — VERTICALS -->
 <section class="industries">
   <div class="container">
     <div class="industries-hdr reveal">
       <div class="eyebrow" style="color:var(--gold)">Industry specializations</div>
-      <h2>Channel revenue, by vertical.</h2>
-      <p class="lead">Purpose-built reconciliation for the three industries where distributor complexity — and the margin leaking through manual claims — is highest.</p>
+      <h2>The levers, by industry.</h2>
+      <p class="lead">Same four levers everywhere — but each industry leaks differently. Pick your door; the crown-jewel lever is different in each.</p>
     </div>
     <div class="cards-grid">
 
-      <!-- Semiconductor -->
-      <a href="/semi" class="ind-card semi">
-        <div class="card-icon-wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="10" height="10" rx="1.5"/><path d="M9 3v4M12 3v4M15 3v4M9 17v4M12 17v4M15 17v4M3 9h4M3 12h4M3 15h4M17 9h4M17 12h4M17 15h4"/></svg></div>
-        <div class="card-vertical">Ship &amp; Debit</div>
-        <div class="card-title">Semiconductor &amp; Electronics</div>
-        <p class="card-desc">Fabless semi, power electronics, and component manufacturers with multi-tier distribution and Ship &amp; Debit programs running across hundreds of SKUs.</p>
+      <!-- Manufacturing -->
+      <a href="/manufacturing" class="ind-card semi">
+        <div class="card-icon-wrap"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V9l6 4V9l6 4V7l6-3v16"/></svg></div>
+        <div class="card-vertical">Configure-to-Order</div>
+        <div class="card-title">Manufacturing</div>
+        <p class="card-desc">Four levers across the quote-to-GL pipeline, with the self-serve Agent Pricing Engine at Quote — and the semiconductor channel practice as the flagship: Design Registration, Ship &amp; Debit, sell-through rev rec.</p>
         <div class="card-bullets">
-          <span class="card-bullet">Ship &amp; Debit claim reconciliation</span>
-          <span class="card-bullet">Design Registration lifecycle</span>
-          <span class="card-bullet">Three-way match: Claim ↔ DR ↔ POS</span>
+          <span class="card-bullet">Agent Pricing Engine — 14 vertical demos</span>
+          <span class="card-bullet">Flagship: Semiconductor &amp; electronics channel</span>
+          <span class="card-bullet">Quote · Order · Recognize · Comply</span>
         </div>
         <div class="card-footer">
-          <span class="card-cta">Explore this practice</span>
+          <span class="card-cta">Explore the levers</span>
           <span class="card-arrow">→</span>
         </div>
       </a>
@@ -672,7 +716,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <h2 class="reveal">Ready to close the revenue gap?</h2>
   <p class="reveal reveal-delay-1">Book a 30-minute call. We'll map your revenue process, show you where the gaps are, and tell you exactly what a Phase 1 engagement looks like.</p>
   <div class="cta-btns">
-    <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=home" target="_blank" rel="noopener">Book a 30-min call →</a>
+    <a class="btn btn-primary btn-lg" href="/workshop">The Leak Ledger Workshop →</a>
     <a class="btn btn-outline btn-lg" href="/engine">Watch the 2-min demo →</a>
   </div>
 </section>
