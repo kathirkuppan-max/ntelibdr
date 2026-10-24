@@ -5,7 +5,7 @@
 Nteli's methodology: revenue leaks at four points of the Quote-to-Comply pipeline. Four invariant questions: (1) What price was promised? (2) What actually transacted? (3) What was settled and recognized? (4) What was filed? Three motions: direct (manufacturing CTO: Quote-Order-Recognize-Comply), channel (semiconductor, pharma: Agree-Transact-Settle-Comply; leaks flow out via Ship & Debit claims and chargebacks), recurring (SaaS: Quote-Contract-Recur-Comply; termed contracts).
 
 ## Key pages
-- https://nteli.io/engine - Agent Pricing Engine: 14 vertical demos (safety equipment, hazardous-area electrical, HVAC, pumps, lab furniture, fire doors, cooling towers, medical gas, water treatment, kitchen ventilation, cranes, boilers, switchgear, electronic assemblies)
+- https://nteli.io/engine - Agent Pricing Engine: demo videos for eight priority verticals (data center, panels & switchgear, power & electrification, commercial HVAC, instrumentation & controls, interconnect/cable assemblies, pumps & skids, hazardous-area electrical); further vertical demos remain at their deep links
 - https://nteli.io/engine/{vertical} - per-vertical demo pages with 90-second videos
 - https://nteli.io/roi - leak-ledger calculator (benchmarks with visible formulas)
 - https://nteli.io/workshop - The Leak Ledger Workshop: one day, customer data, dollar ledger per lever
