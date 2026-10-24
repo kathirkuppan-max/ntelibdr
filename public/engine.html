@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Nteli — Agent Pricing Engine | Deterministic Quoting for Configure-to-Order</title>
-<meta name="description" content="The Nteli Agent Pricing Engine: deterministic configure-to-order quoting across 14 verticals — safety equipment, HVAC, hazardous-area electrical, medical gas, boilers, cranes, switchgear, and more. AI agents gather the facts — the engine decides the price. No invented numbers.">
+<meta name="description" content="The Nteli Agent Pricing Engine: deterministic configure-to-order quoting for data centers, panels and switchgear, power, HVAC, instrumentation, cable assemblies, pumps and hazardous-area electrical, and more. AI agents gather the facts — the engine decides the price. No invented numbers.">
 <link rel="canonical" href="https://nteli.io/engine">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nteli">
@@ -81,6 +81,9 @@ h1{font-size:60px;font-weight:800;line-height:1.1;letter-spacing:-1.8px;margin-b
 .vid-pill .pill-dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5;flex-shrink:0;}
 .vid-pill.active{background:var(--pb);border-color:var(--pbr);color:var(--pc);}
 .vid-pill.active .pill-dot{opacity:1;}
+.vid-pill .pill-tag{font-size:8.5px;letter-spacing:.04em;padding:2px 6px;border-radius:8px;border:1px solid currentColor;opacity:.7;margin-left:2px;}
+.vid-soon{display:none;aspect-ratio:16/9;border-radius:8px;background:var(--surface2, #0d1117);align-items:center;justify-content:center;text-align:center;padding:32px;}
+.vid-soon.on{display:flex;}.vid-soon b{display:block;font-size:20px;margin-bottom:8px;color:var(--text);}.vid-soon span{color:var(--text2);max-width:520px;line-height:1.5;}
 .video-frame{max-width:960px;margin:0 auto;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;position:relative;box-shadow:0 40px 80px -24px rgba(0,0,0,.6);}
 .video-frame::before{content:'';position:absolute;inset:-1.5px;border-radius:16px;padding:1.5px;background:linear-gradient(135deg,var(--purple-border),var(--blue-border) 50%,transparent 80%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;}
 .video-chrome{display:flex;align-items:center;gap:8px;padding:2px 6px 12px;}
@@ -262,7 +265,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   <div class="hero-inner">
     <div class="eyebrow">Manufacturing · Configure-to-Order · Agent Pricing Engine</div>
     <h1>Agents talk.<br><span class="accent">The engine decides.</span></h1>
-    <p class="hero-sub">A deterministic constraint engine for configure-to-order pricing — live across fourteen verticals, from safety equipment and HVAC to medical gas and switchgear. AI agents gather the facts and explain every answer; the price always comes from your rules. No invented numbers. Ever.</p>
+    <p class="hero-sub">A deterministic constraint engine for configure-to-order pricing — built for eight priority verticals, from data centers and switchgear to HVAC and hazardous-area electrical. AI agents gather the facts and explain every answer; the price always comes from your rules. No invented numbers. Ever.</p>
     <div class="hero-cta">
       <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=engine" target="_blank" rel="noopener">Book a demo →</a>
       <a class="btn btn-outline btn-lg" href="mailto:hello@nteli.io">Email us</a>
@@ -278,38 +281,33 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
 <!-- VIDEO -->
 <section class="video-section">
   <div class="vid-hdr reveal">
-    <div class="eyebrow">Fourteen verticals · One engine</div>
+    <div class="eyebrow">Eight priority verticals · One engine</div>
     <h2>Watch it quote your products.</h2>
   </div>
   <div class="vid-pills reveal" id="vidPills">
-    <button class="vid-pill active" data-v="safety" style="--pc:var(--gold);--pb:var(--gold-bg);--pbr:var(--gold-border)"><span class="pill-dot"></span>Safety Equipment</button>
-    <button class="vid-pill" data-v="hazloc" style="--pc:var(--amber);--pb:var(--amber-bg);--pbr:var(--amber-border)"><span class="pill-dot"></span>HazLoc Electrical</button>
+    <button class="vid-pill" data-v="datacenter" style="--pc:var(--blue);--pb:var(--blue-bg);--pbr:var(--blue-border)"><span class="pill-dot"></span>Data Center<span class="pill-tag">On request</span></button>
+    <button class="vid-pill active" data-v="panels" style="--pc:var(--gold);--pb:var(--gold-bg);--pbr:var(--gold-border)"><span class="pill-dot"></span>Panels &amp; Switchgear</button>
+    <button class="vid-pill" data-v="power" style="--pc:var(--amber);--pb:var(--amber-bg);--pbr:var(--amber-border)"><span class="pill-dot"></span>Power &amp; Electrification<span class="pill-tag">In build</span></button>
     <button class="vid-pill" data-v="hvac" style="--pc:var(--blue);--pb:var(--blue-bg);--pbr:var(--blue-border)"><span class="pill-dot"></span>Commercial HVAC</button>
+    <button class="vid-pill" data-v="ic" style="--pc:var(--teal);--pb:var(--teal-bg);--pbr:var(--teal-border)"><span class="pill-dot"></span>Instrumentation &amp; Controls<span class="pill-tag">In build</span></button>
+    <button class="vid-pill" data-v="electronics" style="--pc:var(--purple);--pb:var(--purple-bg);--pbr:var(--purple-border)"><span class="pill-dot"></span>Interconnect / Cable Assemblies</button>
     <button class="vid-pill" data-v="pumps" style="--pc:var(--teal);--pb:var(--teal-bg);--pbr:var(--teal-border)"><span class="pill-dot"></span>Pumps &amp; Skids</button>
-    <button class="vid-pill" data-v="lab" style="--pc:var(--purple);--pb:var(--purple-bg);--pbr:var(--purple-border)"><span class="pill-dot"></span>Lab &amp; Fume Hoods</button>
-    <button class="vid-pill" data-v="doors" style="--pc:var(--red);--pb:var(--red-bg);--pbr:var(--red-border)"><span class="pill-dot"></span>Fire Doors</button>
-    <button class="vid-pill" data-v="cooling" style="--pc:var(--blue);--pb:var(--blue-bg);--pbr:var(--blue-border)"><span class="pill-dot"></span>Cooling Towers</button>
-    <button class="vid-pill" data-v="medgas" style="--pc:var(--green);--pb:var(--green-bg);--pbr:var(--green-border)"><span class="pill-dot"></span>Medical Gas</button>
-    <button class="vid-pill" data-v="water" style="--pc:var(--teal);--pb:var(--teal-bg);--pbr:var(--teal-border)"><span class="pill-dot"></span>Water Treatment</button>
-    <button class="vid-pill" data-v="kitchen" style="--pc:var(--amber);--pb:var(--amber-bg);--pbr:var(--amber-border)"><span class="pill-dot"></span>Kitchen Ventilation</button>
-    <button class="vid-pill" data-v="cranes" style="--pc:var(--purple);--pb:var(--purple-bg);--pbr:var(--purple-border)"><span class="pill-dot"></span>Cranes &amp; Hoists</button>
-    <button class="vid-pill" data-v="boilers" style="--pc:var(--red);--pb:var(--red-bg);--pbr:var(--red-border)"><span class="pill-dot"></span>Boilers</button>
-    <button class="vid-pill" data-v="panels" style="--pc:var(--gold);--pb:var(--gold-bg);--pbr:var(--gold-border)"><span class="pill-dot"></span>Panels &amp; Switchgear</button>
-    <button class="vid-pill" data-v="electronics" style="--pc:var(--blue);--pb:var(--blue-bg);--pbr:var(--blue-border)"><span class="pill-dot"></span>Electronics</button>
+    <button class="vid-pill" data-v="hazloc" style="--pc:var(--amber);--pb:var(--amber-bg);--pbr:var(--amber-border)"><span class="pill-dot"></span>HazLoc Electrical</button>
   </div>
   <div class="video-frame reveal">
     <div class="video-chrome">
       <span class="video-dot"></span><span class="video-dot"></span><span class="video-dot"></span>
-      <span class="video-chrome-title" id="vidTitle">Safety &amp; Plumbing Equipment — Demo</span>
+      <span class="video-chrome-title" id="vidTitle">Control Panels &amp; Switchgear — Demo</span>
       <span class="video-chrome-time">~01:25</span>
     </div>
     <video id="vidPlayer" controls preload="auto" playsinline>
-      <source src="/media/nteli-quoting-explainer.mp4" type="video/mp4">
+      <source src="/media/nteli-quoting-panels.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
     <button id="vidUnmute" class="vid-unmute" hidden>🔊 Tap for sound</button>
+    <div class="vid-soon" id="vidSoon"><div><b id="vidSoonTitle"></b><span id="vidSoonText"></span></div></div>
   </div>
-  <p class="video-caption" id="vidCaption">Emergency showers, eyewash, freeze protection — quoted with Div 2 heat trace and scald valves, checked line by line.</p>
+  <p class="video-caption" id="vidCaption">UL 508A panels and switchgear — breaker schedules, enclosure ratings, and heat loads checked before pricing.</p>
 </section>
 
 
@@ -585,24 +583,44 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
       cap:'Pressure ratings, burner turndown, and trim — ASME code options and venting validated line by line.'},
     panels: {src:'/media/nteli-quoting-panels.mp4', title:'Control Panels & Switchgear — Demo',
       cap:'UL 508A panels and switchgear — breaker schedules, enclosure ratings, and heat loads checked before pricing.'},
-    electronics: {src:'/media/nteli-quoting-electronics.mp4', title:'Electronic Components & Assemblies — Demo',
+    datacenter: {src:null, title:'Data Center — Live demo on request',
+      cap:'Racks, containment, power train and cooling sized together: kW per rack drives PDUs, UPS under N+1 or 2N, generators, CRAH and CDU.',
+      soon:'A pod is configured end to end in Claude today: 20 racks, 2N power, liquid-cooled GPU rows. Book a demo to see it live.'},
+    power: {src:null, title:'Power & Electrification — In build',
+      cap:'Transformers, gensets, UPS and battery storage, sized as one system.',
+      soon:'Built on the same power-train engine as the data center pod. Book a demo for an early look.'},
+    ic: {src:null, title:'Instrumentation & Controls — In build',
+      cap:'Configured instruments and control systems, priced from their ordering codes.',
+      soon:'In build now. Book a demo to see where it stands.'},
+    interconnect: null,
+    electronics: {src:'/media/nteli-quoting-electronics.mp4', title:'Interconnect / Cable Assemblies — Demo',
       cap:'Connector series, gauge-vs-current derating, overmold and cert packages — compatibility and pricing as one checked assembly.'}
   };
   var player = document.getElementById('vidPlayer');
   var title = document.getElementById('vidTitle');
   var caption = document.getElementById('vidCaption');
   var pills = Array.from(document.querySelectorAll('.vid-pill'));
+  var soon = document.getElementById('vidSoon'), timeEl = document.querySelector('.video-chrome-time');
   function select(key, autoplay){
+    if (key === 'interconnect') key = 'electronics';
     var v = V[key];
     if (!v) return false;
     pills.forEach(function(q){ q.classList.toggle('active', q.dataset.v === key); });
+    title.textContent = v.title;
+    caption.textContent = v.cap;
+    if (!v.src){                                       /* no video yet: say where it stands instead */
+      player.pause(); player.style.display = 'none'; unmute.hidden = true; timeEl.style.display = 'none';
+      document.getElementById('vidSoonTitle').textContent = v.title;
+      document.getElementById('vidSoonText').textContent = v.soon;
+      soon.classList.add('on');
+      return true;
+    }
+    soon.classList.remove('on'); player.style.display = ''; timeEl.style.display = '';
     if (player.querySelector('source').getAttribute('src') !== v.src){
       player.pause();
       player.querySelector('source').setAttribute('src', v.src);
       player.load();
     }
-    title.textContent = v.title;
-    caption.textContent = v.cap;
     if (autoplay) player.play().catch(function(){});
     return true;
   }
