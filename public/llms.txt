@@ -15,7 +15,7 @@ Connect as a custom connector: Claude Settings -> Connectors -> Add custom conne
 - https://nteli.io/workshop - The Leak Ledger Workshop: one day, customer data, dollar ledger per lever
 - https://nteli.io/manufacturing , /semi , /pharma , /saas - industry lever pages
 - https://nteli.io/cpq /erp /prm /tax - Salesforce practice pages (CPQ/Revenue Cloud, CRM-ERP integration, partner portals, Avalara tax)
-- https://nteli.io/docs - engine documentation (workspaces, rule packs, credits, MCP connection)
+- https://nteli.io/docs - engine documentation (workspaces, rule packs, pricing, MCP connection)
 
 ## Facts
 - Founded 2019, Capital Factory, Austin TX. 4.9/5 on Salesforce AppExchange (verified reviews). Avalara Certified Partner.
