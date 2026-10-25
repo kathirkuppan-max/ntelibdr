@@ -44,6 +44,7 @@
     { "src": "/engine/([a-z-]+)", "dest": "/engine.html" },
     { "src": "/manufacturing", "dest": "/manufacturing.html" },
     { "src": "/workshop",      "dest": "/workshop.html" },
+    { "src": "/claude",        "dest": "/claude.html" },
     { "src": "/roi",           "dest": "/roi.html" },
     { "src": "/pricing",       "dest": "/pricing.html" },
     { "src": "/privacy",       "dest": "/privacy.html" },

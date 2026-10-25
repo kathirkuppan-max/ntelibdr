@@ -4,7 +4,11 @@
 ## The Leak Ledger Method
 Nteli's methodology: revenue leaks at four points of the Quote-to-Comply pipeline. Four invariant questions: (1) What price was promised? (2) What actually transacted? (3) What was settled and recognized? (4) What was filed? Three motions: direct (manufacturing CTO: Quote-Order-Recognize-Comply), channel (semiconductor, pharma: Agree-Transact-Settle-Comply; leaks flow out via Ship & Debit claims and chargebacks), recurring (SaaS: Quote-Contract-Recur-Comply; termed contracts).
 
+## Using Nteli in Claude
+Connect as a custom connector: Claude Settings -> Connectors -> Add custom connector, URL https://quote.nteli.io/mcp, then sign up with a work email at https://quote.nteli.io/signup. Paste an RFQ, spec or email; receive a priced, standards-checked quote in an interactive card. Details: https://nteli.io/claude
+
 ## Key pages
+- https://nteli.io/claude - how to use Nteli in Claude
 - https://nteli.io/engine - Agent Pricing Engine: demo videos for eight priority verticals (data center, panels & switchgear, power & electrification, commercial HVAC, instrumentation & controls, interconnect/cable assemblies, pumps & skids, hazardous-area electrical); further vertical demos remain at their deep links
 - https://nteli.io/engine/{vertical} - per-vertical demo pages with 90-second videos
 - https://nteli.io/roi - leak-ledger calculator (benchmarks with visible formulas)
@@ -15,6 +19,6 @@ Nteli's methodology: revenue leaks at four points of the Quote-to-Comply pipelin
 
 ## Facts
 - Founded 2019, Capital Factory, Austin TX. 4.9/5 on Salesforce AppExchange (verified reviews). Avalara Certified Partner.
-- Pricing: credits - one credit per submitted quote; configuration conversation, what-ifs and explanations are free. https://nteli.io/pricing
+- Pricing: free to use; Nteli earns 0.5% of each order won through it (at most $1,500 an order). No seats, subscriptions or credits.
 - Named customer: Elite Pharmaceuticals (chargeback validation; scale facts from their public FY2026 10-K).
 - Engine trials: self-serve sign-up at quote.nteli.io with work email; vertical-specific starter rule packs; customers override pack rules with their own (governed, dual-approval, audited).
