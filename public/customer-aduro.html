@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aduro Advisors Customer Story — Nteli</title>
+<meta name="description" content="How Nteli gave Aduro Advisors a single view across 680 isolated Salesforce orgs — without loosening the isolation their clients pay for — and made bank connectivity a routine operation instead of a per-client project. Salesforce Data Cloud, MuleSoft, Kyriba, Xero.">
+<link rel="canonical" href="https://nteli.io/customers/aduro">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Aduro Advisors: seeing the whole program — a Nteli customer story">
+<meta property="og:description" content="680 Salesforce orgs, one mastered view. The isolation Aduro sells stayed intact; the blindness it caused didn't.">
+<meta property="og:url" content="https://nteli.io/customers/aduro">
+<meta property="og:image" content="https://nteli.io/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Aduro Advisors Customer Story — Nteli">
+<meta name="twitter:description" content="680 Salesforce orgs, one mastered view — without loosening the isolation their clients pay for.">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--purple-border:#3D2066;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;font-family:var(--sans);}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.btn-outline{background:transparent;border-color:var(--border2);color:var(--text);}
+.btn-outline:hover{background:var(--surface2);}
+.hero{position:relative;padding:72px 28px 40px;text-align:center;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,var(--purple-bg) 0%,transparent 65%);opacity:.6;pointer-events:none;}
+.hero-inner{max-width:840px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:46px;font-weight:800;line-height:1.12;letter-spacing:-1.2px;margin-bottom:16px;}
+.accent{background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 55%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:18px;color:var(--text2);line-height:1.65;max-width:720px;margin:0 auto;}
+.stats{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;padding:28px 28px 20px;max-width:1020px;margin:0 auto;}
+.stat{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:20px 28px;text-align:center;min-width:180px;}
+.stat .n{font-size:30px;font-weight:800;letter-spacing:-.8px;font-family:var(--mono);color:var(--gold);}
+.stat .l{font-size:12px;color:var(--text3);font-family:var(--mono);letter-spacing:.04em;margin-top:4px;}
+.story{max-width:760px;margin:0 auto;padding:36px 28px 8px;}
+.story h2{font-size:26px;font-weight:800;letter-spacing:-.5px;margin:40px 0 14px;}
+.story p{font-size:16.5px;color:var(--text2);margin-bottom:16px;}
+.story p b, .story p strong{color:var(--text);font-weight:600;}
+.pull{border-left:3px solid var(--purple);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.built{max-width:1020px;margin:28px auto 0;padding:0 28px;}
+.built-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.bcard{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:26px 28px;}
+.bcard h3{font-size:17px;font-weight:700;margin-bottom:10px;}
+.bcard ul{list-style:none;}
+.bcard li{font-size:14px;color:var(--text2);padding-left:18px;position:relative;margin-bottom:9px;line-height:1.6;}
+.bcard li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.7;}
+.bcard .tag{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-family:var(--mono);border:1px solid currentColor;border-radius:9px;padding:2px 8px;margin-left:6px;opacity:.8;}
+.tag.done{color:var(--green);}
+.tag.wip{color:var(--gold);}
+.stack-line{text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);padding:26px 28px 8px;letter-spacing:.03em;}
+.cta-band{border-top:1px solid var(--border);background:var(--surface);margin-top:48px;padding:52px 28px;text-align:center;}
+.cta-band h2{font-size:28px;font-weight:800;letter-spacing:-.6px;margin-bottom:12px;}
+.cta-band p{font-size:16px;color:var(--text2);max-width:640px;margin:0 auto 24px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+footer a:hover{color:var(--text2);}
+@media(max-width:860px){.built-grid{grid-template-columns:1fr;}}
+@media(max-width:640px){h1{font-size:32px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Aduro Advisors: seeing the whole program","description":"How Nteli gave a fund administrator a single mastered view across 680 isolated Salesforce orgs and made bank connectivity routine, using Salesforce Data Cloud, MuleSoft, Kyriba and Xero.","datePublished":"2026-10-25","author":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/customers/aduro"}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <div style="display:flex;gap:10px;">
+    <a class="btn btn-outline" href="/erp">ERP integration practice</a>
+    <a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=customer-aduro" target="_blank" rel="noopener">Book a call →</a>
+  </div>
+</div></nav>
+
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">Customer story · Fund administration</div>
+  <h1>Aduro Advisors:<br><span class="accent">seeing the whole program.</span></h1>
+  <p class="hero-sub">Aduro runs a separate Salesforce org for every fund manager it serves — the isolation is the product. Nteli built the layer above it: one mastered view across the whole estate, while every org stays exactly as separate as it was.</p>
+</div></section>
+
+<div class="stats">
+  <div class="stat"><div class="n">680</div><div class="l">Salesforce orgs, one view</div></div>
+  <div class="stat"><div class="n">600+</div><div class="l">client firms served</div></div>
+  <div class="stat"><div class="n">$131B+</div><div class="l">assets under administration</div></div>
+  <div class="stat"><div class="n">10 → 680</div><div class="l">pilot to full estate</div></div>
+</div>
+
+<article class="story">
+  <h2>The isolation is the product</h2>
+  <p>Aduro Advisors is a Denver-based fund administrator serving venture capital and private equity firms. Each client firm operates in its own Salesforce organization, with its own accounting systems and banking relationships — capital calls, transactions, and GP/LP data, kept deliberately apart. That separation is part of what Aduro sells: a firm's data sits on its own, apart from every other firm's.</p>
+  <p>It also meant Aduro's own team couldn't see across it. The company's operating data lived in roughly <b>680 separate places</b>. Every question that spanned firms had nowhere to be asked; answering one meant assembling it organization by organization, and every new client added another system to the count.</p>
+  <p class="pull">The isolation Aduro sells to its clients is the same isolation that blinded Aduro — and it couldn't be fixed by loosening the boundary, because the boundary is the product.</p>
+
+  <h2>The layer above</h2>
+  <p>Nteli didn't build the application or the org structure — that was in place and working. What was missing was the ability to see across it. All 680 orgs now feed Salesforce Data Cloud, where the program can be examined whole: a single mastered dataset reconciling equivalent entities across independently managed sources, extended beyond CRM with Xero financials and Crunchbase enrichment. The agreed measure of success was one analytics report drawing all three together — and that's what runs.</p>
+  <p>The architecture was proven on a pilot of ten organizations, then rolled out across the full estate. Scaling from ten to several hundred surfaced the real constraints — performance, memory, concurrency — and addressing them is what shaped the final design. Deletes, reconciliation, and full resynchronization were part of that design from the start, so the consolidated view doesn't drift from the systems it draws on.</p>
+
+  <h2>Onboarding as a routine, not a project</h2>
+  <p>The second system moves bank data. Transactions flow from Kyriba into Xero as a direct bank feed, replacing statements that used to be uploaded by hand, one organization at a time, across an estate too large for that work to ever be finished.</p>
+  <p>The volume was never the hard part — <b>the turnover was</b>. Firms join, accounts close, organizations leave. In the manual world, every one of those events was somebody's project. Nteli built connecting and disconnecting as routine operations — including the messy version, where an organization disconnects on its own side without telling anyone. Those get recognized and cleaned up rather than left as a broken connection nobody notices until the numbers look wrong.</p>
+  <p class="pull">The integration doesn't get harder to run as it gets bigger. Adding the next hundred organizations costs roughly what adding the last one did.</p>
+</article>
+
+<section class="built">
+  <div class="built-grid">
+    <div class="bcard">
+      <h3>Enterprise data foundation</h3>
+      <ul>
+        <li>Event-driven propagation (Salesforce Change Data Capture) alongside scheduled synchronization — each dataset on the cadence it needs</li>
+        <li>Reusable connection, authentication, extraction, and mapping patterns in place of per-org custom builds</li>
+        <li>Salesforce Data Cloud: Data Lake Objects for ingestion and staging, Data Model Objects for a common business model</li>
+        <li>Master data reconciling equivalent entities across independently managed sources</li>
+        <li>Xero integration and Crunchbase enrichment — financial and external data in the same model</li>
+        <li>Full lifecycle handling: inserts, updates, deletes, reconciliation, resynchronization</li>
+      </ul>
+    </div>
+    <div class="bcard">
+      <h3>Treasury &amp; cash</h3>
+      <ul>
+        <li>Kyriba as the authoritative source for banking and cash activity</li>
+        <li>Kyriba → Xero bank feed <span class="tag done">Delivered</span></li>
+        <li>Kyriba → Dynamo integration <span class="tag wip">In progress</span></li>
+        <li>Centralized token handling, pagination across large transaction sets, multi-tenant routing — one flow serving many client organizations</li>
+        <li>Connect and disconnect as routine operations; silent disconnects detected and cleaned up</li>
+      </ul>
+    </div>
+  </div>
+  <p class="stack-line">MuleSoft orchestration · Salesforce Data Cloud · CRM Analytics · Kyriba · Xero · Dynamo · Azure Blob Storage</p>
+</section>
+
+<section class="cta-band">
+  <h2>Grew by keeping things separate — on purpose?</h2>
+  <p>The opening question is what happens when your team needs an answer that spans clients, or a new client needs to be brought online. If either one is a project rather than a routine, that's the conversation.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" style="padding:13px 26px;font-size:15px;" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=customer-aduro-cta" target="_blank" rel="noopener">Book a 30-minute call →</a>
+    <a class="btn btn-outline" style="padding:13px 26px;font-size:15px;" href="/erp">The ERP integration practice</a>
+  </div>
+</section>
+
+<footer>© 2026 Nteli LLC · <a href="/claude">Use in Claude</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
