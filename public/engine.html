@@ -293,7 +293,7 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     <button class="vid-pill" data-v="power" style="--pc:var(--amber);--pb:var(--amber-bg);--pbr:var(--amber-border)"><span class="pill-dot"></span>Power &amp; Electrification<span class="pill-tag">In build</span></button>
     <button class="vid-pill" data-v="hvac" style="--pc:var(--blue);--pb:var(--blue-bg);--pbr:var(--blue-border)"><span class="pill-dot"></span>Commercial HVAC</button>
     <button class="vid-pill" data-v="ic" style="--pc:var(--teal);--pb:var(--teal-bg);--pbr:var(--teal-border)"><span class="pill-dot"></span>Instrumentation &amp; Controls<span class="pill-tag">In build</span></button>
-    <button class="vid-pill" data-v="electronics" style="--pc:var(--purple);--pb:var(--purple-bg);--pbr:var(--purple-border)"><span class="pill-dot"></span>Interconnect / Cable Assemblies</button>
+    <button class="vid-pill" data-v="interconnect" style="--pc:var(--purple);--pb:var(--purple-bg);--pbr:var(--purple-border)"><span class="pill-dot"></span>Interconnect / Cable Assemblies<span class="pill-tag">New</span></button>
     <button class="vid-pill" data-v="pumps" style="--pc:var(--teal);--pb:var(--teal-bg);--pbr:var(--teal-border)"><span class="pill-dot"></span>Pumps &amp; Skids</button>
     <button class="vid-pill" data-v="hazloc" style="--pc:var(--amber);--pb:var(--amber-bg);--pbr:var(--amber-border)"><span class="pill-dot"></span>HazLoc Electrical</button>
   </div>
@@ -621,9 +621,11 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
     ic: {src:null, title:'Instrumentation & Controls — In build',
       cap:'Configured instruments and control systems, priced from their ordering codes.',
       soon:'In build now. Book a demo to see where it stands.'},
-    interconnect: null,
-    electronics: {src:'/media/nteli-quoting-electronics.mp4', title:'Interconnect / Cable Assemblies — Demo',
-      cap:'Connector series, gauge-vs-current derating, overmold and cert packages — compatibility and pricing as one checked assembly. Live now as its own product line on quote.nteli.io.'}
+    interconnect: {src:null, title:'Interconnect / Cable Assemblies — Live',
+      cap:'Cable assemblies and cordsets, end A to end B — M8/M12, D-sub, RJ45, IEC, NEMA, LC and MPO fiber; 14 cited compatibility rules.',
+      soon:' Live now on quote.nteli.io — see the full scope at nteli.io/engine/interconnect, or sign up and pick it. Demo video coming.'},
+    electronics: {src:'/media/nteli-quoting-electronics.mp4', title:'Electronic Components & Assemblies — Demo',
+      cap:'Connector series, gauge-vs-current derating, overmold and cert packages — compatibility and pricing as one checked assembly.'}
   };
   var player = document.getElementById('vidPlayer');
   var title = document.getElementById('vidTitle');
@@ -631,7 +633,6 @@ footer{background:var(--surface);border-top:1px solid var(--border);padding:56px
   var pills = Array.from(document.querySelectorAll('.vid-pill'));
   var soon = document.getElementById('vidSoon'), timeEl = document.querySelector('.video-chrome-time');
   function select(key, autoplay){
-    if (key === 'interconnect') key = 'electronics';
     var v = V[key];
     if (!v) return false;
     pills.forEach(function(q){ q.classList.toggle('active', q.dataset.v === key); });

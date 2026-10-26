@@ -41,6 +41,7 @@
     { "src": "/engine/boilers", "dest": "/engine-boilers.html" },
     { "src": "/engine/panels", "dest": "/engine-panels.html" },
     { "src": "/engine/electronics", "dest": "/engine-electronics.html" },
+    { "src": "/engine/interconnect", "dest": "/engine-interconnect.html" },
     { "src": "/engine/([a-z-]+)", "dest": "/engine.html" },
     { "src": "/manufacturing", "dest": "/manufacturing.html" },
     { "src": "/workshop",      "dest": "/workshop.html" },
