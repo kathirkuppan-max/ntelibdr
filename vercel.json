@@ -12,6 +12,7 @@
       },
       "continue": true
     },
+    { "src": "/\\.well-known/mcp-registry-auth", "headers": { "Content-Type": "text/plain; charset=utf-8" }, "dest": "/.well-known/mcp-registry-auth" },
     { "src": "/api/lead",     "dest": "/api/lead.js" },
     { "src": "/api/chat",     "dest": "/api/chat.js" },
     { "src": "/api/onepager", "dest": "/api/onepager.js" },
