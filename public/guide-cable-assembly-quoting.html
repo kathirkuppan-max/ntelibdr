@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cable Assembly Quoting Software — What to Look For</title>
+<meta name="description" content="How cable and harness shops quote end A to end B without quoting assemblies that can't be built: connector vs. cable and gauge, jacket vs. environment, Cat 5e/6A and fiber polarity checks — and what AI-era quoting looks like. Paste the RFQ, get a checked quote.">
+<link rel="canonical" href="https://nteli.io/guides/cable-assembly-quoting">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Cable assembly quoting: end A to end B, without the unbuildable quote">
+<meta property="og:description" content="The compatibility checks cable assembly quoting software must make — and why the catch matters more than the price.">
+<meta property="og:url" content="https://nteli.io/guides/cable-assembly-quoting">
+<meta property="og:image" content="https://nteli.io/media/og-electronics.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nteli.io/media/og-electronics.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:760px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px;color:var(--text);}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:40px 0 12px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+li b{color:var(--text);}
+.pull{border-left:3px solid var(--purple);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.pricing-note{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin-top:14px;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:29px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Cable assembly quoting software: what to look for","description":"The compatibility checks cable assembly quoting must make — connector vs. cable and gauge, jacket vs. environment, category and fiber polarity — and why spreadsheets quote assemblies that can't be built.","datePublished":"2026-10-29","author":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/guides/cable-assembly-quoting"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What should cable assembly quoting software check?","acceptedAnswer":{"@type":"Answer","text":"End-to-end compatibility: connector vs. cable construction and gauge (an M12 can't terminate a conductor it can't physically accept), jacket vs. environment and code (PVC, PUR, TPE, LSZH, plenum, SJT, SJOOW), category integrity for Ethernet (a Cat 6A run is only Cat 6A if the connectors are too, e.g. X-coded M12), and fiber type and polarity (OM3/OM4/OS2, MPO-to-LC breakouts). Every check should cite its source."}},
+{"@type":"Question","name":"Why do cable assembly quotes go wrong?","acceptedAnswer":{"@type":"Answer","text":"Because the combination space is enormous — connector series, coding, pole count, gauge, jacket, shield, length, overmold — and a spreadsheet prices combinations without checking whether they can be built or certified. The unbuildable quote gets caught at the bench or at test, where rework and re-quoting eat the margin."}},
+{"@type":"Question","name":"What does AI-era cable assembly quoting look like?","acceptedAnswer":{"@type":"Answer","text":"Describe the cable in plain words — 'M12 A-coded 8-pole to flying leads, 5 m, PUR' — into an AI assistant backed by a deterministic rules engine. The AI asks what narrows it, the engine checks every compatibility rule with its source cited and prices Good/Better/Best, and incompatible combinations are refused with the reason shown."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/engine/interconnect">The interconnect line →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Guide · Interconnect &amp; cable assemblies</div>
+<h1>Cable assembly quoting: end A to end B, without the unbuildable quote.</h1>
+
+<div class="answer"><b>The short answer:</b> cable assembly quoting lives or dies on compatibility checks, not price math. Connector vs. cable and gauge, jacket vs. environment, category integrity for Ethernet, fiber type and polarity — if your quoting tool prices a combination it can't verify is buildable, the quote is a guess with a dollar sign on it.</div>
+
+<h2>The combination problem</h2>
+<p>A cordset looks simple until you count the choices: connector series and coding on each end (M8, M12 A-coded 5/8-pole, L-coded power, D- and X-coded Ethernet, 7/8&Prime;, D-sub, RJ45, IEC, NEMA, LC duplex, MPO-12), or no connector at all (flying leads, pigtails); cable gauge; jacket (PVC, PUR, TPE, LSZH, plenum, SJT, SJOOW); shielding; category rating; fiber type and polarity. Multiply the ends by the cable options and the space runs to millions of combinations — <b>most of which can't be built, certified, or sold</b>.</p>
+<p>Spreadsheets handle the pricing arithmetic fine. What they can't do is tell you that the combination in cell C14 doesn't exist.</p>
+
+<h2>Where quotes go wrong</h2>
+<ul>
+  <li><b>Connector vs. conductor:</b> a connector quoted onto a gauge it can't physically terminate, or a pole count the cable doesn't carry.</li>
+  <li><b>Jacket vs. environment:</b> PVC quoted where the install needs PUR for flexing, LSZH for enclosed spaces, or plenum-rated cable by code.</li>
+  <li><b>Category theater:</b> Cat&nbsp;6A cable terminated with connectors that aren't — the run tests to the worst component in it.</li>
+  <li><b>Fiber details:</b> OM3 priced where OM4 was specified, or an MPO-to-LC breakout with the polarity unstated and assumed.</li>
+  <li><b>Certification lines missing:</b> UL&nbsp;758 wiring, RoHS/REACH declarations, hi-pot testing — remembered after the PO, priced never.</li>
+</ul>
+<p class="pull">The expensive quote isn't the slow one. It's the one that priced an assembly the bench couldn't build.</p>
+
+<h2>The checklist: what the software must verify</h2>
+<ul>
+  <li><b>End A to end B as one checked object</b> — ends, cable and length validated together, not three independent line items.</li>
+  <li><b>Connector/cable/gauge compatibility</b> from the manufacturers' published ratings.</li>
+  <li><b>Jacket vs. environment and code</b>, asked explicitly when the RFQ doesn't say.</li>
+  <li><b>Category and shielding integrity</b> across every component in the run.</li>
+  <li><b>Fiber type and polarity</b> stated on the quote, never assumed silently.</li>
+  <li><b>A cited source for every check and every refusal</b> — the catalog page or the standard, so the estimator can trust it without re-deriving it.</li>
+</ul>
+
+<h2>Spreadsheets vs. AI-era quoting</h2>
+<p><b>Spreadsheets</b> price what you type. The checks live in your best estimator's head, the RFQ arrives as an email, and every quote is re-keyed from scratch — which is why IPC/WHMA-A-620 shops with excellent build quality still leak margin at the quoting desk.</p>
+<p><b>AI-era quoting</b> works the way your customers already describe cables: <i>&ldquo;M12 A-coded 8-pole to flying leads, 5&nbsp;m, PUR.&rdquo;</i> Paste that — or the whole RFQ email — into an AI assistant backed by a deterministic rules engine. The AI asks what narrows it; the engine checks every compatibility rule with its source cited, refuses the combinations that can't be built (and says why), and prices Good&nbsp;/&nbsp;Better&nbsp;/&nbsp;Best. That's <a href="/engine/interconnect">Nteli's Interconnect / Cable Assemblies line</a> — live now, with a starter rule pack your team overrides with its own rules, governed and audited, running inside Claude as a connector: <a href="/claude">paste an RFQ, get a checked quote</a>.</p>
+<p>As a planning benchmark, our <a href="/benchmarks">leak-ledger rates</a> — engagement-derived planning rates, not survey data — put config and discount errors at 3% of quoted value for configure-to-order manufacturers, with 60% of it unrecoverable once the order ships.</p>
+
+<div class="cta-band">
+  <h2>Skeptical? Send us a real RFQ.</h2>
+  <p>One you quoted recently, names removed. You'll get back what the engine produces — compare it with yours. No deck, no pitch.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:kathir@nteli.io?subject=RFQ%20challenge%20%E2%80%94%20Cable%20Assemblies">Email an RFQ →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="https://quote.nteli.io/signup?src=website-guide-cable">Sign up free</a>
+  </div>
+  <div class="pricing-note">Free to use — Nteli is paid only when an order is won through it.</div>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/engine/interconnect">Interconnect line</a> · <a href="/claude">Use in Claude</a> · <a href="/benchmarks">Benchmarks</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
