@@ -4,17 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Control Panels & Switchgear Quoting — Nteli Agent Pricing Engine</title>
-<meta name="description" content="UL 508A panels and switchgear — breaker schedules, enclosure ratings, and heat loads checked before pricing. Watch the 2-minute demo: AI agents run the quoting conversation, every number comes from your rules. Deterministic configure-to-order pricing for Control Panels & Switchgear.">
+<meta name="description" content="UL 508A control panels: motor starters, drives, PLC and I/O, sized, checked and priced from the RFQ. Switchgear and MCC-sized jobs go to your engineers for review, with the details already gathered. AI agents run the quoting conversation; every number comes from your rules.">
 <link rel="canonical" href="https://nteli.io/engine/panels">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nteli">
 <meta property="og:title" content="Control Panels & Switchgear Quoting — Agents talk. The engine decides.">
-<meta property="og:description" content="UL 508A panels and switchgear — breaker schedules, enclosure ratings, and heat loads checked before pricing.">
+<meta property="og:description" content="UL 508A control panels — motor starters, drives, PLC and I/O, sized, checked and priced from the RFQ.">
 <meta property="og:url" content="https://nteli.io/engine/panels">
 <meta property="og:image" content="https://nteli.io/media/og-panels.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Control Panels & Switchgear Quoting — Nteli Engine">
-<meta name="twitter:description" content="UL 508A panels and switchgear — breaker schedules, enclosure ratings, and heat loads checked before pricing.">
+<meta name="twitter:description" content="UL 508A control panels — motor starters, drives, PLC and I/O, sized, checked and priced from the RFQ.">
 <meta name="twitter:image" content="https://nteli.io/media/og-panels.jpg">
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -65,14 +65,14 @@ footer a:hover{color:var(--text2);}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"VideoObject","name":"Control Panels & Switchgear quoting demo — Nteli Agent Pricing Engine","description":"UL 508A panels and switchgear — breaker schedules, enclosure ratings, and heat loads checked before pricing.","thumbnailUrl":"https://nteli.io/media/og-panels.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-panels.mp4","uploadDate":"2026-10-22","duration":"PT1M33S","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
+{"@context":"https://schema.org","@type":"VideoObject","name":"Control Panels & Switchgear quoting demo — Nteli Agent Pricing Engine","description":"UL 508A control panels — breaker schedules, enclosure ratings, and heat loads checked before pricing.","thumbnailUrl":"https://nteli.io/media/og-panels.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-panels.mp4","uploadDate":"2026-10-22","duration":"PT1M33S","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
 </script>
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
   <a href="/" class="brand">nteli<em>.io</em></a>
   <div style="display:flex;gap:10px;">
-    <a class="btn btn-outline" href="/engine">All 14 demos</a>
+    <a class="btn btn-outline" href="/engine">All demos</a>
     <a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=vertical-panels" target="_blank" rel="noopener">Book a demo →</a>
   </div>
 </div></nav>
@@ -80,7 +80,7 @@ footer a:hover{color:var(--text2);}
 <section class="hero"><div class="hero-inner">
   <div class="eyebrow">Agent Pricing Engine · Control Panels & Switchgear</div>
   <h1>Control Panels & Switchgear,<br><span class="accent">quoted by conversation.</span></h1>
-  <p class="hero-sub">AI agents run the quoting conversation. Every check and every number comes from your rules — never from a guess. Watch the engine quote it.</p>
+  <p class="hero-sub">UL 508A control panels: motor starters, drives, PLC and I/O, sized, checked and priced from the RFQ. Every check and every number comes from your rules — never from a guess.</p>
 </div></section>
 
 <section class="video-wrap">
@@ -90,7 +90,21 @@ footer a:hover{color:var(--text2);}
     </video>
     <button id="um" class="vid-unmute">🔊 Tap for sound</button>
   </div>
-  <p class="video-caption">UL 508A panels and switchgear — breaker schedules, enclosure ratings, and heat loads checked before pricing.</p>
+  <p class="video-caption">UL 508A control panels — breaker schedules, enclosure ratings, and heat loads checked before pricing.</p>
+</section>
+
+<section style="max-width:800px;margin:0 auto;padding:36px 28px 8px;">
+  <h2 style="font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px;">What it checks</h2>
+  <ul style="list-style:none;">
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Supply voltage — 208, 240, 480 or 600&nbsp;V — asked when the RFQ doesn't say.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Motor current from NEC Table 430.250; the main sized to NEC 430.24 / 409.20.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>SCCR against the available fault current, and the main breaker's interrupting rating at the supply voltage.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Starters — full-voltage, reversing, soft — and drives from 1 to 50&nbsp;hp, sized from published manufacturer ratings.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Enclosure type — NEMA 1, 12, 3R, 4, 4X — and cooling: no fans on 3R, 4 or 4X.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Every size and every refusal shows its source: the code section or the catalog page.</li>
+  </ul>
+  <p style="font-size:14.5px;color:var(--text2);margin-top:14px;">Switchgear and MCC-sized jobs go to your engineers for review, with the details already gathered.</p>
+  <p style="font-size:15px;color:var(--text);margin-top:18px;border-left:3px solid var(--purple);padding-left:16px;"><strong>From quote to submittal:</strong> the same quote produces the submittal sheet your customer approves before the PO — ratings, a dimensioned layout, a one-line diagram and the bill of materials.</p>
 </section>
 
 <div class="cta-row">
@@ -99,7 +113,7 @@ footer a:hover{color:var(--text2);}
 </div>
 
 <section class="pitch">
-  <p><strong>The engine is a full MCP server</strong> — connect it to Claude and your team quotes Control Panels & Switchgear in plain conversation, on a rule pack built from twenty years of configuring these products. Override the pack with your own rules, governed and audited — and you're onboarded.</p>
+  <p><strong>The engine is a full MCP server</strong> — connect it to Claude and your team quotes UL 508A control panels in plain conversation, on a rule pack built from twenty years of configuring these products. Override the pack with your own rules, governed and audited — and you're onboarded.</p>
 </section>
 
 <section class="xverts">
