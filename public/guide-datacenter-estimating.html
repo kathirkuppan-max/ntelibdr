@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Center Pod Estimating — First-Pass Sizing Without the Week</title>
+<meta name="description" content="How prefab pod, e-house and power-skid builders do first-pass estimates without burning engineering days on bids they won't win: kW per rack drives PDUs, UPS under N/N+1/2N, generators, switchgear, and cooling checked against the heat each rack actually sheds — priced as one BOM.">
+<link rel="canonical" href="https://nteli.io/guides/data-center-pod-estimating">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Data center pod estimating: first-pass sizing without the week">
+<meta property="og:description" content="Say '1 MW, 2×20 racks at 25 kW, N+1' — get the full power train and cooling, priced. What pod estimating must size together.">
+<meta property="og:url" content="https://nteli.io/guides/data-center-pod-estimating">
+<meta property="og:image" content="https://nteli.io/media/og-datacenter.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nteli.io/media/og-datacenter.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:760px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px;color:var(--text);}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:40px 0 12px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+li b{color:var(--text);}
+.pull{border-left:3px solid var(--purple);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.pricing-note{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin-top:14px;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:29px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Data center pod estimating: first-pass sizing without the week","description":"What pod, e-house and power-skid estimating must size together — kW per rack, UPS under N/N+1/2N, generators, switchgear and cooling — and how AI-era quoting prices it as one BOM.","datePublished":"2026-10-29","author":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/guides/data-center-pod-estimating"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What does data center pod estimating have to size together?","acceptedAnswer":{"@type":"Answer","text":"Everything downstream of kW per rack: rack PDUs and feeds, UPS modules and battery runtime under the chosen redundancy (N, N+1 or 2N) with step-down transformers per side, generators and switchgear with interrupting ratings checked, cooling (CRAH, coolant distribution units, rear-door heat exchangers) against the heat each rack actually sheds, plus containment, row busway and commissioning levels — in one BOM, because each choice resizes the others."}},
+{"@type":"Question","name":"Why does pod estimating take so long?","acceptedAnswer":{"@type":"Answer","text":"Because the sizing is circular: redundancy changes the UPS count, the UPS changes the switchgear and generator, density changes the cooling, and the cooling changes the electrical load. Done by hand that's an engineering pass, not a price lookup — days of senior time spent on bids with uncertain win rates."}},
+{"@type":"Question","name":"What does AI-era pod estimating look like?","acceptedAnswer":{"@type":"Answer","text":"Describe the pod — '1 MW, two rows of 20 racks at 25 kW, N+1' — to an AI assistant backed by a deterministic rules engine with a nested system model. The engine sizes the power train and cooling together, flags what doesn't fit (like a rack shedding more heat than its cooling can remove), and prices the pod as one BOM, with every size showing its source."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/engine/datacenter">Watch the pod demo →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Guide · Data center pods</div>
+<h1>Pod estimating: first-pass sizing without burning the week.</h1>
+
+<div class="answer"><b>The short answer:</b> a pod estimate is an engineering pass disguised as a price. kW per rack drives the PDUs; redundancy drives the UPS count; the UPS drives the switchgear and generators; density drives the cooling; and the cooling feeds back into the electrical load. Estimate them separately and the pieces disagree. The job is sizing them <em>together</em> — and pricing the result as one BOM.</div>
+
+<h2>Why the first pass eats the week</h2>
+<p>Prefab pod, e-house and power-skid builders live on bids where the RFQ says something like <i>&ldquo;1&nbsp;MW, 40 racks, Tier-appropriate redundancy&rdquo;</i> and the customer wants a number this week. Getting to that number means a circular sizing exercise:</p>
+<ul>
+  <li><b>kW per rack → PDUs and feeds</b>, and everything upstream of them.</li>
+  <li><b>Redundancy → UPS:</b> N, N+1 or 2N changes the module count, battery strings and step-down transformers per side — not by a percentage, by topology.</li>
+  <li><b>Load → generators and switchgear</b>, with interrupting ratings checked at the voltage, not assumed.</li>
+  <li><b>Density → cooling:</b> CRAH units, coolant distribution, rear-door heat exchangers — sized against the heat each rack actually sheds. The classic miss: a 40&nbsp;kW rack quoted with 25&nbsp;kW of cooling, discovered after the steel is ordered.</li>
+  <li><b>Plus the parts that get forgotten at pricing time:</b> containment, row busway, commissioning levels 1&ndash;3.</li>
+</ul>
+<p>Done by hand, that's days of a senior engineer's time — spent on a bid you may not win. The estimating desk becomes the growth constraint not because demand is short, but because first passes are expensive.</p>
+
+<p class="pull">The expensive part of a pod bid isn't the pricing. It's the engineering pass you do before you know if the bid is real.</p>
+
+<h2>What good pod estimating looks like</h2>
+<ul>
+  <li><b>One system model, not six spreadsheets:</b> racks, power train and cooling in a single model where a change in one resizes the others.</li>
+  <li><b>Redundancy as logic, not a multiplier:</b> N+1 and 2N carried through module counts, transformers and switchgear topology.</li>
+  <li><b>Checks that refuse, with reasons:</b> the estimate should flag the rack whose heat exceeds its cooling — before the quote ships, not after.</li>
+  <li><b>A BOM your engineers can defend:</b> every size traceable to a rating or a rule, so the first pass survives contact with the customer's consultant.</li>
+  <li><b>Speed that matches bid economics:</b> cheap first passes mean you can afford to answer more RFQs — and reserve the engineering week for bids that shortlist.</li>
+</ul>
+
+<h2>The AI-era version</h2>
+<p>This is what <a href="/engine/datacenter">Nteli's data center line</a> does: say <i>&ldquo;1&nbsp;MW, two rows of 20 racks at 25&nbsp;kW, N+1&rdquo;</i> to an AI assistant backed by a deterministic rules engine with a nested system model. The AI asks what narrows it; the engine sizes the power train and cooling together, refuses what doesn't fit with the reason shown, and prices the pod as one BOM — UPS frames and modules per side, battery strings, step-down transformers, generators, switchgear, CRAH, CDUs, rear-door heat exchangers, rack PDUs, commissioning. <a href="/claude">It runs inside Claude</a>, and the <a href="/engine/datacenter">90-second demo</a> shows a real pod priced end to end.</p>
+<p>As a planning benchmark: our <a href="/benchmarks">leak-ledger rates</a> — engagement-derived planning rates, not surveys — put config and discount errors at 3% of quoted value for configure-to-order manufacturers. On pod-sized orders, a single sizing miss dwarfs that number; the cited-rule check is the point.</p>
+
+<div class="cta-band">
+  <h2>Send us a pod RFQ.</h2>
+  <p>One you bid recently, names removed. You'll get back what the engine produces — compare it with the week it took your team. No deck, no pitch.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:kathir@nteli.io?subject=RFQ%20challenge%20%E2%80%94%20Data%20Center%20Pods">Email an RFQ →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="https://quote.nteli.io/signup?src=website-guide-datacenter">Sign up free</a>
+  </div>
+  <div class="pricing-note">Free to use — Nteli is paid only when an order is won through it.</div>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/engine/datacenter">Pod demo</a> · <a href="/claude">Use in Claude</a> · <a href="/benchmarks">Benchmarks</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>

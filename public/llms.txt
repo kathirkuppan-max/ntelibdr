@@ -17,6 +17,7 @@ Connect as a custom connector: Claude Settings -> Connectors -> Add custom conne
 - https://nteli.io/guides/cable-assembly-quoting - guide: cable assembly quoting end A to end B; the compatibility checks (connector vs cable/gauge, jacket vs environment, Cat 5e/6A integrity, fiber polarity) and why spreadsheets quote unbuildable assemblies
 - https://nteli.io/compare/spreadsheet-estimating - honest comparison: when spreadsheets are the right tool, where they break (interacting options, ~2 hand-built quotes/estimator/day), what switching actually costs (encoding the rules; starter packs)
 - https://nteli.io/compare/traditional-cpq - honest comparison from a Salesforce Premier Partner that implements CPQ: traditional CPQ fits sellers quoting in the CRM; the engine fits estimators at the RFQ desk; some companies should run both
+- https://nteli.io/guides/data-center-pod-estimating - guide: pod/e-house first-pass estimating; the circular sizing problem (kW/rack, N/N+1/2N, generators, cooling vs heat shed) and pricing it as one BOM
 - https://nteli.io/benchmarks - the benchmark rates behind the calculator, with the arithmetic shown (Nteli planning rates, not industry surveys)
 - https://nteli.io/workshop - The Leak Ledger Workshop: one day, customer data, dollar ledger per lever
 - https://nteli.io/manufacturing , /semi , /pharma , /saas - industry lever pages
