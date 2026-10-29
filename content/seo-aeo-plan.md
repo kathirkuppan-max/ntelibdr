@@ -1,5 +1,12 @@
 # SEO in the AI era — nteli.io plan
 
+2026-10-29: Google Search Console VERIFIED — domain property sc-domain:nteli.io under
+kathir@nteli.io (account index /u/4/), via TXT record at Namecheap
+(google-site-verification=_9aMGVEUiCqoCMrOq07iGyUEqiN41ywwXg2n3a1tbPU — never delete it).
+Sitemap submitted, 37 pages discovered. Stray unverified property exists under
+kathir.kuppan@gmail.com (safe to remove). /benchmarks stats page + internal-link pass live.
+Still open: Bing Webmaster, backlinks (Kathir), entity pass (Kathir), articles (gated on go).
+
 Done (2026-10-24, live): 32-URL sitemap · AI-crawler-welcoming robots.txt · /llms.txt ·
 FAQPage schema (pricing, support) · VideoObject schema (14 vertical pages) · per-vertical
 SEO titles + OG images · nteligroup.com 308 redirect configured (awaiting Kathir's DNS
