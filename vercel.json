@@ -59,6 +59,7 @@
     { "src": "/guides/ship-and-debit-reconciliation", "dest": "/guide-ship-and-debit.html" },
     { "src": "/guides/cable-assembly-quoting", "dest": "/guide-cable-assembly-quoting.html" },
     { "src": "/compare/spreadsheet-estimating", "dest": "/compare-spreadsheet-estimating.html" },
+    { "src": "/compare/traditional-cpq", "dest": "/compare-traditional-cpq.html" },
     { "src": "/pricing",       "dest": "/pricing.html" },
     { "src": "/privacy",       "dest": "/privacy.html" },
     { "src": "/terms",         "dest": "/terms.html" },
