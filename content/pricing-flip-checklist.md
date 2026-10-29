@@ -25,8 +25,16 @@ bridge note grandfathering early-access workspaces.
 7. benchmarks/roi pages: unaffected (no pricing claims).
 8. Re-ping IndexNow + resubmit sitemap in GSC.
 
-## Engine session owns
-- Billing implementation change (fee ledger / mark-won fee retirement; invoicing for fixed+monthly).
-- Listing copy updates in both directories AFTER approval (and reviewer Q&A if pricing comes up
-  mid-review: answer with current live terms, which remain true until the flip).
-- Sign-up flow copy ("free" claims) on quote.nteli.io.
+## Engine session owns (confirmed by engine session 2026-10-29; all HELD until both approvals + Kathir's tier amounts)
+1. Claude directory listing copy (`engine/docs/directory-listing.md` as submitted): "Free to use,
+   no card: Nteli earns 0.5%… (at most $1,500)" + payments note "billed outside it" — edit after approval.
+2. Connector tool `fee_statement` (part of the REVIEWED tool surface): description says "nothing for
+   using it; a small share of each order…". Post-flip it becomes an account statement (onboarding +
+   monthly) or is retired. This is a CONNECTOR CHANGE → batch it with the other held connector changes
+   (server-name alignment, archive tool) as ONE new review version, never a separate resubmission.
+3. Sign-up and web app copy (`selfserve/web.py` ~lines 100, 165): "Free to use… 0.5% of each order
+   you win (at most $1,500)" — reviewers saw it during sign-up; rewrite at flip.
+4. Billing code: fee ledger + mark-won fee accrual (what fee_statement reports on) replaced by
+   fixed + monthly invoicing.
+- Reviewer Q&A mid-review: answer with current live terms — they remain true until the flip.
+- ChatGPT plugin package files contain no fee mention (verified).
