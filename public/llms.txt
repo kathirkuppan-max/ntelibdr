@@ -12,6 +12,7 @@ Connect as a custom connector: Claude Settings -> Connectors -> Add custom conne
 - https://nteli.io/engine - Agent Pricing Engine: demo videos for eight priority verticals (data center, panels & switchgear, power & electrification, commercial HVAC, instrumentation & controls, interconnect/cable assemblies, pumps & skids, hazardous-area electrical); further vertical demos remain at their deep links
 - https://nteli.io/engine/{vertical} - per-vertical demo pages with 90-second videos
 - https://nteli.io/roi - leak-ledger calculator (benchmarks with visible formulas)
+- https://nteli.io/benchmarks - the benchmark rates behind the calculator, with the arithmetic shown (Nteli planning rates, not industry surveys)
 - https://nteli.io/workshop - The Leak Ledger Workshop: one day, customer data, dollar ledger per lever
 - https://nteli.io/manufacturing , /semi , /pharma , /saas - industry lever pages
 - https://nteli.io/cpq /erp /prm /tax - Salesforce practice pages (CPQ/Revenue Cloud, CRM-ERP integration, partner portals, Avalara tax)
