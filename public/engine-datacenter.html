@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Center Pod Quoting — Nteli Agent Pricing Engine</title>
+<meta name="description" content="Racks, containment, power train and cooling sized together: kW per rack drives PDUs, UPS under N+1 or 2N, generators, CRAH and CDU — a priced pod BOM from one conversation. AI agents run the quoting; every number comes from your rules.">
+<link rel="canonical" href="https://nteli.io/engine/datacenter">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Data Center Pod Quoting — Agents talk. The engine decides.">
+<meta property="og:description" content="Say "1 MW, 2×20 racks at 25 kW, N+1" — get the full power train and cooling, priced. Every number from your rules.">
+<meta property="og:url" content="https://nteli.io/engine/datacenter">
+<meta property="og:image" content="https://nteli.io/media/og-datacenter.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Data Center Pod Quoting — Nteli Engine">
+<meta name="twitter:description" content="Racks, power train and cooling sized together, priced as one pod BOM.">
+<meta name="twitter:image" content="https://nteli.io/media/og-datacenter.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--purple-border:#3D2066;--teal:#2DD4BF;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;font-family:var(--sans);}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.btn-outline{background:transparent;border-color:var(--border2);color:var(--text);}
+.btn-outline:hover{background:var(--surface2);}
+.hero{position:relative;padding:72px 28px 36px;text-align:center;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,var(--purple-bg) 0%,transparent 65%);opacity:.6;pointer-events:none;}
+.hero-inner{max-width:820px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:46px;font-weight:800;line-height:1.12;letter-spacing:-1.2px;margin-bottom:16px;}
+.accent{background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 55%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:18px;color:var(--text2);line-height:1.65;max-width:700px;margin:0 auto;}
+.video-wrap{padding:28px 28px 48px;}
+.video-frame{max-width:960px;margin:0 auto;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;position:relative;box-shadow:0 40px 80px -24px rgba(0,0,0,.6);}
+video{display:block;width:100%;aspect-ratio:16/9;border-radius:8px;background:#000;}
+.vid-unmute{position:absolute;left:30px;bottom:70px;padding:11px 18px;border-radius:999px;border:0;background:var(--gold);color:#0D1117;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:2;}
+.vid-unmute:hover{background:#E4BC5B;}
+.video-caption{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin-top:16px;max-width:760px;margin-left:auto;margin-right:auto;}
+.cta-row{display:flex;justify-content:center;gap:12px;padding:8px 28px 64px;flex-wrap:wrap;}
+.pitch{border-top:1px solid var(--border);background:var(--surface);padding:44px 28px;text-align:center;}
+.pitch p{max-width:760px;margin:0 auto;font-size:16px;color:var(--text2);}
+.pitch strong{color:var(--text);}
+.xverts{padding:40px 28px 56px;max-width:1180px;margin:0 auto;text-align:center;}
+.xverts-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-family:var(--mono);margin-bottom:16px;}
+.xv{display:inline-block;font-size:12px;font-weight:600;color:var(--text2);border:1px solid var(--border);border-radius:16px;padding:6px 13px;margin:4px 3px;transition:color .15s,border-color .15s;}
+.xv:hover{color:var(--text);border-color:var(--border2);}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+footer a:hover{color:var(--text2);}
+@media(max-width:640px){h1{font-size:32px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Data center pod quoting demo — Nteli Agent Pricing Engine","description":"Racks, containment, power train and cooling sized together: kW per rack drives PDUs, UPS under N+1 or 2N, generators, CRAH and CDU.","thumbnailUrl":"https://nteli.io/media/og-datacenter.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-datacenter.mp4","uploadDate":"2026-10-25","duration":"PT1M18S","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <div style="display:flex;gap:10px;">
+    <a class="btn btn-outline" href="/engine">All demos</a>
+    <a class="btn btn-primary" href="https://quote.nteli.io/signup?src=website-datacenter">Sign up free →</a>
+  </div>
+</div></nav>
+
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">Agent Pricing Engine · Data Center Pods</div>
+  <h1>Data center pods,<br><span class="accent">quoted by conversation.</span></h1>
+  <p class="hero-sub">Say <em>&ldquo;1&nbsp;MW, two rows of 20 racks at 25&nbsp;kW, N+1&rdquo;</em> — the engine sizes the racks, containment, power train and cooling together and prices the pod as one BOM. Every number comes from your rules — never from a guess.</p>
+</div></section>
+
+<section class="video-wrap">
+  <div class="video-frame">
+    <video id="v" controls preload="auto" playsinline muted autoplay>
+      <source src="/media/nteli-quoting-datacenter.mp4" type="video/mp4">
+    </video>
+    <button id="um" class="vid-unmute">🔊 Tap for sound</button>
+  </div>
+  <p class="video-caption">Racks, containment, power train and cooling sized together: kW per rack drives PDUs, UPS under N+1 or 2N, generators, CRAH and CDU.</p>
+</section>
+
+<section style="max-width:800px;margin:0 auto;padding:36px 28px 8px;">
+  <h2 style="font-size:24px;font-weight:800;letter-spacing:-.5px;margin-bottom:14px;">What it sizes together</h2>
+  <ul style="list-style:none;">
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>kW per rack drives the rack PDUs and feeds — and everything upstream of them.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>UPS modules and battery runtime sized under the redundancy you choose — N, N+1 or 2N — with step-down transformers per side.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Generators, switchgear and transfer gear sized to the pod&rsquo;s load, with interrupting ratings checked.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Cooling — CRAH, coolant distribution, rear-door heat exchangers — checked against the heat each rack actually sheds, so a 40&nbsp;kW rack never ships with 25&nbsp;kW of cooling.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Containment, row busway and commissioning levels carried into the same BOM.</li>
+    <li style="font-size:15px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px;line-height:1.65;"><span style="position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;">→</span>Every size and every refusal shows its source — the rule, the rating, the catalog page.</li>
+  </ul>
+  <p style="font-size:15px;color:var(--text);margin-top:18px;border-left:3px solid var(--purple);padding-left:16px;"><strong>Built for pod, e-house and power-skid builders</strong> quoting first-pass sizing on bids where estimating time is the scarcest resource.</p>
+</section>
+
+<div class="cta-row">
+  <a class="btn btn-primary" style="padding:13px 26px;font-size:15px;" href="https://quote.nteli.io/signup?src=website-datacenter">Sign up free →</a>
+  <a class="btn btn-outline" style="padding:13px 26px;font-size:15px;" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=vertical-datacenter" target="_blank" rel="noopener">Book a demo →</a>
+</div>
+<p style="text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin:-44px 28px 56px;">Free to use &mdash; Nteli is paid only when an order is won through it.</p>
+
+<section class="pitch">
+  <p><strong>The engine is a full MCP server</strong> — connect it to Claude and your team quotes data center pods in plain conversation, on a rule pack built from twenty years of configuring these products. Override the pack with your own rules, governed and audited — and you're onboarded.</p>
+</section>
+
+<section class="xverts">
+  <div class="xverts-lbl">The engine also quotes</div>
+  <a class="xv" href="/engine/safety">Safety & Plumbing Equipment</a> <a class="xv" href="/engine/hazloc">Hazardous-Area Electrical</a> <a class="xv" href="/engine/hvac">Commercial HVAC</a> <a class="xv" href="/engine/pumps">Pumps & Packaged Skids</a> <a class="xv" href="/engine/lab">Lab Furniture & Fume Hoods</a> <a class="xv" href="/engine/doors">Fire Doors & Hardware</a> <a class="xv" href="/engine/cooling">Cooling Towers</a> <a class="xv" href="/engine/medgas">Medical Gas & Headwalls</a> <a class="xv" href="/engine/water">Water Treatment</a> <a class="xv" href="/engine/kitchen">Kitchen Ventilation</a> <a class="xv" href="/engine/cranes">Cranes & Hoists</a> <a class="xv" href="/engine/boilers">Commercial Boilers</a> <a class="xv" href="/engine/panels">Control Panels &amp; Switchgear</a> <a class="xv" href="/engine/electronics">Electronic Components & Assemblies</a>
+  <p style="margin-top:20px;font-size:13px;color:var(--text3);"><a href="/manufacturing" style="color:var(--blue);">The four manufacturing levers</a> &nbsp;·&nbsp; <a href="/roi" style="color:var(--blue);">Estimate your leak ledger</a> &nbsp;·&nbsp; <a href="/benchmarks" style="color:var(--blue);">The benchmark rates, with the math</a> &nbsp;·&nbsp; <a href="/workshop" style="color:var(--blue);">The Leak Ledger Workshop</a></p>
+</section>
+
+<section style="border-top:1px solid var(--border);background:var(--surface);padding:48px 28px;text-align:center;">
+  <h2 style="font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px;">Skeptical? Send us a real RFQ.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:620px;margin:0 auto 22px;">One you quoted recently, names removed. You&rsquo;ll get back what the engine produces &mdash; compare it with yours. No deck, no pitch.</p>
+  <a class="btn btn-primary" style="padding:12px 24px;font-size:15px;" href="mailto:kathir@nteli.io?subject=RFQ%20challenge%20%E2%80%94%20Data%20Center%20Pods">Email an RFQ &rarr;</a>
+</section>
+
+<footer>© 2026 Nteli LLC · <a href="/claude">Use in Claude</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+
+<script>
+(function(){
+  var v=document.getElementById('v'), b=document.getElementById('um');
+  v.playbackRate=1.25; v.defaultPlaybackRate=1.25;
+  b.addEventListener('click',function(){ v.muted=false; v.currentTime=0; v.play().catch(function(){}); b.hidden=true; });
+  v.addEventListener('volumechange',function(){ if(!v.muted) b.hidden=true; });
+  v.play().then(function(){}).catch(function(){ v.muted=false; b.hidden=true; });
+})();
+</script>
+</body>
+</html>
