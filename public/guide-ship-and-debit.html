@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ship &amp; Debit Reconciliation, Explained — Nteli</title>
+<meta name="description" content="What Ship & Debit is, why claims leak revenue, and what reconciliation actually requires: validating every claim against the design registration and contract price before the credit memo posts — with the record spine, the four questions, and benchmark leak rates shown with their math.">
+<link rel="canonical" href="https://nteli.io/guides/ship-and-debit-reconciliation">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Ship &amp; Debit reconciliation, explained">
+<meta property="og:description" content="Why distributor claims leak revenue, and what validating them against the design registration actually takes.">
+<meta property="og:url" content="https://nteli.io/guides/ship-and-debit-reconciliation">
+<meta property="og:image" content="https://nteli.io/icon-512.png">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:760px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px;color:var(--text);}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:40px 0 12px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul,ol{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+li b{color:var(--text);}
+.spine{font-family:var(--mono);font-size:13px;color:var(--teal);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 18px;margin:0 0 16px;overflow-x:auto;white-space:nowrap;}
+.pull{border-left:3px solid var(--purple);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:29px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Ship & Debit reconciliation, explained","description":"What Ship & Debit is, why distributor claims leak revenue, and what validating claims against design registrations and contract prices actually requires.","datePublished":"2026-10-29","author":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/guides/ship-and-debit-reconciliation"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is Ship & Debit?","acceptedAnswer":{"@type":"Answer","text":"A distributor buys parts at book cost, sells them to a specific end customer at a lower price the manufacturer agreed to (usually tied to a design registration), and files a claim — the debit — for the difference. The manufacturer settles claims as credit memos against the distributor's account."}},
+{"@type":"Question","name":"Why do Ship & Debit claims leak revenue?","acceptedAnswer":{"@type":"Answer","text":"Most manufacturers pay claims without validating each line against the agreement behind it. Claims against expired or wrong design registrations, prices that drifted from the contract, duplicate lines, and quantities that never shipped all get paid — and period aggregates hide the line detail that would catch them."}},
+{"@type":"Question","name":"What does Ship & Debit reconciliation require?","acceptedAnswer":{"@type":"Answer","text":"A connected record spine — design registration, quote, order, sales document, POS line, claim, aggregate, credit memo, GL — so every claim line can be matched to the sell-through it says it covers and checked against the registered price before the credit memo posts. Settled claims also need to flow back into tax as price adjustments."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/semi">The semiconductor practice →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Guide · Channel revenue</div>
+<h1>Ship &amp; Debit reconciliation, explained.</h1>
+
+<div class="answer"><b>The short answer:</b> Ship &amp; Debit is how distributors get paid back the difference between book cost and the price you agreed to for a specific end customer. Reconciliation means validating every claim line against the design registration and contract price behind it <em>before</em> the credit memo posts — not after the quarter closes.</div>
+
+<h2>How the money moves</h2>
+<p>A distributor buys your parts at book cost. For a specific design win — usually locked in by a <b>design registration</b> — you agree to a lower price so the distributor can win the end customer. The distributor sells at that negotiated price, then files a <b>Ship &amp; Debit claim</b> for the difference. You settle claims, usually consolidated into one <b>credit memo per period</b>, against their account.</p>
+<p>That means the design registration is a legal commitment, the claim is a demand against it, and the credit memo is real money leaving. Every claim line is supposed to trace back through the chain:</p>
+<div class="spine">Design Registration → Quote → Order → Sales Doc → POS line → Claim → Aggregate → Credit Memo → GL</div>
+
+<h2>Where it leaks</h2>
+<ul>
+  <li><b>Claims against expired or wrong registrations.</b> The DR lapsed, the end customer changed, or the part isn't the one registered — and the claim pays anyway.</li>
+  <li><b>Price drift.</b> The claimed delta is computed from a price that isn't the contracted one. Small per-line, systematic across thousands of lines.</li>
+  <li><b>Duplicates and phantom quantities.</b> The same POS line claimed twice, or quantities claimed that never appear in sell-through data.</li>
+  <li><b>Aggregates that hide the lines.</b> Distributors expect one consolidated credit memo per period; if you can't burst the aggregate back into claim lines, you're approving a total, not a claim.</li>
+  <li><b>Tax filed on the wrong number.</b> Claims change the effective selling price after the invoice. If settled claims don't flow back into tax as price adjustments or credit memos, you file on the invoice price and the difference is misfiled.</li>
+</ul>
+<p class="pull">The uncomfortable question is simple: of the claims you paid last quarter, how many were validated line by line against the registration behind them?</p>
+
+<h2>The four questions of the channel motion</h2>
+<p>Channel revenue follows <b>Agree → Transact → Settle → Comply</b>, and reconciliation is the Settle step answering all four at once: What price was promised (the registration and contract)? What actually transacted (orders and POS sell-through)? What was settled (claims and credit memos — and do they agree with the first two)? What was filed (tax and the audit trail on the net price)?</p>
+
+<h2>What reconciliation actually requires</h2>
+<ul>
+  <li><b>A connected record spine</b>, not reports from three systems. CRM has the registration, ERP has the invoice, the distributor feed has POS — reconciliation lives where they join.</li>
+  <li><b>Line-level matching</b> of each claim to the POS sell-through it says it covers (a fingerprint match: part, end customer, period, quantity).</li>
+  <li><b>Validation before payment</b> — registration status, contract price, duplicate detection — not sampling after the quarter.</li>
+  <li><b>Aggregates with line-level audit</b>: one credit memo per period for the distributor, every underlying claim line preserved for the auditor.</li>
+  <li><b>A path back into tax and the GL</b>, so settled claims adjust the filed numbers automatically.</li>
+</ul>
+<p>As a planning benchmark, Nteli's <a href="/benchmarks">leak-ledger rates</a> — our engagement-derived planning rates, not survey statistics — put channel claim leakage at 5% of channel revenue, with roughly 40% of it recoverable once claims are validated line by line. For the pharma version of the same mechanics, chargebacks play the role of Ship &amp; Debit — the <a href="/pharma">validation stack is here</a>.</p>
+
+<h2>Seeing it end to end</h2>
+<p>The <a href="/semi">semiconductor practice page</a> walks one transaction from design win to GL credit memo — twelve linked records, every number reconciling — and shows what a Phase&nbsp;1 looks like: one distributor, one BU, one quarter of parallel run, fixed fee.</p>
+
+<div class="cta-band">
+  <h2>Put your claims on a ledger.</h2>
+  <p>The Leak Ledger Workshop: one day, your data, a dollar ledger per lever — including what last quarter's claims would have looked like validated line by line.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="/workshop">The Leak Ledger Workshop →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="/semi">The semiconductor practice</a>
+  </div>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/semi">Semiconductor</a> · <a href="/pharma">Pharma</a> · <a href="/benchmarks">Benchmarks</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>

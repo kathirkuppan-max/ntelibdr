@@ -13,6 +13,7 @@ Connect as a custom connector: Claude Settings -> Connectors -> Add custom conne
 - https://nteli.io/engine/{vertical} - per-vertical demo pages with 90-second videos
 - https://nteli.io/roi - leak-ledger calculator (benchmarks with visible formulas)
 - https://nteli.io/guides/ul-508a-quoting - guide: what UL 508A control panel quoting software must check (NEC 430.250, SCCR, enclosure/cooling rules); spreadsheets vs CPQ vs AI-era quoting
+- https://nteli.io/guides/ship-and-debit-reconciliation - guide: Ship & Debit claims explained; the record spine (design registration to credit memo), where claims leak, what line-by-line validation requires
 - https://nteli.io/benchmarks - the benchmark rates behind the calculator, with the arithmetic shown (Nteli planning rates, not industry surveys)
 - https://nteli.io/workshop - The Leak Ledger Workshop: one day, customer data, dollar ledger per lever
 - https://nteli.io/manufacturing , /semi , /pharma , /saas - industry lever pages
