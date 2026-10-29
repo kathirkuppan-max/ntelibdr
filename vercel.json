@@ -55,6 +55,7 @@
     { "src": "/kathir",        "dest": "/kathir.html" },
     { "src": "/roi",           "dest": "/roi.html" },
     { "src": "/benchmarks",    "dest": "/benchmarks.html" },
+    { "src": "/guides/ul-508a-quoting", "dest": "/guide-ul508a-quoting.html" },
     { "src": "/pricing",       "dest": "/pricing.html" },
     { "src": "/privacy",       "dest": "/privacy.html" },
     { "src": "/terms",         "dest": "/terms.html" },

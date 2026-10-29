@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UL 508A Control Panel Quoting Software — What to Look For</title>
+<meta name="description" content="How UL 508A panel shops quote faster without guessing: what panel estimating software must check (NEC 430.250 motor currents, SCCR, enclosure and cooling rules), why spreadsheets leak margin, and what AI-era quoting looks like — paste the RFQ, get a checked quote.">
+<link rel="canonical" href="https://nteli.io/guides/ul-508a-quoting">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="UL 508A control panel quoting: estimate faster without guessing">
+<meta property="og:description" content="What panel estimating software must actually check — and why the rules matter more than the screen.">
+<meta property="og:url" content="https://nteli.io/guides/ul-508a-quoting">
+<meta property="og:image" content="https://nteli.io/media/og-panels.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nteli.io/media/og-panels.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:760px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px;color:var(--text);}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:40px 0 12px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+li b{color:var(--text);}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.pricing-note{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin-top:14px;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:29px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"UL 508A control panel quoting software: what to look for","description":"What panel estimating software must check — NEC 430.250 motor currents, SCCR, enclosure and cooling rules — and why spreadsheets leak margin.","datePublished":"2026-10-29","author":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/guides/ul-508a-quoting"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What should UL 508A panel quoting software check?","acceptedAnswer":{"@type":"Answer","text":"At minimum: motor full-load currents from NEC Table 430.250 with the main sized per NEC 430.24/409.20, SCCR against the available fault current and the main breaker's interrupting rating at the supply voltage, starter and drive selection from published manufacturer ratings, and enclosure type (NEMA 1, 12, 3R, 4, 4X) with cooling rules such as no fans on 3R/4/4X. Every size and refusal should cite its source."},
+{"@type":"Question","name":"Why do spreadsheet panel estimates leak margin?","acceptedAnswer":{"@type":"Answer","text":"Because the checks live in one estimator's head: an undersized main, a wrong SCCR, or a fan on a NEMA 4X box gets caught on the floor or in the field, where the fix comes out of margin. The estimate also takes a senior person roughly half a day, which caps how many RFQs a shop can answer."},
+{"@type":"Question","name":"What does AI-era panel quoting look like?","acceptedAnswer":{"@type":"Answer","text":"Paste the RFQ email or spec into an AI assistant connected to a rules engine; the AI gathers missing facts (like supply voltage), the deterministic engine sizes and checks the panel from cited rules, and the same quote produces the submittal sheet — ratings, dimensioned layout, one-line diagram and bill of materials."}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/engine/panels">Watch the panel demo →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Guide · Control panels</div>
+<h1>UL 508A control panel quoting software: what to look for.</h1>
+
+<div class="answer"><b>The short answer:</b> quoting software for UL 508A panel shops is only as good as the rules it checks — motor currents from NEC Table 430.250 with the main per 430.24/409.20, SCCR against available fault current, starters and drives from published ratings, and enclosure/cooling rules. If the tool can't cite why it sized something, it's a calculator, not an estimator.</div>
+
+<h2>Why panel quotes go wrong</h2>
+<p>A control panel RFQ usually arrives as a messy email: a motor schedule, a voltage that may or may not be stated, an enclosure environment implied rather than specified. The estimator re-keys the same starter, breaker and enclosure picks for every quote — and the checks that make the panel buildable live in their head.</p>
+<p>The failure modes are always the same, and each one comes out of margin on the floor or in the field:</p>
+<ul>
+  <li><b>The main is undersized</b> because motor currents were summed from nameplates instead of NEC Table 430.250, or 430.24's 125% rule was skipped.</li>
+  <li><b>SCCR doesn't meet the available fault current</b> — the single most common reason an AHJ or customer bounces a panel.</li>
+  <li><b>The interrupting rating is quoted at the wrong voltage</b> — a breaker's kA rating at 240 V isn't its rating at 480 V.</li>
+  <li><b>Cooling violates the enclosure rating</b> — a fan cut into a NEMA 3R, 4 or 4X box voids the rating that was the whole point.</li>
+  <li><b>The quote and the submittal disagree</b>, because they were built twice by different people.</li>
+</ul>
+
+<h2>The checklist: what the software must verify</h2>
+<ul>
+  <li><b>Supply voltage</b> — 208, 240, 480 or 600&nbsp;V — asked explicitly when the RFQ doesn't say, never assumed.</li>
+  <li><b>Motor current from NEC Table 430.250</b>, main sized to NEC 430.24 / 409.20.</li>
+  <li><b>SCCR vs. available fault current</b>, and the main breaker's interrupting rating at the supply voltage.</li>
+  <li><b>Starters</b> (full-voltage, reversing, soft) <b>and drives</b> sized from published manufacturer ratings, not rules of thumb.</li>
+  <li><b>Enclosure type</b> (NEMA 1, 12, 3R, 4, 4X) <b>and cooling rules</b> — no fans on 3R/4/4X.</li>
+  <li><b>A source for every answer</b> — the code section or the catalog page, so an engineer can trust a number or a refusal without re-deriving it.</li>
+</ul>
+<p>One honest boundary: software checks constraints; it is not a certification body. The UL 508A label still comes from your shop's program and procedures.</p>
+
+<h2>Spreadsheets vs. CPQ vs. AI-era quoting</h2>
+<p><b>Spreadsheets</b> are where most shops are: free, familiar, and dependent on the one senior estimator nobody can afford to lose. A hand-built panel quote takes most of half a day, which caps a shop at roughly two quotes per estimator per day — the real constraint on how many RFQs you can answer.</p>
+<p><b>Traditional CPQ</b> (the kind Cisco and Dell run) fixes the checking problem but assumes a dedicated team to author and maintain rules, and a seller clicking through a configurator. That's an enterprise program, not a 20&ndash;300-person shop's tool.</p>
+<p><b>AI-era quoting</b> inverts the interface: paste the RFQ, the spec or the customer email into an AI assistant, and a deterministic rules engine does the sizing and checking behind it. The AI runs the conversation and asks for what's missing; the engine computes from cited rules and never invents a number. The same quote produces the submittal sheet your customer approves before the PO — ratings, a dimensioned layout, a one-line diagram and the bill of materials. Switchgear and MCC-sized jobs route to your engineers with the details already gathered.</p>
+<p>That's what <a href="/engine/panels">Nteli's Agent Pricing Engine</a> does for UL 508A shops: it ships with a starter rule pack your team can override with its own rules, governed and audited, and it runs inside Claude as a connector — <a href="/claude">paste an RFQ, get a checked quote</a>. Our <a href="/benchmarks">benchmark planning rates</a> put config and discount errors at 3% of quoted value for configure-to-order manufacturers; the point of cited rules is that your number stops being a guess.</p>
+
+<div class="cta-band">
+  <h2>Skeptical? Send us a real RFQ.</h2>
+  <p>One you quoted recently, names removed. You'll get back what the engine produces — compare it with yours. No deck, no pitch.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="mailto:kathir@nteli.io?subject=RFQ%20challenge%20%E2%80%94%20Control%20Panels">Email an RFQ →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="https://quote.nteli.io/signup?src=website-guide-ul508a">Sign up free</a>
+  </div>
+  <div class="pricing-note">Free to use — Nteli is paid only when an order is won through it.</div>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/engine/panels">Panel demo</a> · <a href="/claude">Use in Claude</a> · <a href="/benchmarks">Benchmarks</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
