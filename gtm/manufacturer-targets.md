@@ -63,7 +63,15 @@ All 18 emails above are Apollo-verified status "verified".
 ## Status
 - [x] National expansion per Kathir ("Let's go all across the states!")
 - [x] 19 primaries enriched, 18 verified emails (Akron's estimator has none — LinkedIn by hand)
-- [x] Handed to the Outreach session for the daily first-touch queue
+- [x] Handed to the Outreach session; merged into its gtm/batch2-contacts.csv (15 of 18 new)
+- Deduped by Outreach (already touched today via that session): Eric Wachob (MJM),
+  Brett Kedzior (LoDan), Anthony Parrish (PCX). Akron Electric and WSA were already emailed via
+  other contacts (Mark Hanneken, Jason Green) — so no LinkedIn second touch to them.
 - [ ] Kathir's explicit OK before anything sends
-- LinkedIn-by-hand contacts (Kathir sends himself): Blitzpanel, D&D Tech, WSA, Matt Heilich (Akron)
+- [ ] **Kathir to decide (Touch-1 conflict):** this file's angle puts the vertical-page link +
+  "paste this prompt" CTA in Touch 1; the Outreach session's Touch-1 rule is NO links
+  (deliverability). Options: (a) keep Touch 1 link-free — describe the demo in words, link lands
+  in Touch 2 or the reply (safest for a new sender); (b) allow the one nteli.io link in Touch 1.
+- LinkedIn-by-hand contacts (Kathir sends himself): Blitzpanel, D&D Tech; Matt Heilich (Akron)
+  and WSA are now second touches — hold unless Kathir wants them anyway.
 - Navitas excluded by standing rule.
