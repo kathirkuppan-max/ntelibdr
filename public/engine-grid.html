@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Distribution Transformer Quoting — Nteli Agent Pricing Engine</title>
+<meta name="description" content="Pad-mount, substation, dry-type and cast-coil distribution transformers — DOE efficiency at the current and 2029 levels, NEC 450 siting, BIL, fusing, harmonics and solar step-up, checked by cited rules. Every quote shows the fault current the downstream switchboard must handle. Live now on quote.nteli.io.">
+<link rel="canonical" href="https://nteli.io/engine/grid">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Distribution Transformer Quoting — Agents talk. The engine decides.">
+<meta property="og:description" content="Pad-mount to cast-coil — DOE 2029, NEC 450 and IEEE C57.12 checked by cited rules; fault current on every quote. Live now.">
+<meta property="og:url" content="https://nteli.io/engine/grid">
+<meta property="og:image" content="https://nteli.io/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Distribution Transformer Quoting — Nteli Engine">
+<meta name="twitter:description" content="DOE 2029, NEC 450 and IEEE C57.12 checked by cited rules; fault current on every quote. Live now.">
+<meta name="twitter:image" content="https://nteli.io/icon-512.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--purple-border:#3D2066;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;font-family:var(--sans);}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.btn-outline{background:transparent;border-color:var(--border2);color:var(--text);}
+.btn-outline:hover{background:var(--surface2);}
+.hero{position:relative;padding:72px 28px 36px;text-align:center;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,var(--purple-bg) 0%,transparent 65%);opacity:.6;pointer-events:none;}
+.hero-inner{max-width:820px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+.live-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-family:var(--mono);color:var(--green);border:1px solid rgba(63,185,80,.4);border-radius:16px;padding:5px 13px;margin-bottom:18px;}
+.live-tag::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--green);}
+h1{font-size:46px;font-weight:800;line-height:1.12;letter-spacing:-1.2px;margin-bottom:16px;}
+.accent{background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 55%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:18px;color:var(--text2);line-height:1.65;max-width:700px;margin:0 auto;}
+.scope{padding:36px 28px 16px;max-width:1020px;margin:0 auto;}
+.scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.scard{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:24px 26px;}
+.scard h3{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);color:var(--purple);margin-bottom:12px;}
+.scard p{font-size:14px;color:var(--text2);line-height:1.75;}
+.scard p b{color:var(--text);font-weight:600;}
+.rules-line{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin:22px auto 0;max-width:760px;}
+.rules-line b{color:var(--gold);font-weight:600;}
+.why{border-top:1px solid var(--border);background:var(--surface);padding:48px 28px;}
+.why-inner{max-width:860px;margin:0 auto;text-align:center;}
+.why h2{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px;}
+.why p{font-size:15px;color:var(--text2);max-width:720px;margin:0 auto 20px;}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:left;}
+.wcard{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:16px 18px;}
+.wcard h4{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-family:var(--mono);color:var(--gold);margin-bottom:8px;}
+.wcard p{font-size:13px;color:var(--text2);line-height:1.6;margin:0;}
+.cta-row{display:flex;justify-content:center;gap:12px;padding:32px 28px 64px;flex-wrap:wrap;}
+.pitch{border-top:1px solid var(--border);background:var(--surface);padding:44px 28px;text-align:center;}
+.pitch p{max-width:760px;margin:0 auto;font-size:16px;color:var(--text2);}
+.pitch strong{color:var(--text);}
+.xverts{padding:40px 28px 56px;max-width:1180px;margin:0 auto;text-align:center;}
+.xverts-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-family:var(--mono);margin-bottom:16px;}
+.xv{display:inline-block;font-size:12px;font-weight:600;color:var(--text2);border:1px solid var(--border);border-radius:16px;padding:6px 13px;margin:4px 3px;transition:color .15s,border-color .15s;}
+.xv:hover{color:var(--text);border-color:var(--border2);}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+footer a:hover{color:var(--text2);}
+@media(max-width:860px){.scope-grid{grid-template-columns:1fr;}.why-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:640px){h1{font-size:32px;}.why-grid{grid-template-columns:1fr;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <div style="display:flex;gap:10px;">
+    <a class="btn btn-outline" href="/engine">All demos</a>
+    <a class="btn btn-primary" href="https://quote.nteli.io/signup?src=website-grid">Sign up free →</a>
+  </div>
+</div></nav>
+
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">Agent Pricing Engine · Distribution Transformers</div>
+  <div class="live-tag">Live now on quote.nteli.io</div>
+  <h1>Distribution transformers,<br><span class="accent">quoted by conversation.</span></h1>
+  <p class="hero-sub">Pad-mount, substation, dry-type or cast-coil — describe the unit and the engine checks DOE efficiency, NEC 450 siting, insulation level and fusing by citation, prices Good / Better / Best, and shows the fault current your switchboard must handle. Every number comes from the rules, never from a guess.</p>
+</div></section>
+
+<section class="scope">
+  <div class="scope-grid">
+    <div class="scard">
+      <h3>What it quotes</h3>
+      <p><b>Pad-mounted</b> liquid-filled (three- and single-phase), <b>substation</b> units, <b>dry-type</b> general purpose and <b>cast-coil</b> — 15 to 10,000&nbsp;kVA, primaries from 480&nbsp;V to 34.5&nbsp;kV, mineral oil, natural ester, silicone or dry.</p>
+    </div>
+    <div class="scard">
+      <h3>What it checks</h3>
+      <p><b>DOE efficiency</b> (10 CFR 431.196) at the current level and the 2029 level; <b>NEC 450 siting</b> — oil indoors needs a vault, with ester, silicone and dry-type as the ways out; <b>BIL</b> by voltage class (IEEE C57.12), fusing, K-factor harmonic loads and <b>solar step-up</b> (IEEE C57.159).</p>
+    </div>
+    <div class="scard">
+      <h3>On every quote</h3>
+      <p>The <b>secondary fault current</b> the downstream switchboard must handle — shown with its arithmetic (rated current over impedance) — plus the site responsibilities an engineer expects, stated rather than buried.</p>
+    </div>
+  </div>
+  <p class="rules-line"><b>Cited rules</b> decide what may be built and where it may sit — and every size, price and refusal shows its source.</p>
+</section>
+
+<div class="cta-row">
+  <a class="btn btn-primary" style="padding:13px 26px;font-size:15px;" href="https://quote.nteli.io/signup?src=website-grid">Sign up free →</a>
+  <a class="btn btn-outline" style="padding:13px 26px;font-size:15px;" href="/claude">Use it in Claude</a>
+</div>
+<p style="text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin:-44px 28px 56px;">Free to use &mdash; Nteli is paid only when an order is won through it.</p>
+
+<section class="why">
+  <div class="why-inner">
+    <h2>The rules under this product move from four directions at once.</h2>
+    <p>A transformer quote built in a spreadsheet goes stale the day one of these shifts. The engine doesn&rsquo;t watch for changes — people teach it: a change comes in with its source, gets replayed against past quotes to show what it touches, is approved by a second person, and ships in a versioned pack. Your quotes cite the rule that priced them.</p>
+    <div class="why-grid">
+      <div class="wcard"><h4>DOE 2029</h4><p>The April 2024 final rule raises efficiency levels for units made from April 23, 2029 &mdash; and DOE&rsquo;s 2026 review of those levels is open now.</p></div>
+      <div class="wcard"><h4>Section 232</h4><p>The steel duty reaches transformers (HTS 8504), and the allowance on a quote has to be stated, not hidden in the margin.</p></div>
+      <div class="wcard"><h4>NEC revisions</h4><p>Article 450 decides where each liquid and dry-type may sit &mdash; vaults, clearances, less-flammable fluids &mdash; and it moves on the code cycle.</p></div>
+      <div class="wcard"><h4>Year-plus lead times</h4><p>At 30&ndash;60 weeks, a quote priced on last year&rsquo;s rules is delivered under next year&rsquo;s &mdash; the compliance date belongs on the quote.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="pitch">
+  <p><strong>The engine is a full MCP server</strong> — connect it to Claude and your team quotes distribution transformers in plain conversation: describe the unit, answer the question card, pick Good / Better / Best. The starter rule pack ships with the line; override it with your own rules, governed and audited — and you're onboarded.</p>
+</section>
+
+<section style="max-width:980px;margin:0 auto;padding:52px 28px 8px;text-align:center;">
+  <h2 style="font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;">Try it in Claude — right now.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:640px;margin:0 auto 24px;">Connect the engine as a custom connector (<a href="/claude" style="color:var(--blue);">two steps, shown here</a>), then paste any of these. They were run on the live engine; prices are illustrative until your price book loads.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left;" class="tryit-grid">
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;font-family:var(--mono);color:var(--gold);margin-bottom:8px;">THE REFUSAL</div>
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Quote a 1,500 kVA pad-mount, 12.47 kV to 480Y/277, mineral oil, installed inside the building.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Quote a 1,500 kVA pad-mount, 12.47 kV to 480Y/277, mineral oil, installed inside the building." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> Mineral oil indoors without a vault is refused under NEC 450.26 — with four ways out, each priced: natural ester from about $127,000 (the usual choice), a vault from about $120,000, silicone from about $137,000, or a dry-type unit.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;font-family:var(--mono);color:var(--gold);margin-bottom:8px;">THEN ASK &mdash; same chat as the prompt above</div>
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Same unit outdoors at the 2029 DOE level. What fault current must the switchboard handle, and what if we go low impedance?&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Same unit outdoors at the 2029 DOE level. What fault current must the switchboard handle, and what if we go low impedance?" style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> A 99.51% minimum-efficiency build (10 CFR 431.196, 2029 level) at about $128,000 — and the fault-current arithmetic in the open: about 31.4 kA at the standard 5.75% impedance, 36.1 kA if you go low impedance, so the switchboard rating is decided before the order, not after.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;2,500 kVA solar step-up at 34.5 kV with a 600 V inverter winding.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="2,500 kVA solar step-up at 34.5 kV with a 600 V inverter winding." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> A step-up design to IEEE C57.159 — electrostatic shield, built for no-load nights and inverter harmonics — at about $182,000. And a detail estimators catch: no bayonet fuse is published at 34.5 kV, so the primary is protected upstream per NEC 450.3, stated on the quote.</p>
+    </div>
+  </div>
+</section>
+<style>@media(max-width:900px){.tryit-grid{grid-template-columns:1fr !important;}}</style>
+<script>
+document.querySelectorAll('.tryit-copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    navigator.clipboard.writeText(b.getAttribute('data-prompt')).then(function(){
+      b.textContent='COPIED'; setTimeout(function(){ b.textContent='COPY PROMPT'; }, 1600);
+    }).catch(function(){});
+  });
+});
+</script>
+
+<section class="xverts">
+  <div class="xverts-lbl">The engine also quotes</div>
+  <a class="xv" href="/engine/datacenter">Data Center Pods</a> <a class="xv" href="/engine/panels">Control Panels &amp; Switchgear</a> <a class="xv" href="/engine/hazloc">Hazardous-Area Electrical</a> <a class="xv" href="/engine/interconnect">Interconnect / Cable Assemblies</a> <a class="xv" href="/engine/hvac">Commercial HVAC</a> <a class="xv" href="/engine/pumps">Pumps &amp; Packaged Skids</a> <a class="xv" href="/engine/electronics">Electronic Components &amp; Assemblies</a> <a class="xv" href="/engine/safety">Safety &amp; Plumbing Equipment</a> <a class="xv" href="/engine/lab">Lab Furniture &amp; Fume Hoods</a> <a class="xv" href="/engine/doors">Fire Doors &amp; Hardware</a> <a class="xv" href="/engine/cooling">Cooling Towers</a> <a class="xv" href="/engine/medgas">Medical Gas &amp; Headwalls</a> <a class="xv" href="/engine/water">Water Treatment</a> <a class="xv" href="/engine/kitchen">Kitchen Ventilation</a> <a class="xv" href="/engine/cranes">Cranes &amp; Hoists</a> <a class="xv" href="/engine/boilers">Commercial Boilers</a>
+  <p style="margin-top:20px;font-size:13px;color:var(--text3);"><a href="/manufacturing" style="color:var(--blue);">The four manufacturing levers</a> &nbsp;·&nbsp; <a href="/roi" style="color:var(--blue);">Estimate your leak ledger</a> &nbsp;·&nbsp; <a href="/benchmarks" style="color:var(--blue);">The benchmark rates, with the math</a> &nbsp;·&nbsp; <a href="/workshop" style="color:var(--blue);">The Leak Ledger Workshop</a></p>
+</section>
+
+<section style="border-top:1px solid var(--border);background:var(--surface);padding:48px 28px;text-align:center;">
+  <h2 style="font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px;">Skeptical? Send us a real RFQ.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:620px;margin:0 auto 22px;">One you quoted recently, names removed. You&rsquo;ll get back what the engine produces &mdash; compare it with yours. No deck, no pitch.</p>
+  <a class="btn btn-primary" style="padding:12px 24px;font-size:15px;" href="mailto:kathir@nteli.io?subject=RFQ%20challenge%20%E2%80%94%20Distribution%20Transformers">Email an RFQ &rarr;</a>
+</section>
+
+<footer>© 2026 Nteli LLC · <a href="/claude">Use in Claude</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>

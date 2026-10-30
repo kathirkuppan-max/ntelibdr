@@ -45,6 +45,7 @@
     { "src": "/engine/electronics", "dest": "/engine-electronics.html" },
     { "src": "/engine/interconnect", "dest": "/engine-interconnect.html" },
     { "src": "/engine/datacenter", "dest": "/engine-datacenter.html" },
+    { "src": "/engine/grid", "dest": "/engine-grid.html" },
     { "src": "/engine/power", "dest": "/engine-power.html" },
     { "src": "/engine/ic", "dest": "/engine-ic.html" },
     { "src": "/engine/([a-z-]+)", "dest": "/engine.html" },
