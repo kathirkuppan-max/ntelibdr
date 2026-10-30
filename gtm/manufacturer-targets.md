@@ -71,8 +71,10 @@ All 18 emails above are Apollo-verified status "verified".
   nteli.io/engine/{vertical} link allowed in Touch 1 from batch 2 on, paste-prompt CTA +
   RFQ walkthrough offer, under 80 words, NO pricing figures in email copy, no speed claims,
   tracking off. Batch 2 starts Mon 2026-11-02.
-- [ ] HVAC sends Fri 2026-11-06, pumps Mon 2026-11-09 — their pages need try-it blocks first;
-  engine session asked for validated prompts by Wed 2026-11-04 (msg b337212c).
+- [ ] Send schedule (Outreach session, 2026-10-29): batch 2 Mon 11-02; interconnect Wed 11-04;
+  HVAC Fri 11-06 only if its page prompts are live by Thu 11-05 (else pushed); pumps Mon 11-09.
+  Engine session asked for validated HVAC+pumps prompts by Wed 11-04 (msg b337212c); I confirm
+  to Outreach the moment each page's blocks are live.
 - LinkedIn-by-hand contacts (Kathir sends himself): Blitzpanel, D&D Tech; Matt Heilich (Akron)
   and WSA are now second touches — hold unless Kathir wants them anyway.
 - Navitas excluded by standing rule.
