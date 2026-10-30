@@ -103,6 +103,38 @@ footer a:hover{color:var(--text2);}
   <p><strong>The engine is a full MCP server</strong> — connect it to Claude and your team quotes Hazardous-Area Electrical in plain conversation, on a rule pack built from twenty years of configuring these products. Override the pack with your own rules, governed and audited — and you're onboarded.</p>
 </section>
 
+<section style="max-width:980px;margin:0 auto;padding:52px 28px 8px;text-align:center;">
+  <h2 style="font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;">Try it in Claude — right now.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:640px;margin:0 auto 24px;">Connect the engine as a custom connector (<a href="/claude" style="color:var(--blue);">two steps, shown here</a>), then paste any of these. They were run on the live engine; prices are illustrative until your price book loads.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left;" class="tryit-grid">
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Quote a Class I, Division 1, Group D panel with a VFD inside, mounted outdoors.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Quote a Class I, Division 1, Group D panel with a VFD inside, mounted outdoors." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> A drive's heat can't go in a sealed explosion-proof box — it quotes a Type X purge (NFPA 496) with automatic shutdown and a hazardous-location vortex cooler, and lists the purge-air and conduit-seal requirements.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-size:9.5px;font-weight:700;letter-spacing:.08em;font-family:var(--mono);color:var(--gold);margin-bottom:8px;">THE PAIR · 1 of 2</div><div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;I need a junction box with terminals only, Class I Division 2, Group D, outdoors.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="I need a junction box with terminals only, Class I Division 2, Group D, outdoors." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> Terminals only in Division 2 don't need an explosion-proof enclosure: it quotes a 4X stainless box with seals (about $1,000) — and says why.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-size:9.5px;font-weight:700;letter-spacing:.08em;font-family:var(--mono);color:var(--gold);margin-bottom:8px;">THE PAIR · 2 of 2</div><div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Same Class I Division 2 location, but the box holds relays and instruments.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Same Class I Division 2 location, but the box holds relays and instruments." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> Arcing contacts change the protection method: it moves to a listed cast explosion-proof enclosure with a breather/drain (about $3,600). Same location as the prompt above — the difference is what's inside, explained by code.</p>
+    </div>
+  </div>
+</section>
+<style>@media(max-width:900px){.tryit-grid{grid-template-columns:1fr !important;}}</style>
+<script>
+document.querySelectorAll('.tryit-copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    navigator.clipboard.writeText(b.getAttribute('data-prompt')).then(function(){
+      b.textContent='COPIED'; setTimeout(function(){ b.textContent='COPY PROMPT'; }, 1600);
+    }).catch(function(){});
+  });
+});
+</script>
+
 <section class="xverts">
   <div class="xverts-lbl">The engine also quotes</div>
   <a class="xv" href="/engine/datacenter">Data Center Pods</a> <a class="xv" href="/engine/safety">Safety & Plumbing Equipment</a> <a class="xv" href="/engine/hvac">Commercial HVAC</a> <a class="xv" href="/engine/pumps">Pumps & Packaged Skids</a> <a class="xv" href="/engine/lab">Lab Furniture & Fume Hoods</a> <a class="xv" href="/engine/doors">Fire Doors & Hardware</a> <a class="xv" href="/engine/cooling">Cooling Towers</a> <a class="xv" href="/engine/medgas">Medical Gas & Headwalls</a> <a class="xv" href="/engine/water">Water Treatment</a> <a class="xv" href="/engine/kitchen">Kitchen Ventilation</a> <a class="xv" href="/engine/cranes">Cranes & Hoists</a> <a class="xv" href="/engine/boilers">Commercial Boilers</a> <a class="xv" href="/engine/panels">Control Panels & Switchgear</a> <a class="xv" href="/engine/electronics">Electronic Components & Assemblies</a>

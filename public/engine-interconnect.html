@@ -114,6 +114,38 @@ footer a:hover{color:var(--text2);}
   <p><strong>The engine is a full MCP server</strong> — connect it to Claude and your team quotes cable assemblies in plain conversation: describe the cable, answer the question card, pick Good / Better / Best. The starter rule pack ships with the line; override it with your own rules, governed and audited — and you're onboarded.</p>
 </section>
 
+<section style="max-width:980px;margin:0 auto;padding:52px 28px 8px;text-align:center;">
+  <h2 style="font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;">Try it in Claude — right now.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:640px;margin:0 auto 24px;">Connect the engine as a custom connector (<a href="/claude" style="color:var(--blue);">two steps, shown here</a>), then paste any of these. They were run on the live engine; prices are illustrative until your price book loads.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left;" class="tryit-grid">
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Quote an M12 A-coded 8-pole cordset to flying leads, 5 m, for a machine with oil and coolant splash.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Quote an M12 A-coded 8-pole cordset to flying leads, 5 m, for a machine with oil and coolant splash." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> It picks the conductor gauge, an oil-resistant PUR jacket and molded ends — each checked against IEC 61076 connector ratings, NFPA 79 ampacity and IPC/WHMA-A-620 workmanship.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;M12 D-coded to RJ45 Ethernet cable, 5 m, for 10 Gbit/s.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="M12 D-coded to RJ45 Ethernet cable, 5 m, for 10 Gbit/s." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> A refusal with its reason: D-coded M12 has four contacts and stops at 100 Mbit/s. It offers both ways out, priced — keep D-coded at 100 Mbit/s, or move to X-coded for 10 Gbit/s.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;MPO-12 to six LC duplex breakout, OM4, about 125 m, running through a plenum ceiling, for 40G.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="MPO-12 to six LC duplex breakout, OM4, about 125 m, running through a plenum ceiling, for 40G." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> Plenum-rated (CMP/OFNP) jacket per the NEC, 12-fiber OM4 within the 40G reach, polarity and loss within TIA-568.3-E, and a 100% insertion-loss test with report.</p>
+    </div>
+  </div>
+</section>
+<style>@media(max-width:900px){.tryit-grid{grid-template-columns:1fr !important;}}</style>
+<script>
+document.querySelectorAll('.tryit-copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    navigator.clipboard.writeText(b.getAttribute('data-prompt')).then(function(){
+      b.textContent='COPIED'; setTimeout(function(){ b.textContent='COPY PROMPT'; }, 1600);
+    }).catch(function(){});
+  });
+});
+</script>
+
 <section class="xverts">
   <div class="xverts-lbl">The engine also quotes</div>
   <a class="xv" href="/engine/datacenter">Data Center Pods</a> <a class="xv" href="/engine/electronics">Electronic Components &amp; Assemblies</a> <a class="xv" href="/engine/panels">Control Panels &amp; Switchgear</a> <a class="xv" href="/engine/hazloc">Hazardous-Area Electrical</a> <a class="xv" href="/engine/hvac">Commercial HVAC</a> <a class="xv" href="/engine/pumps">Pumps &amp; Packaged Skids</a> <a class="xv" href="/engine/safety">Safety &amp; Plumbing Equipment</a> <a class="xv" href="/engine/lab">Lab Furniture &amp; Fume Hoods</a> <a class="xv" href="/engine/doors">Fire Doors &amp; Hardware</a> <a class="xv" href="/engine/cooling">Cooling Towers</a> <a class="xv" href="/engine/medgas">Medical Gas &amp; Headwalls</a> <a class="xv" href="/engine/water">Water Treatment</a> <a class="xv" href="/engine/kitchen">Kitchen Ventilation</a> <a class="xv" href="/engine/cranes">Cranes &amp; Hoists</a> <a class="xv" href="/engine/boilers">Commercial Boilers</a>

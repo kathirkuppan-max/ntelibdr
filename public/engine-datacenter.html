@@ -116,6 +116,38 @@ footer a:hover{color:var(--text2);}
   <p><strong>The engine is a full MCP server</strong> — connect it to Claude and your team quotes data center pods in plain conversation, on a rule pack built from twenty years of configuring these products. Override the pack with your own rules, governed and audited — and you're onboarded.</p>
 </section>
 
+<section style="max-width:980px;margin:0 auto;padding:52px 28px 8px;text-align:center;">
+  <h2 style="font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;">Try it in Claude — right now.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:640px;margin:0 auto 24px;">Connect the engine as a custom connector (<a href="/claude" style="color:var(--blue);">two steps, shown here</a>), then paste any of these. They were run on the live engine; prices are illustrative until your price book loads.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left;" class="tryit-grid">
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Quote a 1 MW pod: two rows of twenty racks at 25 kW, N+1, rear-door heat exchangers, 480 V utility, 65 kA, 18 °C chilled water, slab.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Quote a 1 MW pod: two rows of twenty racks at 25 kW, N+1, rear-door heat exchangers, 480 V utility, 65 kA, 18 °C chilled water, slab." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> The full power train and cooling sized from one line: UPS, generators, transformers, switchgear, busway, rack PDUs and CDUs — each checked for capacity after redundancy.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Price an 800 kW GPU pod: two rows of ten 40 kW GPU racks, direct-to-chip liquid cooling, 2N, 480 V, 65 kA, warm-water 32 °C loop.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Price an 800 kW GPU pod: two rows of ten 40 kW GPU racks, direct-to-chip liquid cooling, 2N, 480 V, 65 kA, warm-water 32 °C loop." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> 2N doubles the A and B paths (UPS, transformers, switchgear); CDUs carry the liquid load and CRAH units the air remainder. Every capacity is shown against its limit.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-size:9.5px;font-weight:700;letter-spacing:.08em;font-family:var(--mono);color:var(--gold);margin-bottom:8px;">THEN ASK — same chat as the prompt above</div><div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;What changes if that GPU pod goes N+1 instead of 2N?&rdquo;</div>
+      <button class="tryit-copy" data-prompt="What changes if that GPU pod goes N+1 instead of 2N?" style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> The engine re-sizes the whole train for the new redundancy and shows the price difference.</p>
+    </div>
+  </div>
+</section>
+<style>@media(max-width:900px){.tryit-grid{grid-template-columns:1fr !important;}}</style>
+<script>
+document.querySelectorAll('.tryit-copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    navigator.clipboard.writeText(b.getAttribute('data-prompt')).then(function(){
+      b.textContent='COPIED'; setTimeout(function(){ b.textContent='COPY PROMPT'; }, 1600);
+    }).catch(function(){});
+  });
+});
+</script>
+
 <section class="xverts">
   <div class="xverts-lbl">The engine also quotes</div>
   <a class="xv" href="/engine/safety">Safety & Plumbing Equipment</a> <a class="xv" href="/engine/hazloc">Hazardous-Area Electrical</a> <a class="xv" href="/engine/hvac">Commercial HVAC</a> <a class="xv" href="/engine/pumps">Pumps & Packaged Skids</a> <a class="xv" href="/engine/lab">Lab Furniture & Fume Hoods</a> <a class="xv" href="/engine/doors">Fire Doors & Hardware</a> <a class="xv" href="/engine/cooling">Cooling Towers</a> <a class="xv" href="/engine/medgas">Medical Gas & Headwalls</a> <a class="xv" href="/engine/water">Water Treatment</a> <a class="xv" href="/engine/kitchen">Kitchen Ventilation</a> <a class="xv" href="/engine/cranes">Cranes & Hoists</a> <a class="xv" href="/engine/boilers">Commercial Boilers</a> <a class="xv" href="/engine/panels">Control Panels &amp; Switchgear</a> <a class="xv" href="/engine/electronics">Electronic Components & Assemblies</a>
