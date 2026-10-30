@@ -103,6 +103,40 @@ footer a:hover{color:var(--text2);}
   <p><strong>The engine is a full MCP server</strong> — connect it to Claude and your team quotes Commercial HVAC in plain conversation, on a rule pack built from twenty years of configuring these products. Override the pack with your own rules, governed and audited — and you're onboarded.</p>
 </section>
 
+<section style="max-width:980px;margin:0 auto;padding:52px 28px 8px;text-align:center;">
+  <h2 style="font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;">Try it in Claude — right now.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:640px;margin:0 auto 24px;">Connect the engine as a custom connector (<a href="/claude" style="color:var(--blue);">two steps, shown here</a>), then paste any of these. They were run on the live engine; prices are illustrative until your price book loads.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left;" class="tryit-grid">
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;font-family:var(--mono);color:var(--gold);margin-bottom:8px;">THE PAIR &middot; 1 of 2</div>
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Quote a 10,000 cfm rooftop unit for a school in Chicago. The building has chilled water and a boiler plant.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Quote a 10,000 cfm rooftop unit for a school in Chicago. The building has chilled water and a boiler plant." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> The building already has chilled and hot water, so the unit gets coils instead of its own compressors and burner. It adds an energy-recovery wheel with frost control for the Chicago winter, a VFD and an economizer, each checked against ASHRAE 62.1 and 90.1 &mdash; and lists roof structure and intake separation as the site&rsquo;s to confirm.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;font-family:var(--mono);color:var(--gold);margin-bottom:8px;">THE PAIR &middot; 2 of 2</div>
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;Price a 20,000 cfm air handler for hospital patient rooms in Houston, in a mechanical room, on building chilled and hot water.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Price a 20,000 cfm air handler for hospital patient rooms in Houston, in a mechanical room, on building chilled and hot water." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> Patient care moves the filters up to MERV 14 (ASHRAE 170) and puts the unit in a double-wall casing. Compared with the school unit, every difference comes from the application &mdash; and each one is shown with its code.</p>
+    </div>
+    <div style="background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;text-align:left;">
+      <div style="font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;">&ldquo;A 10,000 cfm 100% outdoor-air unit for a lab building in Los Angeles, on the roof, no central plant, with OSP seismic certification.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="A 10,000 cfm 100% outdoor-air unit for a lab building in Los Angeles, on the roof, no central plant, with OSP seismic certification." style="font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;">COPY PROMPT</button>
+      <p style="font-size:13.5px;color:var(--text2);line-height:1.6;margin:0;"><b style="color:var(--text);">What you&rsquo;ll see:</b> Lab exhaust can&rsquo;t go through an energy-recovery wheel (IMC 514.2), so it leaves the wheel off and says why. The unit goes to 100% outdoor air with its own cooling and heat, plus the seismic certification and factory start-up.</p>
+    </div>
+  </div>
+</section>
+<style>@media(max-width:900px){.tryit-grid{grid-template-columns:1fr !important;}}</style>
+<script>
+document.querySelectorAll('.tryit-copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    navigator.clipboard.writeText(b.getAttribute('data-prompt')).then(function(){
+      b.textContent='COPIED'; setTimeout(function(){ b.textContent='COPY PROMPT'; }, 1600);
+    }).catch(function(){});
+  });
+});
+</script>
+
 <section class="xverts">
   <div class="xverts-lbl">The engine also quotes</div>
   <a class="xv" href="/engine/datacenter">Data Center Pods</a> <a class="xv" href="/engine/safety">Safety & Plumbing Equipment</a> <a class="xv" href="/engine/hazloc">Hazardous-Area Electrical</a> <a class="xv" href="/engine/pumps">Pumps & Packaged Skids</a> <a class="xv" href="/engine/lab">Lab Furniture & Fume Hoods</a> <a class="xv" href="/engine/doors">Fire Doors & Hardware</a> <a class="xv" href="/engine/cooling">Cooling Towers</a> <a class="xv" href="/engine/medgas">Medical Gas & Headwalls</a> <a class="xv" href="/engine/water">Water Treatment</a> <a class="xv" href="/engine/kitchen">Kitchen Ventilation</a> <a class="xv" href="/engine/cranes">Cranes & Hoists</a> <a class="xv" href="/engine/boilers">Commercial Boilers</a> <a class="xv" href="/engine/panels">Control Panels & Switchgear</a> <a class="xv" href="/engine/electronics">Electronic Components & Assemblies</a>
