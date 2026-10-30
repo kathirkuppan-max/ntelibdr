@@ -67,11 +67,12 @@ All 18 emails above are Apollo-verified status "verified".
 - Deduped by Outreach (already touched today via that session): Eric Wachob (MJM),
   Brett Kedzior (LoDan), Anthony Parrish (PCX). Akron Electric and WSA were already emailed via
   other contacts (Mark Hanneken, Jason Green) — so no LinkedIn second touch to them.
-- [ ] Kathir's explicit OK before anything sends
-- [ ] **Kathir to decide (Touch-1 conflict):** this file's angle puts the vertical-page link +
-  "paste this prompt" CTA in Touch 1; the Outreach session's Touch-1 rule is NO links
-  (deliverability). Options: (a) keep Touch 1 link-free — describe the demo in words, link lands
-  in Touch 2 or the reply (safest for a new sender); (b) allow the one nteli.io link in Touch 1.
+- [x] Touch-1 link DECIDED (Kathir, 2026-10-29 via Outreach session): one plain-text
+  nteli.io/engine/{vertical} link allowed in Touch 1 from batch 2 on, paste-prompt CTA +
+  RFQ walkthrough offer, under 80 words, NO pricing figures in email copy, no speed claims,
+  tracking off. Batch 2 starts Mon 2026-11-02.
+- [ ] HVAC sends Fri 2026-11-06, pumps Mon 2026-11-09 — their pages need try-it blocks first;
+  engine session asked for validated prompts by Wed 2026-11-04 (msg b337212c).
 - LinkedIn-by-hand contacts (Kathir sends himself): Blitzpanel, D&D Tech; Matt Heilich (Akron)
   and WSA are now second touches — hold unless Kathir wants them anyway.
 - Navitas excluded by standing rule.
