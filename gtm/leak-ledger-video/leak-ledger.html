@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Leak Ledger Film — site slide standard</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;
+--blue:#58A6FF;--gold:#D4A843;--green:#3FB950;--red:#F85149;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#05080C;overflow:hidden}
+#stage{position:relative;width:1920px;height:1080px;overflow:hidden;font-family:"IBM Plex Sans",sans-serif;color:var(--text);background:var(--bg)}
+.abs{position:absolute}
+.mono{font-family:"IBM Plex Mono",monospace}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.14em;color:var(--text3);text-transform:uppercase}
+.h1{font-size:84px;font-weight:700;letter-spacing:-.015em;line-height:1.08}
+.h1 b{color:var(--gold);font-weight:700}
+.sub{font-size:30px;font-weight:500;color:var(--text2)}
+.scene{position:absolute;inset:0;opacity:0}
+/* chrome */
+#brand{left:96px;top:58px;font-size:26px;font-weight:800}
+#brand .pl{font-family:"IBM Plex Mono",monospace;font-size:17px;font-weight:600;color:var(--gold);letter-spacing:.18em;margin-left:12px;vertical-align:2px}
+#sect{right:96px;top:66px;font-family:"IBM Plex Mono",monospace;font-size:19px;letter-spacing:.14em;color:var(--text2)}
+#prog{left:0;bottom:0;height:7px;background:var(--gold)}
+#note{right:96px;bottom:34px;font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.1em;color:var(--text3)}
+/* counters */
+#ctrs{right:96px;top:130px;text-align:right}
+#ctrs .one{display:inline-block;margin-left:44px;text-align:right}
+#ctrs .v{font-family:"IBM Plex Mono",monospace;font-size:38px;font-weight:600;margin-top:4px}
+/* sources */
+.src{width:414px;height:112px;padding:18px 22px;position:absolute}
+.src .n{font-size:22px;font-weight:600}
+.src .k{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--text3);letter-spacing:.07em;text-transform:uppercase;margin-top:7px}
+.src .st{position:absolute;right:18px;top:18px;font-family:"IBM Plex Mono",monospace;font-size:11.5px;letter-spacing:.1em}
+/* ledger */
+.col{position:absolute;background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.col .ch{position:absolute;left:22px;top:20px;font-family:"IBM Plex Mono",monospace;font-size:15px;letter-spacing:.16em}
+.col .ct{position:absolute;right:22px;top:20px;font-family:"IBM Plex Mono",monospace;font-size:15px;text-align:right}
+.row{position:absolute;width:396px;height:100px;border-radius:10px;background:var(--bg);border:1px solid var(--border);overflow:hidden}
+.row .bar{position:absolute;left:0;top:0;bottom:0;width:4px}
+.row .l{position:absolute;left:18px;top:10px;width:366px;font-size:17.5px;line-height:22px;color:var(--text)}
+.row .a{position:absolute;left:18px;bottom:10px;font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600}
+.row .a i{position:absolute;left:-2px;right:-2px;top:52%;height:2px;background:var(--text3);transform-origin:left}
+.row .r{position:absolute;right:16px;bottom:10px;font-family:"IBM Plex Mono",monospace;font-size:21px;font-weight:600;color:var(--green)}
+/* action card */
+#tk{position:absolute;left:96px;top:806px;width:1728px;height:128px}
+#tk .seg{position:absolute;top:24px}
+/* report */
+.rp{padding:24px 28px}
+.rp .h{font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.14em;color:var(--text3);text-transform:uppercase;margin-bottom:14px}
+/* cards (open/end) */
+.full{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="world" class="abs" style="inset:0"></div>
+  <div id="brand" class="abs">nteli<span class="pl">REVENUE</span></div>
+  <div id="sect" class="abs"></div>
+  <div id="ctrs" class="abs">
+    <div class="one"><div class="lab">Leaking</div><div class="v" id="cLeak" style="color:var(--red)">$0</div></div>
+    <div class="one"><div class="lab">Recovered</div><div class="v" id="cRec" style="color:var(--green)">$0</div></div>
+  </div>
+  <div id="note" class="abs">ILLUSTRATIVE FIGURES · SAMPLE COMPANY · FY2026</div>
+  <div id="prog" class="abs"></div>
+  <div id="fontwarm" class="abs" style="left:-4000px;top:0"><span class="mono" style="font-weight:400">a</span><span class="mono" style="font-weight:500">a</span><span class="mono" style="font-weight:600">a</span><span style="font-weight:400">a</span><span style="font-weight:500">a</span><span style="font-weight:700">a</span><span style="font-weight:800">a</span></div>
+</div>
+<script>
+// ---------- data (all figures illustrative) ----------
+const STAGES = ["Quote","Order","Recognize","Comply"];
+const MODS = ["Agent Pricing Engine","Revenue intelligence","Order packet","Deal desk","Price governance","Aftermarket","Rebates & commissions","Channel"];
+const LINES = [
+  {s:0,l:"Wrong configurations reworked after the order",leak:412,rec:338,m:0},
+  {s:0,l:"Required options and adders left off the quote",leak:286,rec:251,m:0},
+  {s:0,l:"Discounting beyond peers on similar deals",leak:538,rec:392,m:1},
+  {s:1,l:"Order-entry errors against the accepted quote",leak:174,rec:161,m:2},
+  {s:1,l:"Orders won below the price quoted",leak:221,rec:168,m:3},
+  {s:2,l:"Invoices billed off the customer's contract price",leak:196,rec:172,m:4},
+  {s:2,l:"Pass-through costs absorbed, no surcharge applied",leak:143,rec:119,m:4},
+  {s:2,l:"Service and spare parts quoted off the price book",leak:127,rec:94,m:5},
+  {s:3,l:"Rebates and commissions overpaid",leak:264,rec:211,m:6},
+  {s:3,l:"Channel deductions and chargebacks unrecovered",leak:318,rec:233,m:7},
+];
+const SOURCES = [
+  {n:"Salesforce",k:"CRM · quotes & opportunities"},
+  {n:"Infor SyteLine",k:"ERP · orders & shipments"},
+  {n:"NetSuite",k:"ERP · acquired division"},
+  {n:"Email RFQs",k:"Inbox · requests & drawings"},
+  {n:"Price books & contracts",k:"Files · customer pricing"},
+  {n:"Billing & invoices",k:"AR · invoices & credits"},
+  {n:"Distributor POS & claims",k:"Channel · chargebacks"},
+  {n:"Commissions & rebates",k:"Payouts · reps & programs"},
+];
+const ACTS = [
+  ["D-24809 · 480 V drive picked for a 208 V site","Blocked before send, configuration corrected","+$6,210"],
+  ["D-24817 · seismic bracing required, not on the quote","Adder priced into the quote","+$3,140"],
+  ["D-24830 · 31% discount vs 18% on similar deals","Flagged to the rep and manager before approval","+$4,470"],
+  ["D-24835 · quantity 12 re-keyed as 21 on the order","Order built from the accepted quote","+$2,930"],
+  ["D-24841 · won $8,400 under the quoted price","Routed for approval with margin impact shown","+$8,400"],
+  ["INV-310977 · billed $1,165 off the contract price","Invoice matched to the customer's contract","+$1,165"],
+  ["Freight cost up 9% · no surcharge applied","Pass-through applied on the next orders","+$740"],
+  ["Spare kit SK-7 quoted off the price book","Priced from the same book as the equipment","+$515"],
+  ["RC-5521 · rebate tier paid before volume shipped","Payout tied to shipped units","+$2,060"],
+  ["CB-4471 · chargeback with no matching contract","Matched, disputed and recovered","+$3,380"],
+];
+const RECORDS = [["Quotes",18402],["Orders",11276],["Invoices",24919],["Contracts",312],["Channel claims",6804]];
+const QTR = [["Q1",310],["Q2",860],["Q3",1520],["Q4",2139]];
+
+// ---------- timeline (identical to the approved VO cuts) ----------
+const CUT60=/cut=60/.test(location.search);
+const T = CUT60
+ ? {open:[0,3.5], connect:[3.5,12], morph:[12,14], leakStart:14, leakStep:.8, total1:[22,24], pull:[24,26],
+    closeStart:26, closeStep:2.4, report:[50,56.5], end:[56.5,60], DUR:60,
+    src0:4, srcStep:.6, joinEnd:11.5, rs:.8}
+ : {open:[0,4.5], connect:[4.5,16], morph:[16,18.5], leakStart:18.5, leakStep:1.1, total1:[30,32.5], pull:[32.5,35],
+    closeStart:35, closeStep:2.9, report:[64,74], end:[74,79], DUR:79,
+    src0:5, srcStep:.8, joinEnd:15, rs:1};
+const tLeak = i => T.leakStart + i*T.leakStep;
+const tClose = i => T.closeStart + i*T.closeStep;
+
+// ---------- helpers ----------
+const clamp=(x,a=0,b=1)=>Math.max(a,Math.min(b,x));
+const seg=(t,a,b)=>clamp((t-a)/(b-a));
+const ease=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eo=x=>1-Math.pow(1-x,3);
+const lerp=(a,b,x)=>a+(b-a)*x;
+const K=v=>"$"+Math.round(v).toLocaleString("en-US")+"K";
+const D=v=>"$"+(Math.round(v)*1000).toLocaleString("en-US");
+const world=document.getElementById("world");
+const el=(tag,cls,parent,html)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(html!=null)e.innerHTML=html;(parent||world).appendChild(e);return e};
+const S=(e,o)=>{for(const k in o)e.style[k]=o[k]};
+const NS="http://www.w3.org/2000/svg";
+
+// ---------- scene: open ----------
+const scOpen=el("div","scene full",world,
+ `<div class="h1" style="max-width:1500px">Revenue <b>leaks</b> between the quote and the cash.</div>
+  <div class="sub" id="o2" style="margin-top:30px">Here's where, line by line.</div>`);
+const o2=scOpen.querySelector("#o2");
+
+// ---------- scene: connect ----------
+const scConn=el("div","scene",world);
+el("div","h1",scConn,'Connects to what you <b>already run</b>.').style.cssText="position:absolute;left:96px;top:150px";
+const SRCX=[96,540,984,1428],SRCY=[338,474];
+const srcEls=SOURCES.map((s,i)=>{const e=el("div","card src",scConn,`<div class="n">${s.n}</div><div class="k">${s.k}</div><div class="st"></div>`);
+  S(e,{left:SRCX[i%4]+"px",top:SRCY[i<4?0:1]+"px"});return {e,st:e.querySelector(".st")}});
+const joinCard=el("div","card",scConn);S(joinCard,{position:"absolute",left:"96px",top:"660px",width:"1728px",height:"150px"});
+const joinN=el("div","mono",joinCard,"0");joinN.style.cssText="position:absolute;left:30px;top:34px;font-size:52px;font-weight:600;color:var(--gold)";
+el("div","",joinCard,"records joined on one deal ID").style.cssText="position:absolute;left:330px;top:48px;font-size:28px;font-weight:500;color:var(--text2)";
+const recStrip=el("div","mono",joinCard,"");recStrip.style.cssText="position:absolute;right:30px;top:52px;font-size:16px;color:var(--text2);letter-spacing:.03em;text-align:right";
+
+// ---------- scene: ledger + levers ----------
+const scLed=el("div","scene",world);
+const ledH=el("div","h1",scLed,'The <b>Leak Ledger</b>.');ledH.style.cssText="position:absolute;left:96px;top:130px;font-size:62px";
+const ledSub=el("div","sub",scLed,"Every dollar itemized, Quote to Comply.");ledSub.style.cssText="position:absolute;left:96px;top:216px;font-size:24px";
+const COLX=[96,540,984,1428],COLW=432,COLY=292,ROWY0=66,ROWH=110;
+const lineIdx={};LINES.forEach((L,i)=>{(lineIdx[L.s]=lineIdx[L.s]||[]).push(i)});
+const rowPos=i=>{const L=LINES[i];const k=lineIdx[L.s].indexOf(i);return {x:COLX[L.s]+18,y:COLY+ROWY0+k*ROWH}};
+const cols=STAGES.map((s,i)=>{const c=el("div","col",scLed);S(c,{left:COLX[i]+"px",top:COLY+"px",width:COLW+"px",height:"466px"});
+  el("div","ch",c,`<span style="color:var(--text3)">0${i+1}</span>&nbsp; <span style="color:var(--text)">${s.toUpperCase()}</span>`);
+  const tot=el("div","ct",c,"");return {c,tot}});
+const rows=LINES.map((L,i)=>{const p=rowPos(i);
+  const r=el("div","row",scLed,`<div class="bar"></div><div class="l">${L.l}</div><div class="a">${K(L.leak)}<i></i></div><div class="r">+${K(L.rec)}</div>`);
+  S(r,{left:p.x+"px",top:p.y+"px"});
+  return {r,bar:r.querySelector(".bar"),a:r.querySelector(".a"),st:r.querySelector(".a i"),rc:r.querySelector(".r")}});
+// total band
+const totBand=el("div","",scLed,`<span class="mono" style="font-size:44px;font-weight:600;color:var(--red)">$2,679,000</span><span style="font-size:26px;color:var(--text2)">&nbsp; leaking this year — now <b style="color:var(--text)">pull the levers</b>.</span>`);
+totBand.style.cssText="position:absolute;left:96px;top:836px;";
+// action card
+const tk=el("div","card",scLed);tk.id="tk";
+const tkM=el("div","mono seg",tk);tkM.style.cssText+=";left:28px;width:250px;font-size:15px;letter-spacing:.08em;color:var(--gold);line-height:22px;text-transform:uppercase";
+const tkF=el("div","seg",tk);tkF.style.cssText+=";left:306px;top:18px;width:620px";
+const tkAr=el("div","mono seg",tk,"→");tkAr.style.cssText+=";left:946px;top:38px;font-size:30px;color:var(--text3)";
+const tkA=el("div","seg",tk);tkA.style.cssText+=";left:1006px;top:18px;width:520px";
+const tkV=el("div","mono seg",tk);tkV.style.cssText+=";right:28px;top:18px;font-size:34px;font-weight:600;color:var(--green);text-align:right";
+
+// ---------- scene: report ----------
+const scRep=el("div","scene",world);
+el("div","h1",scRep,'The <b>recovery report</b>.').style.cssText="position:absolute;left:96px;top:118px;font-size:56px";
+const repHead=el("div","",scRep,`<span class="mono" style="font-size:38px;font-weight:600;color:var(--green)">$2,139,000</span><span style="font-size:21px;color:var(--text2)"> &nbsp;recovered of $2,679,000 identified</span>`);
+repHead.style.cssText="position:absolute;right:96px;top:136px;text-align:right";
+const rpA=el("div","card rp",scRep);S(rpA,{position:"absolute",left:"96px",top:"230px",width:"856px",height:"330px"});el("div","h",rpA,"By stage · identified vs recovered");
+const STG=[[1236,981],[395,329],[466,385],[582,444]];
+const stBars=STG.map((v,i)=>{const y=64+i*62;el("div","abs",rpA,STAGES[i]).style.cssText+=`;left:28px;top:${y+4}px;font-size:19px;width:140px;position:absolute`;
+  const bg=el("div","",rpA);S(bg,{position:"absolute",left:"170px",top:y+"px",height:"32px",borderRadius:"6px",background:"#2A1416",width:(v[0]/1236*500)+"px"});
+  const fg=el("div","",rpA);S(fg,{position:"absolute",left:"170px",top:y+"px",height:"32px",borderRadius:"6px",background:"var(--green)",width:"0px"});
+  const tx=el("div","mono",rpA,`${K(v[1])} <span style="color:var(--text3)">/ ${K(v[0])}</span>`);tx.style.cssText+=`;position:absolute;right:24px;top:${y+5}px;font-size:16px`;return {fg,w:v[1]/1236*500,tx}});
+const rpB=el("div","card rp",scRep);S(rpB,{position:"absolute",left:"968px",top:"230px",width:"856px",height:"330px"});el("div","h",rpB,"Recovered, cumulative by quarter");
+const chart=document.createElementNS(NS,"svg");chart.setAttribute("width","800");chart.setAttribute("height","248");chart.style.cssText="position:absolute;left:28px;top:58px";rpB.appendChild(chart);
+const sv=(tag,attrs,parent)=>{const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e};
+const qx=i=>66+i*228, qy=v=>212-v/2139*172;
+[0,1,2].forEach(k=>sv("line",{x1:36,x2:786,y1:36+k*88,y2:36+k*88,stroke:"#21293A"},chart));
+const qPath=sv("polyline",{points:QTR.map((q,i)=>qx(i)+","+qy(q[1])).join(" "),fill:"none",stroke:"#3FB950","stroke-width":3},chart);
+const qLen=QTR.reduce((a,q,i)=>i?a+Math.hypot(qx(i)-qx(i-1),qy(q[1])-qy(QTR[i-1][1])):0,0);qPath.setAttribute("stroke-dasharray",qLen);
+const qDots=QTR.map((q,i)=>{const g=sv("g",{},chart);sv("circle",{cx:qx(i),cy:qy(q[1]),r:6,fill:"#3FB950"},g);
+  const a=sv("text",{x:qx(i),y:qy(q[1])-16,"text-anchor":"middle","font-family":"IBM Plex Mono","font-size":16,fill:"#F0F6FC"},g);a.textContent=q[1]>=1000?"$"+(q[1]/1000).toFixed(2)+"M":"$"+q[1]+"K";
+  const b=sv("text",{x:qx(i),y:242,"text-anchor":"middle","font-family":"IBM Plex Mono","font-size":14,fill:"#6E7B88"},g);return g});
+QTR.forEach((q,i)=>{const b=document.createElementNS(NS,"text");b.setAttribute("x",qx(i));b.setAttribute("y",242);b.setAttribute("text-anchor","middle");b.setAttribute("font-family","IBM Plex Mono");b.setAttribute("font-size",14);b.setAttribute("fill","#6E7B88");b.textContent=q[0];chart.appendChild(b)});
+const rpC=el("div","card rp",scRep);S(rpC,{position:"absolute",left:"96px",top:"584px",width:"856px",height:"330px"});el("div","h",rpC,"By lever");
+const BYM=[589,392,161,168,291,94,211,233];
+const mRows=MODS.map((m,i)=>{const y=52+i*31;const r=el("div","",rpC,`<span style="font-size:17px">${m}</span>`);r.style.cssText=`position:absolute;left:28px;top:${y}px;width:800px`;
+  const v=el("div","mono",r,"+"+K(BYM[i]));v.style.cssText="position:absolute;right:0;top:0;font-size:17px;color:var(--green)";
+  const b=el("div","",r);S(b,{position:"absolute",left:"300px",top:"7px",height:"10px",borderRadius:"5px",background:"#1B4D22",width:(BYM[i]/589*380)+"px"});return r});
+const rpD=el("div","card rp",scRep);S(rpD,{position:"absolute",left:"968px",top:"584px",width:"856px",height:"330px"});el("div","h",rpD,"Trace one line · D-24817");
+const TR=[["Quote","Q-24817-3","adder added: seismic bracing"],["Order","SO-88412","built from the accepted quote"],["Invoice","INV-310977","matches contract price"],["Rebate","RC-5521","tier paid on shipped units"]];
+const trEls=TR.map((x,i)=>{const e=el("div","",rpD,`<div class="lab" style="color:var(--gold)">${x[0]}</div><div class="mono" style="font-size:19px;margin-top:6px">${x[1]}</div><div style="font-size:14.5px;color:var(--text2);margin-top:6px;line-height:19px">${x[2]}</div>`);
+  e.style.cssText=`position:absolute;left:${28+i*202}px;top:72px;width:180px`;return e});
+const trLine=el("div","",rpD);S(trLine,{position:"absolute",left:"28px",top:"62px",height:"2px",background:"var(--gold)",width:"0px"});
+const trFoot=el("div","",rpD,`<span style="color:var(--green)" class="mono">+$3,140</span> recovered on this deal &nbsp;·&nbsp; <span style="color:var(--text2)">every line traceable to a deal ID</span>`);trFoot.style.cssText="position:absolute;left:28px;top:252px;font-size:19px";
+
+// ---------- scene: end ----------
+const scEnd=el("div","scene full",world,
+ `<div class="mono" style="color:var(--gold);letter-spacing:.3em;font-size:22px;font-weight:600">NTELI</div>
+  <div class="h1" style="margin-top:26px">Agentic <b>revenue orchestration</b>.</div>
+  <div class="mono" style="margin-top:30px;font-size:23px;color:var(--text2);letter-spacing:.08em">QUOTE &rarr; ORDER &rarr; RECOGNIZE &rarr; COMPLY</div>
+  <div style="margin-top:44px;font-size:26px;color:var(--text2)">See your own Leak Ledger &nbsp;·&nbsp; <span style="color:var(--gold)">nteli.io</span></div>`);
+
+// ---------- chrome refs ----------
+const sect=document.getElementById("sect"),prog=document.getElementById("prog"),note=document.getElementById("note"),
+      brand=document.getElementById("brand"),ctrs=document.getElementById("ctrs"),
+      cLeak=document.getElementById("cLeak"),cRec=document.getElementById("cRec");
+
+// ---------- render ----------
+function render(t){
+  // chrome
+  prog.style.width=(t/T.DUR*1920)+"px";
+  const chromeOn=Math.min(seg(t,T.open[1]-.6,T.open[1]+.3),1-seg(t,T.end[0],T.end[0]+.6));
+  brand.style.opacity=Math.max(chromeOn,0);
+  let label="";
+  if(t<T.morph[0]) label="01 · CONNECT";
+  else if(t<T.pull[0]) label="02 · THE LEAK LEDGER";
+  else if(t<T.report[0]+1) label="03 · THE LEVERS";
+  else label="04 · THE RECOVERY REPORT";
+  sect.textContent=label;sect.style.opacity=chromeOn;
+  note.style.opacity=chromeOn*(t>T.connect[1]-2?1:0);
+  // counters (visible in ledger/levers/report)
+  let leakSum=0,recSum=0;LINES.forEach((L,i)=>{leakSum+=L.leak*eo(seg(t,tLeak(i),tLeak(i)+1.1));recSum+=L.rec*eo(seg(t,tClose(i)+.9,tClose(i)+2.2))});
+  cLeak.textContent=D(leakSum-recSum);cRec.textContent=D(recSum);
+  ctrs.style.opacity=Math.min(seg(t,T.leakStart,T.leakStart+1),1-seg(t,T.report[0],T.report[0]+.8));
+
+  // open
+  const oIn=seg(t,.2,1),oOut=seg(t,T.open[1]-.7,T.open[1]);scOpen.style.opacity=Math.min(oIn,1-oOut);
+  scOpen.firstElementChild.style.transform=`translateY(${(1-eo(oIn))*16}px)`;
+  o2.style.opacity=seg(t,T.open[0]+(CUT60?1.3:1.6),T.open[0]+(CUT60?2:2.4));
+
+  // connect
+  const cv=Math.min(seg(t,T.connect[0],T.connect[0]+.8),1-seg(t,T.morph[0],T.morph[0]+1));scConn.style.opacity=cv;
+  scConn.style.transform=`translateY(${(1-eo(seg(t,T.connect[0],T.connect[0]+.8)))*18}px)`;
+  let joined=0;
+  srcEls.forEach((s,i)=>{const t0=T.src0+i*T.srcStep,on=seg(t,t0,t0+.6);
+    s.e.style.opacity=lerp(.3,1,on);
+    const synced=seg(t,t0+.5,t0+.9)>=1;
+    s.e.style.borderColor=synced?"#3D2E00":"var(--border)";
+    s.st.innerHTML=on<.5?'<span style="color:var(--text3)">● WAITING</span>':(synced?'<span style="color:var(--gold)">● SYNCED</span>':'<span style="color:var(--text2)">● LINKING</span>');
+    joined+=seg(t,t0+.9,T.joinEnd);});
+  const jr=joined/8;
+  joinCard.style.opacity=seg(t,T.src0+1,T.src0+1.8);
+  joinN.textContent=Math.round(61713*eo(jr)).toLocaleString("en-US");
+  recStrip.innerHTML=RECORDS.map(([n,v],i)=>`<span style="color:var(--text3)">${n.toUpperCase()}</span> <span style="color:var(--text)">${Math.round(v*eo(clamp(jr*1.15-i*.03))).toLocaleString("en-US")}</span>`).join('<span style="color:#2A3446"> &nbsp;·&nbsp; </span>');
+
+  // ledger + levers
+  const lvIn=seg(t,T.morph[0]+.6,T.morph[1]),lvOut=seg(t,T.report[0],T.report[0]+1);const lv=Math.min(lvIn,1-lvOut);
+  scLed.style.opacity=lv;scLed.style.transform=`translateY(${(1-eo(lvIn))*20}px)`;
+  // headline swap at pull
+  const pulled=seg(t,T.pull[0],T.pull[0]+.5);
+  ledH.innerHTML=pulled>.5?'Pull the <b>levers</b>.':'The <b>Leak Ledger</b>.';
+  ledSub.textContent=pulled>.5?"Each lever closes its lines — follow the deals.":"Every dollar itemized, Quote to Comply.";
+  cols.forEach((c,i)=>{const L=lineIdx[i];let lk=0,rc=0;L.forEach(j=>{lk+=LINES[j].leak*eo(seg(t,tLeak(j),tLeak(j)+1.1));rc+=LINES[j].rec*eo(seg(t,tClose(j)+.9,tClose(j)+2.2))});
+    c.tot.innerHTML=(lk?`<span style="color:var(--red)">${K(lk-rc)}</span>`:"")+(rc?` <span style="color:var(--text3)">·</span> <span style="color:var(--green)">+${K(rc)}</span>`:"");
+    const anyClosing=L.some(j=>t>=tClose(j)&&t<tClose(j)+T.closeStep);c.c.style.borderColor=anyClosing?"#3D2E00":"var(--border)";});
+  rows.forEach((r,i)=>{const a=seg(t,tLeak(i),tLeak(i)+.6);r.r.style.opacity=a;r.r.style.transform=`translateX(${(1-eo(a))*-20}px)`;
+    const c0=tClose(i),hl=seg(t,c0,c0+.3)*(1-seg(t,c0+T.closeStep-.4,c0+T.closeStep)),done=seg(t,c0+.9,c0+1.4);
+    r.r.style.borderColor=hl>.5?"var(--gold)":(done>=1?"#1B4D22":"var(--border)");
+    r.bar.style.background=done>.5?"var(--green)":"var(--red)";
+    r.a.style.color=done>.5?"var(--text3)":"var(--red)";r.st.style.transform=`scaleX(${eo(done)})`;
+    r.rc.style.opacity=seg(t,c0+1.1,c0+1.6);
+    r.r.style.background=done>.5?"rgba(10,30,13,.5)":"var(--bg)";});
+  // total band: visible from total1 until report
+  totBand.style.opacity=Math.min(seg(t,T.total1[0],T.total1[0]+.5),1-seg(t,T.closeStart+1,T.closeStart+2));
+  // action card
+  let ci=-1;for(let i=0;i<10;i++)if(t>=tClose(i)&&t<tClose(i)+T.closeStep)ci=i;
+  if(ci>=0){const c0=tClose(ci),A=ACTS[ci],f=Math.min(seg(t,c0+.05,c0+.35),1-seg(t,c0+T.closeStep-.3,c0+T.closeStep));tk.style.opacity=f;
+    tkM.textContent=MODS[LINES[ci].m];
+    tkF.innerHTML=`<div class="lab" style="color:var(--red)">Found</div><div style="font-size:21px;margin-top:8px">${A[0]}</div>`;
+    tkA.innerHTML=`<div class="lab" style="color:var(--green)">Lever action</div><div style="font-size:21px;margin-top:8px">${A[1]}</div>`;
+    const a=seg(t,c0+.5,c0+.9);tkA.style.opacity=a;tkAr.style.opacity=a;tkA.style.transform=`translateX(${(1-eo(a))*-12}px)`;
+    tkV.innerHTML=`<div class="lab" style="font-size:11px;margin-bottom:4px">This deal</div>${A[2]}`;tkV.style.opacity=seg(t,c0+1,c0+1.4);}
+  else tk.style.opacity=0;
+
+  // report
+  const rIn=seg(t,T.report[0]+.6,T.report[0]+1.6),rOut=seg(t,T.end[0]-.3,T.end[0]+.4);scRep.style.opacity=Math.min(rIn,1-rOut);scRep.style.transform=`translateY(${(1-eo(rIn))*20}px)`;
+  const r0=T.report[0];
+  stBars.forEach((b,i)=>{const p=eo(seg(t,r0+1.2*T.rs+i*0.225*T.rs,r0+2.1*T.rs+i*0.225*T.rs));b.fg.style.width=b.w*p+"px";b.tx.style.opacity=seg(t,r0+1.35*T.rs+i*0.225*T.rs,r0+1.8*T.rs+i*0.225*T.rs)});
+  const qp=seg(t,r0+1.875*T.rs,r0+3.75*T.rs);qPath.setAttribute("stroke-dashoffset",qLen*(1-ease(qp)));qDots.forEach((g,i)=>g.setAttribute("opacity",seg(t,r0+1.875*T.rs+i*0.6*T.rs,r0+2.25*T.rs+i*0.6*T.rs)));
+  mRows.forEach((r,i)=>{const p=seg(t,r0+3.0*T.rs+i*0.188*T.rs,r0+3.375*T.rs+i*0.188*T.rs);r.style.opacity=p;r.style.transform=`translateX(${(1-eo(p))*-14}px)`});
+  const tq=seg(t,r0+4.875*T.rs,r0+7.125*T.rs);trLine.style.width=800*ease(tq)+"px";trEls.forEach((e,i)=>e.style.opacity=seg(t,r0+4.875*T.rs+i*0.525*T.rs,r0+5.25*T.rs+i*0.525*T.rs));trFoot.style.opacity=seg(t,r0+7.125*T.rs,r0+7.65*T.rs);
+
+  // end
+  const eIn=seg(t,T.end[0]+.2,T.end[0]+1.4);scEnd.style.opacity=eIn;scEnd.style.transform=`scale(${lerp(.985,1,eo(eIn))})`;
+}
+window.DUR=T.DUR;window.seek=t=>render(t);
+render(0);
+if(!/render/.test(location.search)){const t0=performance.now()-(parseFloat(new URLSearchParams(location.search).get("t"))||0)*1000;(function loop(){render(((performance.now()-t0)/1000)%T.DUR);requestAnimationFrame(loop)})();}
+</script>
+</body>
+</html>
