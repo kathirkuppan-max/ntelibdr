@@ -4,7 +4,7 @@ python3 voiceover.py            -> leak-ledger-vo.mp4 and leak-ledger-60s-vo.mp4
 """
 import os, subprocess, tempfile
 
-VOICE = "Ava (Premium)"
+VOICE = "Matilda (Premium)"   # matches the site demo narrator (panels & switchgear et al.), per Kathir 2026-11-01
 BASE_RATE = 165                      # words a minute; raised per line only if a line overruns its scene
 SAY_NTELI = "En-telly"               # how the voice should say Nteli (confirmed)
 
