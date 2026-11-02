@@ -62,6 +62,7 @@
     { "src": "/compare/spreadsheet-estimating", "dest": "/compare-spreadsheet-estimating.html" },
     { "src": "/compare/traditional-cpq", "dest": "/compare-traditional-cpq.html" },
     { "src": "/guides/data-center-pod-estimating", "dest": "/guide-datacenter-estimating.html" },
+    { "src": "/guides/channel-revenue-management-erp", "dest": "/guide-crm-erp.html" },
     { "src": "/pricing",       "dest": "/pricing.html" },
     { "src": "/privacy",       "dest": "/privacy.html" },
     { "src": "/terms",         "dest": "/terms.html" },
