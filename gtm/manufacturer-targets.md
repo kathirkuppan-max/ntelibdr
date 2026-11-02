@@ -75,6 +75,9 @@ All 18 emails above are Apollo-verified status "verified".
   HVAC Fri 11-06 only if its page prompts are live by Thu 11-05 (else pushed); pumps Mon 11-09.
   Engine session asked for validated HVAC+pumps prompts by Wed 11-04 (msg b337212c); I confirm
   to Outreach the moment each page's blocks are live.
-- LinkedIn-by-hand contacts (Kathir sends himself): Blitzpanel, D&D Tech; Matt Heilich (Akron)
-  and WSA are now second touches — hold unless Kathir wants them anyway.
+- LinkedIn-by-hand contacts (Kathir sends himself): Blitzpanel and D&D Tech are clean (no email
+  from us). **Matt Heilich (Akron): Akron Electric already got our 10-29 cold email (to Mark
+  Hanneken, HazLoc copy, subj "hazardous-area panel quotes at Akron Electric") — Kathir's
+  LinkedIn note must not read as a first touch to the company.** WSA also already emailed —
+  hold. All three + Blitzpanel now tracked in gtm/suppression.csv (Outreach session, 11-02).
 - Navitas excluded by standing rule.
