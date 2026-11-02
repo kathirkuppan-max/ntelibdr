@@ -11,7 +11,10 @@ Use the canonical blurb below everywhere, verbatim — knowledge graphs reward i
 
 ## 1. Salesforce consultant finder (~10 min)
 - Partner Business Org → appexchange.salesforce.com listing → confirm the consultant listing
-  shows **https://nteli.io** (not nteligroup.com) as the website, and the blurb above.
+  shows **https://nteli.io** (not nteligroup.com) as the website.
+- **Kathir's call (2026-11-02): the listing copy stays specific to Salesforce implementations**
+  — do NOT put the Agent Pricing Engine blurb on it. The backlink value is the URL, not the
+  positioning. Existing Salesforce/Revenue Cloud description stands.
 - The 4.9★/10-review listing is the single most authoritative link we can point at nteli.io.
 
 ## 2. Avalara certified-partner directory (~10 min)
