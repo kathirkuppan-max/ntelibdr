@@ -1,0 +1,19 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@800&family=IBM+Plex+Mono:wght@600&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0}
+#stage{width:120px;height:120px;background:#0D1117;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'IBM Plex Sans',sans-serif;border-radius:16px}
+#stage.large{width:224px;height:164px;border-radius:18px}
+.wm{color:#F0F6FC;font-weight:800;font-size:34px;letter-spacing:-.02em}
+.wm i{color:#D4A843;font-style:normal}
+.large .wm{font-size:56px}
+.sub{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;color:#D4A843;letter-spacing:.24em;margin-top:6px}
+</style></head>
+<body>
+<div id="stage"><div class="wm">nteli<i>.</i></div><div class="sub" id="sub" style="display:none">AUSTIN, TX</div></div>
+<script>
+const p=new URLSearchParams(location.search);
+if(p.get('v')==='large'){document.getElementById('stage').classList.add('large');document.getElementById('sub').style.display='block';}
+</script>
+</body></html>

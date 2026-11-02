@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AppExchange gallery — nteli.io slide standard, 1500x1000</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=block" rel="stylesheet">
+<style>
+:root{--bg:#0D1117;--surface:#161B22;--border:#2A3446;--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;
+--blue:#58A6FF;--gold:#D4A843;--green:#3FB950;}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#05080C}
+#stage{position:relative;width:1500px;height:1000px;overflow:hidden;font-family:"IBM Plex Sans",sans-serif;color:var(--text);background:var(--bg)}
+.mono{font-family:"IBM Plex Mono",monospace}
+.brand{position:absolute;left:80px;top:54px;font-size:24px;font-weight:800}
+.brand .pl{font-family:"IBM Plex Mono",monospace;font-size:15px;font-weight:600;color:var(--gold);letter-spacing:.18em;margin-left:11px;vertical-align:2px}
+.sect{position:absolute;right:80px;top:60px;font-family:"IBM Plex Mono",monospace;font-size:16px;letter-spacing:.14em;color:var(--text2)}
+.bar{position:absolute;left:0;bottom:0;height:7px;background:var(--gold)}
+.foot{position:absolute;right:80px;bottom:34px;font-family:"IBM Plex Mono",monospace;font-size:13px;letter-spacing:.1em;color:var(--text3)}
+.h1{font-size:72px;font-weight:700;letter-spacing:-.015em;line-height:1.1}
+.h1 b{color:var(--gold);font-weight:700}
+.sub{font-size:27px;font-weight:500;color:var(--text2)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.lab{font-family:"IBM Plex Mono",monospace;font-size:12.5px;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:12px}
+.ct{font-size:21px;color:var(--text2);line-height:1.55}
+.ct b{color:var(--text);font-weight:600}
+.full{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.grid2{position:absolute;left:80px;right:80px;display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.grid3{position:absolute;left:80px;right:80px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px}
+.stat .v{font-family:"IBM Plex Mono",monospace;font-size:52px;font-weight:600;color:var(--gold)}
+.stat .k{font-size:18px;color:var(--text2);margin-top:8px;line-height:1.4}
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+const S = new URLSearchParams(location.search).get('s')||'1';
+const stage=document.getElementById('stage');
+function chrome(sect){stage.innerHTML+=`<div class="brand">nteli<span class="pl">REVENUE</span></div><div class="sect">${sect}</div><div class="bar" style="width:${Number(S)/6*1500}px"></div><div class="foot">NTELI LLC · SALESFORCE PREMIER PARTNER · AUSTIN, TX</div>`}
+const SLIDES={
+ '1':()=>{stage.innerHTML+=`<div class="full" style="padding:0 120px">
+   <div class="mono" style="color:var(--gold);letter-spacing:.3em;font-size:20px;font-weight:600">NTELI</div>
+   <div class="h1" style="margin-top:28px">Salesforce <b>Revenue Cloud</b>, CPQ &amp; MuleSoft implementations.</div>
+   <div class="sub" style="margin-top:28px">Quote-to-cash that reconciles, from Salesforce to your ERP.</div>
+   <div class="mono" style="margin-top:44px;font-size:19px;color:var(--text2);letter-spacing:.08em">RCA &nbsp;·&nbsp; RCB &nbsp;·&nbsp; CPQ &nbsp;·&nbsp; MULESOFT &nbsp;·&nbsp; EXPERIENCE CLOUD &nbsp;·&nbsp; AVALARA</div>`;chrome('01 · NTELI')},
+ '2':()=>{stage.innerHTML+=`<div class="h1" style="position:absolute;left:80px;top:170px;font-size:60px">What we <b>implement</b>.</div>
+   <div class="grid2" style="top:330px">
+     <div class="card" style="padding:34px 38px"><div class="lab">Revenue Cloud Advanced (RCA)</div><div class="ct">Product catalogs, pricing procedures, configuration and transaction management — the <b>new-generation quote-to-cash</b> on core Salesforce.</div></div>
+     <div class="card" style="padding:34px 38px"><div class="lab">Revenue Cloud Billing (RCB)</div><div class="ct">Orders to <b>invoices, credit memos and revenue recognition</b> — billing that agrees with the contract behind it.</div></div>
+     <div class="card" style="padding:34px 38px"><div class="lab">Salesforce CPQ</div><div class="ct">Configure-price-quote for <b>engineered and configured products</b>: bundles, option constraints, approvals and renewals.</div></div>
+     <div class="card" style="padding:34px 38px"><div class="lab">MuleSoft CRM–ERP integration</div><div class="ct">Salesforce joined to <b>SAP, Infor, NetSuite and more</b> — agreements and transactions reconciled on one deal spine.</div></div>
+   </div>`;chrome('02 · SERVICES')},
+ '3':()=>{stage.innerHTML+=`<div class="h1" style="position:absolute;left:80px;top:170px;font-size:60px">Built for your <b>vertical</b>.</div>
+   <div class="grid3" style="top:330px">
+     <div class="card" style="padding:32px 34px"><div class="lab">Manufacturing &amp; high tech</div><div class="ct">Configured products, dealer and distributor channels, <b>quote-to-cash with an ERP in the loop</b>.</div></div>
+     <div class="card" style="padding:32px 34px"><div class="lab">Semiconductors</div><div class="ct">Design registrations, distributor POS, <b>Ship &amp; Debit claims</b> validated line by line.</div></div>
+     <div class="card" style="padding:32px 34px"><div class="lab">Pharma &amp; life sciences</div><div class="ct">Wholesaler contracts and <b>chargeback validation</b> before the credit memo posts.</div></div>
+     <div class="card" style="padding:32px 34px"><div class="lab">SaaS</div><div class="ct">Termed contracts, usage and renewals — <b>recurring revenue that recognizes cleanly</b>.</div></div>
+     <div class="card" style="padding:32px 34px"><div class="lab">Financial services</div><div class="ct">Fund administration at scale: <b>hundreds of orgs, one mastered view</b>.</div></div>
+     <div class="card" style="padding:32px 34px"><div class="lab">Your RFQ desk</div><div class="ct">Estimators quoting from RFQs, specs and emails — <b>priced against your rules</b>.</div></div>
+   </div>`;chrome('03 · INDUSTRIES')},
+ '4':()=>{stage.innerHTML+=`<div class="h1" style="position:absolute;left:80px;top:150px;font-size:60px">Customers, <b>named</b>.</div>
+   <div class="grid2" style="top:300px">
+     <div class="card" style="padding:38px 42px"><div class="lab">Elite Pharmaceuticals</div><div class="ct" style="font-size:23px">Chargeback validation across wholesaler contracts — every claim line checked against the contract price <b>before the credit memo posts</b>.</div></div>
+     <div class="card" style="padding:38px 42px"><div class="lab">Aduro Advisors</div><div class="ct" style="font-size:23px">Fund administrator unified across <b>680 Salesforce orgs</b> with Data Cloud and MuleSoft — onboarding and offboarding as routine operations.</div></div>
+   </div>
+   <div class="grid3" style="top:640px">
+     <div class="stat" style="text-align:center"><div class="v">680</div><div class="k">Salesforce orgs, one mastered view</div></div>
+     <div class="stat" style="text-align:center"><div class="v">600+</div><div class="k">client firms served on the platform</div></div>
+     <div class="stat" style="text-align:center"><div class="v">$131B+</div><div class="k">assets under administration</div></div>
+   </div>`;chrome('04 · CUSTOMERS')},
+ '5':()=>{stage.innerHTML+=`<div class="h1" style="position:absolute;left:80px;top:170px;font-size:60px">Quote-to-cash <b>DNA</b>.</div>
+   <div style="position:absolute;left:80px;top:320px;width:1340px;font-size:30px;color:var(--text2);line-height:1.6">Our team built and ran product configurators and quote-to-cash systems at <b style="color:var(--text)">Cisco, Dell and IBM</b> before bringing the same discipline to mid-market Salesforce implementations.</div>
+   <div class="grid3" style="top:560px">
+     <div class="card" style="padding:32px 34px"><div class="lab">Configuration</div><div class="ct">Product configurators for some of the <b>largest configure-to-order catalogs</b> in enterprise hardware.</div></div>
+     <div class="card" style="padding:32px 34px"><div class="lab">Pricing</div><div class="ct">Pricing engines where <b>every number traces to a rule</b>, not a guess.</div></div>
+     <div class="card" style="padding:32px 34px"><div class="lab">Reconciliation</div><div class="ct">CRM agreements and ERP transactions <b>agreeing line by line</b>, audit-ready.</div></div>
+   </div>`;chrome('05 · WHO WE ARE')},
+ '6':()=>{stage.innerHTML+=`<div class="h1" style="position:absolute;left:80px;top:150px;font-size:60px">Why <b>NTeli</b>.</div>
+   <div class="grid2" style="top:300px;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px">
+     <div class="stat" style="text-align:center"><div class="v">4.93★</div><div class="k">average across 10 AppExchange reviews</div></div>
+     <div class="stat" style="text-align:center"><div class="v">58</div><div class="k">Salesforce certifications across the team</div></div>
+     <div class="stat" style="text-align:center"><div class="v">20</div><div class="k">completed projects</div></div>
+     <div class="stat" style="text-align:center"><div class="v">2019</div><div class="k">founded in Austin, TX — based at Capital Factory</div></div>
+   </div>
+   <div class="card" style="position:absolute;left:80px;right:80px;top:560px;padding:40px 46px;text-align:center">
+     <div class="ct" style="font-size:26px">Salesforce <b>Premier Partner</b> · Avalara Certified Partner<br><span style="font-size:22px;color:var(--text3)">Start with a scoping conversation — nteli.io</span></div>
+   </div>`;chrome('06 · WHY NTELI')},
+};
+SLIDES[S]();
+</script>
+</body>
+</html>
