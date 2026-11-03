@@ -165,3 +165,17 @@ nteli.io cited in **0 of 4** lane answers (pages too new to be crawled; nothing 
   geolocated the asker to Lakeway.
 Lesson: AI answers cite pages that name the exact mechanism and data standard. Re-run the
 same four queries weekly; first citation is the milestone.
+
+## 2026-11-03 PM (this week's plan executed)
+- **NEW: /compare/ship-and-debit-software** — honest comparison (Vendavo incl. Model N
+  High-Tech after the 2026 acquisition, SAP Paybacks and Chargebacks by Vistex, Pricefx
+  Channel Management, native Oracle/Infor ERP processing, Nteli). Answer-first, shortlist
+  table from vendors' public materials, resale-proof distinction, six-step demo test using
+  your own EDI 867 file, "where Nteli is the wrong choice". Sumslice dropped: Perplexity
+  cited it but no public record could be verified. Live; IndexNow 200; Bing URL submitted;
+  GSC priority crawl requested. Interlinked with the S&D product page and guide.
+- **Essay pitches drafted: gtm/essay-pitches.md** (Kathir sends). Key constraint:
+  IndustryWeek requires first-run pieces (can't already be on nteli.io) and AI disclosure,
+  so it gets a new piece ("A complete quote is not a correct one"). Targets: RevOps Co-op
+  Creator Guild (essay as-is), IndustryWeek (pitch A), Manufacturing Dive opinion (pitch B,
+  "rules move from four directions"), MDM podcast (pitch C, distributor claims).
