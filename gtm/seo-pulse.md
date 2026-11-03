@@ -67,11 +67,14 @@ searches, never estimated.
   addresses like Capital Factory. Consequence accepted: no map pack for "salesforce
   consultant austin/texas"; the Texas page competes in organic only. Revisit if Nteli gets
   dedicated space/signage.
-- **G2 profile (g2.com/sellers/n-teli): needs Kathir's claim** (my.g2.com, work-email verify,
-  free, ~10 min). Current state: 0 reviews, website nteligroup.com, and the About section is
-  AI-hallucinated nonsense ("telecommunications, network infrastructure") that misdescribes
-  the company to every AI assistant citing G2. Fix: claim → website nteli.io → replace About
-  with the canonical blurb.
+- **G2 profile: ✅ CLAIMED & FIXED 2026-11-02.** Kathir claimed via Google SSO
+  (kathir@nteligroup.com domain match → instant association, free tier, full dashboard).
+  Edited directly in my.G2: Seller Domain → nteli.io; Seller Description → canonical blurb
+  (replacing the AI-hallucinated "telecommunications/network infrastructure" text). Service
+  Page URL left pointing at the AppExchange listing (deliberate: G2→AppExchange→nteli.io
+  entity chain). G2 moderates managed fields — public page may lag 2–3 business days.
+  Longer game: 20 reviews unlocks category ranking in "Salesforce Consulting Services"
+  (currently 0 reviews; Elite + Aduro invites would start it).
 - **elioplus (channel-partner directory): unclaimed, thin, old Lakeway ZIP 78734.** Minor
   authority; claim with hello@nteli.io only if convenient — below G2 in priority.
 - **Infor Marketplace email: drafted in Kathir's Gmail** (to InforMarketplace@infor.com),
