@@ -49,5 +49,5 @@ team, same template as the Infor email:
 - Company: Nteli LLC · founded 2019 · Austin, TX (Capital Factory, 701 Brazos St, Austin, TX 78701)
 - Contact: Kathiravan Kuppan, Founder & CEO · kathir@nteligroup.com · https://nteli.io
 - Solution: Nteli Quoting 1.0 — AI-native configure-price-quote engine (full copy in plans/microsoft-epicor.md)
-- DUNS: skipped where optional (per Kathir 11-02)
-- Phone: ⚠ none published on nteli.io — need Kathir's number for every form
+- DUNS: 117298094
+- Phone: 617-435-9577 (Kathir's; nothing published on nteli.io)
