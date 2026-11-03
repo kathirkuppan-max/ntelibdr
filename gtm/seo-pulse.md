@@ -75,6 +75,11 @@ searches, never estimated.
   entity chain). G2 moderates managed fields — public page may lag 2–3 business days.
   Longer game: 20 reviews unlocks category ranking in "Salesforce Consulting Services"
   (currently 0 reviews; Elite + Aduro invites would start it).
+  Same session, branding + content completed: Profile Logo → nteli.io-standard dark
+  "nteli." tile (800px, gtm/g2-visuals/), Grid Logo → "n." monogram SVG; Languages =
+  English, Locations = United States; Services Offered = Salesforce Revenue Cloud /
+  Salesforce CPQ / MuleSoft CRM-ERP / Conga CPQ & CLM / Quote-to-cash. All saved
+  (toast-confirmed ×2).
 - **elioplus (channel-partner directory): unclaimed, thin, old Lakeway ZIP 78734.** Minor
   authority; claim with hello@nteli.io only if convenient — below G2 in priority.
 - **Infor Marketplace email: drafted in Kathir's Gmail** (to InforMarketplace@infor.com),
