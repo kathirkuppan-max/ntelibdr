@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ship &amp; Debit Software Compared: Vendavo, Vistex, Pricefx, ERP Modules and Nteli (2026)</title>
+<meta name="description" content="An honest comparison of ship and debit software for semiconductor and electronics manufacturers: Vendavo (now including Model N High-Tech), SAP Paybacks and Chargebacks by Vistex, Pricefx Channel Management, native ERP modules, and Nteli. When each fits, and the demo test that separates them.">
+<link rel="canonical" href="https://nteli.io/compare/ship-and-debit-software">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Ship &amp; debit software compared (2026)">
+<meta property="og:description" content="Vendavo, Vistex, Pricefx, ERP modules and Nteli — when each fits, and the demo test that separates them.">
+<meta property="og:url" content="https://nteli.io/compare/ship-and-debit-software">
+<meta property="og:image" content="https://nteli.io/img/ledger-not-dashboard.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:960px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:860px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1.18;margin-bottom:10px;color:var(--text);}
+.meta{font-family:var(--mono);font-size:12.5px;color:var(--text3);margin-bottom:24px;}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:42px 0 12px;color:var(--text);}
+h3{font-size:18px;font-weight:700;margin:26px 0 8px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul,ol{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+ol{counter-reset:step;}
+ol li::before{counter-increment:step;content:counter(step) '.';color:var(--gold);opacity:1;}
+li b{color:var(--text);}
+.tbl{overflow-x:auto;margin:16px 0 8px;}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:720px;}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border2);vertical-align:bottom;}
+td{padding:12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;line-height:1.55;}
+td:first-child{color:var(--text);font-weight:600;}
+tr.us td{background:rgba(212,168,67,.06);}
+.note{font-family:var(--mono);font-size:12px;color:var(--text3);margin:4px 0 16px;letter-spacing:.02em;}
+.pull{border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:28px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Ship and debit software compared: Vendavo, Vistex, Pricefx, ERP modules and Nteli (2026)","description":"When each ship and debit option fits a semiconductor or electronics manufacturer, and the demo test that separates them.","datePublished":"2026-11-03","dateModified":"2026-11-03","author":{"@type":"Person","name":"Kathiravan Kuppan","url":"https://nteli.io/kathir"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/compare/ship-and-debit-software"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is the best ship and debit software for semiconductor manufacturers?","acceptedAnswer":{"@type":"Answer","text":"It depends on what you already run. Large semiconductor companies that want pricing, rebates and channel data on one enterprise platform should evaluate Vendavo, which acquired Model N's High-Tech business in 2026. SAP-centred companies should evaluate SAP Paybacks and Chargebacks by Vistex, which is embedded in SAP ERP. Companies standardising on Pricefx for pricing can extend into its Channel Management capability. Companies with modest claim volume on Oracle or Infor can start with the ERP's native ship and debit processing. Mid-market manufacturers who want line-level claim validation without a platform migration should look at Nteli's standalone reconciliation module."}},
+{"@type":"Question","name":"Did Vendavo acquire Model N?","acceptedAnswer":{"@type":"Answer","text":"Vendavo acquired Model N's High-Tech business unit in 2026; Model N kept its life sciences business. Existing Model N High-Tech customers were told their current systems would continue while being integrated into Vendavo's platform over time."}},
+{"@type":"Question","name":"What separates ship and debit tools in a demo?","acceptedAnswer":{"@type":"Answer","text":"Whether the tool proves the underlying resale qualifies, not just whether it calculates the claim. Load a real distributor claim with its EDI 867 resale file and the special pricing agreement, and check that the tool matches each line to the resale record and agreement, detects duplicates and inventory shortfalls, rejects individual lines without losing the original submission, and traces an approved line through to the credit memo and GL."}},
+{"@type":"Question","name":"Can my ERP handle ship and debit by itself?","acceptedAnswer":{"@type":"Answer","text":"Partly. Oracle offers Supplier Ship and Debit processing and Infor supports the EDI 844, 849 and 867 transactions. They work when claim volume is modest and agreements live in the ERP. They struggle when the design registrations and special pricing agreements live in the CRM, because the ERP cannot validate a claim against an agreement it has never seen."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/ship-and-debit-software">Nteli's ship &amp; debit module →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Compare · Ship &amp; debit software</div>
+<h1>Ship &amp; debit software compared: Vendavo, Vistex, Pricefx, ERP modules and Nteli</h1>
+<div class="meta">By Kathiravan Kuppan · Updated November 2026 · Vendor details from their public materials</div>
+
+<div class="answer"><b>The short answer:</b> pick by what you already run. Enterprise semiconductor companies wanting one pricing-and-channel platform should evaluate <b>Vendavo</b> (which now includes Model N's High-Tech business). SAP shops should evaluate <b>SAP Paybacks and Chargebacks by Vistex</b>. Pricefx customers can extend into <b>Pricefx Channel Management</b>. Low claim volume on Oracle or Infor can start with the <b>ERP's native processing</b>. Mid-market manufacturers who want line-level validation without a platform migration are who <b>Nteli</b> is built for.</div>
+
+<p>We sell one of the options below, so read this with that in mind. We've tried to describe every tool by what its vendor publicly documents, and to be specific about where ours is the wrong choice.</p>
+
+<h2>The shortlist</h2>
+<div class="tbl">
+<table>
+<tr><th style="width:17%">Option</th><th style="width:28%">Best fit when</th><th style="width:30%">What it documents</th><th style="width:25%">Watch for</th></tr>
+<tr><td>Vendavo (incl. Model N High-Tech)</td><td>An enterprise semiconductor or electronics company that wants pricing, quoting, rebates and channel data on one platform.</td><td>Rebate &amp; Channel Manager automating ship and debit from SPA validation to claim execution; Model N's channel data management for high-volume distributor data.</td><td>Integration of the two product lines is ongoing after the 2026 acquisition; confirm which product you are buying and the roadmap for it.</td></tr>
+<tr><td>SAP Paybacks and Chargebacks by Vistex</td><td>The ERP is SAP and you want claims settled inside it.</td><td>Embedded in SAP ERP; manages pricing agreements and reimbursement claims for manufacturers and distributors; dedicated ship and debit components.</td><td>Value depends on being SAP-centred; implementation is an SAP project with SAP-specialist staffing.</td></tr>
+<tr><td>Pricefx Channel Management</td><td>You already use, or are choosing, Pricefx for pricing.</td><td>Claims received by file or API, validated against agreements, special pricing and quotes; compliant claims auto-approved, exceptions flagged; approved claims written to the ERP as credit memos, with an audit trail.</td><td>Confirm semiconductor-specific POS and inventory reconciliation in a demo, not just claim calculation.</td></tr>
+<tr><td>Native ERP processing (Oracle, Infor)</td><td>Modest claim volume and agreements that already live in the ERP.</td><td>Oracle Supplier Ship and Debit; Infor support for the EDI 844 claim, 849 response and 867 resale transactions.</td><td>The ERP can't validate a claim against a design registration or SPA held in the CRM — the join is where claims leak.</td></tr>
+<tr class="us"><td>Nteli</td><td>A mid-market manufacturer that wants every claim line validated without replacing its ERP or adopting a pricing platform.</td><td>Standalone reconciliation module: each line matched to its EDI 867 resale record, design registration or SPA and contract price; inventory and duplicate checks; disputes with evidence; read-mostly ERP connection.</td><td>Not a pricing platform or a full rebate-program suite. If you need those in one system, the enterprise options above are the better fit.</td></tr>
+</table>
+</div>
+<p class="note">Vendor capabilities summarised from each vendor's public product pages and documentation, November 2026. Verify current scope with the vendor.</p>
+
+<h2>The one distinction that matters</h2>
+<p>Every tool on this list can <b>calculate</b> a claim. The question is whether it can <b>prove the resale qualifies</b>: that the part was bought and resold under the agreement it cites, to the end customer it names, in the quantity claimed, from inventory the distributor actually held.</p>
+<p>That proof needs records from three places that rarely share a system: the agreement (design registration or SPA, usually in the CRM), the transactions (orders, invoices and credit memos, in the ERP) and the resale itself (the distributor's EDI 867 or POS file). A tool that only sees one or two of them is checking arithmetic, not entitlement.</p>
+<p class="pull">A claim isn't wrong because it's big. It's unverified because checking it by hand costs more than paying it.</p>
+
+<h2>The demo test</h2>
+<p>Bring your own anonymised data — one real distributor claim file, its EDI 867 resale file and the special pricing agreement behind it — and ask each vendor to:</p>
+<ol>
+  <li><b>Match each claim line</b> to its resale record by distributor, invoice, line, part, end customer and quantity.</li>
+  <li><b>Map the distributor's part number and end customer</b> to your master data, and show what happens when it can't.</li>
+  <li><b>Check the agreement</b>: valid dates, eligible quantity, approved debit amount.</li>
+  <li><b>Catch the bad lines</b>: duplicates, resale with no matching agreement, and claims exceeding the distributor's inventory.</li>
+  <li><b>Reject single lines</b> without losing or rewriting the original submission.</li>
+  <li><b>Trace an approved line</b> all the way to the credit memo and the GL.</li>
+</ol>
+<p>Any vendor, including us, should be able to run that on your file. The ones that ask to use their own sample data instead are telling you something.</p>
+
+<h2>How much is at stake</h2>
+<p>Nteli's engagement-derived planning rates — not survey statistics — put channel claim leakage at about <b>5% of channel revenue</b>, with roughly <b>40% of it recoverable</b> once every claim line is validated against its agreement. The arithmetic is on our <a href="/benchmarks">benchmarks page</a>, and the argument for treating this as reconciliation rather than reporting is in <a href="/thinking/a-ledger-not-a-dashboard">A ledger, not a dashboard</a>.</p>
+
+<h2>Where Nteli is the wrong choice</h2>
+<ul>
+  <li><b>You want one platform for pricing, quoting and rebates.</b> Vendavo or Pricefx will serve you better than a standalone module.</li>
+  <li><b>You run SAP and want everything settled inside it.</b> Vistex is built for exactly that.</li>
+  <li><b>Your claim volume is small and your agreements already live in the ERP.</b> Start with the ERP's native processing.</li>
+</ul>
+<p>Where we fit: a mid-market company whose agreements sit in the CRM, whose transactions sit in an ERP it isn't replacing, and whose distributors file claims nobody has time to check line by line. More on the module itself: <a href="/ship-and-debit-software">ship &amp; debit reconciliation software</a>; on the process: <a href="/guides/ship-and-debit-reconciliation">how ship &amp; debit reconciliation works</a>.</p>
+
+<div class="cta-band">
+  <h2>Run the demo test on your own claims.</h2>
+  <p>The Leak Ledger Workshop: one day, last quarter's claims file, your contracts and resale data — a dollar ledger of what should not have been paid.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="/workshop">The Leak Ledger Workshop →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="/semi">The semiconductor practice</a>
+  </div>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/ship-and-debit-software">Ship &amp; Debit module</a> · <a href="/guides/ship-and-debit-reconciliation">Ship &amp; Debit guide</a> · <a href="/compare/traditional-cpq">CPQ comparison</a> · <a href="/benchmarks">Benchmarks</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
