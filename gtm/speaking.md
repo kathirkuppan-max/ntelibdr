@@ -1,8 +1,10 @@
 # Speaking: the Leak Ledger methodology (2026-11-03)
 
-Talk: Kathir presents the Leak Ledger methodology and shows the whole build happening the way
-it does in a workshop: raw CRM, ERP and claims exports in, an itemized dollar ledger out, and
-the check that closes each line. Ideas and examples are Kathir's (ten years of Cisco, Dell and
+Talk format (Kathir, 2026-11-03): the build is SELF-SERVED by the participants, the players
+in the game. Kathir frames the method, then attendees drive it themselves on their own laptops:
+raw CRM, ERP and claims exports in, an itemized dollar ledger out, and the check that closes
+each line. Hands-on, game-like (teams race to find and close the most leak dollars), not a
+stage demo. Ideas and examples are Kathir's (ten years of Cisco, Dell and
 IBM configurator and pricing work); CFP submissions are Kathir's to send.
 
 ## Venues (verified from organizers' pages or listings, Nov 2026)
@@ -21,7 +23,7 @@ Dreamin' (home turf), then RevOpsAF and Revenue Operations Alliance as their 202
 
 ## Reusable abstract
 
-**Title:** Revenue doesn't leak where you look: building a leak ledger, live
+**Title:** Revenue doesn't leak where you look: build your own leak ledger in one session
 
 **Abstract (about 150 words):**
 Every mid-market company has a CRM, an ERP, a billing process and a channel program, and each
@@ -30,16 +32,17 @@ orders entered at a different price than the accepted quote, invoices billed off
 distributor claims paid unchecked. None of it shows on a single report, because every report is
 drawn from one system's version of the truth.
 
-In this session, Kathiravan Kuppan shows the method he uses in one-day workshops. Starting from
-raw CRM, ERP and claims exports, he joins every quote, order, invoice and claim on one deal ID,
-builds an itemized, dollar-valued leak ledger line by line, and shows the check that closes each
-line before the money moves. Attendees leave with the ten-line ledger template and a way to
-score their own company.
+In this hands-on session, Kathiravan Kuppan explains the method he uses in one-day workshops, and
+then attendees do the build themselves. Working in teams on a realistic manufacturer's data set,
+each team joins quotes, orders, invoices and claims on one deal ID, finds the leaks line by line,
+puts a dollar figure on each, and applies the check that closes it. The team that recovers the
+most wins. Everyone leaves having built a ledger, with the ten-line template to run on their own
+company.
 
 **Takeaways:**
 - Why revenue operations still runs on single entry, and what double entry looks like for revenue.
 - The ten places revenue leaks between quote and cash, and how to size each one.
-- How to build a first leak ledger from exports you already have, in a day.
+- How to build a first leak ledger yourself, from exports you already have, in a single session.
 
 **Speaker bio (short):**
 Kathiravan Kuppan spent ten years building product configurators and pricing systems at Cisco,
@@ -54,6 +57,11 @@ builds quoting and revenue reconciliation for configure-to-order manufacturers.
   registrations and contracts, and disputing with evidence.
 - **RevOps events:** the essay's argument, plus the live build.
 
-## Note on the live build
-Use the fictional Calder demo workspace (demo.nteli.io) for any on-stage build. Never show real
-customer data; keep every number labeled as an illustrative model.
+## Running the self-serve build
+- Each team gets its own copy of the fictional Calder demo workspace (demo.nteli.io), reset
+  between sessions with `nteli.py demo-q2c` (reset), so players can't break each other's data.
+- Never real customer data; every number labeled as an illustrative model.
+- Scoreboard: dollars found and dollars closed per team. Check whether the workshop board (#119)
+  can serve as the live leaderboard before building anything new.
+- Ask organizers for: a room with tables, Wi-Fi, 60–90 minutes (a 30-minute slot only fits a
+  demo), and attendees bringing laptops.
