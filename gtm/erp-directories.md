@@ -37,7 +37,12 @@ team, same template as the Infor email:
 - **Plex (Rockwell Automation)** — Rockwell PartnerNetwork, rockwellautomation.com
 - **QAD** — qad.com partner program (auto/industrial focus)
 - **IFS** — ifs.com partner network (field-service/EAM heavy)
-- **Odoo** — apps.odoo.com (open app store; cheap listing, SMB-mfg long tail)
+- **Odoo** — apps.odoo.com: an APP STORE, not a directory (checked 11-02). Needs an
+  installable module submitted via GitHub repo (odoo.com/apps/upload). Plan: FREE thin
+  "Nteli Quoting connector" (accepted quote → sale.order; transport only, no rules IP).
+  Free avoids the 30% commission + price-parity rules; descriptions can't carry external
+  links, so no backlink value — it's SMB-mfg distribution. Engineering task for the
+  engine repo (~1–2 days) when prioritized.
 
 ## Sequencing
 
