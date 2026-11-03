@@ -151,3 +151,17 @@ searches, never estimated.
 - Perplexity check blocked (sign-up wall). Bing SERP intel: "ul 508a quoting software"
   shows **PanelShopOS** (panelshopos.com) at #1 on Bing — a second UL 508A competitor,
   not on Google page 1. Ship-and-debit on Bing: computermarketresearch.com only.
+
+## 2026-11-03 PM (Perplexity baseline — Kathir logged in)
+nteli.io cited in **0 of 4** lane answers (pages too new to be crawled; nothing blocking).
+- Ship & debit (semi): Model N/Vendavo, SAP/Vistex, Pricefx, Sumslice. Sumslice cited for
+  one specific sentence: matching S&D claims to EDI 867 resale records by distributor,
+  invoice, line, item, end customer, quantity. → Added EDI 867 + inventory-check language
+  to /ship-and-debit-software and llms.txt.
+- UL 508A quoting: Spyke Automation, QuotePlan (Rutamsoft), Infor CPQ, Switchonomy.
+  Neither CostBook nor PanelShopOS cited.
+- Quote-to-cash leakage: MGI Research 2–4% benchmark, Enable, Vendavo price-waterfall.
+- Revenue Cloud/CPQ partner, Texas: Forsys (Round Rock), Solunus (Irving). Perplexity
+  geolocated the asker to Lakeway.
+Lesson: AI answers cite pages that name the exact mechanism and data standard. Re-run the
+same four queries weekly; first citation is the milestone.

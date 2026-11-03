@@ -97,9 +97,10 @@ footer a{color:var(--text3);}
   <div class="wrap">
     <h2>One deal spine, from registration to credit memo.</h2>
     <p class="sec-sub">The claim spans three systems that never talk: the agreement lives in the CRM, the transactions in the ERP, the claim in the distributor's file. Reconciliation joins them on one deal ID.</p>
-    <div class="flow">Design registration / SPA (CRM) → Order → Invoice (ERP) → Distributor POS line → Claim → Match / Dispute → Credit memo (ERP) → GL</div>
+    <div class="flow">Design registration / SPA (CRM) → Order → Invoice (ERP) → EDI 867 POS / resale line → Claim → Match / Dispute → Credit memo (ERP) → GL</div>
     <div class="grid">
-      <div class="card"><h3><span class="tag">Match</span>Every line to its agreement</h3><p>Registration status, contract price, quantities against POS, duplicate detection — <b>line by line, not sampled</b> after the quarter closes.</p></div>
+      <div class="card"><h3><span class="tag">Match</span>Every line to its agreement</h3><p>Each claim line matched to the <b>EDI 867</b> resale (POS) record by distributor, invoice, line, part, end customer and quantity — then to the design registration or SPA and the contract price, with duplicate detection. <b>Line by line, not sampled</b> after the quarter closes.</p></div>
+      <div class="card"><h3><span class="tag">Inventory</span>Claims against what the distributor holds</h3><p>Debits checked against <b>distributor inventory and authorized-debit quantities</b>, so a claim cannot cover more units than were bought, held and resold under the agreement.</p></div>
       <div class="card"><h3><span class="tag">Dispute</span>Evidence, not arguments</h3><p>Invalid lines go back with the registration, price and POS record attached. <b>The distributor relationship survives; the leak doesn't.</b></p></div>
       <div class="card"><h3><span class="tag">Settle</span>Aggregates burst to lines</h3><p>The distributor still gets one credit memo per period. <b>The auditor gets every line</b>, traced to its deal.</p></div>
       <div class="card"><h3><span class="tag">Govern</span>Agents run, people govern</h3><p>Agents do the matching at claim volume. Rule changes are <b>approved by a second person, versioned, and replayed</b> on past claims before they ship.</p></div>
