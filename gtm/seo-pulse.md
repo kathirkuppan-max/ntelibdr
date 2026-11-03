@@ -132,3 +132,22 @@ searches, never estimated.
 - All four URLs: IndexNow 200; ship-and-debit in GSC priority crawl queue (confirmed).
 - Watch next pulse: does costbook.app hold #1 once /engine/panels recrawls; does
   /ship-and-debit-software take its lane.
+
+## 2026-11-03 PM (AI search — "beat everyone")
+- **Biggest AI-search gap found: Bing index was thin and stale.** ChatGPT search and
+  Copilot answer from Bing's index. Bing had only the homepage (old title "Revenue
+  Operations & Channel Advisory"), /saas, /engine + legacy nteligroup.com pages. Sitemap
+  last crawled 10-30. → **Submitted all 47 public URLs via Bing URL Submission** (quota
+  100/day, none used in 28 days before today).
+- **Bing AI Performance report (Copilot citations): baseline ZERO.** This is the metric to
+  watch weekly for AI-search visibility.
+- **robots.txt bug fixed:** Disallow /deck /overview /investor applied only to the
+  Google-Extended group (robots groups by last User-agent); now applied to every group.
+  Answer-time AI crawlers named: OAI-SearchBot, ChatGPT-User, Claude-SearchBot,
+  Claude-User, Perplexity-User, Applebot-Extended.
+- **llms.txt:** added answer-first Q&A block for lane questions (best UL 508A quoting
+  software, best ship-and-debit software, leak rates, ERP question, Texas Salesforce
+  consultant, what is agentic quoting).
+- Perplexity check blocked (sign-up wall). Bing SERP intel: "ul 508a quoting software"
+  shows **PanelShopOS** (panelshopos.com) at #1 on Bing — a second UL 508A competitor,
+  not on Google page 1. Ship-and-debit on Bing: computermarketresearch.com only.
