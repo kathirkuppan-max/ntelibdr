@@ -56,3 +56,12 @@ searches, never estimated.
   recrawl on its own; the new nteli.io links start counting from today.
 - **Google Ads (Kathir asked):** no effect on organic rankings; only use would be a small
   exact-match lane-query test for demand data. Decision: not now; revisit if guides stall.
+- **NEW page shipped: /salesforce-consultant-texas** (Kathir's local-intent push: "salesforce
+  in Austin/Texas should be #1" + CPQ/quote-to-cash/MuleSoft/Conga/AppExchange services).
+  ProfessionalService + FAQPage schema, Capital Factory street address, TX metros, AppExchange
+  reviews as proof. Live, in sitemap + llms.txt, IndexNow 200, **GSC priority crawl queue
+  confirmed** ("URL was added to a priority crawl queue", 11-02). sameAs on index/industries
+  expanded to AppExchange listing + G2 + control.com.
+- **Local gap only Kathir can close: Google Business Profile** (business.google.com, 701 Brazos
+  St) — required for the map pack on "salesforce consultant austin/texas". Then: G2 + elioplus
+  still cite nteligroup.com; update to nteli.io.
