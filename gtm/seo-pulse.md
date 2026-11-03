@@ -104,3 +104,18 @@ searches, never estimated.
   posted on Kathir's profile 11-03.
 - Still pending on Kathir: settings.json permission line (weekly pulse automation),
   Capital Factory portfolio ask, Avalara PAM email, post URL for tracker.
+
+## 2026-11-03 PM (live rank check, Kathir asked)
+- **⚠ UL 508A LANE NO LONGER EMPTY: costbook.app ranks #1** for "ul 508a quoting software"
+  with a dedicated page ("Control panel quoting software for UL 508A panel shops", dated
+  2026-10-19 — they moved in weeks after our baseline showed the lane open). Rest of page 1
+  unchanged (TW Controls article, Mike Holt thread, misc); Threekit buying ads. nteli.io
+  guide (published 10-27) not yet on page 1.
+- **"salesforce consultant austin texas":** ads + job boards + MAP PACK (GBP-gated, we're
+  parked) + agencies + directory listicles. nteli.io Texas page (indexed 11-02) not yet
+  ranking — expected, days old.
+- **GSC positions (28d):** "nteli" 2.8 · "does channel revenue management replace my erp?"
+  8.5 (page 1) · "cpq revenue cloud integration" 53.3 · brand variants 1.5–15.
+- Read: costbook.app is now the UL 508A incumbent-in-the-making — respond with content
+  depth + backlinks on that lane soon, or pick the fight elsewhere (ship-and-debit remains
+  open as of 11-02).
