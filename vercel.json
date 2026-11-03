@@ -27,6 +27,7 @@
     { "src": "/thinking/a-ledger-not-a-dashboard", "dest": "/thinking-ledger.html" },
     { "src": "/ship-and-debit-software", "dest": "/ship-and-debit-software.html" },
     { "src": "/compare/ship-and-debit-software", "dest": "/compare-ship-and-debit.html" },
+    { "src": "/salesforce-cpq-end-of-sale", "dest": "/salesforce-cpq-end-of-sale.html" },
     { "src": "/deck",         "dest": "/deck.html" },
     { "src": "/tax",          "dest": "/tax.html" },
     { "src": "/overview",     "dest": "/overview.html" },

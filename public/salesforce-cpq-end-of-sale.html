@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salesforce CPQ End of Sale: Should You Migrate to Revenue Cloud Advanced? | Nteli</title>
+<meta name="description" content="Salesforce CPQ is end of sale, not end of life. What that means, who should migrate to Revenue Cloud Advanced now and who should wait, why it is a reimplementation rather than an upgrade, and how to avoid carrying today's revenue leaks into the new system. From a Salesforce Premier Partner that implements both.">
+<link rel="canonical" href="https://nteli.io/salesforce-cpq-end-of-sale">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Salesforce CPQ end of sale: migrate to Revenue Cloud Advanced now, or wait?">
+<meta property="og:description" content="End of sale, not end of life. A reimplementation, not an upgrade. And the one step most migrations skip.">
+<meta property="og:url" content="https://nteli.io/salesforce-cpq-end-of-sale">
+<meta property="og:image" content="https://nteli.io/img/ledger-not-dashboard.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:960px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:820px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1.18;margin-bottom:10px;color:var(--text);}
+.meta{font-family:var(--mono);font-size:12.5px;color:var(--text3);margin-bottom:24px;}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:42px 0 12px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul,ol{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+ol{counter-reset:step;}
+ol li::before{counter-increment:step;content:counter(step) '.';color:var(--gold);opacity:1;}
+li b{color:var(--text);}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 8px;}
+@media(max-width:700px){.split{grid-template-columns:1fr;}}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+.box h3{font-size:16px;font-weight:700;margin-bottom:10px;}
+.box.now h3{color:var(--green);}
+.box.wait h3{color:var(--gold);}
+.box li{font-size:14.5px;}
+.tbl{overflow-x:auto;margin:14px 0 8px;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px;}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border2);}
+td{padding:11px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;line-height:1.55;}
+td:first-child{color:var(--text);font-weight:600;}
+.pull{border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:28px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Salesforce CPQ end of sale: should you migrate to Revenue Cloud Advanced?","description":"End of sale, not end of life; who should migrate now and who should wait; why it is a reimplementation; and how to avoid carrying revenue leaks into the new system.","datePublished":"2026-11-03","dateModified":"2026-11-03","author":{"@type":"Person","name":"Kathiravan Kuppan","url":"https://nteli.io/kathir"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/salesforce-cpq-end-of-sale"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Is Salesforce CPQ being discontinued?","acceptedAnswer":{"@type":"Answer","text":"Salesforce CPQ is end of sale, not end of life. Salesforce no longer sells it as its go-forward product, but existing customers are supported and are not forced to move, and no end-of-life date has been announced. New investment goes into Revenue Cloud Advanced (RCA), which is built into the core Salesforce platform."}},
+{"@type":"Question","name":"Is moving from Salesforce CPQ to Revenue Cloud Advanced an upgrade?","acceptedAnswer":{"@type":"Answer","text":"No, it is a reimplementation. CPQ is a managed package layered on top of Salesforce; Revenue Cloud Advanced is built into the core platform with its own objects, pricing and configuration model and 150+ APIs and invocable actions. Product rules, price rules and custom logic do not carry over one to one; they are rebuilt."}},
+{"@type":"Question","name":"Should we migrate from Salesforce CPQ now?","acceptedAnswer":{"@type":"Answer","text":"Migrate now if you are hitting CPQ's limits — usage or hybrid pricing, selling through channels or outside the Salesforce UI, heavy automation needs — or if you are already planning a major quote-to-cash change. Wait if CPQ works, your catalog is stable and you have no near-term driver; plan and budget instead, because a rushed migration is the expensive kind."}},
+{"@type":"Question","name":"What is the most common mistake in a CPQ to Revenue Cloud migration?","acceptedAnswer":{"@type":"Answer","text":"Porting today's pricing logic as-is, including the errors. A migration is the one time every price rule, discount and approval is rebuilt, so it is the moment to find out what is leaking — discounts beyond peer deals, orders entered off the quote, invoices off contract — and fix it in the design rather than carry it into the new system."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/cpq">Our Revenue Cloud &amp; CPQ practice →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Guide · Salesforce CPQ &amp; Revenue Cloud</div>
+<h1>Salesforce CPQ end of sale: should you migrate to Revenue Cloud Advanced?</h1>
+<div class="meta">By Kathiravan Kuppan, Salesforce Premier Partner · Updated November 2026</div>
+
+<div class="answer"><b>The short answer:</b> Salesforce CPQ is <b>end of sale, not end of life</b>. Existing customers are supported and not forced to move, and no end-of-life date has been announced. But new investment goes into <b>Revenue Cloud Advanced (RCA)</b>, and moving to it is a <b>reimplementation, not an upgrade</b>. Migrate when you have a business reason; plan either way; and don't carry today's pricing errors into the new system.</div>
+
+<h2>What actually changed</h2>
+<p>Salesforce CPQ was built as a <b>managed package</b> sitting on top of the Salesforce platform. Revenue Cloud Advanced is built <b>into the core platform</b>. Salesforce's own migration page puts the difference this way: CPQ's business logic lived inside its UI components, while RCA exposes <b>150+ APIs and invocable actions</b> on standard core objects, so quoting, pricing and ordering can be automated and called from anywhere, not just the Salesforce quote screen.</p>
+<p>Salesforce also positions RCA for things CPQ was never designed for: selling through channels and outside Salesforce, hybrid and consumption-based pricing, and automation with AI agents. That's where its roadmap is going.</p>
+
+<h2>Migrate now, or wait?</h2>
+<div class="split">
+  <div class="box now"><h3>Migrate now if…</h3><ul>
+    <li>You sell <b>usage, consumption or hybrid</b> models that CPQ handles awkwardly.</li>
+    <li>Partners, dealers or customers need to <b>quote outside the Salesforce UI</b>.</li>
+    <li>Your CPQ is so customized that <b>every change is a project</b>.</li>
+    <li>You're already planning a <b>major quote-to-cash change</b> (new ERP, new billing, an acquisition to integrate).</li>
+  </ul></div>
+  <div class="box wait"><h3>Wait and plan if…</h3><ul>
+    <li>CPQ <b>works</b> for how you sell today.</li>
+    <li>Your <b>catalog and pricing are stable</b>.</li>
+    <li>There's <b>no near-term driver</b> beyond the announcement.</li>
+    <li>You can't yet staff a reimplementation properly. A rushed migration is the expensive kind.</li>
+  </ul></div>
+</div>
+<p>Waiting isn't doing nothing. Use the time to document your pricing logic, clean the catalog, and find out what your current setup is getting wrong — the next section explains why that last part matters most.</p>
+
+<h2>Why it's a reimplementation, not an upgrade</h2>
+<div class="tbl">
+<table>
+<tr><th style="width:30%">Area</th><th style="width:35%">Salesforce CPQ</th><th style="width:35%">Revenue Cloud Advanced</th></tr>
+<tr><td>Architecture</td><td>Managed package on top of the platform</td><td>Built into the core platform</td></tr>
+<tr><td>Where logic lives</td><td>Largely in package UI components and custom code</td><td>Standard core objects, 150+ APIs and invocable actions</td></tr>
+<tr><td>Rules and pricing</td><td>Product rules, price rules, custom scripts</td><td>Rebuilt in RCA's own catalog, pricing and configuration model — no one-to-one port</td></tr>
+<tr><td>Where you sell</td><td>Built for direct sales in Salesforce</td><td>Positioned for selling anywhere, including channels</td></tr>
+<tr><td>Revenue models</td><td>One-time purchases and standard subscriptions</td><td>Hybrid and consumption models</td></tr>
+</table>
+</div>
+<p>Because the rules are rebuilt rather than moved, the honest migration estimate depends on how much custom logic you have. A clean catalog with standard pricing moves in weeks; years of accumulated product rules, price rules and custom code take quarters, phased.</p>
+
+<h2>The step most migrations skip</h2>
+<p>A migration is the one time you rebuild every price rule, discount schedule and approval from scratch. Most projects use that moment to <b>port today's logic as faithfully as possible</b> — including whatever it's been getting wrong.</p>
+<p>Before we design anything in RCA, we run a <b>Leak Ledger</b> on the current setup: join quotes, orders, invoices and claims on one deal ID and itemize what's slipping. Discounts running deeper than peer deals. Orders entered at a different price than the accepted quote. Invoices billed off the contract. Required options left off quotes. Each finding becomes a design requirement for the new system instead of a habit you migrate.</p>
+<p class="pull">Don't migrate your leaks. The rebuild is the cheapest moment you'll ever have to fix them.</p>
+<p>Our engagement-derived planning rates — not survey statistics — put configuration and discounting errors at about <b>3% of quoted value</b> for configure-to-order manufacturers. On a migration budget, finding even part of that pays for the discovery. The argument behind this approach is in <a href="/thinking/a-ledger-not-a-dashboard">A ledger, not a dashboard</a>.</p>
+
+<h2>A migration plan that holds up</h2>
+<ol>
+  <li><b>Inventory the logic.</b> Every product rule, price rule, discount schedule, approval and custom script, with an owner who knows why it exists.</li>
+  <li><b>Run the ledger.</b> Find what the current setup is leaking, so the new design fixes it instead of copying it.</li>
+  <li><b>Clean the catalog.</b> Retire dead products and bundles before they're rebuilt.</li>
+  <li><b>Design in RCA's model,</b> not CPQ's. Rebuild pricing and configuration the way the platform expects; don't recreate the package in custom code.</li>
+  <li><b>Connect the ERP and billing</b> so orders and invoices reconcile to the quote — a read-mostly connection where possible.</li>
+  <li><b>Run both in parallel</b> on real deals, compare outputs line by line, then cut over by segment.</li>
+</ol>
+
+<h2>Who's writing this</h2>
+<p>Nteli is a Salesforce Premier Partner headquartered at Capital Factory in Austin. We implement both Salesforce CPQ and Revenue Cloud Advanced and Billing, and MuleSoft for the CRM-to-ERP connection — 58 certifications across the team and a 4.93-star average across 10 <a href="https://appexchange.salesforce.com/appxListingDetail?listingId=a0N3A00000G0yOuUAJ">AppExchange reviews</a>. Before Nteli, our team built product configurators and pricing systems at Cisco, Dell and IBM. Texas customers get us in person: <a href="/salesforce-consultant-texas">Salesforce consultants in Texas</a>.</p>
+
+<div class="cta-band">
+  <h2>Find your leaks before you migrate them.</h2>
+  <p>The Leak Ledger Workshop: one day with your CPQ, order and invoice data — a dollar ledger of what your current setup is getting wrong, ready to become your RCA design requirements.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="/workshop">The Leak Ledger Workshop →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=cpq-end-of-sale">Book a migration call</a>
+  </div>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/cpq">Revenue Cloud &amp; CPQ</a> · <a href="/compare/traditional-cpq">CPQ comparison</a> · <a href="/salesforce-consultant-texas">Salesforce consultants in Texas</a> · <a href="/benchmarks">Benchmarks</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
