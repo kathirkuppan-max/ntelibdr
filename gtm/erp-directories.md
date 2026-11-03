@@ -13,7 +13,7 @@ clean orders — complement, never competitor, to the ERP's own CPQ.
 
 | # | Vendor / program | Entry point | Cost | Status |
 |---|---|---|---|---|
-| 1 | **Epicor** — ISV Partner Opportunity Profile | epicor.com/en/partners/isv-partner-opportunity-profile/ | Free to apply | **Form filled 11-02, awaiting phone + Kathir's submit** |
+| 1 | **Epicor** — ISV Partner Opportunity Profile | epicor.com/en/partners/isv-partner-opportunity-profile/ | Free to apply | **SUBMITTED 2026-11-02** — ISV team reviews, contacts qualifying companies |
 | 2 | **Microsoft AppSource** (Dynamics 365 BC + standalone SaaS offer) | partner.microsoft.com → Partner Center → commercial marketplace enrollment → New offer | Free to publish | Draft answers ready in plans/microsoft-epicor.md |
 | 3 | **Acumatica** — ISV / Technology Partner | acumatica.com/partners-overview/become-an-isv-vendor/ | No initiation/annual partner fees (per Acumatica) | Not started |
 | 4 | **Infor Marketplace** (M3/LN/CloudSuite Industrial a.k.a. SyteLine) | Email InforMarketplace@infor.com to request listing | Listing marketplace; terms on request | Not started — email draft is 10 min |
@@ -44,6 +44,28 @@ team, same template as the Infor email:
 1. **Now:** Epicor submit (blocked on phone number) → Infor email → Acumatica form → SYSPRO inquiry form. All free, all forms, ~1 week of waiting between each reply.
 2. **This month:** Microsoft Partner Center enrollment (free, needed for AppSource; also unlocks the Microsoft draft already written).
 3. **Deal-triggered:** NetSuite SDN, SAP Build, Sage Intacct, OPN — join when a live prospect runs that ERP, not before. The membership fee becomes a cost of a specific deal.
+
+## Infor Marketplace email (Kathir sends from his inbox)
+
+To: InforMarketplace@infor.com
+Subject: Listing inquiry — Nteli Quoting (AI quoting engine for CloudSuite Industrial / M3 manufacturers)
+
+> Hi Infor Marketplace team,
+>
+> I'd like to understand the process for listing a solution on Infor Marketplace.
+>
+> Nteli Quoting is an AI-native configure-price-quote engine for mid-market
+> manufacturers — it turns RFQs, spec sheets and emails into priced, rule-validated
+> quotes, and hands the ERP a clean order. It complements the ERP rather than
+> replacing any of it; CloudSuite Industrial (SyteLine) and M3 shops are squarely
+> our target customers. Our team built product configurators at Cisco, Dell and IBM
+> before founding Nteli (2019, Austin TX — Capital Factory).
+>
+> Could you share the listing requirements and next steps?
+>
+> Kathiravan Kuppan
+> Founder & CEO, Nteli LLC
+> https://nteli.io · 617-435-9577
 
 ## Form answers (constant across all of them)
 - Company: Nteli LLC · founded 2019 · Austin, TX (Capital Factory, 701 Brazos St, Austin, TX 78701)
