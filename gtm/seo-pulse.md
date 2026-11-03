@@ -34,3 +34,22 @@ searches, never estimated.
   verdict. No change to the lane strategy.
 - **Delta vs 11-01:** site went from invisible-in-search-results to indexed and serving in one
   day of measurement; brand query works.
+
+## 2026-11-02 PM (lane-query SERP checks, observed)
+- **"cable assembly quoting software": LANE CONTESTED.** Cableteque owns it — 7 of 10
+  page-1 organic results, purpose-built wire-harness/cable-assembly quoting with RFQ-intake
+  messaging nearly identical to ours, active blog (posts through Sep 2026). Threekit + Conga
+  buy ads on it. Verdict: don't fight a dedicated incumbent's content moat for this term;
+  keep the cable vertical page but target adjacent phrasings (harness RFQ intake, IPC/WHMA
+  estimating) rather than the head lane term.
+- **"ship and debit claims software": LANE OPEN.** Page 1 = Oracle ERP docs ×3, a 2014
+  blogspot post, a Slideshare PDF, off-target generic claims tools (Capterra/Riskonnect),
+  and small Incent4. No modern dedicated winner; Vendavo ads only. Our /semi page +
+  ship-and-debit guide are the right weapons; nteli.io not yet on page 1 (guides published
+  10-27–29, too fresh).
+- **AppExchange backlink #1 status: UNVERIFIED and worrying.** On-site search for "nteli"
+  (apps and consultants) returns no NTeli listing, and Google has no listing URL indexed.
+  Either consultant-listing search lag or the refresh left it in draft/pending-review.
+  → Kathir: open the publishing console Listings page and read the status column.
+- **Google Ads (Kathir asked):** no effect on organic rankings; only use would be a small
+  exact-match lane-query test for demand data. Decision: not now; revisit if guides stall.
