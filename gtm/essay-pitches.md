@@ -16,10 +16,10 @@ sent by Claude. Editors are not prospects — no tracking, plain text, one ask p
 
 | # | Outlet | Format | What to pitch | Route | Status |
 |---|---|---|---|---|---|
-| 1 | RevOps Co-op (Creator Guild) | Bylines, articles | The essay as-is or lightly adapted | revopscoop.com/resources/creator-guild | Not sent |
-| 2 | IndustryWeek | 600–1,200 words, first-run, Word doc, AP style | NEW piece: "Complete is not correct" (pitch A) | industryweek.com/page/industryweek-contributors-guidelines (email on that page) | Not sent |
-| 3 | Manufacturing Dive | Opinion piece | NEW piece: "Rules move from four directions" (pitch B) — check their originality rule first | manufacturingdive.com/opinion/submit-opinion/ | Not sent |
-| 4 | Modern Distribution Management (MDM) | Podcast guest pitch | Ship & debit / distributor claims from the distributor-relationship side (pitch C) | mdm.com/podcast-submission-page/ | Not sent |
+| 1 | RevOps Co-op (Creator Guild) | Bylines, articles | The essay as-is or lightly adapted | Creator Guild page now redirects to membership sign-up; no pitch email | BLOCKED: needs membership (Kathir) |
+| 2 | IndustryWeek | 600–1,200 words, first-run, Word doc, AP style | NEW piece: "Complete is not correct" (pitch A) | contributors-mfg@endeavorb2b.com | **SENT 2026-11-03** via Superhuman (kathir@nteligroup.com); reply expected in 2–4 weeks |
+| 3 | Manufacturing Dive | Opinion piece | NEW piece: "Rules move from four directions" (pitch B) | Web form on manufacturingdive.com/opinion/submit-opinion/ (full ~1,000-word piece, not a pitch); questions: manufacturing.dive.editors@industrydive.com | NOT SENT: rules ban generative AI in op-ed writing; Kathir writes it himself if pursued |
+| 4 | Modern Distribution Management (MDM) | Podcast guest pitch | Ship & debit / distributor claims from the distributor-relationship side (pitch C) | Podcast page shows no form; only address is naw@naw.org (NAW general inbox) | NOT SENT: no confirmed podcast address |
 
 Response times: IndustryWeek says 2–4 weeks. Follow up once after 3 weeks, then drop it.
 
@@ -77,10 +77,12 @@ The article would cover:
   someone accountable for each rule change;
 - a short self-assessment readers can run on their last ten quotes.
 
-It hasn't been published anywhere. Per your guidelines, I'll disclose that I used AI to help
-draft and edit; the expertise and examples are mine. I've built configurators and pricing
-systems at Cisco, Dell and IBM and now run Nteli, which builds quoting software for
-configure-to-order manufacturers.
+It hasn't been published anywhere. The ideas and examples come from ten years of building
+product configurators and pricing systems at Cisco, Dell and IBM. I now run Nteli, which
+builds quoting software for configure-to-order manufacturers.
+
+(As sent. IndustryWeek asks for AI-assistance disclosure when the ARTICLE is submitted,
+not in the pitch.)
 
 Kathiravan Kuppan
 Founder & CEO, Nteli · Austin, TX · https://nteli.io
