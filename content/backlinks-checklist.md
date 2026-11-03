@@ -31,7 +31,17 @@ the direct URL or Consultant Finder filters, not the search box.
 - Slack/email your CF contact: ask to be added to the portfolio/members page with
   **https://nteli.io** and the blurb. (Also the warm-intro play from the marketing plan.)
 
-## 4. Clutch profile (~25 min)
+## 4. Clutch profile — ✅ DONE 2026-11-02
+Free Basic profile created via vendor.clutch.co onboarding (Kathir's account, Google SSO,
+kathir@nteligroup.com). Nteli LLC · https://nteli.io · hello@nteli.io · 617-435-9577 ·
+Calendly scheduling link · 2019 · 2-9 employees · tagline "Quote-to-cash that reconciles" ·
+canonical blurb · nteli. logo · HQ 701 Brazos St (location validation takes 7-10 business
+days) · service lines: CRM Consulting & SI 40%, AI Consulting 25%, AI Agents 20%, ERP
+Consulting & SI 15% · min project $5,000+ · hourly rate N/A (fixed-fee/success-fee).
+Note: free tier has NO website link from directory pages ($499/yr Verified adds it) —
+value = presence on Clutch's "Salesforce consultants Austin" page (ranks for our target
+queries) + entity citation. Revisit Verified when Elite/Aduro reviews land.
+### Original task (kept for reference)
 - clutch.co → Get Listed → create company profile (your account; email hello@nteli.io).
 - Website https://nteli.io, blurb above, service lines: Salesforce consulting, CPQ, ERP
   integration. Seed it by inviting Elite + Aduro contacts to leave reviews later (optional).
