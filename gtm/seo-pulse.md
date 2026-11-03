@@ -119,3 +119,16 @@ searches, never estimated.
 - Read: costbook.app is now the UL 508A incumbent-in-the-making — respond with content
   depth + backlinks on that lane soon, or pick the fight elsewhere (ship-and-debit remains
   open as of 11-02).
+
+## 2026-11-03 PM (competitive response pass — "stay above competitors")
+- **Lane terms moved onto PRODUCT pages** (the CostBook lesson: commercial queries reward
+  commercial pages): /engine/panels → "UL 508A Control Panel Quoting Software — Agentic";
+  /engine/datacenter → "Data Center Pod Estimating Software — Agentic"; /engine/interconnect
+  → "Cable Assembly Quoting Software — Agentic". Panels meta carries the differentiator:
+  "a complete quote is not a correct one; the engine checks both."
+- **NEW product page: /ship-and-debit-software** — claimed the open lane with product
+  intent before anyone else's Oct-19 move: agentic claim-line matching, standalone module,
+  read-mostly ERP, 5%/40% planning rates, FAQ schema, guide↔product interlinks.
+- All four URLs: IndexNow 200; ship-and-debit in GSC priority crawl queue (confirmed).
+- Watch next pulse: does costbook.app hold #1 once /engine/panels recrawls; does
+  /ship-and-debit-software take its lane.
