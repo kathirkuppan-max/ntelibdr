@@ -15,9 +15,9 @@ clean orders — complement, never competitor, to the ERP's own CPQ.
 |---|---|---|---|---|
 | 1 | **Epicor** — ISV Partner Opportunity Profile | epicor.com/en/partners/isv-partner-opportunity-profile/ | Free to apply | **SUBMITTED 2026-11-02** — ISV team reviews, contacts qualifying companies |
 | 2 | **Microsoft AppSource** (Dynamics 365 BC + standalone SaaS offer) | partner.microsoft.com → Partner Center → commercial marketplace enrollment → New offer | Free to publish | Draft answers ready in plans/microsoft-epicor.md |
-| 3 | **Acumatica** — ISV / Technology Partner | acumatica.com/partners-overview/become-an-isv-vendor/ | No initiation/annual partner fees (per Acumatica) | Not started |
+| 3 | **Acumatica** — ISV / Technology Partner | acumatica.com/partners/isv/request-isv-partnership/ | No initiation/annual partner fees (per Acumatica) | **SUBMITTED 2026-11-02** — team contacts shortly |
 | 4 | **Infor Marketplace** (M3/LN/CloudSuite Industrial a.k.a. SyteLine) | Email InforMarketplace@infor.com to request listing | Listing marketplace; terms on request | Not started — email draft is 10 min |
-| 5 | **SYSPRO** — Alliance ISV Partner | us.syspro.com → ISV Partner Inquiry Form | Contract after vetting | Not started |
+| 5 | **SYSPRO** — Partner Pro (ISV flagged in description) | syspro.com/contact-us/ → Become a Partner tab (old Alliance ISV form retired) | Contract after vetting | **SUBMITTED 2026-11-02** |
 
 ## Tier 2 — bigger ponds, paid or heavier process
 
@@ -41,7 +41,8 @@ team, same template as the Infor email:
 
 ## Sequencing
 
-1. **Now:** Epicor submit (blocked on phone number) → Infor email → Acumatica form → SYSPRO inquiry form. All free, all forms, ~1 week of waiting between each reply.
+1. **Done 11-02:** Epicor, Acumatica, SYSPRO all submitted. Remaining now: Infor email (drafted below, Kathir sends).
+   Bonus same day: control.com (EETech) forum profile completed — nteli.io website link, Austin TX, founder bio, panel/power/motion interest tags (controls-engineer audience).
 2. **This month:** Microsoft Partner Center enrollment (free, needed for AppSource; also unlocks the Microsoft draft already written).
 3. **Deal-triggered:** NetSuite SDN, SAP Build, Sage Intacct, OPN — join when a live prospect runs that ERP, not before. The membership fee becomes a cost of a specific deal.
 
