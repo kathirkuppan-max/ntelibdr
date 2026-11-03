@@ -88,3 +88,19 @@ searches, never estimated.
   canonical blurb; email → hello@nteli.io; phone 713-874-9599 (old Houston) → 617-435-9577;
   LinkedIn already correct. Entity set now consistent across: site, AppExchange, G2,
   Crunchbase, control.com, LinkedIn.
+
+## 2026-11-03 (Tuesday check)
+- **Texas page INDEXED in <24h** — GSC URL inspection: "URL is on Google / Page is indexed."
+  The priority-crawl request worked; local-intent page now eligible to serve.
+- **GSC 7-day (through Nov 1):** 85 impressions, 4 clicks, CTR 4.7%, avg position 6.2.
+  Brand queries now click ("nteli", "ntelli"); same question-queries matching. Low volume,
+  no verdicts yet.
+- **Thought piece #1 SHIPPED: /thinking/a-ledger-not-a-dashboard** — founder essay (Kathir
+  byline, Person Article schema), double-entry thesis, planning-rate stat band (3% quoted
+  value / 5% channel revenue / ~40% recoverable), full illustrative Leak Ledger table
+  (labeled, not customer results), og card image. This is the linkable stat asset; the
+  2026-11-03 LinkedIn post is its distribution. IndexNow pinged on publish.
+- **LinkedIn series opened** (see gtm/linkedin-tracker.csv): "A ledger, not a dashboard"
+  posted on Kathir's profile 11-03.
+- Still pending on Kathir: settings.json permission line (weekly pulse automation),
+  Capital Factory portfolio ask, Avalara PAM email, post URL for tracker.
