@@ -16,7 +16,7 @@ clean orders — complement, never competitor, to the ERP's own CPQ.
 | 1 | **Epicor** — ISV Partner Opportunity Profile | epicor.com/en/partners/isv-partner-opportunity-profile/ | Free to apply | **SUBMITTED 2026-11-02** — ISV team reviews, contacts qualifying companies |
 | 2 | **Microsoft AppSource** (Dynamics 365 BC + standalone SaaS offer) | partner.microsoft.com → Partner Center → commercial marketplace enrollment → New offer | Free to publish | Draft answers ready in plans/microsoft-epicor.md |
 | 3 | **Acumatica** — ISV / Technology Partner | acumatica.com/partners/isv/request-isv-partnership/ | No initiation/annual partner fees (per Acumatica) | **SUBMITTED 2026-11-02** — team contacts shortly |
-| 4 | **Infor Marketplace** (M3/LN/CloudSuite Industrial a.k.a. SyteLine) | Email InforMarketplace@infor.com to request listing | Listing marketplace; terms on request | Not started — email draft is 10 min |
+| 4 | **Infor Marketplace** (M3/LN/CloudSuite Industrial a.k.a. SyteLine) | Email InforMarketplace@infor.com to request listing | Listing marketplace; terms on request | **EMAIL SENT 2026-11-02** (from Kathir's Gmail, per his instruction) — awaiting listing requirements |
 | 5 | **SYSPRO** — Partner Pro (ISV flagged in description) | syspro.com/contact-us/ → Become a Partner tab (old Alliance ISV form retired) | Contract after vetting | **SUBMITTED 2026-11-02** |
 
 ## Tier 2 — bigger ponds, paid or heavier process
