@@ -1,0 +1,17 @@
+import puppeteer from "puppeteer-core";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+import os from "node:os";
+import fs from "node:fs";
+const dir = path.dirname(fileURLToPath(import.meta.url));
+const shellRoot = path.join(os.homedir(), ".cache/puppeteer/chrome-headless-shell");
+const ver = fs.readdirSync(shellRoot).sort().pop();
+const exe = path.join(shellRoot, ver, "chrome-headless-shell-mac-arm64", "chrome-headless-shell");
+const browser = await puppeteer.launch({ executablePath: exe, args: ["--hide-scrollbars"] });
+const page = await browser.newPage();
+await page.setViewport({ width: 800, height: 800, deviceScaleFactor: 1 });
+await page.goto("file://" + path.join(dir, "g2-logo.html"), { waitUntil: "networkidle0" });
+await page.evaluate(async () => { await document.fonts.load("800 20px 'IBM Plex Sans'"); await document.fonts.ready; });
+await page.screenshot({ path: path.join(dir, "nteli-g2-profile-logo-800.png"), clip: { x: 0, y: 0, width: 800, height: 800 } });
+console.log("done");
+await browser.close();
