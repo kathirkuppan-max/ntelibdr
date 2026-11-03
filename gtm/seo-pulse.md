@@ -179,3 +179,19 @@ same four queries weekly; first citation is the milestone.
   so it gets a new piece ("A complete quote is not a correct one"). Targets: RevOps Co-op
   Creator Guild (essay as-is), IndustryWeek (pitch A), Manufacturing Dive opinion (pitch B,
   "rules move from four directions"), MDM podcast (pitch C, distributor claims).
+
+## 2026-11-03 late (quote-to-cash consulting lead routes)
+- Research: Q2C consulting demand is driven by Salesforce CPQ END OF SALE (not end of life;
+  no EOL date; RCA is the successor, built into core platform with 150+ APIs). Consultancies
+  (Girikon, Folio3, Viseo, Riveron, Aelum, Selectiva) are land-grabbing "CPQ end of sale"
+  content. Other routes: Salesforce AE referrals (AppExchange rating/reviews drive AE
+  confidence), G2 Quote-to-Cash Consulting category, vendor partner programs, CPQ Podcast.
+- **NEW: /salesforce-cpq-end-of-sale** — "migrate to RCA now or wait": end-of-sale-not-EOL
+  answer, now-vs-wait guide, reimplementation table (from Salesforce's own migration page),
+  "don't migrate your leaks" (Leak Ledger before migration — unique angle), six-step plan,
+  FAQ schema. Linked from /cpq hero + Texas page; llms.txt Q&A. Live, IndexNow 200, Bing
+  submitted (+ /cpq), GSC priority crawl requested. Target: lift "cpq revenue cloud
+  integration" (pos 53.3).
+- **G2: case 00660168 filed** to add "Quote-to-Cash Consulting" category (main category stays
+  Salesforce Consulting Services). G2 reviews in 4–5 business days if approved.
+- GSC data still ends 11-01 (2-day lag); no ranking change visible yet.
