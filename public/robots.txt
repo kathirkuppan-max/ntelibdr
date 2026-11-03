@@ -1,18 +1,33 @@
+# nteli.io — search engines and AI assistants welcome.
+# Private pages are blocked for every crawler, AI or not.
+
 User-agent: *
 Allow: /
+Disallow: /deck
+Disallow: /overview
+Disallow: /investor
 
-# AI crawlers explicitly welcome
-User-agent: GPTBot
-Allow: /
-User-agent: ClaudeBot
-Allow: /
-User-agent: Claude-Web
-Allow: /
+# AI search & answer engines (retrieval at answer time)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: Claude-SearchBot
+User-agent: Claude-User
 User-agent: PerplexityBot
-Allow: /
+User-agent: Perplexity-User
+User-agent: Applebot-Extended
 User-agent: Google-Extended
+User-agent: Bingbot
 Allow: /
+Disallow: /deck
+Disallow: /overview
+Disallow: /investor
 
+# AI training crawlers
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: Claude-Web
+User-agent: CCBot
+Allow: /
 Disallow: /deck
 Disallow: /overview
 Disallow: /investor
