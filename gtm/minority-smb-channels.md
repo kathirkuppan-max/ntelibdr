@@ -18,21 +18,32 @@ from small firms); the product is the differentiator, not the line item.
 
 ---
 
-## ⚠️ Eligibility facts Kathir must confirm before ANY application
+## ⚠️ Eligibility facts — status after Kathir's confirmation (2026-11-02)
 
-None of these are asserted anywhere in this file — they are the open questions
-every certification below keys off:
+**Confirmed by Kathir 2026-11-02 ("yes to all"):** Nteli LLC has **two owners,
+50% each (100% combined), both members of qualifying minority groups**, with
+citizenship, Texas residency, personal net worth / AGI, and firm-size facts
+all confirmed as within limits. (This supersedes the earlier "sole owner"
+assumption.)
 
-| # | Fact to confirm | Needed by |
+**Why 50/50 still qualifies everywhere:** HUB, Austin MBE, NMSDC, and SBA
+8(a)/SDB all accept ownership by "one or more" qualifying individuals whose
+stakes *combine* to ≥51% — 50+50 = 100% clears it. The practical consequence:
+since no single owner holds 51%, **both owners are the qualifying owners on
+every application — both attest, both supply personal documents, both sign.**
+
+Still needed before the first application packet:
+
+Owners of record (confirmed 2026-11-02): **Kathiravan Kuppan, Founder & CEO
+(50%)** and **Bhavesh Zaveri, CTO (50%)**. Both active in management — the
+CEO/CTO split satisfies the control test everywhere.
+
+| # | Item | Needed by |
 |---|---|---|
-| E1 | Ownership: is Kathir 51%+ (believed 100%) owner of Nteli LLC, with day-to-day control? | All |
-| E2 | Demographic group: does Kathir identify as a member of a presumed group (Texas HUB groups: Asian Pacific American, Black American, Hispanic American, Native American, American woman, service-disabled veteran ≥20%; NMSDC: Asian, Black, Hispanic, Native American with ≥25% minority heritage)? | HUB, Austin MBE, NMSDC, 8(a), SDB, DBE |
-| E3 | U.S. citizenship (HUB requires it except the veteran category; NMSDC and 8(a) require it) | HUB, NMSDC, 8(a) |
-| E4 | Texas residency of the owner + principal place of business in Texas | HUB |
-| E5 | Personal net worth: < ~$2.43M (Austin MBE 2025 cap), < $850K excluding home/business equity (8(a)/SDB/DBE) | Austin MBE, 8(a), SDB, DBE |
-| E6 | Adjusted gross income ≤ $400K 3-yr avg and total assets ≤ $6.5M (8(a)/SDB) | 8(a), SDB |
-| E7 | Firm revenue vs. SBA size standard (NAICS 541511/541512 custom programming / systems design ≈ $34M — Nteli is far under; confirm the gross-receipts figure for forms) | All |
-| E8 | LLC documents in order: certificate of formation, operating agreement showing ownership %, EIN letter, franchise-tax good standing | All |
+| E2 | Each owner's specific group designation for the form checkboxes — each owner selects their own (Texas HUB groups: Asian Pacific American, Black American, Hispanic American, Native American, American woman, service-disabled veteran ≥20%; NMSDC additionally requires ≥25% minority heritage + US citizenship per owner) | HUB, Austin MBE, NMSDC, 8(a), SDB |
+| E3 | Both owners' document sets: government ID, proof of Texas residency, proof of group membership where asked, and — for Austin MBE / 8(a) / SDB — each owner's personal-net-worth statement and 3 years of personal tax returns | Austin MBE, 8(a), SDB |
+| E4 | LLC documents: certificate of formation, operating agreement showing the 50/50 split and management rights, EIN letter, franchise-tax good standing | All |
+| E5 | Gross-receipts figure (for size-standard fields; NAICS 541511/541512 cap ≈ $34M — far clear, but forms want the number) | All |
 
 ---
 
@@ -42,9 +53,9 @@ every certification below keys off:
 |---|---|---|---|---|---|
 | 1 | **Texas HUB certification** (Comptroller statewide) | [comptroller.texas.gov/purchasing/vendor/hub/](https://comptroller.texas.gov/purchasing/vendor/hub/) → online Statewide HUB System | **Free**; valid 4 years | Statutory 90-day decision; universities report 2–4 weeks typical, up to months if docs incomplete | Not started |
 | 2 | **SAM.gov registration + UEI** (federal) | [sam.gov](https://sam.gov) — free; third-party "registration services" are scams | Free | UEI immediate-ish; full entity registration ~2 weeks (IRS/CAGE validation) | Not started |
-| 3 | **SBA Small Disadvantaged Business (SDB) self-certification** | Inside SAM.gov reps & certs — a checkbox, no separate application | Free | Done the day SAM registration activates | Not started (needs #2 + E2/E5/E6 confirmed) |
+| 3 | **SBA Small Disadvantaged Business (SDB) self-certification** | Inside SAM.gov reps & certs — a checkbox, no separate application | Free | Done the day SAM registration activates | Not started (needs #2; eligibility confirmed 11-02 — both owners attest) |
 | 4 | **City of Austin vendor registration (Austin Finance Online)** | [financeonline.austintexas.gov](https://financeonline.austintexas.gov) — pick commodity codes; solicitation emails land Monday mornings | Free | Same day | Not started |
-| 5 | **City of Austin MBE certification (SMBR)** | Portal: austintexas.mwdbe.com · [program page](https://austintexas.gov/services/apply-minority-and-women-owned-business-enterprise-mbewbe-certification) · (512) 974-7645 | Free; recert every 4 years | Weeks–months; site visit possible | Not started (requires #4 first; E2/E5) |
+| 5 | **City of Austin MBE certification (SMBR)** | Portal: austintexas.mwdbe.com · [program page](https://austintexas.gov/services/apply-minority-and-women-owned-business-enterprise-mbewbe-certification) · (512) 974-7645 | Free; recert every 4 years | Weeks–months; site visit possible | Not started (requires #4 first; both owners' PNW forms + tax returns) |
 
 Tier-1 notes:
 - **HUB is the master key.** Every Texas state agency and public university carries
@@ -64,15 +75,16 @@ Tier-1 notes:
   bank info (for payments), NAICS codes (541511, 541512, 541611, 513210),
   and annual renewal. Also the prerequisite for 8(a) and for bidding anything federal.
 - **SDB self-cert** counts for federal SDB set-aside goals and many corporate
-  supplier-diversity intake forms — zero paperwork beyond SAM — but attests the
-  same disadvantage facts as 8(a) (E2, E5, E6). Only check the box once Kathir
-  confirms them.
+  supplier-diversity intake forms — zero paperwork beyond SAM. Eligibility
+  confirmed by Kathir 2026-11-02; with 50/50 ownership the attestation rests on
+  *both* owners meeting the disadvantage tests, so both review it before the
+  box is checked.
 
 ## Tier 2 — certifications with cost or heavier process (deal/pull-triggered)
 
 | # | Channel | Entry point | Cost | Timeline | Status |
 |---|---|---|---|---|---|
-| 6 | **NMSDC MBE** (national; regional council = SMSDC, HQ in Austin, 512-386-8766) | Centralized since 2025-09-15 via the NMSDC Hub: [nmsdc.org](https://nmsdc.org/mbes/mbe-certification/) · [smsdc.org/mbe-certification](https://www.smsdc.org/mbe-certification/) | ~$350–$1,250 by revenue tier (shown in-app); **annual** renewal; some corporate members reimburse the fee | ~45–90 days incl. site visit/interview | Not started (E2: NMSDC requires ≥25% minority heritage, US citizen) |
+| 6 | **NMSDC MBE** (national; regional council = SMSDC, HQ in Austin, 512-386-8766) | Centralized since 2025-09-15 via the NMSDC Hub: [nmsdc.org](https://nmsdc.org/mbes/mbe-certification/) · [smsdc.org/mbe-certification](https://www.smsdc.org/mbe-certification/) | ~$350–$1,250 by revenue tier (shown in-app); **annual** renewal; some corporate members reimburse the fee | ~45–90 days incl. site visit/interview | Not started (eligibility confirmed 11-02; both owners interviewed at site visit) |
 | 7 | **Texas CMBL** (Centralized Master Bidders List) | Comptroller eSystems → "Apply for CMBL" · [FAQ](https://www.comptroller.texas.gov/purchasing/vendor/cmbl/faq.php) | **$70/yr** | Same day | Not started — cheap; do alongside #1 (HUB directory listing itself is free, CMBL is the bid-notification list) |
 | 8 | **SBA 8(a) Business Development** | [certification.sba.gov](https://certify.sba.gov) (MySBA Certifications); needs SAM first | Free; 9-year one-time program | ~90 days review after a *complete* package; heavy paperwork (PNW statements, 3 yrs personal+business taxes, narratives) | **Decide later** — see note |
 | 9 | **DBE (Texas Unified Certification Program)** | [TxDOT TUCP](https://www.txdot.gov/business/partnerships/tucp.html) via Diversity Management System; City of Austin is a TUCP member | Free | Months; federal-transportation oriented | Low priority — see note |
@@ -157,10 +169,11 @@ government win proves the channel.
    prerequisite everything else quotes: all state agencies, UT/A&M/Texas State
    HUB programs and mentor-protégé eligibility, City of Austin HUB consideration,
    even H-E-B's corporate program. Nothing else on this list multiplies like it.
-   First action: Kathir confirms E1–E4 + E8, Claude preps the document packet.
+   First action: assemble both owners' document sets (E2–E4 above), then the
+   packet goes to Kathir and Bhavesh to sign.
 2. **SAM.gov registration (UEI)** — free, ~2 weeks, no attestations beyond
    ordinary business facts, and it unblocks the federal feed, SDB self-cert
-   (once E2/E5/E6 are confirmed), and any future 8(a) decision. The DUNS alone
+   (eligibility confirmed 11-02), and any future 8(a) decision. The DUNS alone
    is now useless federally.
 3. **City of Austin: AFO vendor registration now, MBE certification behind it** —
    free, the densest local buyer (city + Austin Energy), Monday-morning
@@ -173,16 +186,60 @@ it → 8(a) as a deliberate 2027 decision once the proposed rule settles and a
 federal pipeline exists. HUBZone: one map check, expect no. DBE: only if a
 transit/airport solicitation appears.
 
+## Submission prep — the three doors, ready to execute (added 2026-11-02)
+
+Claude cannot create the accounts or sign the attestations — both owners do
+that. Everything below is prepped so each submission is a short upload-and-sign
+session.
+
+### Door 1 — Texas HUB (do this one first)
+
+1. Gather (one folder, PDFs):
+   - Certificate of Formation (from SOSDirect if not on hand)
+   - Operating agreement showing the 50/50 split and both members' management rights
+   - EIN assignment letter (IRS CP 575)
+   - Texas franchise-tax Certificate of Account Status (free, Comptroller website)
+   - Both owners: driver's license (TX = residency proof) + proof of group membership if asked (birth certificate, tribal card, etc. — the application states what's accepted per group)
+   - Most recent federal business tax return
+2. Go to [comptroller.texas.gov/purchasing/vendor/hub/](https://comptroller.texas.gov/purchasing/vendor/hub/) → online HUB certification system → create vendor account.
+3. Application facts: use the constants below; ownership = two members, 50% each; each owner's group designation entered per E2.
+4. Both owners review; the e-signature affirms under penalty of perjury.
+5. While in the Comptroller system: add **CMBL** ($70 card payment) in the same session — same portal, 10 extra minutes.
+6. Expect: decision within 90 days by statute, often faster. On approval Nteli appears in the statewide HUB Directory automatically.
+
+### Door 2 — SAM.gov / UEI
+
+1. Kathir creates a Login.gov account (personal), then an entity registration at [sam.gov](https://sam.gov) — "Register Entity," purpose: "All Awards."
+2. Have ready: legal business name + address **exactly as on IRS records**, EIN, bank routing/account for EFT, incorporation date/state, NAICS 541511 (primary), 541512, 541611, 513210.
+3. UEI is issued during registration (ignore the DUNS; never pay a third-party "registration service").
+4. In Reps & Certs, the SDB question: check only after both owners confirm the disadvantage tests together (ownership ✓ confirmed; net worth/AGI confirmed 11-02).
+5. Expect: ~2 weeks for IRS/CAGE validation; renew annually.
+
+### Door 3 — City of Austin (AFO now, MBE after HUB docs exist)
+
+1. [financeonline.austintexas.gov](https://financeonline.austintexas.gov) → create vendor account (needs the EIN + remit address). Pick commodity codes for IT consulting/software (search "consulting," "software," "computer services" in their NIGP list). Solicitation emails start the following Monday.
+2. MBE certification at austintexas.mwdbe.com reuses the entire HUB folder plus **each owner's personal-net-worth form** (2025 cap ≈ $2.43M) and 3 years personal returns. Tick "HUB consideration" if HUB isn't already approved by then.
+3. Questions: vendor@austintexas.gov / 512-974-2018 (registration), 512-974-7645 (certification).
+
+### One-paragraph business description (paste anywhere a form asks)
+
+> Nteli LLC (Austin, TX, founded 2019) provides AI and automation consulting
+> and Salesforce implementation services as a Salesforce Premier Partner
+> (Revenue Cloud, CPQ, MuleSoft), and builds Nteli Quoting, an AI-native
+> configure-price-quote engine for mid-market manufacturers. The founding team
+> built product configurators at Cisco, Dell and IBM. Nteli is 100%
+> minority-owned (two owners, 50% each).
+
 ## Form answers (constant across all of them)
 
 - Company: Nteli LLC · founded 2019 · Austin, TX (Capital Factory, 701 Brazos St, Suite —, Austin, TX 78701)
 - Contact: Kathiravan Kuppan, Founder & CEO · kathir@nteligroup.com · https://nteli.io · 617-435-9577
 - DUNS: 117298094 (legacy — federal systems now use the UEI from SAM.gov, to be obtained)
-- Employees: 1–10 · Structure: LLC (single-member — confirm with Kathir)
+- Employees: 1–10 · Structure: LLC, two members — Kathiravan Kuppan, Founder & CEO (50%) and Bhavesh Zaveri, CTO (50%); 100% minority-owned (confirmed by Kathir 2026-11-02)
 - NAICS: 541511 (custom programming), 541512 (systems design), 541611 (admin/mgmt consulting), 513210 (software publishing — for the engine)
 - What we sell (gov/university phrasing): AI and automation consulting; Salesforce implementation (Premier Partner — Revenue Cloud, CPQ, MuleSoft); AI-native configure-price-quote software (Nteli Quoting / Agent Pricing Engine)
 - Pedigree line: founding team built product configurators at Cisco, Dell and IBM
-- Never auto-fill: ownership %, demographics, citizenship, personal net worth, income — Kathir attests each personally (see E1–E8)
+- Never auto-fill: demographics, citizenship, personal net worth, income — with 50/50 ownership BOTH owners (Kathir + Bhavesh) attest personally (see E2–E5 above)
 
 Sources checked 2026-11-02: Texas Comptroller HUB pages, 34 TAC §20.288,
 austintexas.gov SMBR, nmsdc.org + smsdc.org, SBA (certify.sba.gov, HUBZone map,

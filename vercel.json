@@ -24,6 +24,7 @@
     { "src": "/channel",      "dest": "/channel.html" },
     { "src": "/salesforce",   "dest": "/salesforce.html" },
     { "src": "/salesforce-consultant-texas", "dest": "/salesforce-consultant-texas.html" },
+    { "src": "/thinking/a-ledger-not-a-dashboard", "dest": "/thinking-ledger.html" },
     { "src": "/deck",         "dest": "/deck.html" },
     { "src": "/tax",          "dest": "/tax.html" },
     { "src": "/overview",     "dest": "/overview.html" },
