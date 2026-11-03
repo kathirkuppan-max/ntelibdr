@@ -47,9 +47,12 @@ searches, never estimated.
   and small Incent4. No modern dedicated winner; Vendavo ads only. Our /semi page +
   ship-and-debit guide are the right weapons; nteli.io not yet on page 1 (guides published
   10-27–29, too fresh).
-- **AppExchange backlink #1 status: UNVERIFIED and worrying.** On-site search for "nteli"
-  (apps and consultants) returns no NTeli listing, and Google has no listing URL indexed.
-  Either consultant-listing search lag or the refresh left it in draft/pending-review.
-  → Kathir: open the publishing console Listings page and read the status column.
+- **AppExchange backlink #1: ✅ VERIFIED LIVE** (resolved same day). Publishing console says
+  "Your listing is live"; public page at appxListingDetail?listingId=a0N3A00000G0yOuUAJ
+  serves the full refresh (new title/tagline/overview, slides, logos, Learn More →
+  nteli.io, 9 nteli.io resources; "Listed On 11/02/2026"). The earlier scare was
+  AppExchange's own keyword search, which simply doesn't index consultant listings.
+  Google still holds the stale pre-refresh snippet (old title, nteligroup.com) — will
+  recrawl on its own; the new nteli.io links start counting from today.
 - **Google Ads (Kathir asked):** no effect on organic rankings; only use would be a small
   exact-match lane-query test for demand data. Decision: not now; revisit if guides stall.

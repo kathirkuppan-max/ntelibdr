@@ -9,7 +9,13 @@ Use the canonical blurb below everywhere, verbatim — knowledge graphs reward i
 > MCP server that connects to Claude and other AI assistants. Founded 2019 in Austin, TX;
 > based at Capital Factory.
 
-## 1. Salesforce consultant finder (~10 min)
+## 1. Salesforce consultant finder — ✅ DONE 2026-11-02
+Public listing verified live: https://appexchange.salesforce.com/appxListingDetail?listingId=a0N3A00000G0yOuUAJ
+New title/tagline/overview/cards, 6 gallery slides, both logos, Learn More → https://nteli.io,
+and 9 nteli.io Customer Resources all rendering publicly ("Listed On 11/02/2026").
+Note: AppExchange's own keyword search doesn't surface consultant listings — find it via
+the direct URL or Consultant Finder filters, not the search box.
+### Original task (kept for reference)
 - Partner Business Org → appexchange.salesforce.com listing → confirm the consultant listing
   shows **https://nteli.io** (not nteligroup.com) as the website.
 - **Kathir's call (2026-11-02): the listing copy stays specific to Salesforce implementations**
