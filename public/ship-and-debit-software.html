@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ship &amp; Debit Reconciliation Software — Agentic | Nteli</title>
+<meta name="description" content="Agentic ship and debit reconciliation software: every claim line matched to its design registration, contract price and POS sell-through before the credit memo posts — paid when right, disputed with evidence when not. A standalone module; read-mostly ERP connection.">
+<link rel="canonical" href="https://nteli.io/ship-and-debit-software">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Ship &amp; Debit Reconciliation Software — Agentic">
+<meta property="og:description" content="Every claim line matched to its agreement before the credit memo posts. Agents run the matching; people govern the rules.">
+<meta property="og:url" content="https://nteli.io/ship-and-debit-software">
+<meta property="og:image" content="https://nteli.io/img/ledger-not-dashboard.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--teal:#2DD4BF;--green:#3FB950;--red:#F85149;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1080px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 20px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.btn-ghost{background:transparent;border-color:var(--border2);color:var(--text);}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+.hero{padding:72px 0 48px;border-bottom:1px solid var(--border);}
+.kicker{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+h1{font-size:clamp(30px,4.5vw,44px);font-weight:800;letter-spacing:-0.02em;line-height:1.15;max-width:900px;}
+h1 b{color:var(--gold);font-weight:800;}
+.hero-sub{margin-top:18px;font-size:18px;color:var(--text2);max-width:800px;}
+.hero-cta{margin-top:26px;display:flex;gap:12px;flex-wrap:wrap;}
+section{padding:52px 0;border-bottom:1px solid var(--border);}
+h2{font-size:clamp(22px,3vw,28px);font-weight:700;letter-spacing:-0.01em;margin-bottom:10px;}
+.sec-sub{color:var(--text2);max-width:760px;margin-bottom:26px;}
+.flow{font-family:var(--mono);font-size:13.5px;color:var(--teal);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px 20px;overflow-x:auto;white-space:nowrap;margin-bottom:26px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px 26px;}
+.card h3{font-size:16.5px;font-weight:700;margin-bottom:8px;}
+.card h3 .tag{font-family:var(--mono);font-size:10.5px;color:var(--gold);letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:6px;}
+.card p{font-size:14.5px;color:var(--text2);}
+.card p b{color:var(--text);font-weight:600;}
+.stat-band{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin:8px 0 0;}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;}
+.stat .v{font-family:var(--mono);font-size:28px;font-weight:600;color:var(--gold);}
+.stat .k{font-size:13.5px;color:var(--text2);margin-top:6px;line-height:1.45;}
+.pull{border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:26px 0 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;max-width:820px;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:30px 32px;margin:52px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;}
+.cta-band h2{margin-bottom:6px;}
+.cta-band p{color:var(--text2);font-size:15px;}
+footer{padding:32px 28px 44px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What is ship and debit reconciliation software?","acceptedAnswer":{"@type":"Answer","text":"Software that validates distributor ship and debit claims before they are paid: each claim line is matched to the design registration or special pricing agreement it cites, the contract price, and the POS sell-through it covers. Valid lines are credited; invalid ones are disputed with evidence. Nteli delivers this as a standalone reconciliation module with agents running the matching and people governing the rules."}},
+{"@type":"Question","name":"Does it replace my ERP?","acceptedAnswer":{"@type":"Answer","text":"No. The ERP stays the system of record. The module uses a read-mostly connection — it needs to see orders, invoices and credit memos, not rewrite them — and hands validated, line-level results back for the credit memo and the GL. The ERP connection is scoped once as onboarding, not a monthly fee."}},
+{"@type":"Question","name":"How much ship and debit leakage is typical?","acceptedAnswer":{"@type":"Answer","text":"Nteli's engagement-derived planning rates — not survey statistics — put channel claim leakage at about 5% of channel revenue, with roughly 40% of it recoverable once every claim line is validated against its agreement."}},
+{"@type":"Question","name":"Does this work for pharma chargebacks too?","acceptedAnswer":{"@type":"Answer","text":"Yes — same spine, different names. Pharmaceutical chargebacks are validated against wholesaler contracts the way semiconductor ship and debit claims are validated against design registrations. Nteli runs both practices."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <div style="display:flex;gap:10px">
+    <a class="btn btn-ghost" href="/semi">The semiconductor practice</a>
+    <a class="btn btn-primary" href="/workshop">Leak Ledger Workshop →</a>
+  </div>
+</div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="kicker">Ship &amp; Debit · Channel reconciliation module</div>
+    <h1>Ship &amp; debit reconciliation software that checks <b>every claim line</b> before the credit memo posts.</h1>
+    <p class="hero-sub">Claims arrive by the thousand, and most desks pay them because checking costs more than the credit. Nteli's agentic reconciliation matches each line to the design registration it cites, the contract price, and the POS sell-through it covers — paid when it's right, disputed with evidence when it isn't.</p>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="/workshop">Run last quarter's claims through it →</a>
+      <a class="btn btn-ghost" href="/guides/ship-and-debit-reconciliation">How ship &amp; debit reconciliation works</a>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>One deal spine, from registration to credit memo.</h2>
+    <p class="sec-sub">The claim spans three systems that never talk: the agreement lives in the CRM, the transactions in the ERP, the claim in the distributor's file. Reconciliation joins them on one deal ID.</p>
+    <div class="flow">Design registration / SPA (CRM) → Order → Invoice (ERP) → Distributor POS line → Claim → Match / Dispute → Credit memo (ERP) → GL</div>
+    <div class="grid">
+      <div class="card"><h3><span class="tag">Match</span>Every line to its agreement</h3><p>Registration status, contract price, quantities against POS, duplicate detection — <b>line by line, not sampled</b> after the quarter closes.</p></div>
+      <div class="card"><h3><span class="tag">Dispute</span>Evidence, not arguments</h3><p>Invalid lines go back with the registration, price and POS record attached. <b>The distributor relationship survives; the leak doesn't.</b></p></div>
+      <div class="card"><h3><span class="tag">Settle</span>Aggregates burst to lines</h3><p>The distributor still gets one credit memo per period. <b>The auditor gets every line</b>, traced to its deal.</p></div>
+      <div class="card"><h3><span class="tag">Govern</span>Agents run, people govern</h3><p>Agents do the matching at claim volume. Rule changes are <b>approved by a second person, versioned, and replayed</b> on past claims before they ship.</p></div>
+      <div class="card"><h3><span class="tag">Standalone</span>A module, not a migration</h3><p>Runs beside what you have and <b>accepts outside inputs</b> — claims as files, POS feeds, ERP exports. No rip-and-replace.</p></div>
+      <div class="card"><h3><span class="tag">ERP</span>Read-mostly connection</h3><p>It sees orders, invoices and credit memos; <b>it rewrites nothing</b>. The connection is scoped once as onboarding — not a monthly fee.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>The planning numbers.</h2>
+    <p class="sec-sub">Engagement-derived planning rates — not survey statistics.</p>
+    <div class="stat-band">
+      <div class="stat"><div class="v">5%</div><div class="k">of channel revenue leaking through claims, chargebacks and rebates</div></div>
+      <div class="stat"><div class="v">~40%</div><div class="k">of that recoverable once every claim line is validated against its agreement</div></div>
+      <div class="stat"><div class="v">Line-level</div><div class="k">recovery report the CFO can trace to the deal — a ledger, not a dashboard</div></div>
+    </div>
+    <p class="pull">A claim isn't wrong because it's big. It's unverified because checking it by hand costs more than paying it. Agents change that arithmetic.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Same spine, other names.</h2>
+    <p class="sec-sub">Ship &amp; debit is the semiconductor telling of a general motion: a third party files claims against your agreements, and you settle in aggregate. <a href="/pharma">Pharma chargebacks</a> validate against wholesaler contracts the same way. The <a href="/channel">channel practice</a> covers both; the thinking behind it is in <a href="/thinking/a-ledger-not-a-dashboard">A ledger, not a dashboard</a>.</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="cta-band">
+    <div>
+      <h2>See last quarter's claims, validated.</h2>
+      <p>The Leak Ledger Workshop: your claims file, your contracts, your POS — a dollar ledger of what should not have been paid.</p>
+    </div>
+    <a class="btn btn-primary" href="/workshop">Book the workshop →</a>
+  </div>
+</div>
+
+<footer>© 2026 Nteli LLC · <a href="/semi">Semiconductor</a> · <a href="/pharma">Pharma</a> · <a href="/guides/ship-and-debit-reconciliation">Ship &amp; Debit guide</a> · <a href="/benchmarks">Benchmarks</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
