@@ -82,5 +82,9 @@ searches, never estimated.
   (toast-confirmed ×2).
 - **elioplus (channel-partner directory): unclaimed, thin, old Lakeway ZIP 78734.** Minor
   authority; claim with hello@nteli.io only if convenient — below G2 in priority.
-- **Infor Marketplace email: drafted in Kathir's Gmail** (to InforMarketplace@infor.com),
-  awaiting his send.
+- **Infor Marketplace email: SENT 2026-11-02** (Kathir's Gmail, his instruction).
+- **Crunchbase: ✅ FIXED 2026-11-02** (crunchbase.com/organization/nteli, Kathir's account,
+  edits submitted & confirmed). Website nteligroup.com → nteli.io; brief + full description →
+  canonical blurb; email → hello@nteli.io; phone 713-874-9599 (old Houston) → 617-435-9577;
+  LinkedIn already correct. Entity set now consistent across: site, AppExchange, G2,
+  Crunchbase, control.com, LinkedIn.
