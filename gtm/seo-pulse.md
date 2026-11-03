@@ -62,6 +62,17 @@ searches, never estimated.
   reviews as proof. Live, in sitemap + llms.txt, IndexNow 200, **GSC priority crawl queue
   confirmed** ("URL was added to a priority crawl queue", 11-02). sameAs on index/industries
   expanded to AppExchange listing + G2 + control.com.
-- **Local gap only Kathir can close: Google Business Profile** (business.google.com, 701 Brazos
-  St) — required for the map pack on "salesforce consultant austin/texas". Then: G2 + elioplus
-  still cite nteligroup.com; update to nteli.io.
+- **Google Business Profile: PARKED** (Kathir, 11-02 — "required too many verifications").
+  Google demands video proof of signage/dedicated space and routinely rejects coworking
+  addresses like Capital Factory. Consequence accepted: no map pack for "salesforce
+  consultant austin/texas"; the Texas page competes in organic only. Revisit if Nteli gets
+  dedicated space/signage.
+- **G2 profile (g2.com/sellers/n-teli): needs Kathir's claim** (my.g2.com, work-email verify,
+  free, ~10 min). Current state: 0 reviews, website nteligroup.com, and the About section is
+  AI-hallucinated nonsense ("telecommunications, network infrastructure") that misdescribes
+  the company to every AI assistant citing G2. Fix: claim → website nteli.io → replace About
+  with the canonical blurb.
+- **elioplus (channel-partner directory): unclaimed, thin, old Lakeway ZIP 78734.** Minor
+  authority; claim with hello@nteli.io only if convenient — below G2 in priority.
+- **Infor Marketplace email: drafted in Kathir's Gmail** (to InforMarketplace@infor.com),
+  awaiting his send.
