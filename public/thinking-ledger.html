@@ -88,34 +88,45 @@ footer a{color:var(--text3);}
 
 <h2>Where the money actually goes</h2>
 <p>Not in dramatic failures, but in small divergences between systems that each look fine on their own. A quote says one number and the order is entered at another. A discount runs deeper than peer deals, approved by habit rather than by decision. A chargeback gets paid because verifying it costs more than the credit memo. An invoice is billed off the contract price, and customers never call when the error favors them.</p>
-<p>Across our engagements with configure-to-order manufacturers, our <a href="/benchmarks">planning rates</a> — engagement-derived, not survey statistics — put configuration and discounting errors at <b>3% of quoted value</b>, and channel claim leakage at <b>5% of channel revenue</b> with roughly 40% recoverable once claims are validated line by line.</p>
+<p>None of this is a new idea. Finance teams know it as price waterfall analysis and revenue leakage, and analysts at <a href="https://mgiresearch.com/webinar/revenue-leakage/">MGI Research</a> frame fixing it as worth <b>2–4% in added revenue and cash flow</b>. Our own <a href="/benchmarks">planning rates</a>, from our engagements with configure-to-order manufacturers, sit in the same range: configuration and discounting errors at about <b>3% of quoted value</b>, and channel claim leakage at about <b>5% of channel revenue</b>. But don't take anyone's benchmark on trust, ours included. The number that matters is yours, and it comes from your own data.</p>
 
 <div class="stat-band">
-  <div class="stat"><div class="v">3%</div><div class="k">of quoted value lost to configuration and discounting errors (planning rate, configure-to-order manufacturers)</div></div>
-  <div class="stat"><div class="v">5%</div><div class="k">of channel revenue leaking through claims, chargebacks and rebates (planning rate)</div></div>
-  <div class="stat"><div class="v">~40%</div><div class="k">of channel claim leakage recoverable when every claim line is validated against its contract</div></div>
+  <div class="stat"><div class="v">2–4%</div><div class="k">of revenue: MGI Research's framing of what fixing revenue leakage is worth</div></div>
+  <div class="stat"><div class="v">~3%</div><div class="k">of quoted value lost to configuration and discounting errors (Nteli planning rate)</div></div>
+  <div class="stat"><div class="v">~5%</div><div class="k">of channel revenue leaking through claims, chargebacks and rebates (Nteli planning rate)</div></div>
 </div>
 
 <h2>The ledger, itemized</h2>
 <p>This is why every Nteli engagement starts with a <b>Leak Ledger</b>: join every quote, order, invoice and claim on one deal ID, then itemize what is slipping, line by line. The model below shows what the ledger looks like for an illustrative mid-market manufacturer — around $90M revenue, dealer and distributor channels, an acquired division on a second ERP.</p>
-<div class="note">ILLUSTRATIVE MID-MARKET MODEL — NOT CUSTOMER RESULTS. ANNUAL FIGURES.</div>
+<p>It separates two kinds of money, because a finance team will. <b>Recoverable cash</b> is money you can still collect: invoices billed off contract can be corrected, overpaid rebates clawed back, unsupported claims disputed. <b>Preventable margin</b> is money already gone: you can't take back last year's discounts or rework, only stop the next ones.</p>
+<div class="note">ILLUSTRATIVE MID-MARKET MODEL — NOT CUSTOMER RESULTS. ANNUAL FIGURES. EACH ERROR COUNTS IN ONE LINE ONLY.</div>
 <table>
-  <thead><tr><th>Ledger line</th><th class="r">Leak</th><th class="r">Recoverable</th></tr></thead>
+  <thead><tr><th>Ledger line</th><th class="r">Annual leak</th><th class="r">Recoverable cash</th><th class="r">Preventable margin</th></tr></thead>
   <tbody>
-    <tr><td>Wrong configurations reworked after the order</td><td class="r leak">$412K</td><td class="r rec">$338K</td></tr>
-    <tr><td>Required options and adders left off the quote</td><td class="r leak">$286K</td><td class="r rec">$251K</td></tr>
-    <tr><td>Discounting beyond peers on similar deals</td><td class="r leak">$538K</td><td class="r rec">$392K</td></tr>
-    <tr><td>Order-entry errors against the accepted quote</td><td class="r leak">$174K</td><td class="r rec">$161K</td></tr>
-    <tr><td>Orders won below the price quoted</td><td class="r leak">$221K</td><td class="r rec">$168K</td></tr>
-    <tr><td>Invoices billed off the customer's contract price</td><td class="r leak">$196K</td><td class="r rec">$172K</td></tr>
-    <tr><td>Pass-through costs absorbed, no surcharge applied</td><td class="r leak">$143K</td><td class="r rec">$119K</td></tr>
-    <tr><td>Service and spare parts quoted off the price book</td><td class="r leak">$127K</td><td class="r rec">$94K</td></tr>
-    <tr><td>Rebates and commissions overpaid</td><td class="r leak">$264K</td><td class="r rec">$211K</td></tr>
-    <tr><td>Channel deductions and chargebacks unrecovered</td><td class="r leak">$318K</td><td class="r rec">$233K</td></tr>
-    <tr class="total"><td>Total</td><td class="r leak">$2.68M</td><td class="r rec">$2.14M</td></tr>
+    <tr><td>Configurations that couldn't be built as quoted, reworked after the order</td><td class="r leak">$412K</td><td class="r">—</td><td class="r rec">$338K</td></tr>
+    <tr><td>Required options and adders left off buildable quotes</td><td class="r leak">$286K</td><td class="r">—</td><td class="r rec">$251K</td></tr>
+    <tr><td>Unexplained discounting beyond peers on similar deals</td><td class="r leak">$538K</td><td class="r">—</td><td class="r rec">$392K</td></tr>
+    <tr><td>Orders entered below the accepted quote</td><td class="r leak">$174K</td><td class="r rec">$161K</td><td class="r">—</td></tr>
+    <tr><td>Price conceded between quote and order</td><td class="r leak">$221K</td><td class="r">—</td><td class="r rec">$168K</td></tr>
+    <tr><td>Invoices billed off the customer's contract price</td><td class="r leak">$196K</td><td class="r rec">$172K</td><td class="r">—</td></tr>
+    <tr><td>Pass-through costs absorbed, no surcharge applied</td><td class="r leak">$143K</td><td class="r">—</td><td class="r rec">$119K</td></tr>
+    <tr><td>Service and spare parts quoted off the price book</td><td class="r leak">$127K</td><td class="r">—</td><td class="r rec">$94K</td></tr>
+    <tr><td>Rebates and commissions overpaid</td><td class="r leak">$264K</td><td class="r rec">$211K</td><td class="r">—</td></tr>
+    <tr><td>Channel deductions and chargebacks paid unsupported</td><td class="r leak">$318K</td><td class="r rec">$233K</td><td class="r">—</td></tr>
+    <tr class="total"><td>Total</td><td class="r leak">$2.68M</td><td class="r rec">$0.78M</td><td class="r rec">$1.36M</td></tr>
   </tbody>
 </table>
+<p>Two of these lines are commercial decisions as often as errors. A deep discount or a concession at the close may have been the right call. The ledger calls them <em>unexplained</em> until someone owns the reason; the point is visibility, not blame.</p>
 <p>Almost none of this appears on any report, because every report is drawn from a single system's version of the truth. The divergences live <em>between</em> the systems — which is exactly where nobody looks.</p>
+
+<h2>“I can do this in a spreadsheet”</h2>
+<p>You can add it up in a spreadsheet. The total is the easy part. What a spreadsheet struggles with is everything before the total:</p>
+<ul style="list-style:none;margin:0 0 16px;padding:0">
+  <li style="font-size:16px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px">→ <b style="color:var(--text)">The join.</b> The quote, the order, the invoice and the distributor's claim don't share an ID. Distributor part numbers and end-customer names don't match your master data. Matching them is the work.</li>
+  <li style="font-size:16px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px">→ <b style="color:var(--text)">Every line, not a sample.</b> Thousands of claim and invoice lines a month, each checked against its contract and resale record, every month.</li>
+  <li style="font-size:16px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:10px">→ <b style="color:var(--text)">Before the money moves.</b> A spreadsheet finds last quarter's leak. A control stops it before the credit memo posts or the quote goes out.</li>
+</ul>
+<p>So here's our offer: <b>bring your spreadsheet.</b> We'll run the same quarter, you on yours and us on ours. If your spreadsheet finds the same dollars, you don't need us.</p>
 
 <h2>Quote to cash is a reconciliation discipline</h2>
 <p>This is why I believe quote to cash is not a software category. The category fragmented years ago: CPQ vendors solved quoting, billing vendors solved invoicing, rebate vendors solved programs. Each silo got better, and the joins between them stayed unowned.</p>
