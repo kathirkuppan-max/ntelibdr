@@ -53,6 +53,7 @@
     { "src": "/engine/grid", "dest": "/engine-grid.html" },
     { "src": "/engine/power", "dest": "/engine-power.html" },
     { "src": "/engine/ic", "dest": "/engine-ic.html" },
+    { "src": "/engine/mobility", "dest": "/engine-mobility.html" },
     { "src": "/engine/([a-z-]+)", "dest": "/engine.html" },
     { "src": "/manufacturing", "dest": "/manufacturing.html" },
     { "src": "/workshop",      "dest": "/workshop.html" },
