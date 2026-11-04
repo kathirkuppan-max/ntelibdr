@@ -11,11 +11,11 @@
 <meta property="og:title" content="Distribution Transformer Quoting — Agents talk. The engine decides.">
 <meta property="og:description" content="Pad-mount to cast-coil — DOE 2029, NEC 450 and IEEE C57.12 checked by cited rules; fault current on every quote. Live now.">
 <meta property="og:url" content="https://nteli.io/engine/grid">
-<meta property="og:image" content="https://nteli.io/icon-512.png">
+<meta property="og:image" content="https://nteli.io/media/og-grid.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Distribution Transformer Quoting — Nteli Engine">
 <meta name="twitter:description" content="DOE 2029, NEC 450 and IEEE C57.12 checked by cited rules; fault current on every quote. Live now.">
-<meta name="twitter:image" content="https://nteli.io/icon-512.png">
+<meta name="twitter:image" content="https://nteli.io/media/og-grid.jpg">
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -77,6 +77,16 @@ footer a:hover{color:var(--text2);}
 @media(max-width:640px){h1{font-size:32px;}.why-grid{grid-template-columns:1fr;}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Distribution transformer quote, recorded live: NEC 450.26 refusal and fault current","description":"Mineral oil indoors is refused under NEC 450.26 with four priced ways out; the same unit outdoors at the 2029 DOE level is priced with its secondary fault current shown.","thumbnailUrl":"https://nteli.io/media/og-grid.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-grid.mp4","uploadDate":"2026-11-04","duration":"PT59S","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
+</script>
+<style>
+.video-wrap{padding:8px 28px 40px;}
+.video-frame{max-width:960px;margin:0 auto;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;position:relative;box-shadow:0 40px 80px -24px rgba(0,0,0,.6);}
+.video-frame video{display:block;width:100%;aspect-ratio:16/9;border-radius:8px;background:#000;}
+.vid-unmute{position:absolute;left:30px;bottom:70px;padding:11px 18px;border-radius:999px;border:0;background:var(--gold);color:#0D1117;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:2;}
+.video-caption{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin-top:16px;max-width:760px;margin-left:auto;margin-right:auto;}
+</style>
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
@@ -93,6 +103,21 @@ footer a:hover{color:var(--text2);}
   <h1>Distribution transformers,<br><span class="accent">quoted by conversation.</span></h1>
   <p class="hero-sub">Pad-mount, substation, dry-type or cast-coil — describe the unit and the engine checks DOE efficiency, NEC 450 siting, insulation level and fusing by citation, prices Good / Better / Best, and shows the fault current your switchboard must handle. Every number comes from the rules, never from a guess.</p>
 </div></section>
+
+<section class="video-wrap">
+  <div class="video-frame">
+    <video id="v" controls preload="metadata" playsinline muted autoplay poster="/media/og-grid.jpg">
+      <source src="/media/nteli-quoting-grid.mp4" type="video/mp4">
+    </video>
+    <button id="um" class="vid-unmute">🔊 Tap for sound</button>
+  </div>
+  <p class="video-caption">Recorded live in Claude with the Nteli connector: mineral oil indoors refused under NEC 450.26 with four priced ways out, then the outdoor 2029 DOE unit priced with its fault current. Prices illustrative.</p>
+</section>
+<script>
+(function(){var v=document.getElementById('v'),b=document.getElementById('um');
+b.addEventListener('click',function(){v.muted=false;v.currentTime=0;v.play().catch(function(){});b.hidden=true;});
+v.addEventListener('volumechange',function(){if(!v.muted)b.hidden=true;});})();
+</script>
 
 <section class="scope">
   <div class="scope-grid">

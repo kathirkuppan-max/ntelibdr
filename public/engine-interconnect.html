@@ -11,11 +11,11 @@
 <meta property="og:title" content="Cable Assembly Quoting Software — Agents talk. The engine decides.">
 <meta property="og:description" content="Cable assemblies and cordsets, end A to end B — compatibility checked by cited rules. Live now.">
 <meta property="og:url" content="https://nteli.io/engine/interconnect">
-<meta property="og:image" content="https://nteli.io/icon-512.png">
+<meta property="og:image" content="https://nteli.io/media/og-interconnect.jpg">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Interconnect / Cable Assemblies Quoting — Nteli Engine">
 <meta name="twitter:description" content="Cable assemblies and cordsets, end A to end B — compatibility checked by cited rules. Live now.">
-<meta name="twitter:image" content="https://nteli.io/icon-512.png">
+<meta name="twitter:image" content="https://nteli.io/media/og-interconnect.jpg">
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,6 +69,16 @@ footer a:hover{color:var(--text2);}
 @media(max-width:640px){h1{font-size:32px;}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Cable assembly quote, recorded live: M12 cordset and a D-coded refusal","description":"An M12 A-coded cordset for oil and coolant splash is priced line by line; an M12 D-coded cable for 10 Gbit/s is refused with priced ways out.","thumbnailUrl":"https://nteli.io/media/og-interconnect.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-interconnect.mp4","uploadDate":"2026-11-04","duration":"PT58S","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
+</script>
+<style>
+.video-wrap{padding:8px 28px 40px;}
+.video-frame{max-width:960px;margin:0 auto;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;position:relative;box-shadow:0 40px 80px -24px rgba(0,0,0,.6);}
+.video-frame video{display:block;width:100%;aspect-ratio:16/9;border-radius:8px;background:#000;}
+.vid-unmute{position:absolute;left:30px;bottom:70px;padding:11px 18px;border-radius:999px;border:0;background:var(--gold);color:#0D1117;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:2;}
+.video-caption{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin-top:16px;max-width:760px;margin-left:auto;margin-right:auto;}
+</style>
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
@@ -85,6 +95,21 @@ footer a:hover{color:var(--text2);}
   <h1>Cable assemblies and cordsets,<br><span class="accent">quoted by conversation.</span></h1>
   <p class="hero-sub">Describe the cable — end A to end B — and the engine asks what narrows it, checks every compatibility rule by citation, and prices Good / Better / Best. Every number comes from your rules, never from a guess.</p>
 </div></section>
+
+<section class="video-wrap">
+  <div class="video-frame">
+    <video id="v" controls preload="metadata" playsinline muted autoplay poster="/media/og-interconnect.jpg">
+      <source src="/media/nteli-quoting-interconnect.mp4" type="video/mp4">
+    </video>
+    <button id="um" class="vid-unmute">🔊 Tap for sound</button>
+  </div>
+  <p class="video-caption">Recorded live in Claude with the Nteli connector: an M12 cordset priced line by line for oil splash, then D-coded M12 at 10 Gbit/s refused with the X-coded way out. Prices illustrative.</p>
+</section>
+<script>
+(function(){var v=document.getElementById('v'),b=document.getElementById('um');
+b.addEventListener('click',function(){v.muted=false;v.currentTime=0;v.play().catch(function(){});b.hidden=true;});
+v.addEventListener('volumechange',function(){if(!v.muted)b.hidden=true;});})();
+</script>
 
 <section class="scope">
   <div class="scope-grid">
