@@ -195,3 +195,8 @@ same four queries weekly; first citation is the milestone.
 - **G2: case 00660168 filed** to add "Quote-to-Cash Consulting" category (main category stays
   Salesforce Consulting Services). G2 reviews in 4–5 business days if approved.
 - GSC data still ends 11-01 (2-day lag); no ranking change visible yet.
+
+## 2026-11-04 — One illustrative model site-wide (commit ec320e2)
+- Retired "planning rates", "engagement-derived" and unsourced "5–15% industry standard / industry benchmark" claims everywhere: homepage (/ and index.html), /semi (headline, sticky CTA, lever math, calculator ranges now 2–6% with 73% disputable, ROI cards, footnotes), /pharma (lever math, Elite at-stake note, 340B FAQ assumption), manufacturing, investor, all guides, S&D product + compare pages, CPQ end-of-sale, essay, llms.txt, 17 engine footers ("The assumptions, explained").
+- /roi rebuilt on the ten-line Leak Ledger model (defaults = essay: $2.68M / $777K recoverable / $1.36M preventable); /benchmarks rewritten as the published assumptions. Only outside anchor: MGI Research 2–4%.
+- Live-verified 9 key URLs (0 old claims). IndexNow pinged 16 URLs. Deck leaks footer updated; speaking.md + LinkedIn rails updated.
