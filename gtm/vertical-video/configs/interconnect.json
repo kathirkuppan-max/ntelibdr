@@ -1,0 +1,129 @@
+{
+"name": "interconnect",
+"vertical_label": "Interconnect · cable assemblies",
+"url": "nteli.io/engine/interconnect",
+"hook": "In <span class=\"g\">cable assemblies</span>,<br>a wrong quote is a<br><span class=\"g\">dead link</span>.",
+"hook_sub": "A connector that can’t carry the data rate. A jacket the coolant eats.",
+"today_title": "Today, estimators solve it by hand.",
+"today": [
+[
+"Email and spreadsheets",
+"The request arrives as prose. The answer gets built in Excel, one quote at a time."
+],
+[
+"Knowledge in a few heads",
+"Which coding, which jacket, which category lives with two senior estimators."
+],
+[
+"Rework",
+"A missed rule means a revised quote, a lost week, or a cable that won’t link."
+]
+],
+"meet_tag": "The configuration engine for<br>cable assembly and cordset builders.",
+"meet_check": "Checked against your rules, IEC 61076, TIA-568 and IPC/WHMA-A-620.",
+"request_word": "email",
+"chat": {
+"from": "CUSTOMER EMAIL · PASTED",
+"request": "Need an M12 A-coded 8-pole cordset to flying leads, 5 m, for a machine with oil and coolant splash. — Dana",
+"question": "One question: signal level only, or does any wire carry power? If you don’t know, I’ll assume signal and list it to confirm.",
+"answer": "signal only",
+"quote_sub": "1 cordset · first-article included",
+"total": "$116",
+"lines": [
+[
+"M12 A-coded 8-pole end, molded",
+"$14"
+],
+[
+"24 AWG conductors, oil-resistant PUR jacket",
+"$6"
+],
+[
+"Assembly labor and inspection",
+"$18"
+],
+[
+"Setup and first-article inspection",
+"$75"
+]
+]
+},
+"standards_text": "Configuration checked against the requirements, with the rule and document behind every line. The connector makers’ ratings certify the parts; the quote proves the assembly matches them.",
+"standards": [
+[
+"IEC 61076 · CONNECTOR RATINGS",
+[
+"Current per contact within both connectors’ ratings",
+"Wire size inside the connectors’ range"
+]
+],
+[
+"JACKET AND WORKMANSHIP",
+[
+"PUR jacket for oil and coolant splash",
+"IPC/WHMA-A-620 Class 2, 100% continuity test"
+]
+],
+[
+"CONFIRM WITH THE CUSTOMER",
+[
+"Coding and pin count against the device’s socket",
+"Class 3 only if the print calls for it"
+],
+true
+]
+],
+"refusal": "D-coded M12 at 10 Gbit/s? Refused: four contacts stop at 100 Mbit/s.",
+"gov_title": "Leadership sees how quoting is governed.",
+"keep_who": "Estimators",
+"golive": "Estimators start quoting. Paid only when an order is won.",
+"end_tag": "Cable assembly quotes, checked and governed.",
+"vo": [
+[
+"In cable assemblies, a wrong quote is a dead link.",
+"A connector that can't carry the data rate. A jacket the coolant eats."
+],
+[
+"Today, estimators solve it by hand.",
+"Email, spreadsheets, and knowledge in a few heads.",
+" And a missed rule means rework."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for cable assembly builders."
+],
+[
+"One conversation. No forms.",
+"Paste the customer's email.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows the standards behind it.",
+"Connector ratings, data rate, jacket, and workmanship.",
+"D-coded M twelve at ten gigabit? Refused, with the ways out priced."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Estimators get answers. Never the rulebook."
+],
+[
+"Live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. Cable assembly quotes, checked and governed."
+]
+]
+}

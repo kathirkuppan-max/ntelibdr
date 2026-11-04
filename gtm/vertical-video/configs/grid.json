@@ -1,0 +1,130 @@
+{
+"name": "grid",
+"vertical_label": "Distribution transformers",
+"url": "nteli.io/engine/grid",
+"hook": "In <span class=\"g\">transformers</span>,<br>a wrong quote is a<br><span class=\"g\">code</span> problem.",
+"hook_sub": "Mineral oil indoors without a vault. A switchboard rated below the fault current.",
+"hook_sub_top": 690,
+"today_title": "Today, estimators solve it by hand.",
+"today": [
+[
+"Email and spreadsheets",
+"The request arrives as prose. The answer gets built in Excel, one quote at a time."
+],
+[
+"Knowledge in a few heads",
+"Which fluid, which BIL, which fusing lives with two senior estimators and an engineer."
+],
+[
+"Rework",
+"A missed rule means a revised quote, a lost week, or the wrong unit on a truck."
+]
+],
+"meet_tag": "The configuration engine for<br>distribution transformer builders.",
+"meet_check": "Checked against your rules, DOE efficiency and NEC 450. Governed end to end.",
+"request_word": "email",
+"chat": {
+"from": "CUSTOMER EMAIL · PASTED",
+"request": "Need a 1,500 kVA pad-mount, 12.47 kV to 480Y/277, mineral oil, installed inside the building. Pricing please. — Dana",
+"question": "Mineral oil can’t sit indoors without a vault (NEC 450.26). Natural ester is the usual way out, from $127,255. Use it?",
+"answer": "use ester",
+"quote_sub": "1 unit · 1,500 kVA pad-mount",
+"total": "$127,255",
+"lines": [
+[
+"Pad-mount transformer, 12.47 kV to 480Y/277",
+"$116,687"
+],
+[
+"Natural ester fluid, less-flammable",
+"$7,001"
+],
+[
+"Bayonet fuse with isolation link",
+"$650"
+],
+[
+"Section 232 steel allowance",
+"$2,917"
+]
+]
+},
+"standards_text": "Configuration checked against the requirements, with the rule and document behind every line. The manufacturer’s listings certify the product; the quote proves it matches them.",
+"standards": [
+[
+"NEC 450 · INSTALLATION",
+[
+"Less-flammable liquid allowed indoors (450.23)",
+"Primary fuse sized from the manufacturer’s table"
+]
+],
+[
+"DOE EFFICIENCY · 10 CFR 431.196",
+[
+"At or above the federal minimum for the size"
+]
+],
+[
+"SITE RESPONSIBILITIES ON THE QUOTE",
+[
+"Switchboard rated for about 31.4 kA",
+"Liquid confinement by others",
+"2029 efficiency level for units built after April 2029"
+],
+true
+]
+],
+"refusal": "Mineral oil indoors without a vault? Refused, four ways out priced.",
+"gov_title": "Leadership sees how quoting is governed.",
+"keep_who": "Estimators",
+"golive": "Estimators start quoting. Paid only when an order is won.",
+"end_tag": "Transformer quotes, checked and governed.",
+"vo": [
+[
+"In transformers, a wrong quote is a code problem.",
+"Mineral oil indoors without a vault. A switchboard rated below the fault current."
+],
+[
+"Today, estimators solve it by hand.",
+"Email, spreadsheets, and knowledge in a few heads.",
+" And a missed rule means rework."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for distribution transformer builders."
+],
+[
+"One conversation. No forms.",
+"Paste the customer's email.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows the standards behind it.",
+"Siting, efficiency, and the fault current the switchboard must handle.",
+"Mineral oil indoors without a vault? Refused, with four ways out, priced."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Estimators get answers. Never the rulebook."
+],
+[
+"Live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. Transformer quotes, checked and governed."
+]
+]
+}

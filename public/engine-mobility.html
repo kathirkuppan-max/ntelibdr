@@ -80,7 +80,7 @@ footer a:hover{color:var(--text2);}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"VideoObject","name":"Mobility dealer quote, recorded live: stairlift and vehicle lift","description":"A dealer pastes a curved stairlift request into Claude with the Nteli connector and gets a checked quote with the stair-length question priced; an interior lift for a sedan is refused with priced ways out.","thumbnailUrl":"https://nteli.io/media/og-mobility.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-mobility.mp4","uploadDate":"2026-11-04","duration":"PT1M3S","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
+{"@context":"https://schema.org","@type":"VideoObject","name":"Mobility lift quoting demo — Nteli Agent Pricing Engine","description":"Stairlifts, platform lifts and vehicle lifts — rider weight, rail fit and vehicle fit checked before pricing.","thumbnailUrl":"https://nteli.io/media/og-mobility.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-mobility.mp4","uploadDate":"2026-11-04","duration":"PT1M26S","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"Mobility dealer quoting: stairlifts, platform lifts, vehicle lifts","url":"https://nteli.io/engine/mobility","description":"Mobility dealers paste the customer's request and get a checked quote with the questions to ask, priced for every answer.","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
@@ -108,7 +108,7 @@ footer a:hover{color:var(--text2);}
     </video>
     <button id="um" class="vid-unmute">🔊 Tap for sound</button>
   </div>
-  <p class="video-caption">Recorded live in Claude with the Nteli connector: a curved stairlift quoted with its one priced question, and an interior lift for a sedan refused with the ways out. Prices illustrative.</p>
+  <p class="video-caption">Stairlifts, platform lifts and vehicle lifts — rider weight, rail fit and vehicle fit checked before pricing.</p>
 </section>
 
 <section class="tryit">
@@ -166,6 +166,7 @@ footer a:hover{color:var(--text2);}
 <script>
 (function(){
   var v=document.getElementById('v'), b=document.getElementById('um');
+  v.playbackRate=1.25; v.defaultPlaybackRate=1.25;
   b.addEventListener('click',function(){ v.muted=false; v.currentTime=0; v.play().catch(function(){}); b.hidden=true; });
   v.addEventListener('volumechange',function(){ if(!v.muted) b.hidden=true; });
 })();

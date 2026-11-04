@@ -1,0 +1,129 @@
+{
+"name": "mobility",
+"vertical_label": "Mobility lifts",
+"url": "nteli.io/engine/mobility",
+"hook": "In <span class=\"g\">mobility</span>,<br>a wrong quote is a<br><span class=\"g\">second visit</span>.",
+"hook_sub": "A rail that won’t fit the stair. A lift the car can’t take.",
+"today_title": "Today, dealers solve it by hand.",
+"today": [
+[
+"Calls and catalogs",
+"The request arrives as a phone note or an email. The price gets built from PDFs, one quote at a time."
+],
+[
+"Knowledge in a few heads",
+"Which rail, which lift, which hitch lives with one or two senior reps."
+],
+[
+"Return trips",
+"A missed measurement means a second home visit, a revised quote, or the wrong rail on a truck."
+]
+],
+"meet_tag": "The configuration engine for<br>mobility dealers and manufacturers.",
+"meet_check": "Checked against your rules and ASME A18.1. Governed end to end.",
+"request_word": "request",
+"chat": {
+"from": "CUSTOMER REQUEST · PASTED",
+"request": "Customer wants a stairlift: curved stair with one landing, rider is 280 lb, it’s for an outdoor porch at their home. — Pat",
+"question": "One question: how long is the stair from the top step’s nose to the floor? Up to 10 ft keeps the price; I’ll list it to confirm on the visit.",
+"answer": "about 9 ft",
+"quote_sub": "1 stairlift · installed, including freight",
+"total": "$15,350",
+"lines": [
+[
+"Custom curved stairlift, 350 lb rated",
+"$8,900"
+],
+[
+"Curved rail, bent to the site survey",
+"$4,200"
+],
+[
+"Outdoor package: weather cover, sealed controls",
+"$650"
+],
+[
+"Installation",
+"$1,200"
+]
+]
+},
+"standards_text": "Configuration checked against the requirements, with the rule and document behind every line. The manufacturer’s listings certify the product; the quote proves it matches them.",
+"standards": [
+[
+"ASME A18.1 STAIRWAY CHAIRLIFTS · HOME",
+[
+"Rated load covers the 280 lb rider (350 lb unit)",
+"Curved rail bent to the stair from the site survey"
+]
+],
+[
+"OUTDOOR USE",
+[
+"Weather cover and sealed controls"
+]
+],
+[
+"SITE RESPONSIBILITIES ON THE QUOTE",
+[
+"Dedicated 120 V outlet by the owner",
+"Rail clearances checked on site",
+"Local permit and inspection"
+],
+true
+]
+],
+"refusal": "An interior lift for a sedan? Refused, with the ways out priced.",
+"gov_title": "Leadership sees how quoting is governed.",
+"keep_who": "Dealers",
+"golive": "Dealers start quoting. Paid only when an order is won.",
+"end_tag": "Mobility quotes, checked and governed.",
+"vo": [
+[
+"In mobility, a wrong quote is a second visit.",
+"A rail that won't fit the stair. A lift the car can't take."
+],
+[
+"Today, dealers solve it by hand.",
+"Phone notes, catalogs, and knowledge in a few heads.",
+"And a missed measurement means a second visit."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for mobility dealers and manufacturers."
+],
+[
+"One conversation. No forms.",
+"Paste the customer's request.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows the standards behind it.",
+"Rider weight, rail fit, and what the site must provide.",
+"An interior lift for a sedan? Refused, with the ways out priced."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Dealers get answers. Never the rulebook."
+],
+[
+"Live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. Mobility quotes, checked and governed."
+]
+]
+}
