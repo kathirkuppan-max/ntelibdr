@@ -27,7 +27,7 @@ One ledger line per post. Formula, in order:
    Never two CTAs. Links go in the first comment, not the post body.
 
 Ten-line source inventory (annual $K, illustrative Calder model — leak / recoverable):
-| # | Ledger line | Leak | Rec |
+| # | Ledger line | Leak | Actionable (lines 4, 6, 9, 10 = recoverable cash; the rest = preventable margin) |
 |---|---|---|---|
 | 1 | Wrong configurations reworked after the order | 412 | 338 |
 | 2 | Required options and adders left off the quote | 286 | 251 |
@@ -59,6 +59,9 @@ shop, (4) Rules move from four directions, (5) Your ERP is the system of record 
 stop asking it to quote, (6) Price when money moves.
 
 ## Rails (non-negotiable)
+- **Recoverable vs preventable**: only off-contract invoices, overpaid rebates, unsupported
+  claims and orders entered below the quote are "recoverable cash". Discounts, rework, missed
+  options and concessions are "preventable margin". Never call past discounts recoverable.
 - **Illustrative labeling**: every Calder/Leak-Ledger number carries "from our
   illustrative mid-market model" (or equivalent) in the same post. No implied
   customer results. Benchmarks are "benchmark planning rates."
@@ -88,8 +91,9 @@ On similar deals, similar customers, similar volume — one rep goes 8% deeper
 than the rest of the desk. Nobody sees it, because nobody benchmarks discounts
 against peer deals at quote time.
 In our illustrative mid-market model, discounting beyond peers is the single
-largest leak: $538K a year. Most of it recoverable — not by saying no, but by
-showing the rep the peer band before the quote goes out.
+largest leak: $538K a year. You can't claw back last year's discounts, but most of
+next year's are preventable — not by saying no, but by showing the rep the peer band before the
+quote goes out.
 The expensive discounts aren't the approved ones. They're the invisible ones.
 
 ### N2 (line 1)
