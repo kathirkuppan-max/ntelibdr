@@ -36,12 +36,15 @@ In this hands-on session, Kathiravan Kuppan explains the method he uses in one-d
 then attendees do the build themselves. Working in teams on a realistic manufacturer's data set,
 each team joins quotes, orders, invoices and claims on one deal ID, finds the leaks line by line,
 puts a dollar figure on each, and applies the check that closes it. The team that recovers the
-most wins. Everyone leaves having built a ledger, with the ten-line template to run on their own
-company.
+most wins. Finance people are welcome to try it in a spreadsheet: one table works the same
+data in Excel, and the room sees exactly where the spreadsheet breaks (matching records that
+share no ID, every line instead of a sample). Everyone leaves having built a ledger, with the
+ten-line template to run on their own company.
 
 **Takeaways:**
 - Why revenue operations still runs on single entry, and what double entry looks like for revenue.
-- The ten places revenue leaks between quote and cash, and how to size each one.
+- The ten places revenue leaks between quote and cash, sized two ways: recoverable cash you can still
+  collect, and preventable margin you can only stop going forward.
 - How to build a first leak ledger yourself, from exports you already have, in a single session.
 
 **Speaker bio (short):**
@@ -65,3 +68,14 @@ builds quoting and revenue reconciliation for configure-to-order manufacturers.
   can serve as the live leaderboard before building anything new.
 - Ask organizers for: a room with tables, Wi-Fi, 60–90 minutes (a 30-minute slot only fits a
   demo), and attendees bringing laptops.
+
+## Handling the "I can do this in a spreadsheet" objection (finance audiences)
+- Agree first: the totals are easy. The ledger isn't arithmetic.
+- The hard part is the join (quote, order, invoice and claim share no ID; distributor part numbers
+  don't match master data), every line instead of a sample, and checks before the money moves.
+- Separate recoverable cash from preventable margin before they do. Never call past discounts
+  "recoverable".
+- Don't defend Nteli's 3%. Place it beside MGI Research's framing (fixing leakage is worth 2-4%
+  of revenue and cash flow), then: "the number that matters is yours."
+- Close: "Bring your spreadsheet. Same quarter, side by side. If it finds the same dollars, you
+  don't need us."
