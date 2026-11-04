@@ -553,7 +553,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
 <!-- ============ STICKY CTA BAR (scroll-triggered) ============ -->
 <div class="sticky-cta" id="sticky-cta">
   <div class="sticky-cta-inner">
-    <span class="sticky-cta-msg"><b>5–15% claim leakage</b> is industry standard. The 30-min audit shows you yours.</span>
+    <span class="sticky-cta-msg"><b>How many of your claims are unsupported?</b> The 30-min audit shows you yours.</span>
     <a href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=semi" target="_blank" rel="noopener" class="sticky-cta-btn">Book audit →</a>
     <button class="sticky-cta-close" onclick="document.getElementById('sticky-cta').classList.remove('on');sessionStorage.setItem('stickyDismissed','1');" aria-label="Dismiss">✕</button>
   </div>
@@ -596,7 +596,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
     <div class="hero-grid">
       <div>
         <div class="eyebrow">Semiconductor &amp; Electronics</div>
-        <h1>Your channel is leaking <span class="accent">5–15% of revenue.</span> We fix it in 30 days.</h1>
+        <h1>Your distributor claims get paid <span class="accent">before they're proven.</span> We fix it in 30 days.</h1>
         <p class="hero-sub">We build and operate what lives between your CRM and your ERP — replacing the spreadsheets, email threads, and quarterly fire-drills that mis-handle Ship &amp; Debit, Design Registrations, POS reconciliation, and revenue recognition. Expert-led advisory and implementation for fabless semi, power electronics, and component manufacturers.</p>
         <div class="hero-cta">
           <a href="#cta" class="btn btn-primary btn-lg">Book the 30-min audit →</a>
@@ -656,8 +656,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
     </div>
     <div class="lever lv-teal">
       <div><div class="lever-num">LEVER 03</div><div class="lever-name">Settle</div><div class="lever-sub">Ship &amp; Debit</div></div>
-      <div class="lever-body"><h3>Ship &amp; Debit claims post to the GL without a three-way match</h3><p>The big one. Claims validated against the price agreement, the POS line, and the inventory position — before AP pays. This is where 5–15% of channel revenue leaks, and where Nteli's deepest practice lives.</p></div>
-      <div class="lever-math"><div class="m-line">$60M channel × 5% leak × 40% recoverable</div><div class="m-big">$1.2M / yr</div><a class="lever-cta hot" href="/workshop">Book the Leak Ledger Workshop →</a></div>
+      <div class="lever-body"><h3>Ship &amp; Debit claims post to the GL without a three-way match</h3><p>The big one. Claims validated against the price agreement, the POS line, and the inventory position — before AP pays. This is where the most channel revenue leaks, and where Nteli's deepest practice lives.</p></div>
+      <div class="lever-math"><div class="m-line">$60M distributor revenue × 5% unsupported × 73% disputable (illustrative)</div><div class="m-big">$2.2M / yr</div><a class="lever-cta hot" href="/workshop">Book the Leak Ledger Workshop →</a></div>
     </div>
     <div class="lever lv-purple">
       <div><div class="lever-num">LEVER 04</div><div class="lever-name">Comply</div><div class="lever-sub">Post-claim tax basis</div></div>
@@ -912,12 +912,12 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
           <div class="calc-out">
             <div class="calc-out-lbl">Estimated annual leakage</div>
             <div class="calc-out-val headline" id="out-leakage">$4.0M – $12.0M</div>
-            <div class="calc-out-sub" id="out-leakage-sub">5–15% of channel revenue · industry benchmark for spreadsheet-run claims</div>
+            <div class="calc-out-sub" id="out-leakage-sub">4–6% of channel revenue · illustrative assumption for spreadsheet-run claims</div>
           </div>
           <div class="calc-out">
             <div class="calc-out-lbl">Estimated recoverable / yr</div>
             <div class="calc-out-val" style="color:var(--green);" id="out-recover">$2.0M – $6.0M</div>
-            <div class="calc-out-sub">~50% of leakage closes via three-way match + dedup + multi-dim caps</div>
+            <div class="calc-out-sub">~73% of unsupported claims disputable with a three-way match (illustrative)</div>
           </div>
           <div class="calc-out">
             <div class="calc-out-lbl">Quarterly close hours saved</div>
@@ -952,7 +952,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
     </div>
 
     <div class="calc-disclaimer">
-      Inputs and outputs are industry benchmarks · not customer-specific projections. Sourced from public Model N / Vistex / IDC research and our reference architecture.<br>
+      Ranges are illustrative assumptions from our published <a href="/benchmarks" style="color:var(--blue)">Leak Ledger model</a> · not industry statistics or customer-specific projections.<br>
       Final numbers are scoped during a discovery call.
     </div>
   </div>
@@ -1018,7 +1018,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
       <div class="problem-card">
         <div class="problem-card-icon">📉</div>
         <h3>Claim leakage</h3>
-        <p>5–15% of channel claims approved without a matching design registration, valid POS line, or PUI bucket. Spreadsheet validation can't catch what doesn't exist.</p>
+        <p>Claims approved without a matching design registration, valid POS line, or PUI bucket. Spreadsheet validation can't catch what doesn't exist.</p>
         <div class="problem-card-stat">$1–5M/yr typical exposure</div>
       </div>
       <div class="problem-card">
@@ -1409,19 +1409,19 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
     <div style="max-width:780px;text-align:left;">
       <div class="eyebrow">Outcomes</div>
       <h2>What a deployment is built to deliver.</h2>
-      <p class="lead">Channel revenue is the largest under-instrumented surface in most semiconductor and electronics manufacturers' P&amp;L. The numbers below reflect industry benchmarks and the operational targets we design every deployment to hit.</p>
+      <p class="lead">Channel revenue is the largest under-instrumented surface in most semiconductor and electronics manufacturers' P&amp;L. The numbers below are illustrative assumptions from our published Leak Ledger model and the operational targets we design every deployment to hit. Your own data replaces them.</p>
     </div>
 
     <div class="roi-grid">
       <div class="roi-card">
-        <div class="roi-num">5–15%</div>
-        <h3>Claim leakage exposure · industry benchmark</h3>
-        <p>Typical S&amp;D claim leakage at fabless semi co.'s running adjudication in spreadsheets. A $50M channel program loses $2.5M–$7.5M / year. Three-way match closes most of it.</p>
+        <div class="roi-num">~5%</div>
+        <h3>Unsupported claims · illustrative assumption</h3>
+        <p>In our Leak Ledger model, about 5% of distributor revenue goes out in claims with no matching registration, contract or resale record. On a $50M channel program that's about $2.5M a year, most of it disputable. Your claims file tells you the real number.</p>
       </div>
       <div class="roi-card">
-        <div class="roi-num">±35%</div>
-        <h3>Forecast variance from POI/POS drift · industry benchmark</h3>
-        <p>Sell-in to disti vs. true sell-through often diverge by a third or more. PUI-POI-POS reconciliation gives Supply Chain a single source of truth and supports demand-planning tool ROI.</p>
+        <div class="roi-num">POI ≠ POS</div>
+        <h3>Forecast variance from sell-in vs sell-through drift</h3>
+        <p>Sell-in to distributors and true sell-through can diverge sharply. PUI-POI-POS reconciliation gives Supply Chain a single source of truth and supports demand-planning tool ROI.</p>
       </div>
       <div class="roi-card">
         <div class="roi-num">8–14 → 2–3</div>
@@ -1431,7 +1431,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
     </div>
 
     <div style="margin-top:24px;font-size:12px;color:var(--text3);font-family:var(--mono);text-align:center;">
-      Industry benchmarks sourced from public Model N / Vistex / IDC channel-revenue research. Customer outcomes will be published as design-partner engagements complete.
+      Leakage figures are illustrative assumptions from our published <a href="/benchmarks" style="color:var(--blue)">Leak Ledger model</a>, not industry statistics. Customer outcomes will be published as design-partner engagements complete.
     </div>
   </div>
 </section>
@@ -1787,8 +1787,8 @@ function calcUpdate(){
 
   // Tool labels + leakage multiplier (Excel = highest leakage, Vistex = lowest baseline)
   const toolNames = ['Excel + email','Custom Sheets / Airtable','CRM bolt-on','Custom Apex / Vistex'];
-  const leakageMin = [0.07, 0.05, 0.04, 0.03][tool];
-  const leakageMax = [0.15, 0.12, 0.09, 0.06][tool];
+  const leakageMin = [0.04, 0.035, 0.03, 0.02][tool];
+  const leakageMax = [0.06, 0.05, 0.045, 0.035][tool];
 
   document.getElementById('calc-rev-out').textContent = '$' + rev + 'M';
   document.getElementById('calc-distis-out').textContent = distis;
@@ -1798,9 +1798,9 @@ function calcUpdate(){
   // Leakage in millions
   const leakLo = rev * leakageMin;
   const leakHi = rev * leakageMax;
-  // Recoverable: ~50% of leakage closes via three-way match + dedup + multi-dim caps
-  const recLo = leakLo * 0.5;
-  const recHi = leakHi * 0.5;
+  // Recoverable: ~73% of unsupported claims are disputable (illustrative, matches /benchmarks)
+  const recLo = leakLo * 0.733;
+  const recHi = leakHi * 0.733;
   // Quarterly close hours: cycle_days × 8 × min(distis+2, 6) people
   const hours = days * 8 * Math.min(distis + 2, 6);
   const hoursSaved = Math.round(hours * 0.75);
@@ -1818,7 +1818,7 @@ function calcUpdate(){
   const fmt = n => n >= 1 ? '$' + n.toFixed(1) + 'M' : '$' + Math.round(n * 1000) + 'K';
 
   document.getElementById('out-leakage').textContent = fmt(leakLo) + ' – ' + fmt(leakHi);
-  document.getElementById('out-leakage-sub').textContent = (leakageMin*100).toFixed(0) + '–' + (leakageMax*100).toFixed(0) + '% of channel revenue · industry benchmark for ' + toolNames[tool].toLowerCase();
+  document.getElementById('out-leakage-sub').textContent = (leakageMin*100).toFixed(0) + '–' + (leakageMax*100).toFixed(0) + '% of channel revenue · illustrative assumption for ' + toolNames[tool].toLowerCase();
   document.getElementById('out-recover').textContent = fmt(recLo) + ' – ' + fmt(recHi);
   document.getElementById('out-hours').textContent = '~ ' + hoursSaved + ' hrs / quarter';
   document.getElementById('out-hours-sub').textContent = 'From ' + days + ' days → 2–3 days · 8 hrs/day × ' + Math.min(distis+2,6) + ' people involved';

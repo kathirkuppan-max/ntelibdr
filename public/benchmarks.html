@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Revenue Leakage Benchmarks — Nteli</title>
-<meta name="description" content="The benchmark rates behind Nteli's leak-ledger calculator, with the arithmetic shown: quote/config error 3% (60% unrecovered), order re-key 2% × $1,800, channel claim leakage 5% (40% recoverable), pricing drift 1%, late billing 1.5% at 45 days, tax exposure 0.15%. Planning rates from engagement experience — a workshop replaces them with your data.">
+<title>Revenue Leakage Assumptions, Explained — the Leak Ledger Model | Nteli</title>
+<meta name="description" content="The ten assumptions behind Nteli's leak-ledger model, with the arithmetic shown, each split into recoverable cash and preventable margin. Illustrative defaults tuned to a fictional mid-market manufacturer, not industry averages; MGI Research frames fixing revenue leakage as worth 2–4% of revenue. Change any assumption in the calculator.">
 <link rel="canonical" href="https://nteli.io/benchmarks">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Nteli">
-<meta property="og:title" content="Revenue leakage benchmarks — the rates, with the math shown">
-<meta property="og:description" content="Quote, order, recognition and compliance leak rates for direct manufacturing, channel and SaaS — every number shows its arithmetic.">
+<meta property="og:title" content="Revenue leakage assumptions, explained — and editable">
+<meta property="og:description" content="Ten places revenue leaks between quote and cash: the assumption behind each, the arithmetic, and whether it is recoverable cash or preventable margin.">
 <meta property="og:url" content="https://nteli.io/benchmarks">
 <meta property="og:image" content="https://nteli.io/icon-512.png">
 <meta name="twitter:card" content="summary">
@@ -57,7 +57,7 @@ footer a{color:var(--text3);}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"Revenue leakage benchmarks","description":"The benchmark rates behind Nteli's leak-ledger calculator, with the arithmetic shown, for direct manufacturing, channel and SaaS revenue motions.","datePublished":"2026-10-29","author":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/benchmarks"}
+{"@context":"https://schema.org","@type":"Article","headline":"Revenue leakage assumptions, explained","description":"The ten assumptions behind the Leak Ledger model, with the arithmetic shown and each line classed as recoverable cash or preventable margin.","dateModified":"2026-11-04","datePublished":"2026-10-29","author":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/benchmarks"}
 </script>
 </head>
 <body>
@@ -67,46 +67,43 @@ footer a{color:var(--text3);}
 </div></nav>
 
 <main class="doc">
-<div class="eyebrow">The Leak Ledger Method · Benchmarks</div>
-<h1>Revenue leakage benchmarks, with the math shown.</h1>
-<p class="lead">These are the rates Nteli's <a href="/roi">leak-ledger calculator</a> uses to estimate how much revenue a company is leaking across the Quote-to-Comply pipeline — one set per revenue motion. Every estimate on this site shows its arithmetic; this page is where the arithmetic lives.</p>
+<div class="eyebrow">The Leak Ledger Method · Assumptions</div>
+<h1>Revenue leakage assumptions, explained.</h1>
+<p class="lead">These are the ten assumptions behind the <a href="/roi">leak-ledger calculator</a> and the ledger table in <a href="/thinking/a-ledger-not-a-dashboard">A ledger, not a dashboard</a>. One model, one set of numbers, every line's arithmetic shown, and every assumption editable in the calculator.</p>
 
-<div class="honesty"><b>What these numbers are — and aren't.</b> These are Nteli's benchmark planning rates, drawn from our engagement experience across manufacturing, channel and SaaS clients since 2019, and set deliberately conservative. They are not industry-survey statistics, and we don't present them as anyone else's research. They exist to produce a defensible starting estimate; <a href="/workshop">a Leak Ledger Workshop</a> replaces every rate on this page with your own data in one day.</div>
+<div class="honesty"><b>What these numbers are, and aren't.</b> They are <b>illustrative assumptions</b>, tuned so the model describes a fictional ~$90M configure-to-order manufacturer (“Calder”) with dealers, a distributor channel and a service business. They are not measured industry averages, and we don't present them as anyone's research. For an outside reference point, <a href="https://mgiresearch.com/webinar/revenue-leakage/">MGI Research</a> frames fixing revenue leakage as worth <b>2–4% in added revenue and cash flow</b>; this model lands at about 3% of revenue. The numbers that matter are yours: change the assumptions in <a href="/roi">the calculator</a>, or replace them with your own data in <a href="/workshop">a Leak Ledger Workshop</a>.</div>
 
-<h2 id="direct">Direct manufacturing — Quote → Order → Recognize → Comply</h2>
-<p class="motion-note">configure-to-order products sold direct · assumes ~40% of revenue flows through quotes</p>
+<h2 id="two-kinds">Two kinds of money</h2>
+<p class="lead"><b style="color:var(--text)">Recoverable cash</b> can still be collected: correct an invoice billed off contract, bill an order entered below its quote, claw back an overpaid rebate, dispute an unsupported claim. <b style="color:var(--text)">Preventable margin</b> is already gone: last year's discounts and rework can't be taken back, only stopped going forward. Each error counts in one line only.</p>
+
+<h2 id="lines">The ten lines</h2>
+<p class="motion-note">bases for Calder: revenue $90M · quoted value 40% = $36M · distributor revenue 7% = $6.3M · service and spares 12% = $10.8M</p>
 <table>
-<tr><th>Lever</th><th>Benchmark rate</th><th>The arithmetic</th></tr>
-<tr id="config-error"><td>Quote</td><td>3% config/discount error, 60% unrecovered</td><td><code>quoted value × 3% × 60%</code> — configurations that can't be built as sold, discounts off policy, prices from a stale book.</td></tr>
-<tr id="rekey"><td>Order</td><td>2% of orders re-keyed wrong, $1,800 each</td><td><code>orders × 2% × $1,800</code> — the cost of an order that drifts from the quote between systems.</td></tr>
-<tr id="late-billing"><td>Recognize</td><td>1.5% billed 45 days late + 0.3% never billed</td><td><code>revenue × 1.5% × (45/365) × 10% WACC + revenue × 0.3%</code> — carrying cost of late billing, plus work that never reaches an invoice.</td></tr>
-<tr id="tax-direct"><td>Comply</td><td>0.15% tax exposure</td><td><code>revenue × 0.15%</code> — amended returns and over-remitted tax.</td></tr>
+<tr><th>Ledger line</th><th>Assumption</th><th>The arithmetic (Calder)</th><th>Kind</th></tr>
+<tr id="config-error"><td>Configurations that couldn't be built as quoted</td><td>≈1.1% of quoted value reworked after the order; ≈82% preventable with checked configurations</td><td><code>$36M × 1.144% = $412K · × 82% = $338K</code></td><td>Preventable margin</td></tr>
+<tr id="adders"><td>Required options left off buildable quotes</td><td>≈0.8% of quoted value; ≈88% preventable when required options are priced in by rule</td><td><code>$36M × 0.794% = $286K · × 87.8% = $251K</code></td><td>Preventable margin</td></tr>
+<tr id="discount"><td>Unexplained discounting beyond peers</td><td>≈1.5% of quoted value discounted deeper than similar deals without a recorded reason; ≈73% preventable with a peer band at quote time</td><td><code>$36M × 1.494% = $538K · × 72.9% = $392K</code></td><td>Preventable margin</td></tr>
+<tr id="rekey"><td>Orders entered below the accepted quote</td><td>≈0.5% of quoted value; ≈93% recoverable by billing the accepted price</td><td><code>$36M × 0.483% = $174K · × 92.5% = $161K</code></td><td>Recoverable cash</td></tr>
+<tr id="concession"><td>Price conceded between quote and order</td><td>≈0.6% of quoted value given away at the close without approval; ≈76% preventable with margin-visible approvals</td><td><code>$36M × 0.614% = $221K · × 76% = $168K</code></td><td>Preventable margin</td></tr>
+<tr id="off-contract"><td>Invoices billed off the contract price</td><td>≈0.2% of revenue; ≈88% recoverable by correcting the invoice</td><td><code>$90M × 0.218% = $196K · × 87.8% = $172K</code></td><td>Recoverable cash</td></tr>
+<tr id="surcharge"><td>Pass-through costs absorbed</td><td>≈0.16% of revenue in material or freight increases with no surcharge applied; ≈83% preventable with surcharge rules</td><td><code>$90M × 0.159% = $143K · × 83.2% = $119K</code></td><td>Preventable margin</td></tr>
+<tr id="spares"><td>Service and spares quoted off the price book</td><td>≈1.2% of service and spares revenue; ≈74% preventable with one price book</td><td><code>$10.8M × 1.176% = $127K · × 74% = $94K</code></td><td>Preventable margin</td></tr>
+<tr id="rebates"><td>Rebates and commissions overpaid</td><td>≈0.3% of revenue paid on units not shipped or not qualifying; ≈80% recoverable by clawback</td><td><code>$90M × 0.293% = $264K · × 79.9% = $211K</code></td><td>Recoverable cash</td></tr>
+<tr id="claim-leakage"><td>Channel claims paid unsupported</td><td>≈5% of distributor revenue in ship-and-debit claims or chargebacks paid without a matching agreement or resale record; ≈73% recoverable by dispute</td><td><code>$6.3M × 5.048% = $318K · × 73.3% = $233K</code></td><td>Recoverable cash</td></tr>
+<tr><td>Total</td><td>about 3% of revenue</td><td><code>$2.68M leak · $0.78M recoverable cash · $1.36M preventable margin</code></td><td></td></tr>
 </table>
+<p class="motion-note" style="margin-top:12px">Rates are shown rounded in the second column; the calculator uses the unrounded defaults so the illustration reproduces exactly. They are tuned to the illustration, not measured.</p>
 
-<h2 id="channel">Channel — Agree → Transact → Settle → Comply</h2>
-<p class="motion-note">semiconductor, pharma: price lives in contracts; leaks flow out through claims</p>
-<table>
-<tr><th>Lever</th><th>Benchmark rate</th><th>The arithmetic</th></tr>
-<tr id="price-drift"><td>Agree</td><td>1% pricing drift, 50% addressable</td><td><code>revenue × 1% × 50%</code> — distributor price drift, or contract/class-of-trade drift in pharma.</td></tr>
-<tr id="rekey-channel"><td>Transact</td><td>2% of orders re-keyed wrong, $1,800 each</td><td><code>orders × 2% × $1,800</code></td></tr>
-<tr id="claim-leakage"><td>Settle</td><td>5% claim leakage, 40% recoverable</td><td><code>channel revenue × 5% × 40%</code> — Ship &amp; Debit claims and chargebacks (or chargebacks/340B in pharma) paid without validation.</td></tr>
-<tr id="tax-channel"><td>Comply</td><td>0.15% of channel revenue + 0.05% of total</td><td><code>channel revenue × 0.15% + revenue × 0.05%</code> — claims misclassified before they reach tax and the GL.</td></tr>
-</table>
+<h2 id="presets">Other starting points</h2>
+<p class="lead">The calculator offers two more starting points that change only the mix, not the rates: a semiconductor or electronics company with a large distributor channel (25% quoted, 45% through distributors, 2% service) and a pharmaceutical manufacturer selling through wholesalers (no configured quotes, 70% through wholesalers filing chargebacks). Adjust both to your business.</p>
 
-<h2 id="saas">Recurring SaaS — Quote → Contract → Recur → Comply</h2>
-<p class="motion-note">termed contracts that keep transacting</p>
-<table>
-<tr><th>Lever</th><th>Benchmark rate</th><th>The arithmetic</th></tr>
-<tr id="quote-error-saas"><td>Quote</td><td>2% quote error, 60% unrecovered</td><td><code>quoted value × 2% × 60%</code></td></tr>
-<tr id="provisioning"><td>Contract</td><td>0.3% lost in the provisioning/billing handoff</td><td><code>revenue × 0.3%</code></td></tr>
-<tr id="uplift"><td>Recur</td><td>3% unapplied uplift on renewals, 50% addressable + 0.2% late billing</td><td><code>renewal base × 3% × 50% + revenue × 0.2%</code> — contractual uplifts never invoiced, renewals billed late.</td></tr>
-<tr id="tax-saas"><td>Comply</td><td>0.1% multi-state tax exposure</td><td><code>revenue × 0.1%</code></td></tr>
-</table>
+<h2 id="spreadsheet">“Can't I do this in a spreadsheet?”</h2>
+<p class="lead">You can total it in one. The ledger isn't the arithmetic on this page. It's matching quotes, orders, invoices and claims that share no ID, checking every line instead of a sample, and stopping the error before the money moves. Bring your spreadsheet to a workshop and run the same quarter side by side.</p>
 
-<div class="capacity" id="capacity"><b>The capacity benchmark:</b> a hand-built quote for a configured product takes a senior estimator most of half a day — call it <b>~2 quotes per estimator per day</b>. On the engine the conversation does the assembly and the rules do the checking, so the same team handles roughly <b>3× the quote volume</b> — the constraint moves from estimating hours to demand.</div>
+<div class="capacity" id="capacity"><b>The capacity assumption:</b> a hand-built quote for a configured product takes a senior estimator most of half a day — call it <b>~2 quotes per estimator per day</b>. On the engine the conversation does the assembly and the rules do the checking, so the same team handles roughly <b>3× the quote volume</b>. This is an assumption to test on your own RFQs, not a measured result.</div>
 
 <div class="cta-row">
-  <a class="btn btn-primary" href="/roi">Run these rates on your numbers →</a>
+  <a class="btn btn-primary" href="/roi">Change the assumptions →</a>
   <a class="btn" style="border-color:var(--border2);color:var(--text);" href="/workshop">Replace them with your data — the workshop</a>
 </div>
 </main>

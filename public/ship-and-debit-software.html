@@ -68,7 +68,7 @@ footer a{color:var(--text3);}
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
 {"@type":"Question","name":"What is ship and debit reconciliation software?","acceptedAnswer":{"@type":"Answer","text":"Software that validates distributor ship and debit claims before they are paid: each claim line is matched to the design registration or special pricing agreement it cites, the contract price, and the POS sell-through it covers. Valid lines are credited; invalid ones are disputed with evidence. Nteli delivers this as a standalone reconciliation module with agents running the matching and people governing the rules."}},
 {"@type":"Question","name":"Does it replace my ERP?","acceptedAnswer":{"@type":"Answer","text":"No. The ERP stays the system of record. The module uses a read-mostly connection — it needs to see orders, invoices and credit memos, not rewrite them — and hands validated, line-level results back for the credit memo and the GL. The ERP connection is scoped once as onboarding, not a monthly fee."}},
-{"@type":"Question","name":"How much ship and debit leakage is typical?","acceptedAnswer":{"@type":"Answer","text":"Nteli's engagement-derived planning rates — not survey statistics — put channel claim leakage at about 5% of channel revenue, with roughly 40% of it recoverable once every claim line is validated against its agreement."}},
+{"@type":"Question","name":"How much ship and debit leakage is typical?","acceptedAnswer":{"@type":"Answer","text":"There is no reliable industry average; your own claims file is the only real answer. For reference, MGI Research frames fixing revenue leakage as worth 2–4% of revenue and cash flow, and Nteli's published illustrative model assumes about 5% of distributor revenue goes out in claims with no matching agreement or resale record, most of it disputable."}},
 {"@type":"Question","name":"Does this work for pharma chargebacks too?","acceptedAnswer":{"@type":"Answer","text":"Yes — same spine, different names. Pharmaceutical chargebacks are validated against wholesaler contracts the way semiconductor ship and debit claims are validated against design registrations. Nteli runs both practices."}}]}
 </script>
 </head>
@@ -112,11 +112,11 @@ footer a{color:var(--text3);}
 
 <section>
   <div class="wrap">
-    <h2>The planning numbers.</h2>
-    <p class="sec-sub">Engagement-derived planning rates — not survey statistics.</p>
+    <h2>What&rsquo;s at stake, illustrated.</h2>
+    <p class="sec-sub">Illustrative assumptions from our published <a href="/benchmarks">Leak Ledger model</a>, not industry statistics. Your claims file gives the real numbers.</p>
     <div class="stat-band">
-      <div class="stat"><div class="v">5%</div><div class="k">of channel revenue leaking through claims, chargebacks and rebates</div></div>
-      <div class="stat"><div class="v">~40%</div><div class="k">of that recoverable once every claim line is validated against its agreement</div></div>
+      <div class="stat"><div class="v">~5%</div><div class="k">of distributor revenue in claims with no matching agreement or resale record (illustrative assumption)</div></div>
+      <div class="stat"><div class="v">~73%</div><div class="k">of unsupported claims disputable once every line is checked against its agreement and resale record</div></div>
       <div class="stat"><div class="v">Line-level</div><div class="k">recovery report the CFO can trace to the deal — a ledger, not a dashboard</div></div>
     </div>
     <p class="pull">A claim isn't wrong because it's big. It's unverified because checking it by hand costs more than paying it. Agents change that arithmetic.</p>

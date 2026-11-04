@@ -39,7 +39,7 @@ Ten-line source inventory (annual $K, illustrative Calder model — leak / recov
 | 8 | Service & spare parts quoted off the price book | 127 | 94 |
 | 9 | Rebates and commissions overpaid | 264 | 211 |
 | 10 | Channel deductions and chargebacks unrecovered | 318 | 233 |
-Total: $2.679M leak / $2.139M recoverable per year in the model.
+Total: $2.679M leak / $2.139M actionable per year in the model ($0.777M recoverable cash, $1.362M preventable margin).
 
 Ten lines × angle variations (per-vertical retelling, the VO script lines,
 the "ways out" patterns) ≈ a quarter of L1 content before any repeat.
@@ -64,7 +64,7 @@ stop asking it to quote, (6) Price when money moves.
   options and concessions are "preventable margin". Never call past discounts recoverable.
 - **Illustrative labeling**: every Calder/Leak-Ledger number carries "from our
   illustrative mid-market model" (or equivalent) in the same post. No implied
-  customer results. Benchmarks are "benchmark planning rates."
+  customer results. Never say "planning rates", "engagement-derived" or "industry benchmark": the numbers are an illustrative model with published assumptions (nteli.io/benchmarks).
 - Customer names: only Elite Pharmaceuticals and Aduro Advisors, only cleared facts.
 - Engine claims: replay/versioning and governed rule changes — never "detects
   rule changes automatically."

@@ -75,7 +75,9 @@ builds quoting and revenue reconciliation for configure-to-order manufacturers.
   don't match master data), every line instead of a sample, and checks before the money moves.
 - Separate recoverable cash from preventable margin before they do. Never call past discounts
   "recoverable".
-- Don't defend Nteli's 3%. Place it beside MGI Research's framing (fixing leakage is worth 2-4%
-  of revenue and cash flow), then: "the number that matters is yours."
+- Don't defend the model's 3%. It is an illustrative model with every assumption published
+  (nteli.io/benchmarks, editable at nteli.io/roi), not an industry average. Place it beside MGI
+  Research's framing (fixing leakage is worth 2-4% of revenue and cash flow), then: "the number
+  that matters is yours."
 - Close: "Bring your spreadsheet. Same quarter, side by side. If it finds the same dollars, you
   don't need us."

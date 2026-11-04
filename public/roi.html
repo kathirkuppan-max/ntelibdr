@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Your Leak Ledger — Revenue Recovery Estimator | Nteli</title>
-<meta name="description" content="Three inputs, your leak ledger: estimate how much revenue leaks at Quote, Order, Recognize, and Comply for a mid-market manufacturer, pharma, or SaaS company — with the math shown.">
+<meta name="description" content="Build a first leak ledger from your own assumptions: ten places revenue leaks between quote and cash, each split into recoverable cash and preventable margin. Every rate is an editable assumption with the arithmetic shown.">
 <link rel="canonical" href="https://nteli.io/roi">
 <meta property="og:title" content="Your Leak Ledger — how much is leaking between quote and GL?">
-<meta property="og:description" content="Three inputs. Four levers. The math shown. Then validate it in a one-day workshop.">
+<meta property="og:description" content="Ten ledger lines, your assumptions, the math shown. Recoverable cash vs preventable margin.">
 <meta property="og:url" content="https://nteli.io/roi">
 <meta property="og:image" content="https://nteli.io/og.png">
 <link rel="icon" href="/favicon.ico">
@@ -61,112 +61,136 @@ h1{font-size:46px;font-weight:800;line-height:1.1;letter-spacing:-1.2px;margin-b
 footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
 footer a{color:var(--text3);}
 @media(max-width:900px){.calc{grid-template-columns:1fr;}.inputs{position:static;}h1{font-size:34px;}.lline{grid-template-columns:1fr;gap:8px;}.lval{text-align:left;}}
+
+.sec{font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin:26px 0 4px;}
+.assume{display:grid;grid-template-columns:1fr 74px 74px;gap:6px 8px;align-items:center;margin-top:8px;}
+.assume .h{font-size:10px;font-family:var(--mono);color:var(--text3);letter-spacing:.06em;text-transform:uppercase;}
+.assume .n{font-size:12.5px;color:var(--text2);line-height:1.35;}
+.inputs .assume input{padding:6px 8px;font-size:13px;}
+.ltable{width:100%;border-collapse:collapse;font-size:14px;background:var(--surface);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;}
+.ltable th{font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--text3);text-align:left;padding:12px 14px;border-bottom:1px solid var(--border2);}
+.ltable td{padding:11px 14px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;}
+.ltable td.r,.ltable th.r{text-align:right;font-family:var(--mono);white-space:nowrap;}
+.ltable td .f{display:block;font-family:var(--mono);font-size:11.5px;color:var(--text3);margin-top:3px;}
+.ltable td.leak{color:#F85149;} .ltable td.cash{color:var(--blue);} .ltable td.prev{color:var(--green);}
+.ltable tr.tot td{color:var(--text);font-weight:700;border-bottom:none;background:var(--surface2);}
+.split2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.sbox{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:18px 20px;}
+.sbox .k{font-size:12.5px;color:var(--text2);line-height:1.45;}
+.sbox .v{font-size:32px;font-weight:800;letter-spacing:-1px;margin-bottom:4px;}
+.sbox.c .v{color:var(--blue);} .sbox.p .v{color:var(--green);}
+@media(max-width:900px){.split2{grid-template-columns:1fr;}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <nav class="nav"><div class="nav-inner">
   <a href="/" class="brand">nteli<em>.io</em></a>
-  <a class="btn btn-primary" href="/workshop">Validate in a workshop →</a>
+  <a class="btn btn-primary" href="/workshop">Build it from your data →</a>
 </div></nav>
 
 <section class="hero">
-  <div class="eyebrow">The Leak Ledger Method · outside-in, math shown</div>
+  <div class="eyebrow">The Leak Ledger Method · your assumptions, math shown</div>
   <h1>Your <span class="accent">leak ledger.</span></h1>
-  <p class="hero-sub">Three inputs. Four levers. Every number derived on screen — argue with any line, then validate the real ones in a day.</p>
+  <p class="hero-sub">Ten places revenue leaks between quote and cash. Every rate below is an assumption you can change; the defaults reproduce our illustrative model. Replace them with what you know about your business.</p>
 </section>
 
 <section class="calc">
   <div class="inputs">
-    <label>Your industry</label>
-    <select id="vert">
-      <option value="mfg">Manufacturing (configure-to-order)</option>
-      <option value="semi">Semiconductor / electronics (channel)</option>
-      <option value="pharma">Pharma / life sciences</option>
-      <option value="saas">SaaS / subscription</option>
+    <label>Start from</label>
+    <select id="preset">
+      <option value="mfg">Manufacturer, dealers and distributors</option>
+      <option value="semi">Semiconductor / electronics, distributor channel</option>
+      <option value="pharma">Pharma / life sciences, wholesaler channel</option>
     </select>
     <label>Annual revenue ($M)</label>
-    <input id="rev" type="number" value="200" min="10" max="5000">
-    <label id="l2">Quotes per month</label>
-    <input id="q" type="number" value="400" min="10" max="100000">
-    <label id="l3">% of revenue through channel / contracts</label>
-    <input id="ch" type="number" value="30" min="0" max="100">
-    <div style="margin-top:22px;" class="disclaimer">Benchmark-based estimate, not a quote of recoverable dollars. Rates: config/discount error 3% of quoted value (60% unrecoverable); order re-key 2% × $1,800; late/unbilled 1.5%/45d + 0.3%; channel claim leakage 5% (40% recoverable); pricing drift 1%; tax exposure 0.15%. Your workshop ledger replaces these with your data. <a href="/benchmarks" style="color:var(--blue);">The rates, with the math →</a></div>
+    <input id="rev" type="number" value="90" min="1" max="20000" step="1">
+    <label>% of revenue that flows through quotes</label>
+    <input id="pq" type="number" value="40" min="0" max="100" step="1">
+    <label>% of revenue through distributors filing claims</label>
+    <input id="pc" type="number" value="7" min="0" max="100" step="1">
+    <label>% of revenue from service and spare parts</label>
+    <input id="pa" type="number" value="12" min="0" max="100" step="1">
+    <label>Quotes per month (for the capacity line)</label>
+    <input id="qpm" type="number" value="300" min="0" max="100000" step="10">
+
+    <div class="sec">Assumptions (edit any)</div>
+    <div class="assume" id="assume">
+      <div class="h">Line</div><div class="h">Rate %</div><div class="h">Action %</div>
+    </div>
+    <div style="margin-top:18px;" class="disclaimer">Defaults are illustrative assumptions tuned to a fictional ~$90M manufacturer (“Calder”), not measured industry averages. For an outside reference, MGI Research frames fixing revenue leakage as worth 2–4% of revenue and cash flow. <a href="/benchmarks" style="color:var(--blue);">Every assumption, explained →</a></div>
   </div>
 
   <div class="ledger">
-    <div class="lline s-quote"><div class="lstage" id="s1">Quote</div><div class="lformula" id="f1"></div><div class="lval" id="v1"></div></div>
-    <div class="lline s-order"><div class="lstage" id="s2">Order</div><div class="lformula" id="f2"></div><div class="lval" id="v2"></div></div>
-    <div class="lline s-rec"><div class="lstage" id="s3">Recognize</div><div class="lformula" id="f3"></div><div class="lval" id="v3"></div></div>
-    <div class="lline s-comply"><div class="lstage" id="s4">Comply</div><div class="lformula" id="f4"></div><div class="lval" id="v4"></div></div>
-    <div class="ltotal"><div class="tl">Estimated annual leak across your Quote-to-Comply pipeline</div><div class="tv" id="tot"></div></div>
+    <table class="ltable" id="ltable">
+      <thead><tr><th>Ledger line</th><th class="r">Annual leak</th><th class="r">Recoverable cash</th><th class="r">Preventable margin</th></tr></thead>
+      <tbody id="lbody"></tbody>
+    </table>
+    <div class="split2">
+      <div class="sbox c"><div class="v" id="tcash"></div><div class="k"><b>Recoverable cash:</b> money you can still collect — correct the invoice, claw back the rebate, dispute the claim.</div></div>
+      <div class="sbox p"><div class="v" id="tprev"></div><div class="k"><b>Preventable margin:</b> already gone; stop it going forward — discounts, rework, missed options, absorbed costs.</div></div>
+    </div>
+    <div class="ltotal"><div class="tl">Estimated annual leak, before any recovery</div><div class="tv" id="tot"></div></div>
     <div class="capacity" id="cap"></div>
+    <div class="disclaimer">This is an estimate from assumptions, not a measurement. A spreadsheet can total these lines too; what it can't easily do is match quotes, orders, invoices and claims that share no ID, check every line instead of a sample, and stop the error before the money moves.</div>
     <div class="cta-band">
-      <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=roi-calculator" target="_blank" rel="noopener">Validate these numbers — book the workshop →</a>
-      <div style="margin-top:12px;"><a href="/engine" style="color:var(--blue);font-size:14px;">or watch the engine quote your vertical first →</a></div>
+      <a class="btn btn-primary btn-lg" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=roi-calculator" target="_blank" rel="noopener">Replace assumptions with your data — the workshop →</a>
+      <div style="margin-top:12px;"><a href="/thinking/a-ledger-not-a-dashboard" style="color:var(--blue);font-size:14px;">Why a ledger, not a dashboard →</a></div>
     </div>
   </div>
 </section>
 
-<footer>© 2026 Nteli LLC · <a href="/claude">Use in Claude</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
-
+<footer>© 2026 Nteli LLC · <a href="/benchmarks">The assumptions</a> · <a href="/claude">Use in Claude</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
 <script>
 (function(){
   var $=function(id){return document.getElementById(id)};
+  var LINES=[
+    {k:'config',n:"Configurations that couldn't be built as quoted, reworked",b:'q',r:1.144,a:82.0,c:'p'},
+    {k:'adders',n:'Required options left off buildable quotes',b:'q',r:0.794,a:87.8,c:'p'},
+    {k:'discount',n:'Unexplained discounting beyond peers',b:'q',r:1.494,a:72.9,c:'p'},
+    {k:'orderentry',n:'Orders entered below the accepted quote',b:'q',r:0.483,a:92.5,c:'c'},
+    {k:'concession',n:'Price conceded between quote and order',b:'q',r:0.614,a:76.0,c:'p'},
+    {k:'offcontract',n:"Invoices billed off the contract price",b:'v',r:0.218,a:87.8,c:'c'},
+    {k:'surcharge',n:'Pass-through costs absorbed, no surcharge',b:'v',r:0.159,a:83.2,c:'p'},
+    {k:'spares',n:'Service and spares quoted off the price book',b:'s',r:1.176,a:74.0,c:'p'},
+    {k:'rebates',n:'Rebates and commissions overpaid',b:'v',r:0.293,a:79.9,c:'c'},
+    {k:'claims',n:'Channel claims paid unsupported',b:'d',r:5.048,a:73.3,c:'c'}
+  ];
+  var BASE={q:'quoted value',v:'revenue',s:'service & spares revenue',d:'distributor revenue'};
+  var PRESET={mfg:{pq:40,pc:7,pa:12},semi:{pq:25,pc:45,pa:2},pharma:{pq:0,pc:70,pa:0}};
   function money(x){
-    if(x>=1e6) return '$'+(x/1e6).toFixed(1).replace(/\.0$/,'')+'M';
+    if(x>=1e6) return '$'+(x/1e6).toFixed(2).replace(/0$/,'').replace(/\.0$/,'')+'M';
     if(x>=1e3) return '$'+Math.round(x/1e3)+'K';
     return '$'+Math.round(x);
   }
+  var box=$('assume');
+  LINES.forEach(function(L){
+    var d=document.createElement('div'); d.className='n'; d.textContent=L.n; box.appendChild(d);
+    var r=document.createElement('input'); r.type='number'; r.step='0.01'; r.min='0'; r.value=L.r; r.id='r_'+L.k; r.setAttribute('aria-label',L.n+' rate percent'); box.appendChild(r);
+    var a=document.createElement('input'); a.type='number'; a.step='0.1'; a.min='0'; a.max='100'; a.value=L.a; a.id='a_'+L.k; a.setAttribute('aria-label',L.n+' actionable percent'); box.appendChild(a);
+    r.addEventListener('input',calc); a.addEventListener('input',calc);
+  });
   function calc(){
-    var vert=$('vert').value, rev=(+$('rev').value||0)*1e6, q=(+$('q').value||0), ch=(+$('ch').value||0)/100;
-    var quoted=rev*0.4, orders=q*12*0.6;
-    var quote, order, rec, comply, f1,f2,f3,f4;
-    if(vert==='semi'||vert==='pharma'){
-      var chrev=rev*ch;
-      quote = rev*0.01*0.5;                           // pricing/contract drift share
-      f1=(vert==='pharma'?'contract/class-of-trade drift':'disti price drift')+': '+money(rev)+' × 1% × 50%';
-      order = orders*0.02*1800;
-      f2=Math.round(orders).toLocaleString()+' orders × 2% re-key × $1,800';
-      rec = chrev*0.05*0.4;
-      f3=(vert==='pharma'?'chargebacks/340B':'Ship & Debit claims')+': '+money(chrev)+' channel × 5% leak × 40% recoverable';
-      comply = chrev*0.0015 + rev*0.0005;
-      f4='post-claim tax basis + certs: ~0.15% of channel';
-    } else if(vert==='saas'){
-      quote = quoted*0.02*0.6;
-      f1=money(quoted)+' quoted × 2% quote error × 60% unrecovered';
-      order = rev*0.003;
-      f2='provisioning/billing handoff: '+money(rev)+' × 0.3%';
-      rec = rev*ch*0.03*0.5 + rev*0.002;
-      f3='unapplied uplift on '+money(rev*ch)+' renewals × 3% × 50% + late billing';
-      comply = rev*0.001;
-      f4='multi-state SaaS tax exposure: '+money(rev)+' × 0.1%';
-    } else {
-      quote = quoted*0.03*0.6;
-      f1=money(quoted)+' quoted × 3% config/discount error × 60% unrecovered';
-      order = orders*0.02*1800;
-      f2=Math.round(orders).toLocaleString()+' orders × 2% re-key × $1,800';
-      rec = rev*0.015*(45/365)*0.10 + rev*0.003;
-      f3=money(rev)+' × 1.5% billed 45d late (10% WACC) + 0.3% never billed';
-      comply = rev*0.0015;
-      f4='amended returns + over-remitted tax: '+money(rev)+' × 0.15%';
-    }
-    $('f1').textContent=f1; $('v1').textContent=money(quote);
-    $('f2').textContent=f2; $('v2').textContent=money(order);
-    $('f3').textContent=f3; $('v3').textContent=money(rec);
-    $('f4').textContent=f4; $('v4').textContent=money(comply);
-    $('tot').textContent=money(quote+order+rec+comply)+' / yr';
-    var est=Math.max(2,Math.round(q/40));
-    $('cap').innerHTML='Capacity bonus: ~'+est+' estimators at ~2 hand-built quotes/day today → <b>3× throughput</b> on the engine. Same team, '+(q*3).toLocaleString()+' quotes a month.';
-    var isCh=(vert==='semi'||vert==='pharma');
-    var isSaas=(vert==='saas');
-    $('s1').textContent=isCh?'Agree':'Quote';
-    $('s2').textContent=isCh?'Transact':(isSaas?'Contract':'Order');
-    $('s3').textContent=isCh?'Settle':(isSaas?'Recur':'Recognize');
-    $('s4').textContent='Comply';
-    $('l3').textContent=isCh?'% of revenue through channel / contracts':(vert==='saas'?'% of revenue from renewals':'% of revenue through channel (if any)');
+    var rev=(+$('rev').value||0)*1e6;
+    var bases={q:rev*(+$('pq').value||0)/100, v:rev, s:rev*(+$('pa').value||0)/100, d:rev*(+$('pc').value||0)/100};
+    var rows='', tl=0, tc=0, tp=0;
+    LINES.forEach(function(L){
+      var rate=(+$('r_'+L.k).value||0), act=(+$('a_'+L.k).value||0);
+      var leak=bases[L.b]*rate/100, x=leak*act/100;
+      tl+=leak; if(L.c==='c') tc+=x; else tp+=x;
+      var f=money(bases[L.b])+' '+BASE[L.b]+' × '+rate+'% · '+act+'% '+(L.c==='c'?'recoverable':'preventable');
+      rows+='<tr><td>'+L.n+'<span class="f">'+f+'</span></td><td class="r leak">'+money(leak)+'</td><td class="r cash">'+(L.c==='c'?money(x):'—')+'</td><td class="r prev">'+(L.c==='p'?money(x):'—')+'</td></tr>';
+    });
+    rows+='<tr class="tot"><td>Total</td><td class="r leak">'+money(tl)+'</td><td class="r cash">'+money(tc)+'</td><td class="r prev">'+money(tp)+'</td></tr>';
+    $('lbody').innerHTML=rows;
+    $('tcash').textContent=money(tc); $('tprev').textContent=money(tp); $('tot').textContent=money(tl)+' / yr';
+    var q=(+$('qpm').value||0), est=Math.max(1,Math.round(q/40));
+    $('cap').innerHTML=q>0?'Capacity: ~'+est+' estimators at ~2 hand-built quotes a day each. On the engine the same team handles roughly <b>3× the volume</b>, about '+(q*3).toLocaleString()+' quotes a month.':'';
   }
-  ['vert','rev','q','ch'].forEach(function(id){ $(id).addEventListener('input',calc); });
+  $('preset').addEventListener('change',function(){
+    var p=PRESET[this.value]; $('pq').value=p.pq; $('pc').value=p.pc; $('pa').value=p.pa; calc();
+  });
+  ['rev','pq','pc','pa','qpm'].forEach(function(id){ $(id).addEventListener('input',calc); });
   calc();
 })();
 </script>
