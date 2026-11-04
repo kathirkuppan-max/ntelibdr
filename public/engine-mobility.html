@@ -11,11 +11,11 @@
 <meta property="og:title" content="Mobility dealer quoting: paste the request, get a checked quote">
 <meta property="og:description" content="Stairlifts, vertical platform lifts, vehicle lifts and carriers. A checked quote with the questions to ask, priced for every answer.">
 <meta property="og:url" content="https://nteli.io/engine/mobility">
-<meta property="og:image" content="https://nteli.io/og.png">
+<meta property="og:image" content="https://nteli.io/media/og-mobility.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Mobility dealer quoting — Nteli">
 <meta name="twitter:description" content="Paste the customer's request, get a checked quote with the questions to ask.">
-<meta name="twitter:image" content="https://nteli.io/og.png">
+<meta name="twitter:image" content="https://nteli.io/media/og-mobility.jpg">
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -80,6 +80,9 @@ footer a:hover{color:var(--text2);}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Mobility dealer quote, recorded live: stairlift and vehicle lift","description":"A dealer pastes a curved stairlift request into Claude with the Nteli connector and gets a checked quote with the stair-length question priced; an interior lift for a sedan is refused with priced ways out.","thumbnailUrl":"https://nteli.io/media/og-mobility.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-mobility.mp4","uploadDate":"2026-11-04","duration":"PT1M3S","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
+</script>
+<script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebPage","name":"Mobility dealer quoting: stairlifts, platform lifts, vehicle lifts","url":"https://nteli.io/engine/mobility","description":"Mobility dealers paste the customer's request and get a checked quote with the questions to ask, priced for every answer.","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
 </script>
 </head>
@@ -97,6 +100,16 @@ footer a:hover{color:var(--text2);}
   <h1>Paste the customer&rsquo;s request.<br><span class="accent">Get a checked quote back.</span></h1>
   <p class="hero-sub">Stairlifts, vertical platform lifts, and vehicle lifts and carriers. The quote comes back checked for fit and code, with the questions to ask before the home visit, and a price for every answer.</p>
 </div></section>
+
+<section class="video-wrap">
+  <div class="video-frame">
+    <video id="v" controls preload="auto" playsinline muted autoplay poster="/media/og-mobility.jpg">
+      <source src="/media/nteli-quoting-mobility.mp4" type="video/mp4">
+    </video>
+    <button id="um" class="vid-unmute">🔊 Tap for sound</button>
+  </div>
+  <p class="video-caption">Recorded live in Claude with the Nteli connector: a curved stairlift quoted with its one priced question, and an interior lift for a sedan refused with the ways out. Prices illustrative.</p>
+</section>
 
 <section class="tryit">
   <h2 style="font-size:24px;font-weight:800;letter-spacing:-.4px;margin-bottom:8px;text-align:center;">Try it in Claude, right now.</h2>
@@ -151,6 +164,11 @@ footer a:hover{color:var(--text2);}
 <footer>© 2026 Nteli LLC · <a href="/claude">Use in Claude</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
 
 <script>
+(function(){
+  var v=document.getElementById('v'), b=document.getElementById('um');
+  b.addEventListener('click',function(){ v.muted=false; v.currentTime=0; v.play().catch(function(){}); b.hidden=true; });
+  v.addEventListener('volumechange',function(){ if(!v.muted) b.hidden=true; });
+})();
 document.querySelectorAll('.tryit-copy').forEach(function(b){
   b.addEventListener('click', function(){
     navigator.clipboard.writeText(b.getAttribute('data-prompt')).then(function(){
