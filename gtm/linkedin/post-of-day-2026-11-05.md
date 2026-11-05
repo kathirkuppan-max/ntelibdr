@@ -17,3 +17,7 @@ Setup takes three steps in either assistant: https://nteli.io/claude
 
 ## Vertical series (stalled since the panels post on 10-29; nothing scheduled)
 Captions are in company-page-videos.md. Suggested restart, one a weekday: Fri 11-06 Data Center, Mon 11-09 HazLoc, Tue 11-10 Interconnect (now has a page video), Wed 11-11 HVAC, Thu 11-12 Pumps. Data Center now has its own page: use nteli.io/engine/datacenter instead of /engine.
+
+## Posted instead (2026-11-05, Kathir clicked Post)
+Interconnect vertical caption from company-page-videos.md, link nteli.io/engine/interconnect. Live on the Nteli page.
+Series status: panels 10-29, interconnect 11-05. Still to go: Data Center, HazLoc, HVAC, Pumps.
