@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Use Nteli in Claude — AI-Native CPQ for Manufacturing</title>
-<meta name="description" content="Connect Nteli Quoting to Claude: AI-native product and pricing configuration (CPQ) for manufacturing verticals. Paste an RFQ, spec or email — get a priced, standards-checked quote in an interactive card. Free to use.">
+<title>Use Nteli in Claude or ChatGPT — AI-Native CPQ for Manufacturing</title>
+<meta name="description" content="Connect Nteli Quoting to Claude or ChatGPT as a custom connector: AI-native product and pricing configuration (CPQ) for manufacturing verticals. Paste an RFQ, spec or email — get a priced, standards-checked quote in an interactive card. Free to use.">
 <link rel="canonical" href="https://nteli.io/claude">
 <link rel="icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nteli">
-<meta property="og:title" content="Use Nteli in Claude — paste an RFQ, get a standards-checked quote">
+<meta property="og:title" content="Use Nteli in Claude or ChatGPT — paste an RFQ, get a standards-checked quote">
 <meta property="og:description" content="AI-native product and pricing configuration for manufacturing verticals. Configure-price-quote from a conversation; every number from your rules.">
 <meta property="og:url" content="https://nteli.io/claude">
 <meta property="og:image" content="https://nteli.io/og-claude.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Use Nteli in Claude">
+<meta name="twitter:title" content="Use Nteli in Claude or ChatGPT">
 <meta name="twitter:image" content="https://nteli.io/og-claude.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -63,9 +63,9 @@ footer a{color:var(--text3);}
 </div></nav>
 
 <main class="doc">
-<div class="eyebrow">Nteli Quoting · for Claude</div>
-<h1>Use Nteli <span class="accent">in Claude.</span></h1>
-<p class="lead">AI-native product and pricing configuration for manufacturing verticals. Connect Nteli Quoting to Claude, paste an RFQ, a spec, or a customer email — and get back a priced, standards-checked quote in an interactive card. The AI runs the conversation; every number comes from the rules.</p>
+<div class="eyebrow">Nteli Quoting · for Claude and ChatGPT</div>
+<h1>Use Nteli <span class="accent">in Claude or ChatGPT.</span></h1>
+<p class="lead">AI-native product and pricing configuration for manufacturing verticals. Connect Nteli Quoting to Claude or ChatGPT as a custom connector, paste an RFQ, a spec, or a customer email — and get back a priced, standards-checked quote in an interactive card. The AI runs the conversation; every number comes from the rules.</p>
 
 <h2>What it quotes</h2>
 <div class="verts">
@@ -79,14 +79,25 @@ footer a{color:var(--text3);}
 <p>Each vertical ships with a starter rule pack — compatibility rules, deratings, certification lines — which your team can override with its own rules, governed and audited. <a href="/engine">Watch the demos →</a></p>
 
 <h2>Connect it today</h2>
-<div class="card">
+<p>Same engine, same rules, same connector URL — pick the assistant your team already uses.</p>
+<div class="card" id="claude">
+<h3 style="font-size:18px;margin-bottom:8px;">In Claude</h3>
 <ol>
-  <li>In Claude: <strong style="color:var(--text)">Settings → Connectors → Add custom connector</strong></li>
+  <li><strong style="color:var(--text)">Settings → Connectors → Add custom connector</strong></li>
   <li>URL: <code>https://quote.nteli.io/mcp</code></li>
   <li>Sign up with a work email at <a href="https://quote.nteli.io/signup?src=website-claude">quote.nteli.io/signup</a> — pick your vertical, and the starter pack loads into your workspace</li>
 </ol>
-<p style="margin-top:8px;">Full setup and usage: <a href="https://quote.nteli.io/docs">quote.nteli.io/docs</a></p>
 </div>
+<div class="card" id="chatgpt">
+<h3 style="font-size:18px;margin-bottom:8px;">In ChatGPT</h3>
+<ol>
+  <li><strong style="color:var(--text)">Settings → turn on Developer mode</strong></li>
+  <li>Add a custom connector with the URL <code>https://quote.nteli.io/mcp</code></li>
+  <li>Sign up with a work email at <a href="https://quote.nteli.io/signup?src=website-chatgpt">quote.nteli.io/signup</a> — pick your vertical, and the starter pack loads into your workspace</li>
+</ol>
+<p style="margin-top:8px;">Developer mode is needed to add a custom connector, so you need a ChatGPT plan that includes it.</p>
+</div>
+<p style="margin-top:12px;">Full setup and usage: <a href="https://quote.nteli.io/docs">quote.nteli.io/docs</a></p>
 
 <h2>Pricing</h2>
 <div class="pricing">
@@ -98,6 +109,6 @@ footer a{color:var(--text3);}
 <p>The engine is deterministic: identical facts produce identical quotes, every blocked option names its rule, and the AI never invents a number. Your rules and quote history stay in your workspace — see our <a href="/privacy">privacy policy</a> and <a href="/terms">terms</a>.</p>
 </main>
 
-<footer>© 2026 Nteli LLC · <a href="/engine">Demos</a> · <a href="/claude">Use in Claude</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+<footer>© 2026 Nteli LLC · <a href="/engine">Demos</a> · <a href="/claude">Use in Claude or ChatGPT</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
 </body>
 </html>

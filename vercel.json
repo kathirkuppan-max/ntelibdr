@@ -59,6 +59,7 @@
     { "src": "/manufacturing", "dest": "/manufacturing.html" },
     { "src": "/workshop",      "dest": "/workshop.html" },
     { "src": "/claude",        "dest": "/claude.html" },
+    { "src": "/chatgpt/?",     "status": 308, "headers": { "Location": "/claude#chatgpt" } },
     { "src": "/customers/aduro", "dest": "/customer-aduro.html" },
     { "src": "/kathir",        "dest": "/kathir.html" },
     { "src": "/roi",           "dest": "/roi.html" },
