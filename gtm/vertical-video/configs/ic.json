@@ -1,0 +1,129 @@
+{
+"name": "ic",
+"vertical_label": "Instrumentation & controls",
+"url": "nteli.io/engine/ic",
+"hook": "In <span class=\"g\">instrumentation</span>,<br>a wrong quote is a<br><span class=\"g\">failed loop</span>.",
+"hook_sub": "A wetted part the H2S eats. A fieldbus device in a SIL loop.",
+"today_title": "Today, application engineers solve it by hand.",
+"today": [
+[
+"Email and spreadsheets",
+"The data sheet arrives as a PDF. The answer gets built from ordering codes, one tag at a time."
+],
+[
+"Knowledge in a few heads",
+"Which wetted material, which housing, which certificate lives with two senior application engineers."
+],
+[
+"Rework",
+"A missed rule means a revised quote, a lost week, or an instrument that fails in service."
+]
+],
+"meet_tag": "The configuration engine for<br>instrument makers and their reps.",
+"meet_check": "Checked against your rules, NACE MR0175, API RP 551, NEC 500/505 and IEC 61508.",
+"request_word": "email",
+"chat": {
+"from": "CUSTOMER EMAIL · PASTED",
+"request": "Need pricing on 6 pressure transmitters for a gas compressor skid. Max 1,200 psig, around 40 °C, some H2S so NACE is required. Class I Div 1 Group D. 4-20 mA HART. — Ray",
+"question": "One question: is any transmitter part of a safety loop (SIL)? It changes the certificate and the output.",
+"answer": "no SIL",
+"quote_sub": "6 transmitters · volume price for 5–24",
+"total": "$9,372",
+"lines": [
+[
+"6 × Pressure transmitter, calibrated to range",
+"$5,529"
+],
+[
+"6 × Explosionproof housing, Class I Div 1",
+"$2,212"
+],
+[
+"NACE MR0175 wetted parts, declaration, 3.1 certs",
+"$961"
+],
+[
+"Configuration, calibration, engineering review",
+"$670"
+]
+]
+},
+"standards_text": "Configuration checked against the requirements, with the rule and document behind every line. The instrument makers’ approvals certify the devices; the quote proves the selection matches them.",
+"standards": [
+[
+"NACE MR0175 / ISO 15156",
+[
+"Wetted parts and bolting for sour service",
+"Declaration and EN 10204 3.1 certificates"
+]
+],
+[
+"NEC 500/505 · API RP 551",
+[
+"Explosionproof housing permitted in Class I Div 1",
+"Direct-mounted connection suits the process"
+]
+],
+[
+"CONFIRM WITH THE CUSTOMER",
+[
+"H2S partial pressure, chlorides and pH",
+"Gas group and temperature class on the drawing"
+],
+true
+]
+],
+"refusal": "FOUNDATION Fieldbus in a SIL 2 loop? Refused: SIL certificates come on 4-20 mA HART. HART priced.",
+"gov_title": "Leadership sees how quoting is governed.",
+"keep_who": "Application engineers",
+"golive": "Engineers start quoting. Paid only when an order is won.",
+"end_tag": "Instrument quotes, checked and governed.",
+"vo": [
+[
+"In instrumentation, a wrong quote is a failed loop.",
+"A wetted part the H 2 S eats. A fieldbus device in a SIL loop."
+],
+[
+"Today, application engineers solve it by hand.",
+"Email, spreadsheets, and knowledge in a few heads.",
+" And a missed rule means rework."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for instrument makers and their reps."
+],
+[
+"One conversation. No forms.",
+"Paste the customer's email.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows the standards behind it.",
+"Wetted materials, hazardous areas, installation, and safety integrity.",
+"Fieldbus in a SIL two loop? Refused, with the HART version priced."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Engineers get answers. Never the rulebook."
+],
+[
+"Going live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. Instrument quotes, checked and governed."
+]
+]
+}
