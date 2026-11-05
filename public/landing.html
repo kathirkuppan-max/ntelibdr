@@ -480,6 +480,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
   .hero h1{font-size:36px;}
   .hero-cta{flex-direction:column;align-items:stretch;}
   .hero-cta .btn{width:100%;justify-content:center;}
+  .tx-grid{grid-template-columns:1fr;gap:32px;}
+  .hero-grid>*,.feature-row>*,.tx-grid>*,.calc-grid>*{min-width:0;}
+  .sticky-cta-msg{min-width:0;}
 }
 @media(max-width:600px){
   h2{font-size:30px;}
@@ -488,6 +491,8 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
   .stat-num{font-size:60px;letter-spacing:-2px;}
   .nav-cta{display:none;}
   .nav-inner{padding:10px 16px;gap:8px;}
+  .sticky-cta{padding:8px 14px;}
+  .sticky-cta-msg{font-size:11.5px;line-height:1.35;}
   .hero{padding:72px 20px 56px;}
   .sticky-cta{padding:8px 12px;}
   .sticky-cta-inner{flex-wrap:wrap;gap:6px;}
@@ -1217,7 +1222,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:56px 28px
           <text x="190" y="330" text-anchor="middle" font-size="11" fill="#3FB950" font-weight="600" font-family="'IBM Plex Mono',monospace">All three validated · claim approved · credit memo queued</text>
         </svg>
         <!-- Detail strip -->
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:12px;">
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px;">
           <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r);padding:10px;">
             <div style="font-size:9px;font-weight:700;color:var(--purple);font-family:var(--mono);letter-spacing:.08em;margin-bottom:4px;">DESIGN REG</div>
             <div style="font-size:11px;color:var(--text2);line-height:1.5;">OEM: NVIDIA<br>Cap: 100,700 ea</div>
