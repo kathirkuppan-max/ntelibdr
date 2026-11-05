@@ -1,0 +1,129 @@
+{
+"name": "datacenter",
+"vertical_label": "Data center pods",
+"url": "nteli.io/engine/datacenter",
+"hook": "In <span class=\"g\">data center pods</span>,<br>a wrong quote is a<br><span class=\"g\">hot rack</span>.",
+"hook_sub": "A UPS short after redundancy. A rack that sheds more heat than it’s cooled for.",
+"today_title": "Today, engineers size it by hand.",
+"today": [
+[
+"Email and spreadsheets",
+"The request arrives as one line. The pod gets sized in Excel, system by system."
+],
+[
+"Knowledge in a few heads",
+"How many UPS modules, generators and CDUs after N+1 lives with two senior engineers."
+],
+[
+"Rework",
+"A missed rule means a revised quote, a lost week, or a pod that runs short."
+]
+],
+"meet_tag": "The configuration engine for<br>data center pod builders.",
+"meet_check": "Checked against your rules, redundancy, NEC ampacity and cooling capacity.",
+"request_word": "request",
+"chat": {
+"from": "CUSTOMER REQUEST · PASTED",
+"request": "1 MW pod: two rows of twenty 25 kW racks, rear-door heat exchangers, 480 V utility, 65 kA, 18 °C chilled water, slab. — Priya",
+"question": "One question: N+1 or 2N redundancy? It sizes the UPS, generators and cooling.",
+"answer": "N+1",
+"quote_sub": "1 pod · 40 racks · 1,000 kW IT",
+"total": "$2,893,650",
+"lines": [
+[
+"Power train: UPS, 4 generators, transformers, switchgear",
+"$1,453,001"
+],
+[
+"Cooling: 3 CDUs, 40 rear-door heat exchangers",
+"$1,010,003"
+],
+[
+"Racks, PDUs, busway, monitoring, commissioning",
+"$390,166"
+],
+[
+"Engineering and drawings",
+"$40,480"
+]
+]
+},
+"standards_text": "Every size checked against the load after redundancy, with the rule and rating behind every line. The equipment makers’ ratings certify the parts; the quote proves the pod fits them.",
+"standards": [
+[
+"POWER TRAIN · AFTER N+1",
+[
+"UPS 1,000 kW critical, 5 × 250 kW modules",
+"Generators 1,365 kW for 1,240 kW of load"
+]
+],
+[
+"COOLING AND DISTRIBUTION",
+[
+"CDUs 1,200 kW for 1,000 kW of heat",
+"Busway and PDUs inside their ratings"
+]
+],
+[
+"CONFIRM WITH THE CUSTOMER",
+[
+"Utility letter: 480 V, 65 kA available",
+"Chilled water at 18 °C at the hall"
+],
+true
+]
+],
+"refusal": "40 kW GPU racks on air? Refused: air sheds 35 kW a rack. Rear-door or liquid priced.",
+"gov_title": "Leadership sees how quoting is governed.",
+"keep_who": "Engineers",
+"golive": "Engineers start quoting. Paid only when an order is won.",
+"end_tag": "Data center pod quotes, checked and governed.",
+"vo": [
+[
+"In data center pods, a wrong quote is a hot rack.",
+"A UPS short after redundancy. A rack that sheds more heat than it's cooled for."
+],
+[
+"Today, engineers size it by hand.",
+"Email, spreadsheets, and knowledge in a few heads.",
+" And a missed rule means rework."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for data center pod builders."
+],
+[
+"One conversation. No forms.",
+"Paste the customer's request.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows the standards behind it.",
+"Power train, cooling, and distribution, all after redundancy.",
+"Forty kilowatt racks on air? Refused, with the ways out priced."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Engineers get answers. Never the rulebook."
+],
+[
+"Live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. Data center pod quotes, checked and governed."
+]
+]
+}

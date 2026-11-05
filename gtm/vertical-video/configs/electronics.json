@@ -1,0 +1,129 @@
+{
+"name": "electronics",
+"vertical_label": "Electronic components · assemblies",
+"url": "nteli.io/engine/electronics",
+"hook": "In <span class=\"g\">wire harnesses</span>,<br>a wrong quote is a<br><span class=\"g\">hot wire</span>.",
+"hook_sub": "Wire too thin for the current. A connector past its rating.",
+"today_title": "Today, estimators solve it by hand.",
+"today": [
+[
+"Email and spreadsheets",
+"The print arrives as a PDF. The answer gets built in Excel, one quote at a time."
+],
+[
+"Knowledge in a few heads",
+"Which gauge, which housing, which test lives with two senior estimators."
+],
+[
+"Rework",
+"A missed rule means a revised quote, a lost week, or a harness that runs hot."
+]
+],
+"meet_tag": "The configuration engine for<br>wire harness and cable assembly shops.",
+"meet_check": "Checked against your rules, IPC/WHMA-A-620, UL 758 and RoHS.",
+"request_word": "email",
+"chat": {
+"from": "CUSTOMER EMAIL · PASTED",
+"request": "Need 200 of a 12-pin jacketed cable, crimp housings both ends, 2 m, up to 5 A per wire. UL 758 parts, RoHS. Print attached. — Sam",
+"question": "One question: is there a molded boot over either end? If you don’t know, I’ll assume no and list it to confirm.",
+"answer": "no boot",
+"quote_sub": "200 assemblies · wire sized by the engine",
+"total": "$3,473",
+"lines": [
+[
+"200 × 12-conductor cable, 18 AWG, crimp housings",
+"$3,098"
+],
+[
+"UL 758 certificate of conformance",
+"$75"
+],
+[
+"RoHS certificate of compliance",
+"$50"
+],
+[
+"Setup and first article",
+"$250"
+]
+]
+},
+"standards_text": "Configuration checked against the requirements, with the rule and document behind every line. The wire and connector makers’ ratings certify the parts; the quote proves the assembly matches them.",
+"standards": [
+[
+"WIRE SIZED FOR THE CURRENT",
+[
+"5 A needs at least 18 AWG",
+"Contacts within the housing’s rating"
+]
+],
+[
+"UL 758 · IPC/WHMA-A-620",
+[
+"UL-recognized wire, certificate of conformance",
+"Class 2 workmanship, 100% continuity test"
+]
+],
+[
+"CONFIRM WITH THE CUSTOMER",
+[
+"Pinout and first article against the print",
+"Class 3 or hi-pot only if the print calls for it"
+],
+true
+]
+],
+"refusal": "20 AWG at 5 A in a bundled harness? Refused: too thin for the current. 18 AWG priced.",
+"gov_title": "Leadership sees how quoting is governed.",
+"keep_who": "Estimators",
+"golive": "Estimators start quoting. Paid only when an order is won.",
+"end_tag": "Harness and assembly quotes, checked and governed.",
+"vo": [
+[
+"In wire harnesses, a wrong quote is a hot wire.",
+"Wire too thin for the current. A connector past its rating."
+],
+[
+"Today, estimators solve it by hand.",
+"Email, spreadsheets, and knowledge in a few heads.",
+" And a missed rule means rework."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for wire harness and cable assembly shops."
+],
+[
+"One conversation. No forms.",
+"Paste the customer's email.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows the standards behind it.",
+"Wire size, contact ratings, U L seven fifty-eight, and workmanship.",
+"Twenty gauge at five amps in a bundle? Refused, with the right wire priced."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Estimators get answers. Never the rulebook."
+],
+[
+"Live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. Harness and assembly quotes, checked and governed."
+]
+]
+}
