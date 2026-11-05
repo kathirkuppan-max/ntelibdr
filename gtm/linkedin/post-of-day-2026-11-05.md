@@ -1,4 +1,4 @@
-# Nteli company page — post of the day, Thu 2026-11-05
+# Nteli company page — post of the day, Thu 2026-11-05 — HELD (Kathir: save for a proper launch splash; not posted)
 
 Type: link post (paste the caption; wait for the nteli.io/claude preview card, the new "Quote from Claude or ChatGPT" image).
 Claims check: says "custom connector" only, no directory listing, no speed claims, no pricing, no rule counts. ChatGPT support confirmed by the engine session on release v116 (developer mode).
