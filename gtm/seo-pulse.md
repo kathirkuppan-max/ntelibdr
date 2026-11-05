@@ -216,3 +216,10 @@ same four queries weekly; first citation is the milestone.
 - **Internal links:** homepage (both index.html and industries.html) footer gets a "Quoting software" column (UL 508A, power, data center, cable, ship & debit). /engine now links every vertical page. Guide ↔ product ↔ compare are cross-linked. Sitemap and llms.txt updated; IndexNow 200.
 - **Competitor notes:** PanelShopOS = shop management + SCCR (sister free tool SCCR Hero). No vendor offers a free SCCR calculator; Eaton OSCAR (paid after trial) and Rockwell (form-gated) lead. A free, server-side quick-check could be a backlink magnet, but it's Kathir's call because of the rules-IP rule.
 - **Watch:** indexing status of the three URLs within about 48 h; rank for "ul 508a quoting software" at Monday's pulse.
+
+## 2026-11-05 (Kathir asked "SEO status")
+- **"ul 508a quoting software": nteli.io is #1 (/engine/panels) and #3 (/guides/ul-508a-quoting); costbook.app #2.** Up from not on page 1 a day ago. The fix was getting indexed: GSC shows /engine/panels crawled Nov 4 11:39 PM (after the rebuild). The guide and /compare/ul-508a-quoting-software are both indexed. Caveat: checked in Kathir's signed-in Chrome with pws=0, so results may still be personalized. Threekit and Conga are buying ads on the query.
+- **"ship and debit claims software": #6 organic** (was about #7). Above: Salesforce help, computermarketresearch, Channelscaler, revupra.ai, Vendavo.
+- **Bug fixed:** GSC flagged "Unparsable structured data" on the UL 508A guide. The FAQPage JSON-LD left every Question object unclosed. Fixed, deployed, live JSON parses; recrawl requested. Swept every public page: no other JSON-LD errors.
+- **/engine/ic and /engine/power: "URL is unknown to Google".** Priority crawl requested for both.
+- **GSC 7-day (Oct 28–Nov 3):** 133 impressions (was 104), 7 clicks (was 6), CTR 5.3%, avg position 7.8. Non-brand: "is it software that syncs salesforce contracts with gl?" 5, "cpq revenue cloud integration" 5, "does channel revenue management replace my erp?" 3.
