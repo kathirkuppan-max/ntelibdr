@@ -1,18 +1,23 @@
 """Builds a vertical demo video in the panels template.
 python3 build.py <name> [--stills]   -> out/nteli-quoting-<name>.mp4
-Voice: macOS say "Matilda (Premium)" at 180 wpm (the panels demo's pace); Nteli is spoken "En-telly".
+Voice: Microsoft neural en-US-AriaNeural via edge-tts (Kathir picked it as the panels match, 2026-11-04); Nteli is spoken "En-telly".
+Needs: pip3 install --user edge-tts. Narration text is sent to Microsoft's TTS service.
 """
 import json, subprocess, sys, os
 here=os.path.dirname(os.path.abspath(__file__)); os.chdir(here)
 name=sys.argv[1]; cfg=json.load(open(f"configs/{name}.json"))
-VOICE="Matilda (Premium)"; RATE=180; GAP=0.45; LEAD=0.5; TAIL=1.5
+VOICE=os.environ.get("VOICE","en-US-AriaNeural"); RATE=os.environ.get("RATE","+0%"); GAP=0.45; LEAD=0.5; TAIL=1.5
 def dur(p): return float(subprocess.run(["ffprobe","-v","error","-show_entries","format=duration","-of","csv=p=0",p],capture_output=True,text=True).stdout)
 scenes=[]; clips=[]; t0=0
 for si,lines in enumerate(cfg["vo"]):
     t=LEAD; starts=[]
     for li,txt in enumerate(lines):
         p=f"out/{name}-vo-{si}-{li}.wav"
-        subprocess.run(["say","-v",VOICE,"-r",str(RATE),"-o",p,"--data-format=LEI16@48000",txt],check=True)
+        mp3=p[:-4]+".mp3"
+        if not os.path.exists(mp3) or os.environ.get("FRESH"):
+            subprocess.run([sys.executable,"-m","edge_tts","-v",VOICE,f"--rate={RATE}","-t",txt,"--write-media",mp3],check=True,capture_output=True)
+        trim="silenceremove=start_periods=1:start_threshold=-50dB,areverse,silenceremove=start_periods=1:start_threshold=-50dB,areverse"
+        subprocess.run(["ffmpeg","-v","error","-y","-i",mp3,"-af",trim,"-ar","48000","-ac","1",p],check=True)
         d=dur(p); starts.append(t); clips.append((t0+t,p)); t+=d+GAP
     sc={"dur":round(t-GAP+TAIL,2),"sub_at":round(starts[1] if len(starts)>1 else 1.0,2)}
     if si==3: sc["step_at"]=[round(x,2) for x in starts[1:5]]
