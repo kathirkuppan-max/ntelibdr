@@ -1,0 +1,129 @@
+{
+"name": "power",
+"vertical_label": "Power & electrification",
+"url": "nteli.io/engine/power",
+"hook": "In <span class=\"g\">power packages</span>,<br>a wrong quote is a<br><span class=\"g\">dark hallway</span>.",
+"hook_sub": "A generator short after redundancy. Life-safety loads on the wrong transfer switch.",
+"today_title": "Today, engineers size it by hand.",
+"today": [
+[
+"Email and spreadsheets",
+"The loads arrive as a list. The package gets sized in Excel, system by system."
+],
+[
+"Knowledge in a few heads",
+"How many UPS modules, generators and transfer switches after N+1 lives with two senior engineers."
+],
+[
+"Rework",
+"A missed rule means a revised quote, a lost week, or a package that comes up short."
+]
+],
+"meet_tag": "The configuration engine for<br>power package builders.",
+"meet_check": "Checked against your rules, NEC 700, 701 and 702, UL 1008 and redundancy.",
+"request_word": "request",
+"chat": {
+"from": "CUSTOMER REQUEST · PASTED",
+"request": "Power package for a hospital wing, N+1, 480 V service, 65 kA: 200 kW imaging and IT, 50 kW egress lighting and fire alarm at 208 V, 150 kW HVAC. — Marcus",
+"question": "One question: is the HVAC optional standby, or does code require it on standby? It decides which transfer switch it sits on.",
+"answer": "optional",
+"quote_sub": "1 package · 400 kW connected · N+1",
+"total": "$670,876",
+"lines": [
+[
+"Generators 2 × 500 kW, UPS 5 × 50 kW modules",
+"$481,501"
+],
+[
+"Switchgear, transformer, 3 transfer switches",
+"$142,000"
+],
+[
+"Commissioning and installation",
+"$28,285"
+],
+[
+"Engineering and drawings",
+"$19,090"
+]
+]
+},
+"standards_text": "Every size checked against the loads after redundancy, with the rule and rating behind every line. The equipment makers’ ratings certify the parts; the quote proves the package fits them.",
+"standards": [
+[
+"NEC 700 · 701 · 702",
+[
+"Emergency, critical and optional on separate transfer switches",
+"UL 1008 switches sized to each class: 100, 400, 225 A"
+]
+],
+[
+"AFTER N+1",
+[
+"UPS 200 kW critical, 5 × 50 kW modules",
+"Generators 455 kW for 416 kW of load"
+]
+],
+[
+"CONFIRM WITH THE CUSTOMER",
+[
+"Utility letter: 480 V, 65 kA available",
+"Fuel storage: 8-hour day tank"
+],
+true
+]
+],
+"refusal": "Life-safety loads with no generator? Refused: 60 kW needed, none there. Generator priced.",
+"gov_title": "Leadership sees how quoting is governed.",
+"keep_who": "Engineers",
+"golive": "Engineers start quoting. Paid only when an order is won.",
+"end_tag": "Power package quotes, checked and governed.",
+"vo": [
+[
+"In power packages, a wrong quote is a dark hallway.",
+"A generator short after redundancy. Life-safety loads on the wrong transfer switch."
+],
+[
+"Today, engineers size it by hand.",
+"Email, spreadsheets, and knowledge in a few heads.",
+" And a missed rule means rework."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for power package builders."
+],
+[
+"One conversation. No forms.",
+"Paste the customer's request.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows the standards behind it.",
+"Emergency, critical and optional loads, each on its own transfer switch, all after redundancy.",
+"Life-safety loads with no generator? Refused, with the generator priced."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Engineers get answers. Never the rulebook."
+],
+[
+"Live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. Power package quotes, checked and governed."
+]
+]
+}
