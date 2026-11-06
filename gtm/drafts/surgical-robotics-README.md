@@ -16,3 +16,8 @@ Waiting on engine PR #134 to go live on quote.nteli.io (the Product Configuratio
 
 ## Content rules applied
 Say "the engine" (never "agents"); no speed or "minutes" claims; "checks configuration and site", never FDA, clearance or approval claims; every price labelled an estimated reference price; no manufacturer brands; no rule counts; no launch wording.
+
+## Links to add on go-live
+- /engine: add a `vid-pill` link to /engine/surgical-robotics, named "Surgical Robotic Systems" (tagged New).
+- Add the same link to "The engine also quotes" on all 20 vertical pages. Rerun the canonical-list script; it is in the 11-06 commit message history, and the list lives in scratchpad verts.py. Also update the counts: "twenty" becomes "twenty-one" on /engine and on the homepage chip label.
+- Homepage: add a chip. llms.txt: add the line.
