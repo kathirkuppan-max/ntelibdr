@@ -21,3 +21,9 @@ Captions are in company-page-videos.md. Suggested restart, one a weekday: Fri 11
 ## Posted instead (2026-11-05, Kathir clicked Post)
 Interconnect vertical caption from company-page-videos.md, link nteli.io/engine/interconnect. Live on the Nteli page.
 Series status: panels 10-29, interconnect 11-05. Still to go: Data Center, HazLoc, HVAC, Pumps.
+
+## Vertical series schedule (Kathir clicked Schedule on each; confirmed in LinkedIn's scheduled list)
+- Fri 11-06 9:00 AM CT: Data center pods (posted)
+- Mon 11-09 9:00 AM CT: HazLoc
+- Tue 11-10 9:00 AM CT: HVAC
+- Wed 11-11 9:00 AM CT: Pumps (scheduled 11-06)
