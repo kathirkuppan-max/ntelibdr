@@ -223,3 +223,8 @@ same four queries weekly; first citation is the milestone.
 - **Bug fixed:** GSC flagged "Unparsable structured data" on the UL 508A guide. The FAQPage JSON-LD left every Question object unclosed. Fixed, deployed, live JSON parses; recrawl requested. Swept every public page: no other JSON-LD errors.
 - **/engine/ic and /engine/power: "URL is unknown to Google".** Priority crawl requested for both.
 - **GSC 7-day (Oct 28–Nov 3):** 133 impressions (was 104), 7 clicks (was 6), CTR 5.3%, avg position 7.8. Non-brand: "is it software that syncs salesforce contracts with gl?" 5, "cpq revenue cloud integration" 5, "does channel revenue management replace my erp?" 3.
+
+## 2026-11-05 evening (Kathir asked "SEO status" again)
+- **"ul 508a quoting software": /engine/panels still #1**, costbook #2. The guide slipped from #3 to #5; TW Controls' quoting article and a Mike Holt forum thread are now above it. Same caveat: signed-in Chrome, pws=0.
+- **"ship and debit claims software": #7** (was #6). A Capterra listing for a competitor moved in above us.
+- **GSC URL inspection:** /engine/ic and /engine/power are now **indexed** (both were "unknown to Google" this morning). The guide is indexed, but its last crawl was Nov 5 at 6:54 AM. The FAQ schema fix isn't confirmed by Google yet; check after the next crawl.
