@@ -12,6 +12,8 @@
       },
       "continue": true
     },
+    { "src": "/(?!\\.well-known/)(.*)", "has": [{ "type": "host", "value": "nteligroup.com" }], "status": 308, "headers": { "Location": "https://nteli.io/$1" } },
+    { "src": "/(?!\\.well-known/)(.*)", "has": [{ "type": "host", "value": "www.nteligroup.com" }], "status": 308, "headers": { "Location": "https://nteli.io/$1" } },
     { "src": "/\\.well-known/mcp-registry-auth", "headers": { "Content-Type": "text/plain; charset=utf-8" }, "dest": "/.well-known/mcp-registry-auth" },
     { "src": "/media/chatgpt-review-demo\\.mp4", "headers": { "X-Robots-Tag": "noindex" }, "dest": "/media/chatgpt-review-demo.mp4" },
     { "src": "/api/lead",     "dest": "/api/lead.js" },
