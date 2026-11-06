@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surgical Robot Quoting for Makers and Reps — Nteli</title>
+<meta name="description" content="Surgical robotics makers and reps: paste the hospital's request and get a quote back with the configuration and site checked: imaging, OR size, power, network, service and training. Estimated reference prices. Free to use.">
+<link rel="canonical" href="https://nteli.io/engine/surgical-robotics">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Surgical robot quoting: paste the hospital request, get a checked quote">
+<meta property="og:description" content="Imaging, OR size, power, network, service and training checked before the price. Capital, lease or per procedure, side by side.">
+<meta property="og:url" content="https://nteli.io/engine/surgical-robotics">
+<meta property="og:image" content="https://nteli.io/media/og-surgical-robotics.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Surgical robot quoting — Nteli">
+<meta name="twitter:description" content="Paste the hospital's request, get a quote with configuration and site checked.">
+<meta name="twitter:image" content="https://nteli.io/media/og-surgical-robotics.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--purple-border:#3D2066;--teal:#2DD4BF;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;}
+a{color:inherit;text-decoration:none;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;font-family:var(--sans);}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.btn-outline{background:transparent;border-color:var(--border2);color:var(--text);}
+.btn-outline:hover{background:var(--surface2);}
+.hero{position:relative;padding:72px 28px 36px;text-align:center;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,var(--purple-bg) 0%,transparent 65%);opacity:.6;pointer-events:none;}
+.hero-inner{max-width:820px;margin:0 auto;position:relative;z-index:1;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:46px;font-weight:800;line-height:1.12;letter-spacing:-1.2px;margin-bottom:16px;}
+.accent{background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 55%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:18px;color:var(--text2);line-height:1.65;max-width:700px;margin:0 auto;}
+.video-wrap{padding:28px 28px 48px;}
+.video-frame{max-width:960px;margin:0 auto;background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;position:relative;box-shadow:0 40px 80px -24px rgba(0,0,0,.6);}
+video{display:block;width:100%;aspect-ratio:16/9;border-radius:8px;background:#000;}
+.vid-unmute{position:absolute;left:30px;bottom:70px;padding:11px 18px;border-radius:999px;border:0;background:var(--gold);color:#0D1117;font-family:var(--sans);font-size:14px;font-weight:700;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.5);z-index:2;}
+.vid-unmute:hover{background:#E4BC5B;}
+.video-caption{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);margin-top:16px;max-width:760px;margin-left:auto;margin-right:auto;}
+.cta-row{display:flex;justify-content:center;gap:12px;padding:8px 28px 64px;flex-wrap:wrap;}
+.pitch{border-top:1px solid var(--border);background:var(--surface);padding:44px 28px;text-align:center;}
+.pitch p{max-width:760px;margin:0 auto;font-size:16px;color:var(--text2);}
+.pitch strong{color:var(--text);}
+.xverts{padding:40px 28px 56px;max-width:1180px;margin:0 auto;text-align:center;}
+.xverts-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-family:var(--mono);margin-bottom:16px;}
+.xv{display:inline-block;font-size:12px;font-weight:600;color:var(--text2);border:1px solid var(--border);border-radius:16px;padding:6px 13px;margin:4px 3px;transition:color .15s,border-color .15s;}
+.xv:hover{color:var(--text);border-color:var(--border2);}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+footer a:hover{color:var(--text2);}
+@media(max-width:640px){h1{font-size:32px;}}
+</style>
+<style>
+.tryit{max-width:1080px;margin:0 auto;padding:12px 28px 48px;}
+.tryit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.tc{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px;}
+.tc-q{font-family:var(--mono);font-size:13.5px;color:var(--teal);line-height:1.6;background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:10px;}
+.tryit-copy{font-size:11px;font-weight:700;font-family:var(--mono);letter-spacing:.05em;color:var(--blue);background:none;border:1px solid var(--border2);border-radius:6px;padding:4px 10px;cursor:pointer;margin-bottom:12px;}
+.tc p{font-size:13.5px;color:var(--text2);line-height:1.6;}
+.tc p b{color:var(--text);}
+.steps{max-width:980px;margin:0 auto;padding:48px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.step h3{font-size:16px;margin-bottom:6px;}
+.step p{font-size:14px;color:var(--text2);}
+.step .n{font-family:var(--mono);font-size:12px;color:var(--gold);margin-bottom:6px;}
+.note{text-align:center;font-size:13px;color:var(--text3);font-family:var(--mono);max-width:760px;margin:0 auto;padding:0 28px;}
+@media(max-width:900px){.tryit-grid,.steps{grid-template-columns:1fr;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"VideoObject","name":"Surgical robot quoting demo — Nteli Quoting","description":"Surgical robotic systems — imaging, OR size, power, network, service and training checked before pricing.","thumbnailUrl":"https://nteli.io/media/og-surgical-robotics.jpg","contentUrl":"https://nteli.io/media/nteli-quoting-surgical-robotics.mp4","uploadDate":"TBD_ON_PUBLISH","duration":"TBD_ON_PUBLISH","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"Surgical robot quoting for makers and reps","url":"https://nteli.io/engine/surgical-robotics","description":"Surgical robotics reps paste the hospital's request and get a quote with configuration and site checked. Estimated reference prices.","publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"}}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <div style="display:flex;gap:10px;">
+    <a class="btn btn-outline" href="/engine">All demos</a>
+    <a class="btn btn-primary" href="https://quote.nteli.io/signup?src=website-surgical-robotics">Sign up free →</a>
+  </div>
+</div></nav>
+
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">Nteli Quoting · Surgical robotics</div>
+  <h1>Paste the hospital&rsquo;s request.<br><span class="accent">Get a checked quote back.</span></h1>
+  <p class="hero-sub">Soft-tissue, orthopaedic, spine and cranial systems. The engine checks the configuration and the site, imaging, OR size, power, network, service and training, and prices capital, a 60-month lease and per procedure side by side.</p>
+</div></section>
+
+<section class="video-wrap">
+  <div class="video-frame">
+    <video id="v" controls preload="auto" playsinline muted autoplay poster="/media/og-surgical-robotics.jpg">
+      <source src="/media/nteli-quoting-surgical-robotics.mp4" type="video/mp4">
+    </video>
+    <button id="um" class="vid-unmute">🔊 Tap for sound</button>
+  </div>
+  <p class="video-caption">Surgical robotic systems: imaging, room, power, network, service and training checked before pricing. Every price is an estimated reference price.</p>
+</section>
+
+<section class="tryit">
+  <h2 style="font-size:24px;font-weight:800;letter-spacing:-.4px;margin-bottom:8px;text-align:center;">Try it in ChatGPT, right now.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:660px;margin:0 auto 24px;text-align:center;"><a href="https://chatgpt.com/plugins/plugin_asdk_app_6adebecc95bc81919b1da97c68d16a43" rel="noopener" style="color:var(--blue);">Find Nteli Quoting in ChatGPT</a> and click Install plugin (or <a href="/claude" style="color:var(--blue);">connect it in Claude</a>), then paste either of these. Every price is an estimated reference price until your own price book loads.</p>
+  <div class="tryit-grid">
+    <div class="tc">
+      <div class="tc-q">&ldquo;Requesting a quote for a spine robot for our neurosurgery group, spine only for now. OR 12 is 620 sq ft on the ground floor with dedicated circuits. We only have a 2D C-arm, and our surgeons get pre-op CTs. The system can go on its own VLAN so planning pulls from PACS. Standard service, three surgeons to train, and we&rsquo;d like a 60-month lease.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Requesting a quote for a spine robot for our neurosurgery group, spine only for now. OR 12 is 620 sq ft on the ground floor with dedicated circuits. We only have a 2D C-arm, and our surgeons get pre-op CTs. The system can go on its own VLAN so planning pulls from PACS. Standard service, three surgeons to train, and we&#39;d like a 60-month lease.">COPY PROMPT</button>
+      <p><b>What you&rsquo;ll get:</b> A quote at $1,501,400 list with no open questions: the spine and cranial system on a 60-month lease ($1,038,000 total of payments), a pre-op CT merge licence with a 2D fluoroscopy registration kit (picked because there&rsquo;s only a 2D C-arm), planning software linked to PACS, a starter instrument kit, site survey and installation, standard service for years 2 to 5, and training for the three surgeons.</p>
+    </div>
+    <div class="tc">
+      <div class="tc-q">&ldquo;Quote a spine robot for our OR. We have no 3D imaging and no C-arm in the room.&rdquo;</div>
+      <button class="tryit-copy" data-prompt="Quote a spine robot for our OR. We have no 3D imaging and no C-arm in the room.">COPY PROMPT</button>
+      <p><b>What you&rsquo;ll get:</b> No quote for a system that can&rsquo;t work. &ldquo;A spine system needs images to register to.&rdquo; It offers the two ways out: use a 2D C-arm with a pre-operative CT (the usual choice), or add intraoperative 3D imaging.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-row">
+  <a class="btn btn-primary" style="padding:13px 26px;font-size:15px;" href="https://quote.nteli.io/signup?src=website-surgical-robotics">Sign up free →</a>
+  <a class="btn btn-outline" style="padding:13px 26px;font-size:15px;" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=vertical-surgical-robotics" target="_blank" rel="noopener">Book a demo →</a>
+</div>
+<p class="note" style="margin:-44px auto 8px;">Free to use &mdash; Nteli is paid only when an order is won through it.</p>
+
+<section class="steps">
+  <div class="step"><div class="n">01 · THE REQUEST</div><h3>However it arrives</h3><p>An email from the hospital, a rep&rsquo;s site notes, a value-analysis form. Paste it as written; the engine pulls out what it needs.</p></div>
+  <div class="step"><div class="n">02 · THE CHECK</div><h3>Configuration and site, before the price</h3><p>The imaging the system registers to, the OR size, dedicated circuits, floor load, the network the service plan needs, and how many surgeons get trained. Anything that won&rsquo;t work comes back with the ways out, not a wrong price.</p></div>
+  <div class="step"><div class="n">03 · THE QUESTIONS</div><h3>Only the ones that move the price</h3><p>Room size, circuits, floor, network, service plan, surgeons to train, and how the hospital wants to pay. Capital, a 60-month lease and per procedure come back side by side.</p></div>
+</section>
+
+<section class="pitch">
+  <p><strong>Built for the rep who scopes the deal.</strong> Quotes carry your prices, service plans and financing terms once your price book loads, and every line is labelled as an estimate until then. The site-readiness checklist goes to the hospital with the quote, so the room, power and network are ready before the system ships.</p>
+</section>
+
+<section class="xverts">
+  <div class="xverts-lbl">The engine also quotes</div>
+  <a class="xv" href="/engine/mobility">Mobility Lifts</a> <a class="xv" href="/engine/medgas">Medical Gas & Headwalls</a> <a class="xv" href="/engine/grid">Distribution Transformers</a> <a class="xv" href="/engine/datacenter">Data Center Pods</a> <a class="xv" href="/engine/safety">Safety & Plumbing Equipment</a> <a class="xv" href="/engine/hazloc">Hazardous-Area Electrical</a> <a class="xv" href="/engine/hvac">Commercial HVAC</a> <a class="xv" href="/engine/pumps">Pumps & Packaged Skids</a> <a class="xv" href="/engine/lab">Lab Furniture & Fume Hoods</a> <a class="xv" href="/engine/doors">Fire Doors & Hardware</a> <a class="xv" href="/engine/cooling">Cooling Towers</a> <a class="xv" href="/engine/water">Water Treatment</a> <a class="xv" href="/engine/kitchen">Kitchen Ventilation</a> <a class="xv" href="/engine/boilers">Commercial Boilers</a> <a class="xv" href="/engine/electronics">Electronic Components & Assemblies</a> <a class="xv" href="/engine/cranes">Cranes & Hoists</a> <a class="xv" href="/engine/panels">Control Panels & Switchgear</a>
+  <p style="margin-top:20px;font-size:13px;color:var(--text3);"><a href="/manufacturing" style="color:var(--blue);">The four manufacturing levers</a> &nbsp;·&nbsp; <a href="/roi" style="color:var(--blue);">Estimate your leak ledger</a> &nbsp;·&nbsp; <a href="/benchmarks" style="color:var(--blue);">The assumptions, explained</a> &nbsp;·&nbsp; <a href="/workshop" style="color:var(--blue);">The Leak Ledger Workshop</a></p>
+</section>
+
+<section style="border-top:1px solid var(--border);background:var(--surface);padding:48px 28px;text-align:center;">
+  <h2 style="font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:10px;">Skeptical? Send us a real request.</h2>
+  <p style="font-size:15px;color:var(--text2);max-width:620px;margin:0 auto 22px;">One you quoted recently, names removed. You&rsquo;ll get back what the engine produces &mdash; compare it with yours. No deck, no pitch.</p>
+  <a class="btn btn-primary" style="padding:12px 24px;font-size:15px;" href="mailto:kathir@nteli.io?subject=Request%20challenge%20%E2%80%94%20Surgical%20robotics">Email a request &rarr;</a>
+</section>
+
+<footer>© 2026 Nteli LLC · <a href="/claude">Use in Claude or ChatGPT</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+
+<script>
+(function(){
+  var v=document.getElementById('v'), b=document.getElementById('um');
+  v.playbackRate=1.25; v.defaultPlaybackRate=1.25;
+  b.addEventListener('click',function(){ v.muted=false; v.currentTime=0; v.play().catch(function(){}); b.hidden=true; });
+  v.addEventListener('volumechange',function(){ if(!v.muted) b.hidden=true; });
+})();
+document.querySelectorAll('.tryit-copy').forEach(function(b){
+  b.addEventListener('click', function(){
+    navigator.clipboard.writeText(b.getAttribute('data-prompt')).then(function(){
+      b.textContent='COPIED'; setTimeout(function(){ b.textContent='COPY PROMPT'; }, 1600);
+    }).catch(function(){});
+  });
+});
+</script>
+</body>
+</html>
