@@ -233,3 +233,11 @@ same four queries weekly; first citation is the milestone.
 - **Issue:** GSC flagged "Invalid datetime value" and "missing a timezone" on uploadDate. Both are non-critical; 3 pages were affected so far, but all 20 /engine pages had date-only values.
 - **Fix:** uploadDate is now a full ISO datetime with offset (2026-10-22T09:00:00-05:00; 2026-11-04T09:00:00-06:00) on all 20 pages, and in tools/vertical-template.html so new pages ship correctly. Deployed and verified live; all JSON-LD parses.
 - **GSC:** "Validate fix" started 11/6 for both issues. Check the Videos report in about a week.
+
+## 2026-11-06 (Kathir asked "SEO status")
+- **"ul 508a quoting software": #1 /engine/panels and #3 guide** (guide back up from #5). costbook #2.
+- **"ship and debit claims software": not in the top 20** (was #7 last night).
+- **"cable assembly quoting software": #6, and cited in the AI Overview, but under the URL nteligroup.com/guides/cable-assembly-quoting, not nteli.io.**
+- **"data center pod estimating software": not in the top 9.**
+- **FOUND: duplicate domain.** nteligroup.com (and www) was added to the nteli-site Vercel project 14 days ago and serves the full site with HTTP 200. The canonical tags point to nteli.io, but Google has indexed about 40 nteligroup.com URLs (site: shows 4 pages, including /erp, /pharma, /channel, /engine, /semi) and picked nteligroup.com as the canonical for some of them. That splits ranking signals and likely explains the ship-and-debit drop. Fix: a domain-level 308 redirect from nteligroup.com (and www) to nteli.io. Waiting on Kathir's OK.
+- **GSC 7-day (Oct 29–Nov 4):** 160 impressions (was 133), 9 clicks (was 7), CTR 5.6%, avg position 9.9 (was 7.8; more impressions at lower ranks). Top non-brand: "does channel revenue management replace my erp?" 9, "is channel revenue management an erp?" 6, "syncs salesforce contracts with gl?" 6, "cpq revenue cloud integration" 6.
