@@ -228,3 +228,8 @@ same four queries weekly; first citation is the milestone.
 - **"ul 508a quoting software": /engine/panels still #1**, costbook #2. The guide slipped from #3 to #5; TW Controls' quoting article and a Mike Holt forum thread are now above it. Same caveat: signed-in Chrome, pws=0.
 - **"ship and debit claims software": #7** (was #6). A Capterra listing for a competitor moved in above us.
 - **GSC URL inspection:** /engine/ic and /engine/power are now **indexed** (both were "unknown to Google" this morning). The guide is indexed, but its last crawl was Nov 5 at 6:54 AM. The FAQ schema fix isn't confirmed by Google yet; check after the next crawl.
+
+## 2026-11-06 (GSC email: Videos structured data issues)
+- **Issue:** GSC flagged "Invalid datetime value" and "missing a timezone" on uploadDate. Both are non-critical; 3 pages were affected so far, but all 20 /engine pages had date-only values.
+- **Fix:** uploadDate is now a full ISO datetime with offset (2026-10-22T09:00:00-05:00; 2026-11-04T09:00:00-06:00) on all 20 pages, and in tools/vertical-template.html so new pages ship correctly. Deployed and verified live; all JSON-LD parses.
+- **GSC:** "Validate fix" started 11/6 for both issues. Check the Videos report in about a week.
