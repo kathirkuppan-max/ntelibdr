@@ -263,3 +263,4 @@ same four queries weekly; first citation is the milestone.
 - Cable assembly: still on page 1 and in the AI Overview under the nteligroup.com URL; the 308 hasn't been processed yet.
 - Ship and debit: still not in the top 30.
 - /engine/surgical-robotics: "URL is unknown to Google" (indexing requested 11-06; ic and power took about a day).
+- **/engine/nre-services LIVE 2026-11-07.** Uses Kathir's picked storyboard (in-ear sensor), all figures run on the live engine: $474,536.25; $7.09 a unit on 75,000 units, break-even month 36, $159,256 true-up at 70%; sterile-without-sterilization-validation refusal. /engine/nre redirects there (308). /engine/power-systems redirects to /engine/power (308): the same line, so it doesn't compete with the existing page. 22 lines are linked across /engine, the cross-links, homepage chips, sitemap and llms.txt. IndexNow 200; GSC indexing requested.

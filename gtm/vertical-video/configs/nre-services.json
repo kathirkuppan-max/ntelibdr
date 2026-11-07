@@ -1,0 +1,140 @@
+{
+"name": "nre-services",
+"vertical_label": "NRE services",
+"url": "nteli.io/engine/nre-services",
+"hook": "In <span class=\"g\">contract manufacturing</span>,<br>NRE is where<br><span class=\"g\">margin leaks</span>.",
+"hook_sub": "Scope the standards require, left off. Hours from memory. NRE never recovered.",
+"today_title": "Today, NRE gets quoted from a spreadsheet.",
+"today": [
+[
+"Scope left off",
+"The risk file, biocompatibility or process validation the device needs isn’t in the quote."
+],
+[
+"Hours from memory",
+"Hours by phase and role come from the last similar job, or from one senior engineer."
+],
+[
+"NRE never recovered",
+"It’s spread over a volume that never comes, with no true-up clause to invoice the rest."
+]
+],
+"meet_tag": "The configuration engine for<br>contract manufacturers quoting NRE.",
+"meet_check": "Scope checked against the standards, by phase and role. Governed end to end.",
+"request_word": "request",
+"chat": {
+"from": "CUSTOMER REQUEST · PASTED",
+"request": "Quote NRE for our in-ear sensor: Class II, EO sterile, touches the ear canal, battery electronics. New production mold, 50-unit prototype builds, design verification with reliability and ageing, design history file. Recover NRE over 25,000 a year for 3 years.",
+"question": "Recovered over volume: $7.09 a unit on 75,000 units, break-even month 36. Or by milestone, 30/20/20/20/10, kickoff $142,361. Which goes on the quote?",
+"answer": "Over volume",
+"quote_sub": "Class II in-ear sensor · 5 phases · estimated",
+"total": "$474,536",
+"lines": [
+[
+"Design · design engineering 368 h",
+"$101,521"
+],
+[
+"Prototype · technician 147 h",
+"$25,770"
+],
+[
+"Tooling · tooling engineering 120 h",
+"$28,443"
+],
+[
+"Validation · test 291 h, quality 233 h",
+"$104,842"
+],
+[
+"Transfer and program setup",
+"$29,960"
+],
+[
+"Mold, labs and PCBA, at cost",
+"$184,000"
+]
+]
+},
+"standards_text": "Six deliverables the standards add, each with its reason and source. The engine checks scope against the standards. Class III, implants and builds over 250 units go to Specials, with no price.",
+"standards": [
+[
+"SCOPE THE ENGINE ADDS, UNASKED",
+[
+"Design controls and design history file",
+"Risk management file (ISO 14971)",
+"Biocompatibility, ear-canal contact (ISO 10993-1)",
+"Sterilization validation, EO (ISO 11135)",
+"IQ/OQ/PQ for the new mold",
+"Electrical safety and EMC (IEC 60601-1)"
+]
+],
+[
+"AT 70% OF FORECAST",
+[
+"$159,256 left, invoiced by the true-up clause"
+]
+],
+[
+"AFTER IT’S WON",
+[
+"Order packet: SOW and milestone schedule",
+"Second prototype round: a change order with its own milestone"
+],
+true
+]
+],
+"refusal": "Sterile, but no sterilization validation? Refused: include it, or the device isn’t sterile.",
+"gov_title": "Leadership sees how quoting is governed.",
+"keep_who": "Estimators",
+"golive": "Estimators start quoting. Paid only when an order is won.",
+"end_tag": "NRE quotes, scoped and recovered.",
+"vo": [
+[
+"In contract manufacturing, NRE is where margin leaks.",
+"Scope the standards require, left off. Hours from memory. NRE never recovered."
+],
+[
+"Today, NRE gets quoted from a spreadsheet.",
+"Hours by gut feel, rates from last year, and scope from whoever remembers.",
+"And when the volume never comes, nobody can invoice the rest."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for contract manufacturers quoting NRE."
+],
+[
+"One conversation. No forms.",
+"Paste the customer's request.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows the scope behind it.",
+"Six deliverables the standards add, each with its reason, and the true-up if the volume falls short.",
+"Sterile, but no sterilization validation? Refused, with the fix."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Estimators get answers. Never the rulebook."
+],
+[
+"Going live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. NRE quotes, scoped and recovered."
+]
+]
+}
