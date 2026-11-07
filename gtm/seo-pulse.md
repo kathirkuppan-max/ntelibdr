@@ -250,3 +250,9 @@ same four queries weekly; first citation is the milestone.
   - IndexNow got 24 URLs (200). GSC Request Indexing for /engine, / and /engine/medgas.
   - Surgical robotics gets the same treatment when it goes live (see gtm/drafts/surgical-robotics-README.md).
 - **/engine/surgical-robotics LIVE 2026-11-06** (engine PR #134 deployed as v119). Numbers come from the live engine: lease $1,501,400; capital $1,358,400; per procedure $1,302,000; ways out of the refusal from $1,320,400 (C-arm + CT) and from $1,304,400 (3D imaging kit). Video re-rendered with the live payment question. The page is linked from the /engine tabs (now 21), from every vertical page's cross-links, the homepage chips, sitemap and llms.txt. IndexNow sent (200). GSC indexing requested; status was "URL is not on Google" (new).
+
+## 2026-11-06 late (Kathir asked "SEO status")
+- UL 508A: #1 panels, #3 guide (holding).
+- Ship and debit: not in the top 30. Google hasn't processed the nteligroup.com redirect yet; recheck next week.
+- Cable assembly: about #6 organic, still shown as nteligroup.com/guides/cable-assembly-quoting. It should switch to nteli.io once Google recrawls the 308.
+- Today's changes awaiting Google: the nteligroup.com 308, the vertical links on /engine (21 tabs), the new /engine/surgical-robotics page (indexing requested), and the video uploadDate fix (validation started).
