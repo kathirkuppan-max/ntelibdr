@@ -6,32 +6,77 @@
 "hook_sub": "A room too small. Circuits missing. Surgeons not trained.",
 "today_title": "Today, reps scope it by hand.",
 "today": [
-["Room and power, found late", "OR size, dedicated circuits and floor load get checked after the deal is signed."],
-["Service the site can’t support", "A premium service plan gets sold to a hospital without the network it needs."],
-["Too few surgeons trained", "The system arrives, and the training plan doesn’t cover the surgeons who’ll use it."]
+[
+"Room and power, found late",
+"OR size, dedicated circuits and floor load get checked after the deal is signed."
+],
+[
+"Service the site can’t support",
+"A premium service plan gets sold to a hospital without the network it needs."
+],
+[
+"Too few surgeons trained",
+"The system arrives, and the training plan doesn’t cover the surgeons who’ll use it."
+]
 ],
 "meet_tag": "The configuration engine for<br>surgical robotics makers and their reps.",
 "meet_check": "Checks configuration and site, against your rules. Governed end to end.",
 "request_word": "request",
 "chat": {
 "from": "HOSPITAL REQUEST · PASTED",
-"request": "Requesting a quote for a spine robot for our neurosurgery group. OR 12 is 620 sq ft on the ground floor with dedicated circuits. We only have a 2D C-arm, and our surgeons get pre-op CTs. Standard service, three surgeons to train.",
-"question": "One question: capital purchase, a 60-month lease, or per procedure? Each prices differently; I’ll show all three.",
+"request": "Requesting a quote for a spine robot, spine only for now. OR 12 is 620 sq ft on the ground floor with dedicated circuits. We only have a 2D C-arm; surgeons get pre-op CTs. It can go on its own VLAN. Standard service, three surgeons to train.",
+"question": "Your call: capital, lease or per procedure? Capital $1,358,400 · 60-month lease $1,501,400 · per procedure $1,302,000.",
 "answer": "60-month lease",
 "quote_sub": "1 spine system · installed · estimated reference prices",
 "total": "$1,501,400",
 "lines": [
-["Spine and cranial system, 60-month lease (total of payments)", "$1,038,000"],
-["Pre-op CT merge with 2D fluoroscopy registration", "$58,000"],
-["Standard service, years 2 to 5", "$286,400"],
-["Planning, instruments, site survey, install, training", "$119,000"]
+[
+"Spine and cranial system, 60-month lease (total of payments)",
+"$1,038,000"
+],
+[
+"Pre-op CT merge with 2D fluoroscopy registration",
+"$58,000"
+],
+[
+"Standard service, years 2 to 5",
+"$286,400"
+],
+[
+"Planning, instruments, site survey, install, training",
+"$119,000"
+]
 ]
 },
 "standards_text": "Configuration and site checked, with the rule behind every line. The manufacturer stands behind the device; the quote shows the room, power, network and team are ready for it.",
 "standards": [
-["IMAGING AND REGISTRATION", ["2D C-arm with pre-op CT merge selected", "Planning linked to PACS over its own VLAN"]],
-["SITE READINESS", ["OR 12: 620 sq ft, room size confirmed", "Dedicated circuits confirmed", "Ground floor: floor load checked"]],
-["THE HOSPITAL PROVIDES", ["VLAN set up by hospital IT", "Three surgeons scheduled for training"], true]
+[
+"FGI 2022 · OPERATING ROOM SIZE",
+[
+"OR 12: 620 sq ft clear floor area"
+]
+],
+[
+"NFPA 99 · NFPA 70 ARTICLE 517",
+[
+"Dedicated circuits from isolated power or the critical branch"
+]
+],
+[
+"FLOOR LOAD · DICOM",
+[
+"Ground-floor slab carries the system",
+"Planning pulls the CT from PACS over DICOM"
+]
+],
+[
+"THE HOSPITAL PROVIDES",
+[
+"Network drop and its own VLAN (hospital IT)",
+"Site survey confirms positions and door widths"
+],
+true
+]
 ],
 "refusal": "A spine robot with no imaging to register to? Refused, with the ways out priced.",
 "gov_title": "Leadership sees how quoting is governed.",
@@ -39,15 +84,51 @@
 "golive": "Reps start quoting. Paid only when an order is won.",
 "end_tag": "Every number shows its work.",
 "vo": [
-["In surgical robotics, a wrong quote is a delayed first case.", "A room too small. Circuits missing. Surgeons not trained."],
-["Today, reps scope it by hand.", "Site surveys, spreadsheets, and knowledge in a few heads.", "And what gets missed shows up at installation."],
-["Meet En-telly Quoting,", "the configuration engine for surgical robotics makers and their reps."],
-["One conversation. No forms.", "Paste the hospital's request.", "Answer one question.", "Get a checked quote.", "Then submit it."],
-["It doesn't guess. It checks.", "Same request, same answer, every time."],
-["Every quote shows its work.", "Imaging, room, power, network, and what the hospital must provide.", "A spine robot with no imaging to register to? Refused, with the ways out priced."],
-["Leadership sees how quoting is governed.", "Sign-offs follow your rules."],
-["Reps get answers. Never the rulebook."],
-["Going live in one month.", "Fill in the workbook.", "The engine checks it.", "Replay past quotes.", "Then go live."],
-["En-telly Quoting. Every number shows its work."]
+[
+"In surgical robotics, a wrong quote is a delayed first case.",
+"A room too small. Circuits missing. Surgeons not trained."
+],
+[
+"Today, reps scope it by hand.",
+"Site surveys, spreadsheets, and knowledge in a few heads.",
+"And what gets missed shows up at installation."
+],
+[
+"Meet En-telly Quoting,",
+"the configuration engine for surgical robotics makers and their reps."
+],
+[
+"One conversation. No forms.",
+"Paste the hospital's request.",
+"Answer one question.",
+"Get a checked quote.",
+"Then submit it."
+],
+[
+"It doesn't guess. It checks.",
+"Same request, same answer, every time."
+],
+[
+"Every quote shows its work.",
+"Imaging, room, power, network, and what the hospital must provide.",
+"A spine robot with no imaging to register to? Refused, with the ways out priced."
+],
+[
+"Leadership sees how quoting is governed.",
+"Sign-offs follow your rules."
+],
+[
+"Reps get answers. Never the rulebook."
+],
+[
+"Going live in one month.",
+"Fill in the workbook.",
+"The engine checks it.",
+"Replay past quotes.",
+"Then go live."
+],
+[
+"En-telly Quoting. Every number shows its work."
+]
 ]
 }
