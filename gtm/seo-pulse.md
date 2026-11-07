@@ -256,3 +256,10 @@ same four queries weekly; first citation is the milestone.
 - Ship and debit: not in the top 30. Google hasn't processed the nteligroup.com redirect yet; recheck next week.
 - Cable assembly: about #6 organic, still shown as nteligroup.com/guides/cable-assembly-quoting. It should switch to nteli.io once Google recrawls the 308.
 - Today's changes awaiting Google: the nteligroup.com 308, the vertical links on /engine (21 tabs), the new /engine/surgical-robotics page (indexing requested), and the video uploadDate fix (validation started).
+
+## 2026-11-07 (Kathir asked "SEO status")
+- **GSC 7-day (Oct 30–Nov 5):** 228 impressions (was 160, +43%), 8 clicks, CTR 3.5%, avg position 11.8. Top non-brand: "does channel revenue management replace my erp?" 19, "is channel revenue management an erp?" 13, "...replace finance tools?" 11, "cpq revenue cloud integration" 7, "revenue cloud migration" 5 (new).
+- UL 508A: #1 panels, #3 guide (holding).
+- Cable assembly: still on page 1 and in the AI Overview under the nteligroup.com URL; the 308 hasn't been processed yet.
+- Ship and debit: still not in the top 30.
+- /engine/surgical-robotics: "URL is unknown to Google" (indexing requested 11-06; ic and power took about a day).
