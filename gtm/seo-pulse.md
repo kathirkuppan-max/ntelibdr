@@ -264,3 +264,25 @@ same four queries weekly; first citation is the milestone.
 - Ship and debit: still not in the top 30.
 - /engine/surgical-robotics: "URL is unknown to Google" (indexing requested 11-06; ic and power took about a day).
 - **/engine/nre-services LIVE 2026-11-07.** Uses Kathir's picked storyboard (in-ear sensor), all figures run on the live engine: $474,536.25; $7.09 a unit on 75,000 units, break-even month 36, $159,256 true-up at 70%; sterile-without-sterilization-validation refusal. /engine/nre redirects there (308). /engine/power-systems redirects to /engine/power (308): the same line, so it doesn't compete with the existing page. 22 lines are linked across /engine, the cross-links, homepage chips, sitemap and llms.txt. IndexNow 200; GSC indexing requested.
+
+## 2026-11-08 (Kathir asked "SEO status")
+- **GSC 7-day (Oct 31–Nov 6):** 314 impressions (was 228, +38%), 7 clicks, CTR 2.2%, avg position 10.1 (was 11.8). Top non-brand: "does channel revenue management replace my erp?" 31, "is channel revenue management an erp?" 24, "...replace finance tools?" 22, "cpq revenue cloud integration" 7, "revenue cloud migration" 6, "ship and debit software" 4.
+- UL 508A ("ul 508a quoting software"): #1 panels, #2 CostBook, #3 guide (holding).
+- Cable assembly ("cable assembly quoting"): no nteli result on page 1 (was about #6 under nteligroup.com). site:nteligroup.com still returns pages, so the 308 is unprocessed. Possibly the handover; recheck by 11-16.
+- Ship and debit: not on page 1.
+- /engine/surgical-robotics and /engine/nre-services: no result for a site: search. nteli.io about 45 results. Page indexing report: "Processing data". Video report page errored, so the uploadDate validation wasn't read.
+- **Later 11-08:** indexing requested again for /engine/surgical-robotics and /engine/nre-services; both inspected as "URL is unknown to Google". Sitemap last read Nov 4 (51 pages), before both were added. Video uploadDate validation: both issues Passed; 4 valid, 0 invalid.
+
+## 2026-11-09 (Kathir asked "SEO pulse")
+- **GSC 7-day (Nov 1–7):** 392 impressions (was 314, +25%), 7 clicks, CTR 1.8%, avg position 9.9 (was 10.1). Top non-brand: "does channel revenue management replace my erp?" 38, "...replace finance tools?" 35, "is channel revenue management an erp?" 33, "ship and debit software" 11 (was 4), "revenue cloud migration" 7. 30 queries (was 24).
+- UL 508A: #1 panels, #2 CostBook, #3 guide (holding).
+- Cable assembly ("cable assembly quoting"), ship and debit, data center pod estimating: no nteli result on page 1.
+- Sitemap read Nov 9: 57 pages (was 51 on Nov 4).
+- /engine/surgical-robotics: **indexed**, 1 valid video item. /engine/nre-services: still "URL is unknown to Google" (requested 11-08).
+- site:nteli.io about 81 results (was 45); site:nteligroup.com about 42, so the 308 is still being processed.
+- **Backlink status 11-09:** G2 Quote-to-Cash Consulting category approved (case 00660168 closed 11-04). No email replies from Epicor, Acumatica, SYSPRO or Infor; Infor follow-up drafted in Gmail. Capital Factory and Avalara asks still open: no contact on record in email.
+
+## 2026-11-09 PM (Kathir: "get ranked higher" on semiconductors)
+- GSC 28 days: "ship and debit software" 11 impressions at avg position 10.0, "ship and debit management software" 2 at 8.0; pages /ship-and-debit-software (8) and /compare/ship-and-debit-software (5). Our guide is #1 for "ship and debit reconciliation".
+- Done: /engine/semiconductors gets og/twitter tags, two VideoObject entries, WebPage JSON-LD, video posters (og-semiconductors.jpg, og-semi-walkthrough.jpg). Ship page title now "Ship and Debit Software That Checks Every Claim Line". Guide and compare page link to /engine/semiconductors; guide anchor drops "agentic". Sitemap lastmod 11-09 on the four ship-and-debit pages. IndexNow 200; GSC indexing requested for /engine/semiconductors (new) and /ship-and-debit-software.
+- Compare page: "How it runs" column (vendor cloud / inside SAP / inside ERP / your own private instance), a "Your own private instance" section and FAQ, no price (scoped in onboarding); Nteli row no longer claims design-registration matching. IndexNow 200.
