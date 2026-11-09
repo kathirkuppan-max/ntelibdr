@@ -59,6 +59,8 @@
     { "src": "/engine/mobility", "dest": "/engine-mobility.html" },
     { "src": "/engine/surgical-robotics", "dest": "/engine-surgical-robotics.html" },
     { "src": "/engine/nre-services", "dest": "/engine-nre-services.html" },
+    { "src": "/engine/semiconductors", "dest": "/engine-semiconductors.html" },
+    { "src": "/engine/semi/?", "status": 308, "headers": { "Location": "/engine/semiconductors" } },
     { "src": "/engine/power-systems/?", "status": 308, "headers": { "Location": "/engine/power" } },
     { "src": "/engine/nre/?", "status": 308, "headers": { "Location": "/engine/nre-services" } },
     { "src": "/engine/([a-z-]+)", "dest": "/engine.html" },

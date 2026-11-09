@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ship and Debit Claim Validation for Semiconductors | Nteli</title>
+<meta name="description" content="Check every distributor ship-and-debit line against the agreement, POS resale and stock held, then send one credit memo to your ERP.">
+<link rel="canonical" href="https://nteli.io/engine/semiconductors">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;--purple:#BC8CFF;--purple-bg:#1A0E2E;--teal:#2DD4BF;--red:#F47067;--red-bg:rgba(244,112,103,.09);--green:#3FB950;--amber:#D4A843;--amber-bg:rgba(212,168,67,.12);--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:18px;font-weight:800}.brand em{color:var(--blue);font-style:normal;font-weight:400}
+.links{display:flex;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;font-family:var(--sans);cursor:pointer}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2)}.btn-primary:hover{background:var(--blue)}
+.btn-outline{background:transparent;border-color:var(--border2);color:var(--text)}.btn-outline:hover{background:var(--surface2)}
+.hero{position:relative;padding:72px 28px 12px;text-align:center;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:900px;height:600px;background:radial-gradient(ellipse,var(--purple-bg) 0%,transparent 65%);opacity:.6;pointer-events:none}
+.hero-inner{max-width:820px;margin:0 auto;position:relative;z-index:1}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px}
+h1{font-size:46px;font-weight:800;line-height:1.12;letter-spacing:-1.2px;margin-bottom:16px}
+.accent{background:linear-gradient(135deg,var(--purple) 0%,var(--blue) 55%,var(--gold) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero-sub{font-size:18px;color:var(--text2);line-height:1.65;max-width:700px;margin:0 auto 24px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px}
+.wrap section{margin-top:56px}
+h2{font-size:26px;font-weight:700;letter-spacing:-.4px;line-height:1.25;margin-bottom:8px}
+.sec-sub{color:var(--text2)}
+.rail{list-style:none;display:grid;grid-template-columns:repeat(6,1fr);margin-top:24px;border-top:2px solid var(--border2)}
+.rail li{padding:10px 12px 12px 0;font-size:14px;line-height:1.3;color:var(--text3);transition:color .2s}
+.rail b{display:block;font:500 12px var(--mono);margin-bottom:3px}
+.rail li.on{color:var(--text);font-weight:600}.rail li.on b{color:var(--gold)}
+.sheet{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;margin-top:16px;overflow:hidden}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 24px;align-items:baseline;padding:16px 20px;border-bottom:1px solid var(--border2)}
+.head strong{font-size:17px}
+.fict{font:500 12px var(--mono);color:var(--amber);background:var(--amber-bg);padding:3px 8px;border-radius:4px}
+.meta{font:400 13px var(--mono);color:var(--text3);width:100%}
+.row{display:grid;grid-template-columns:30px 92px 1fr 118px 104px 104px;gap:10px;padding:10px 20px;border-bottom:1px solid var(--border);align-items:baseline;font:400 14px var(--mono)}
+.row.th{font-weight:500;color:var(--text3);font-size:12px}
+.n{text-align:right}
+.row .why{grid-column:3/-1;font:400 14px/1.4 var(--sans);display:none}
+.row.done .why{display:block}
+.row.bad .why{color:var(--red)}.row.note .why{color:var(--amber)}
+.row.bad{background:var(--red-bg)}
+.row.rej .claimed{text-decoration:line-through;color:var(--red)}
+.row.ok .pays{color:var(--green);font-weight:600}
+.row.bad .pays{font-weight:600}
+.row.pending .pays{color:var(--text3)}
+.foot{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--border2)}
+.foot div{padding:16px 20px;border-right:1px solid var(--border)}.foot div:last-child{border:0}
+.foot span{display:block;font-size:14px;color:var(--text2)}
+.foot b{font:600 clamp(20px,3.4vw,30px) var(--mono)}
+.foot .caught b{color:var(--red)}.foot .paid b{color:var(--green)}
+.memo{display:none;flex-wrap:wrap;gap:8px 28px;padding:14px 20px;border-top:1px solid var(--border);font:400 14px var(--mono);color:var(--teal)}
+.memo.on{display:flex}
+.controls{display:flex;gap:14px;align-items:center;margin-top:14px;flex-wrap:wrap}
+.controls small{color:var(--text3);font-size:13px;font-family:var(--mono)}
+.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.checks div{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px}
+.checks h3{font-size:16px;margin-bottom:6px}
+.checks p{font-size:14px;color:var(--text2)}
+.checks b.amt{display:block;font:600 22px var(--mono);color:var(--red);margin-top:10px}
+.checks small{color:var(--text3);font-size:13px}
+.video-frame{background:var(--surface);border:1.5px solid var(--border);border-radius:16px;padding:14px;margin-top:16px;box-shadow:0 40px 80px -24px rgba(0,0,0,.6)}
+video{display:block;width:100%;aspect-ratio:16/9;border-radius:8px;background:#000}
+ul.plain{margin-top:12px;padding-left:20px;color:var(--text2);max-width:46em}ul.plain li{margin:8px 0}
+.cta{border-top:1px solid var(--border);background:var(--surface);padding:48px 28px;text-align:center;margin-top:64px}
+.cta h2{margin-bottom:8px}.cta p{margin:0 auto 20px;max-width:36em;color:var(--text2)}
+.xverts{padding:40px 28px 56px;max-width:1180px;margin:0 auto;text-align:center}
+.xverts-lbl{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);font-family:var(--mono);margin-bottom:16px}
+.xv{display:inline-block;font-size:12px;font-weight:600;color:var(--text2);border:1px solid var(--border);border-radius:16px;padding:6px 13px;margin:4px 3px;transition:color .15s,border-color .15s}
+.xv:hover{color:var(--text);border-color:var(--border2)}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono)}
+footer a{color:var(--text3)}footer a:hover{color:var(--text2)}
+@media(max-width:720px){
+h1{font-size:32px}.hero{padding:48px 16px 8px}.wrap{padding:0 16px}.nav-inner{padding:12px 16px}.nav .btn-outline{display:none}
+.rail{grid-template-columns:repeat(2,1fr)}
+.row{grid-template-columns:24px 1fr 92px;padding:10px 12px}
+.row .inv,.row .cust{display:none}.row .part{grid-column:2}.row .claimed{grid-column:2;text-align:left}.row .pays{grid-column:3;grid-row:1/3}
+.row.th{display:none}.row .why{grid-column:2/-1}
+.head,.memo{padding-left:12px;padding-right:12px}
+.foot{grid-template-columns:1fr}.foot div{border-right:0;border-bottom:1px solid var(--border);padding:12px}
+.checks{grid-template-columns:1fr}.cta{padding:32px 16px}
+}
+</style>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <div class="links"><a class="btn btn-outline" href="/engine">All demos</a><a class="btn btn-primary" href="/workshop">Book the Workshop</a></div>
+</div></nav>
+
+<section class="hero"><div class="hero-inner">
+  <div class="eyebrow">AGENT PRICING ENGINE · SEMICONDUCTORS · SHIP AND DEBIT</div>
+  <h1>Every debit line,<br><span class="accent">checked before the credit memo goes out.</span></h1>
+  <p class="hero-sub">The engine checks each distributor claim line against the agreement, the POS resale record and the stock the distributor held. Each line is paid, cut or rejected with its reason, and your team reviews the result.</p>
+  <a class="btn btn-primary" href="/workshop">Bring last quarter's claims</a>
+</div></section>
+
+<main class="wrap">
+
+  <section aria-labelledby="claim-h">
+    <h2 id="claim-h">One claim, line by line</h2>
+    <p class="sec-sub">A sample debit from a distributor, run through the same checks the engine uses.</p>
+    <ol class="rail" id="rail">
+      <li data-s="0"><b>1</b>Debit arrives</li>
+      <li data-s="1"><b>2</b>Agreement and price</li>
+      <li data-s="2"><b>3</b>POS resale</li>
+      <li data-s="3"><b>4</b>Stock held</li>
+      <li data-s="4"><b>5</b>Each line decided</li>
+      <li data-s="5"><b>6</b>Credit memo to ERP</li>
+    </ol>
+    <div class="sheet">
+      <div class="head"><strong>Northgate Components · Debit NGC-DM-2026-10</strong><span class="fict">FICTIONAL COMPANIES AND NUMBERS</span>
+      <span class="meta">Issued against Marlow Ridge Semiconductor · 13 lines</span></div>
+      <div class="row th"><span>#</span><span class="inv">Invoice</span><span class="cust">End customer</span><span class="part">Part</span><span class="n claimed">Claimed</span><span class="n pays">Pays</span></div>
+      <div id="rows"></div>
+      <div class="foot">
+        <div><span>Claimed</span><b>$85,490</b></div>
+        <div class="paid"><span>Pays</span><b id="paid">$85,490</b></div>
+        <div class="caught"><span>Caught</span><b id="caught">$0</b></div>
+      </div>
+      <div class="memo" id="memo"><span>Credit memo CM-CLM-0001</span><span>Credit $48,000</span><span>Disputed against the debit $37,490</span></div>
+    </div>
+    <noscript><p>Of $85,490 claimed on this sample, $48,000 pays and $37,490 is caught.</p></noscript>
+    <div class="controls"><button class="btn btn-outline" id="run" type="button">Run the checks again</button><small>Sample numbers, for illustration.</small></div>
+  </section>
+
+  <section aria-labelledby="checks-h">
+    <h2 id="checks-h">What each check caught on this claim</h2>
+    <div class="checks">
+      <div><h3>Agreement and price</h3><p>Duplicates, expired agreements, wrong contract price, credit math, quantity caps.</p><b class="amt">$18,000</b><small>4 lines</small></div>
+      <div><h3>POS resale</h3><p>No resale record, a different end customer or sale date, more units than were resold.</p><b class="amt">$16,740</b><small>4 lines</small></div>
+      <div><h3>Stock held</h3><p>Units paid can't pass what the distributor had on hand and received.</p><b class="amt">$2,750</b><small>1 line</small></div>
+    </div>
+  </section>
+
+  <section aria-labelledby="video-h">
+    <h2 id="video-h">See how it works</h2>
+    <div class="video-frame"><video id="v" src="/media/nteli-quoting-semiconductors.mp4" controls playsinline preload="metadata"></video></div>
+  </section>
+
+  <section aria-labelledby="how-h">
+    <h2 id="how-h">Runs beside what you have</h2>
+    <ul class="plain">
+      <li>Load agreements, EDI 867 or POS exports, and stock as CSV, Excel or JSON. Nothing in your ERP is changed.</li>
+      <li>A line POS or stock can't reach says so, rather than passing quietly.</li>
+      <li>You get one credit memo file per claim, carrying the distributor's debit number, and an auditable reason on every line.</li>
+    </ul>
+  </section>
+</main>
+
+<section class="cta">
+    <h2>See your own claims on the ledger.</h2>
+    <p>In the Leak Ledger Workshop we run last quarter's claims, agreements and POS, and show you line by line what should not have been paid.</p>
+    <a class="btn btn-primary" href="/workshop">Book the Workshop</a>
+  </section>
+
+<section class="xverts">
+  <div class="xverts-lbl">The engine also quotes</div>
+  <a class="xv" href="/engine/datacenter">Data Center Pods</a> <a class="xv" href="/engine/panels">Control Panels &amp; Switchgear</a> <a class="xv" href="/engine/power">Power Packages</a> <a class="xv" href="/engine/ic">Instrumentation &amp; Controls</a> <a class="xv" href="/engine/interconnect">Interconnect / Cable Assemblies</a> <a class="xv" href="/engine/electronics">Electronic Components &amp; Assemblies</a> <a class="xv" href="/engine/nre-services">NRE Services</a> <a class="xv" href="/engine/grid">Distribution Transformers</a> <a class="xv" href="/engine/hazloc">Hazardous-Area Electrical</a> <a class="xv" href="/engine/hvac">Commercial HVAC</a> <a class="xv" href="/engine/pumps">Pumps &amp; Packaged Skids</a> <a class="xv" href="/engine/mobility">Mobility Lifts</a> <a class="xv" href="/engine/medgas">Medical Gas &amp; Headwalls</a> <a class="xv" href="/engine/boilers">Commercial Boilers</a> <a class="xv" href="/engine/cooling">Cooling Towers</a> <a class="xv" href="/engine/cranes">Cranes &amp; Hoists</a> <a class="xv" href="/engine/doors">Fire Doors &amp; Hardware</a> <a class="xv" href="/engine/kitchen">Kitchen Ventilation</a> <a class="xv" href="/engine/lab">Lab Furniture &amp; Fume Hoods</a> <a class="xv" href="/engine/safety">Safety &amp; Plumbing Equipment</a> <a class="xv" href="/engine/water">Water Treatment</a> <a class="xv" href="/engine/surgical-robotics">Surgical Robotics</a>
+</section>
+
+<footer>© 2026 Nteli LLC · <a href="/ship-and-debit-software">Ship and debit software</a> · <a href="/docs">Docs</a> · <a href="/support">Support</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+
+<script defer src="/_vercel/insights/script.js"></script>
+<script>
+(function(){
+  var vid=document.getElementById('v');
+  vid.defaultPlaybackRate=1.25;vid.playbackRate=1.25;
+  var HP='Harbor Point Power', TI='Tallgrass Inverter', KD='Kestrel Drive Robotics';
+  // n, invoice, customer, part, claimed, pays, stage that decides it, why
+  var L=[
+    [1,'NG-70101',HP,'MR7120-QFN',11000,11000,0,''],
+    [2,'NG-70102',HP,'MR3305-SOT',6300,6300,0,''],
+    [3,'NG-70110',TI,'MR2210-DFN',3300,3300,0,''],
+    [4,'NG-70118',HP,'MR7120-QFN',9750,8250,1,'Claimed a $1.75 contract price; the agreement says $1.85.'],
+    [5,'NG-70101',HP,'MR7120-QFN',11000,0,1,'Duplicate of line 1 in this file.'],
+    [6,'NG-70125',KD,'MR8841-PQFN',5200,0,1,'Sold 07-14, after the agreement ended 06-30.'],
+    [7,'NG-70133',HP,'MR7120-QFN',6600,0,2,'No resale record for this invoice and part.'],
+    [8,'NG-70140',TI,'MR2210-DFN',2640,1650,2,'Claimed 8,000 units; POS shows 5,000 resold.'],
+    [9,'NG-70146',HP,'MR3305-SOT',5250,0,2,'POS shows a different end customer.'],
+    [10,'NG-70152',KD,'MR8841-PQFN',3900,0,2,'Claimed as sold 06-27, inside the agreement; POS shows 07-08.'],
+    [11,'NG-70160',HP,'MR7120-QFN',16500,13750,3,'Only 25,000 of 30,000 units fit the stock Northgate held.'],
+    [12,'NG-70171',TI,'MR2210-DFN',1950,1650,1,'Claimed credit doesn’t equal price difference times quantity.'],
+    [13,'NG-70180',HP,'MR3305-SOT',2100,2100,2,'Pays as claimed. Flagged: sold after the POS on file, so not checked against resale.','note']
+  ];
+  var CLAIMED=85490, $=function(i){return document.getElementById(i)}, box=$('rows');
+  function usd(n){return '$'+n.toLocaleString('en-US')}
+  box.innerHTML=L.map(function(x){
+    return '<div class="row pending" id="l'+x[0]+'"><span>'+x[0]+'</span><span class="inv">'+x[1]+'</span><span class="cust">'+x[2]+'</span><span class="part">'+x[3]+'</span><span class="n claimed">'+usd(x[4])+'</span><span class="n pays">'+usd(x[4])+'</span><span class="why">'+x[7]+'</span></div>';
+  }).join('');
+  var timers=[], reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function rail(s){document.querySelectorAll('#rail li').forEach(function(li){li.classList.toggle('on',+li.dataset.s<=s)})}
+  function reset(){L.forEach(function(x){var r=$('l'+x[0]);r.className='row pending';r.querySelector('.pays').textContent=usd(x[4])});$('paid').textContent=usd(CLAIMED);$('caught').textContent='$0';$('memo').classList.remove('on');rail(0)}
+  function stage(s){
+    var caught=0;
+    L.forEach(function(x){
+      var r=$('l'+x[0]);
+      if(x[6]<=s&&x[5]!==x[4]||(x[8]&&x[6]<=s)){
+        r.classList.remove('pending');r.classList.add('done');
+        if(x[8])r.classList.add('note');else r.classList.add('bad');
+        if(x[5]===0)r.classList.add('rej');
+        r.querySelector('.pays').textContent=usd(x[5]);
+      }
+      if(x[5]!==x[4]&&x[6]<=s)caught+=x[4]-x[5];
+    });
+    $('caught').textContent=usd(caught);$('paid').textContent=usd(CLAIMED-caught);rail(s);
+  }
+  function finish(){L.forEach(function(x){var r=$('l'+x[0]);r.classList.remove('pending');if(x[5]===x[4])r.classList.add('ok')});rail(5);$('memo').classList.add('on')}
+  function run(){
+    timers.forEach(clearTimeout);timers=[];reset();
+    if(reduce){stage(3);rail(4);finish();return}
+    [1,2,3].forEach(function(s,i){timers.push(setTimeout(function(){stage(s)},700+i*1500))});
+    timers.push(setTimeout(function(){rail(4);L.forEach(function(x){if(x[5]===x[4])$('l'+x[0]).classList.add('ok')})},700+3*1500));
+    timers.push(setTimeout(finish,700+4*1500));
+  }
+  $('run').addEventListener('click',run);
+  reset();
+  if('IntersectionObserver' in window&&!reduce){
+    var io=new IntersectionObserver(function(e){if(e[0].isIntersecting){io.disconnect();run()}},{threshold:.2});io.observe(box);
+  }else run();
+})();
+</script>
+</body>
+</html>

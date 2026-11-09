@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ship &amp; Debit Reconciliation Software — Agentic | Nteli</title>
-<meta name="description" content="Agentic ship and debit reconciliation software: every claim line matched to its design registration, contract price and POS sell-through before the credit memo posts — paid when right, disputed with evidence when not. A standalone module; read-mostly ERP connection.">
+<title>Ship &amp; Debit Reconciliation Software | Nteli</title>
+<meta name="description" content="Ship and debit reconciliation software: every claim line matched to its agreement, contract price and POS sell-through before the credit memo posts — paid when right, disputed with evidence when not. A standalone module; read-mostly ERP connection.">
 <link rel="canonical" href="https://nteli.io/ship-and-debit-software">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nteli">
-<meta property="og:title" content="Ship &amp; Debit Reconciliation Software — Agentic">
-<meta property="og:description" content="Every claim line matched to its agreement before the credit memo posts. Agents run the matching; people govern the rules.">
+<meta property="og:title" content="Ship &amp; Debit Reconciliation Software">
+<meta property="og:description" content="Every claim line matched to its agreement before the credit memo posts. The engine runs the matching; people govern the rules.">
 <meta property="og:url" content="https://nteli.io/ship-and-debit-software">
 <meta property="og:image" content="https://nteli.io/img/ledger-not-dashboard.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -66,10 +66,10 @@ footer a{color:var(--text3);}
 <script defer src="/_vercel/insights/script.js"></script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-{"@type":"Question","name":"What is ship and debit reconciliation software?","acceptedAnswer":{"@type":"Answer","text":"Software that validates distributor ship and debit claims before they are paid: each claim line is matched to the design registration or special pricing agreement it cites, the contract price, and the POS sell-through it covers. Valid lines are credited; invalid ones are disputed with evidence. Nteli delivers this as a standalone reconciliation module with agents running the matching and people governing the rules."}},
+{"@type":"Question","name":"What is ship and debit reconciliation software?","acceptedAnswer":{"@type":"Answer","text":"Software that validates distributor ship and debit claims before they are paid: each claim line is matched to the special pricing agreement it cites, the contract price, and the POS sell-through it covers. Valid lines are credited; invalid ones are disputed with evidence. Nteli delivers this as a standalone reconciliation module with the engine running the matching and people governing the rules."}},
 {"@type":"Question","name":"Does it replace my ERP?","acceptedAnswer":{"@type":"Answer","text":"No. The ERP stays the system of record. The module uses a read-mostly connection — it needs to see orders, invoices and credit memos, not rewrite them — and hands validated, line-level results back for the credit memo and the GL. The ERP connection is scoped once as onboarding, not a monthly fee."}},
 {"@type":"Question","name":"How much ship and debit leakage is typical?","acceptedAnswer":{"@type":"Answer","text":"There is no reliable industry average; your own claims file is the only real answer. For reference, MGI Research frames fixing revenue leakage as worth 2–4% of revenue and cash flow, and Nteli's published illustrative model assumes about 5% of distributor revenue goes out in claims with no matching agreement or resale record, most of it disputable."}},
-{"@type":"Question","name":"Does this work for pharma chargebacks too?","acceptedAnswer":{"@type":"Answer","text":"Yes — same spine, different names. Pharmaceutical chargebacks are validated against wholesaler contracts the way semiconductor ship and debit claims are validated against design registrations. Nteli runs both practices."}}]}
+{"@type":"Question","name":"Does this work for pharma chargebacks too?","acceptedAnswer":{"@type":"Answer","text":"Yes — same spine, different names. Pharmaceutical chargebacks are validated against wholesaler contracts the way semiconductor ship and debit claims are validated against agreements. Nteli runs both practices."}}]}
 </script>
 </head>
 <body>
@@ -85,9 +85,10 @@ footer a{color:var(--text3);}
   <div class="wrap">
     <div class="kicker">Ship &amp; Debit · Channel reconciliation module</div>
     <h1>Ship &amp; debit reconciliation software that checks <b>every claim line</b> before the credit memo posts.</h1>
-    <p class="hero-sub">Claims arrive by the thousand, and most desks pay them because checking costs more than the credit. Nteli's agentic reconciliation matches each line to the design registration it cites, the contract price, and the POS sell-through it covers — paid when it's right, disputed with evidence when it isn't.</p>
+    <p class="hero-sub">Claims arrive by the thousand, and most desks pay them because checking costs more than the credit. Nteli's engine matches each line to the agreement it cites, the contract price, and the POS sell-through it covers — paid when it's right, disputed with evidence when it isn't.</p>
     <div class="hero-cta">
       <a class="btn btn-primary" href="/workshop">Run last quarter's claims through it →</a>
+      <a class="btn btn-ghost" href="/engine/semiconductors">See one claim, line by line</a>
       <a class="btn btn-ghost" href="/guides/ship-and-debit-reconciliation">How ship &amp; debit reconciliation works</a>
     </div>
   </div>
@@ -97,13 +98,13 @@ footer a{color:var(--text3);}
   <div class="wrap">
     <h2>One deal spine, from registration to credit memo.</h2>
     <p class="sec-sub">The claim spans three systems that never talk: the agreement lives in the CRM, the transactions in the ERP, the claim in the distributor's file. Reconciliation joins them on one deal ID.</p>
-    <div class="flow">Design registration / SPA (CRM) → Order → Invoice (ERP) → EDI 867 POS / resale line → Claim → Match / Dispute → Credit memo (ERP) → GL</div>
+    <div class="flow">Agreement / SPA (CRM) → Order → Invoice (ERP) → EDI 867 POS / resale line → Claim → Match / Dispute → Credit memo (ERP) → GL</div>
     <div class="grid">
-      <div class="card"><h3><span class="tag">Match</span>Every line to its agreement</h3><p>Each claim line matched to the <b>EDI 867</b> resale (POS) record by distributor, invoice, line, part, end customer and quantity — then to the design registration or SPA and the contract price, with duplicate detection. <b>Line by line, not sampled</b> after the quarter closes.</p></div>
+      <div class="card"><h3><span class="tag">Match</span>Every line to its agreement</h3><p>Each claim line matched to the <b>EDI 867</b> resale (POS) record by distributor, invoice, line, part, end customer and quantity — then to the agreement and the contract price, with duplicate detection. <b>Line by line, not sampled</b> after the quarter closes.</p></div>
       <div class="card"><h3><span class="tag">Inventory</span>Claims against what the distributor holds</h3><p>Debits checked against <b>distributor inventory and authorized-debit quantities</b>, so a claim cannot cover more units than were bought, held and resold under the agreement.</p></div>
       <div class="card"><h3><span class="tag">Dispute</span>Evidence, not arguments</h3><p>Invalid lines go back with the registration, price and POS record attached. <b>The distributor relationship survives; the leak doesn't.</b></p></div>
       <div class="card"><h3><span class="tag">Settle</span>Aggregates burst to lines</h3><p>The distributor still gets one credit memo per period. <b>The auditor gets every line</b>, traced to its deal.</p></div>
-      <div class="card"><h3><span class="tag">Govern</span>Agents run, people govern</h3><p>Agents do the matching at claim volume. Rule changes are <b>approved by a second person, versioned, and replayed</b> on past claims before they ship.</p></div>
+      <div class="card"><h3><span class="tag">Govern</span>The engine runs, people govern</h3><p>The engine does the matching at claim volume. Rule changes are <b>approved by a second person, versioned, and replayed</b> on past claims before they ship.</p></div>
       <div class="card"><h3><span class="tag">Standalone</span>A module, not a migration</h3><p>Runs beside what you have and <b>accepts outside inputs</b> — claims as files, POS feeds, ERP exports. No rip-and-replace.</p></div>
       <div class="card"><h3><span class="tag">ERP</span>Read-mostly connection</h3><p>It sees orders, invoices and credit memos; <b>it rewrites nothing</b>. The connection is scoped once as onboarding — not a monthly fee.</p></div>
     </div>
@@ -119,7 +120,7 @@ footer a{color:var(--text3);}
       <div class="stat"><div class="v">~73%</div><div class="k">of unsupported claims disputable once every line is checked against its agreement and resale record</div></div>
       <div class="stat"><div class="v">Line-level</div><div class="k">recovery report the CFO can trace to the deal — a ledger, not a dashboard</div></div>
     </div>
-    <p class="pull">A claim isn't wrong because it's big. It's unverified because checking it by hand costs more than paying it. Agents change that arithmetic.</p>
+    <p class="pull">A claim isn't wrong because it's big. It's unverified because checking it by hand costs more than paying it. The engine changes that arithmetic.</p>
     <p class="sec-sub" style="margin-top:22px">Already reconciling claims in a spreadsheet? Good — <b style="color:var(--text)">bring it.</b> We'll run the same quarter, you on yours and us on ours. If your spreadsheet finds the same dollars, you don't need us. The difference usually shows up in the matching: claim lines to EDI 867 resale records, distributor part numbers to your master data, every line instead of a sample.</p>
   </div>
 </section>
