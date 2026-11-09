@@ -23,7 +23,7 @@
     { "src": "/semi",         "dest": "/landing.html" },
     { "src": "/pharma",       "dest": "/pharma.html" },
     { "src": "/saas",         "dest": "/saas.html" },
-    { "src": "/channel",      "dest": "/channel.html" },
+    { "src": "/channel(\\.html)?", "status": 301, "headers": { "Location": "/ship-and-debit-software" } },
     { "src": "/salesforce",   "dest": "/salesforce.html" },
     { "src": "/salesforce-consultant-texas", "dest": "/salesforce-consultant-texas.html" },
     { "src": "/thinking/a-ledger-not-a-dashboard", "dest": "/thinking-ledger.html" },
