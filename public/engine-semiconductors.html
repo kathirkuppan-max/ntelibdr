@@ -20,7 +20,7 @@
 {"@context": "https://schema.org", "@type": "VideoObject", "name": "Semiconductor ship and debit claim validation, explained — Nteli", "description": "How each distributor ship and debit claim line is checked against the agreement, the POS resale record and the stock held before the credit memo goes out. Fictional companies and numbers.", "thumbnailUrl": "https://nteli.io/media/og-semiconductors.jpg", "contentUrl": "https://nteli.io/media/nteli-quoting-semiconductors.mp4", "uploadDate": "2026-11-09T12:00:00-06:00", "duration": "PT1M48S", "publisher": {"@type": "Organization", "name": "Nteli", "url": "https://nteli.io"}}
 </script>
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "VideoObject", "name": "Ship and debit in the product: agreements, POS, decisions and the credit memo — Nteli", "description": "A walkthrough of the product: special pricing agreements, POS and stock loads, every claim line decided with its reason, and one credit memo file for the ERP. Fictional data.", "thumbnailUrl": "https://nteli.io/media/og-semi-walkthrough.jpg", "contentUrl": "https://nteli.io/media/nteli-semi-product-walkthrough.mp4", "uploadDate": "2026-11-09T14:00:00-06:00", "duration": "PT1M41S", "publisher": {"@type": "Organization", "name": "Nteli", "url": "https://nteli.io"}}
+{"@context": "https://schema.org", "@type": "VideoObject", "name": "Ship and debit in the product: agreements, POS, decisions and the credit memo — Nteli", "description": "A walkthrough of the product: approved design registrations, special pricing agreements, POS and stock loads, every claim line decided with its reason, and one credit memo file for the ERP. Fictional data.", "thumbnailUrl": "https://nteli.io/media/og-semi-walkthrough.jpg", "contentUrl": "https://nteli.io/media/nteli-semi-product-walkthrough.mp4", "uploadDate": "2026-11-09T14:00:00-06:00", "duration": "PT1M44S", "publisher": {"@type": "Organization", "name": "Nteli", "url": "https://nteli.io"}}
 </script>
 <script type="application/ld+json">
 {"@context": "https://schema.org", "@type": "WebPage", "name": "Ship and debit claim validation for semiconductors", "url": "https://nteli.io/engine/semiconductors", "description": "Every distributor ship and debit claim line checked against the agreement, the POS resale record and the stock held, then one credit memo file for the ERP.", "publisher": {"@type": "Organization", "name": "Nteli", "url": "https://nteli.io"}}
@@ -80,7 +80,8 @@ h2{font-size:26px;font-weight:700;letter-spacing:-.4px;line-height:1.25;margin-b
 .memo.on{display:flex}
 .controls{display:flex;gap:14px;align-items:center;margin-top:14px;flex-wrap:wrap}
 .controls small{color:var(--text3);font-size:13px;font-family:var(--mono)}
-.checks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px}
+.checks{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+@media(max-width:960px){.checks{grid-template-columns:repeat(2,1fr)}}
 .checks div{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:20px 22px}
 .checks h3{font-size:16px;margin-bottom:6px}
 .checks p{font-size:14px;color:var(--text2)}
@@ -137,26 +138,27 @@ h1{font-size:32px}.hero{padding:48px 16px 8px}.wrap{padding:0 16px}.nav-inner{pa
     </ol>
     <div class="sheet">
       <div class="head"><strong>Northgate Components · Debit NGC-DM-2026-10</strong><span class="fict">FICTIONAL COMPANIES AND NUMBERS</span>
-      <span class="meta">Issued against Marlow Ridge Semiconductor · 13 lines</span></div>
+      <span class="meta">Issued against Marlow Ridge Semiconductor · 16 lines</span></div>
       <div class="row th"><span>#</span><span class="inv">Invoice</span><span class="cust">End customer</span><span class="part">Part</span><span class="n claimed">Claimed</span><span class="n pays">Pays</span></div>
       <div id="rows"></div>
       <div class="foot">
-        <div><span>Claimed</span><b>$85,490</b></div>
-        <div class="paid"><span>Pays</span><b id="paid">$85,490</b></div>
+        <div><span>Claimed</span><b>$95,690</b></div>
+        <div class="paid"><span>Pays</span><b id="paid">$95,690</b></div>
         <div class="caught"><span>Caught</span><b id="caught">$0</b></div>
       </div>
-      <div class="memo" id="memo"><span>Credit memo CM-CLM-0001</span><span>Credit $48,000</span><span>Disputed against the debit $37,490</span></div>
+      <div class="memo" id="memo"><span>Credit memo CM-CLM-0001</span><span>Credit $48,000</span><span>Disputed against the debit $47,690</span></div>
     </div>
-    <noscript><p>Of $85,490 claimed on this sample, $48,000 pays and $37,490 is caught.</p></noscript>
+    <noscript><p>Of $95,690 claimed on this sample, $48,000 pays and $47,690 is caught.</p></noscript>
     <div class="controls"><button class="btn btn-outline" id="run" type="button">Run the checks again</button><small>Sample numbers, for illustration.</small></div>
   </section>
 
   <section aria-labelledby="checks-h">
     <h2 id="checks-h">What each check caught on this claim</h2>
     <div class="checks">
-      <div><h3>Agreement and price</h3><p>Duplicates, expired agreements, missing or expired design registrations, wrong contract price, credit math, quantity caps.</p><b class="amt">$18,000</b><small>4 lines</small></div>
+      <div><h3>Agreement and price</h3><p>Duplicates, expired agreements, wrong contract price, credit math, quantity caps.</p><b class="amt">$18,000</b><small>4 lines</small></div>
       <div><h3>POS resale</h3><p>No resale record, a different end customer or sale date, more units than were resold.</p><b class="amt">$16,740</b><small>4 lines</small></div>
       <div><h3>Stock held</h3><p>Units paid can't pass what the distributor had on hand and received.</p><b class="amt">$2,750</b><small>1 line</small></div>
+      <div><h3>Design registration</h3><p>Registered to another distributor, expired before the sale, or missing where the agreement requires one.</p><b class="amt">$10,200</b><small>3 lines</small></div>
     </div>
   </section>
 
@@ -213,9 +215,12 @@ h1{font-size:32px}.hero{padding:48px 16px 8px}.wrap{padding:0 16px}.nav-inner{pa
     [10,'NG-70152',KD,'MR8841-PQFN',3900,0,2,'Claimed as sold 06-27, inside the agreement; POS shows 07-08.'],
     [11,'NG-70160',HP,'MR7120-QFN',16500,13750,3,'Only 25,000 of 30,000 units fit the stock Northgate held.'],
     [12,'NG-70171',TI,'MR2210-DFN',1950,1650,1,'Claimed credit doesn’t equal price difference times quantity.'],
-    [13,'NG-70180',HP,'MR3305-SOT',2100,2100,2,'Pays as claimed. Flagged: sold after the POS on file, so not checked against resale.','note']
+    [13,'NG-70180',HP,'MR3305-SOT',2100,2100,2,'Pays as claimed. Flagged: sold after the POS on file, so not checked against resale.','note'],
+    [14,'NG-70185',HP,'MR5500-LGA',7200,0,1,'Design registered to another distributor.'],
+    [15,'NG-70190',TI,'MR2640-QFN',2000,0,1,'Design registration expired before the sale.'],
+    [16,'NG-70195',TI,'MR4410-SOT',1000,0,1,'No design registration, and the agreement requires one.']
   ];
-  var CLAIMED=85490, $=function(i){return document.getElementById(i)}, box=$('rows');
+  var CLAIMED=95690, $=function(i){return document.getElementById(i)}, box=$('rows');
   function usd(n){return '$'+n.toLocaleString('en-US')}
   box.innerHTML=L.map(function(x){
     return '<div class="row pending" id="l'+x[0]+'"><span>'+x[0]+'</span><span class="inv">'+x[1]+'</span><span class="cust">'+x[2]+'</span><span class="part">'+x[3]+'</span><span class="n claimed">'+usd(x[4])+'</span><span class="n pays">'+usd(x[4])+'</span><span class="why">'+x[7]+'</span></div>';
