@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Three Ways to Start | Nteli</title>
+<meta name="description" content="Nteli services for Salesforce sellers of manufacturing products: Quick Start, Migrate and Full Rollout on Agentforce Manufacturing and Agentforce Revenue Management.">
+<meta property="og:title" content="Three ways to start: Quote-to-Order built on Salesforce">
+<meta property="og:description" content="Nteli services for small manufacturers. Salesforce licenses stay with your Salesforce AE.">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{color-scheme:light;--navy:#032D60;--navy2:#014486;--blue:#0176D3;--line:#DDDBDA;--line2:#ECEBEA;--ink:#181818;--ink2:#444;--ink3:#706E6B;--ok:#2E844A;--tint:#F3F6FA;--sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+html{-webkit-text-size-adjust:100%}
+body{background:#fff;font-family:var(--sans);color:var(--ink);font-size:15px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;font-size:13px;color:var(--ink3);border-bottom:1px solid var(--line2)}
+.top b{font-size:20px;color:var(--ink);letter-spacing:-.02em}.top b i{font-style:normal;color:var(--blue)}
+.top a{font-weight:600;text-decoration:none}
+.eyebrow{font-size:12px;font-weight:600;color:var(--navy2);margin:26px 0 6px}
+h1{font-size:34px;line-height:1.15;letter-spacing:-.02em;max-width:820px}
+.lead{font-size:17px;color:var(--ink2);margin-top:10px;max-width:780px}
+.why{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 8px}
+.why div{background:var(--tint);border-radius:8px;padding:12px 14px;font-size:14px;color:var(--ink2)}
+.why b{display:block;color:var(--navy);font-size:15px;margin-bottom:2px}
+/* Table (wide screens) */
+.tablew{margin-top:18px}
+table{width:100%;border-collapse:separate;border-spacing:0;table-layout:fixed}
+col.l{width:24%}
+thead th{position:sticky;top:0;background:var(--navy);color:#fff;text-align:left;padding:14px 14px 12px;font-size:18px;vertical-align:top;z-index:1}
+thead th:first-child{background:#fff}
+thead th:nth-child(2){border-radius:8px 0 0 0}thead th:last-child{border-radius:0 8px 0 0}
+thead th span{display:block;font-size:13px;font-weight:400;color:#C9DBF0;margin-top:3px}
+td{padding:9px 14px;border-bottom:1px solid var(--line2);vertical-align:top;font-size:14px}
+td:first-child{font-weight:600;color:var(--ink2)}
+td:first-child small{display:block;font-weight:400;color:var(--ink3);font-size:12.5px}
+tr.price td{font-size:20px;font-weight:700;color:var(--navy);background:var(--tint)}
+tr.price td:first-child{font-size:14px;color:var(--ink2)}
+tr.grp td{color:var(--blue);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding-top:18px;border-bottom:2px solid var(--blue)}
+td.y{color:var(--ok);font-weight:700;font-size:16px}td.n{color:#B0ADAB}
+/* Cards (phones) */
+.cards{display:none;gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.card h2{background:var(--navy);color:#fff;font-size:19px;padding:12px 14px 10px}
+.card h2 span{display:block;font-size:13px;font-weight:400;color:#C9DBF0}
+.card .p{font-size:22px;font-weight:700;color:var(--navy);background:var(--tint);padding:9px 14px}
+.card dl{padding:4px 14px 10px}
+.card dt{font-size:12px;color:var(--ink3);margin-top:8px}
+.card dd{font-size:14px}
+.card .g{font-size:12px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-top:14px;padding-bottom:3px;border-bottom:2px solid var(--blue)}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:26px 0}
+.box{border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.box h2{font-size:16px;color:var(--navy);margin-bottom:6px}
+.box ol,.box ul{padding-left:18px;font-size:14px;display:grid;gap:4px}
+.box p{font-size:14px;color:var(--ink2)}
+.cta{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--navy);color:#fff;border-radius:8px;padding:20px 22px;margin-bottom:24px;flex-wrap:wrap}
+.cta h2{font-size:20px}.cta p{color:#C9DBF0;font-size:14px}
+.cta a{background:#fff;color:var(--navy);font-weight:700;text-decoration:none;padding:11px 20px;border-radius:4px;white-space:nowrap}
+footer{border-top:1px solid var(--line);padding:14px 0 30px;font-size:12px;color:var(--ink3)}
+@media (max-width:900px){.tablew{display:none}.cards{display:grid}.why,.cols{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:620px){.wrap{padding:0 16px}h1{font-size:27px}.lead{font-size:15.5px}.top span{display:none}.cta a{width:100%;text-align:center}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><b>nteli<i>.io</i></b><span>Salesforce Premier Partner · Austin, TX</span><a href="/pov/rca">See the story on Salesforce</a></div>
+
+  <div class="eyebrow">For Salesforce sellers of manufacturing products · Commercial (SMB)</div>
+  <h1>Three ways to start on Agentforce Manufacturing and Agentforce Revenue Management.</h1>
+  <p class="lead">Your prospect builds to order, quotes from spreadsheets, and one or two people know the rules. Nteli sets up the whole Quote-to-Order story: what the account already buys, the RFQ, a configuration that stops what can’t be built, a priced quote with a reason on every line, and the order.</p>
+
+  <div class="why">
+    <div><b>Licenses stay yours</b>Nteli’s fees are services only. Every Salesforce license is sold by you, the Salesforce AE.</div>
+    <div><b>Small entry point</b>A fixed $25K start sits easily beside the license deal.</div>
+    <div><b>Built by configurator people</b>Our team has built product configurators for Cisco, Dell and IBM.</div>
+  </div>
+
+  <div class="tablew" id="tablew"></div>
+  <div class="cards" id="cards"></div>
+
+  <div class="cols">
+    <div class="box">
+      <h2>The one week in Quick Start</h2>
+      <ol>
+        <li><b>Day 1.</b> Kickoff, and the filled templates are checked.</li>
+        <li><b>Day 2.</b> Catalog and price book loaded, products configured.</li>
+        <li><b>Day 3.</b> Checks and the discount approval set up.</li>
+        <li><b>Day 4.</b> Branded quote template, current agreements loaded.</li>
+        <li><b>Day 5.</b> Tested on the customer’s own recent RFQs, then live.</li>
+      </ol>
+    </div>
+    <div class="box">
+      <h2>What moves the price inside a band</h2>
+      <ul>
+        <li><b>Migrate:</b> how many data sources there are, and how messy they are.</li>
+        <li><b>Full Rollout:</b> $75K assumes a standard ERP integration. A complex ERP or more integration points moves it toward $100K.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h2>Design partners</h2>
+      <p>The first three customers get a reduced price in exchange for being a named reference.</p>
+    </div>
+  </div>
+
+  <div class="cta">
+    <div><h2>Bring us a prospect.</h2><p>We’ll walk through their products and pick the right start together.</p></div>
+    <a href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=pov-rca-pricing" target="_blank" rel="noopener">Talk through a prospect</a>
+  </div>
+
+  <footer>Nteli is a Salesforce Premier Partner. This offer is Nteli’s, not Salesforce’s. Salesforce, Agentforce, Agentforce Manufacturing and Agentforce Revenue Management are trademarks of Salesforce, Inc. Scope and timing are confirmed for each customer before work starts.</footer>
+</div>
+<script>
+var BANDS=[['Quick Start','Quoting right, in a week'],['Migrate','Their history from day one, not an empty system'],['Full Rollout','The whole flow end to end, with Agentforce, team trained']];
+/* [label, note, quick, migrate, full]; 'G' rows are group headers. '+' = included. */
+var ROWS=[
+['Nteli services','', '$25K fixed','$40–60K','$75–100K','price'],
+['Live in','', '1 week, self-serve, once templates are filled','About 3–5 weeks','About 8–12 weeks'],
+['Who loads the data','', 'Customer, using Nteli’s templates','Nteli','Nteli'],
+['Data sources','Spreadsheets, an old CPQ, an ERP export','1: Nteli’s catalog, price book and agreement templates','Up to 3. About $40K for 1–2 clean sources, up to $60K for 3 or messy ones','Up to 5, plus 1 ERP'],
+['G','What every customer gets'],
+['Foundation functions','Sales Agreements and Account Forecast, Opportunity and RFQ, Configure, Check, Price, Quote, Order','+','+','+'],
+['Current Sales Agreements loaded','So the account screen isn’t blank','+ From the template','+','+'],
+['Branded quote templates','', '1','3','5'],
+['Checks that stop what can’t be built','', 'Up to 10','Up to 25','Up to 50, plus routing to engineering review'],
+['Approvals','', 'Standard discount approval','Same','Multi-step, by discount and by product'],
+['G','What each band adds'],
+['Data migration','Catalog, price books, accounts, open quotes','-','+','+'],
+['Order history loaded','Run-rate and forecast work from day one','-','+','+'],
+['ERP integration','', 'File export of orders','File export of orders','1 ERP: orders out, status back. An integration license, such as MuleSoft, is separate if needed'],
+['Agentforce','', '-','Account briefing before a call','Account briefing, plus drafting the quote from the RFQ'],
+['Training','', 'Recorded walkthrough','Live session for sales','Admin, sales team, and train-the-trainer'],
+['Add-ons','', '-','-','Pick two: Fulfillment Plan, distributor claim checking, dealer quoting'],
+['Support after go-live','Then an optional monthly retainer','2 weeks','30 days','60 days'],
+['Fits a manufacturer that…','', 'Has its catalog in spreadsheets and wants quotes right now','Has years of quotes and orders it can’t lose','Runs orders through an ERP and sells direct and through the channel']
+];
+function e(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function cell(v){if(v==='+')return '<td class="y">✓</td>';if(v==='-')return '<td class="n">—</td>';if(v.indexOf('+ ')===0)return '<td><span style="color:#2E844A;font-weight:700">✓</span> '+e(v.slice(2))+'</td>';return '<td>'+e(v)+'</td>'}
+function txt(v){if(v==='+')return '✓ Included';if(v==='-')return '—';if(v.indexOf('+ ')===0)return '✓ '+v.slice(2);return v}
+var t='<table><colgroup><col class="l"><col><col><col></colgroup><thead><tr><th></th>'+BANDS.map(function(b){return '<th>'+b[0]+'<span>'+b[1]+'</span></th>'}).join('')+'</tr></thead><tbody>';
+ROWS.forEach(function(r){if(r[0]==='G'){t+='<tr class="grp"><td colspan="4">'+r[1]+'</td></tr>';return}t+='<tr'+(r[5]?' class="'+r[5]+'"':'')+'><td>'+e(r[0])+(r[1]?'<small>'+e(r[1])+'</small>':'')+'</td>'+cell(r[2])+cell(r[3])+cell(r[4])+'</tr>'});
+document.getElementById('tablew').innerHTML=t+'</tbody></table>';
+document.getElementById('cards').innerHTML=BANDS.map(function(b,i){var h='<div class="card"><h2>'+b[0]+'<span>'+b[1]+'</span></h2><div class="p">'+ROWS[0][2+i]+'</div><dl>';ROWS.slice(1).forEach(function(r){if(r[0]==='G'){h+='<div class="g">'+r[1]+'</div>';return}h+='<dt>'+e(r[0])+'</dt><dd>'+e(txt(r[2+i]))+'</dd>'});return h+'</dl></div>'}).join('');
+</script>
+</body>
+</html>
