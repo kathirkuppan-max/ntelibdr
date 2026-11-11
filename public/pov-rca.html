@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Point of View: Quote-to-Order on Revenue Cloud (Concept) | Nteli</title>
+<meta name="description" content="A point of view for Salesforce sellers: one story for small manufacturers, shown as a concept of how quoting could look on Revenue Cloud Advanced. Not built on RCA today.">
+<meta property="og:title" content="Point of view: one Quote-to-Order story on Revenue Cloud (concept)">
+<meta property="og:description" content="For Salesforce sellers working small manufacturers. A concept, not built on RCA today.">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{color-scheme:light;--navy:#032D60;--navy2:#014486;--blue:#0176D3;--bg:#F3F3F3;--bg2:#FAFAF9;--card:#fff;--line:#DDDBDA;--line2:#ECEBEA;--ink:#181818;--ink2:#444;--ink3:#706E6B;--ok:#2E844A;--okbg:#E6F5E3;--err:#BA0517;--errbg:#FEF1EE;--amber:#FFD27A;--sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+html{-webkit-text-size-adjust:100%}
+body{background:#fff;font-family:var(--sans);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* Concept band: visible on every view */
+.concept{position:sticky;top:0;z-index:50;background:var(--amber);color:#3A2A00;padding:7px 16px;font-size:13px;text-align:center;font-weight:500}
+.concept b{font-weight:700}
+
+/* Nteli wrapper */
+.wrap{max-width:1320px;margin:0 auto;padding:0 20px}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 0;font-size:13px;color:var(--ink3)}
+.brand b{font-size:20px;color:var(--ink);letter-spacing:-.02em}.brand b i{font-style:normal;color:var(--blue)}
+.intro{padding:18px 0 18px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:end}
+.eyebrow{font-size:12px;font-weight:600;color:var(--navy2);margin-bottom:6px}
+h1{font-size:34px;line-height:1.15;letter-spacing:-.02em;font-weight:700;max-width:760px}
+.intro p{font-size:16px;color:var(--ink2);margin-top:10px;max-width:760px}
+.pick label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.pickbtn{width:100%;min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid #747474;border-radius:4px;padding:10px 14px;font-size:15px;font-weight:600;text-align:left}
+.pickbtn:hover{border-color:var(--blue)}
+.pickbtn svg{flex:none}
+
+/* Stage */
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start;padding-bottom:28px}
+
+/* Lightning product screen */
+.sf{border:1px solid #C9C7C5;border-radius:8px;overflow:hidden;background:linear-gradient(#CFE0F5,#F3F3F3 260px);box-shadow:0 2px 12px rgba(3,45,96,.12);min-width:0}
+.gh{height:48px;background:#fff;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid var(--line2)}
+.gh svg.cloud{width:38px;height:27px;flex:none}
+.gsearch{flex:1;max-width:460px;margin:0 auto;height:32px;border:1px solid var(--line);border-radius:4px;display:flex;align-items:center;gap:8px;padding:0 12px;color:var(--ink3);font-size:13px;background:#fff;white-space:nowrap;overflow:hidden}
+.gicons{display:flex;gap:10px;align-items:center;color:var(--ink3);flex:none}
+.gicons span{width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.gicons .av{border-radius:50%;background:var(--navy2);color:#fff;font-size:10px;font-weight:700}
+.an{height:40px;background:#fff;display:flex;align-items:stretch;border-bottom:3px solid var(--blue);padding-left:12px;overflow-x:auto;scrollbar-width:none}
+.an::-webkit-scrollbar{display:none}
+.waffle{display:grid;grid-template-columns:repeat(3,3px);gap:2px;align-self:center;margin-right:12px;flex:none}
+.waffle i{width:3px;height:3px;border-radius:50%;background:var(--ink3)}
+.appname{align-self:center;font-size:16px;font-weight:400;margin-right:18px;white-space:nowrap}
+.an button{padding:0 13px;font-size:13px;white-space:nowrap;border-top:3px solid transparent;color:var(--ink)}
+.an button:hover{background:var(--bg2)}
+.an button.on{font-weight:600;border-top-color:var(--blue);background:#F2F8FE}
+
+.scr{padding:12px;display:flex;flex-direction:column;gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:4px;box-shadow:0 2px 2px rgba(0,0,0,.05)}
+.hl{padding:12px 14px}
+.hltop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ico{width:32px;height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex:none}
+.ico svg{width:20px;height:20px;fill:#fff}
+.hlo{font-size:12px;color:var(--ink2)}
+.hlt{font-size:18px;font-weight:700;line-height:1.25}
+.stamp{margin-left:auto;font-size:11px;font-weight:700;background:var(--amber);color:#3A2A00;padding:3px 9px;border-radius:12px;white-space:nowrap}
+.flds{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-top:12px;padding-top:10px;border-top:1px solid var(--line2)}
+.fl{font-size:11px;color:var(--ink3)}
+.fv{font-size:13px;overflow-wrap:anywhere}
+
+/* Path */
+.path{display:flex;overflow-x:auto;scrollbar-width:none;padding:8px 10px;gap:0}
+.path::-webkit-scrollbar{display:none}
+.path button{flex:1 0 96px;height:32px;margin-right:-6px;padding:0 16px;font-size:13px;font-weight:600;white-space:nowrap;background:var(--line2);color:var(--ink2);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%)}
+.path button:first-child{clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);border-radius:16px 0 0 16px}
+.path button:last-child{margin-right:0}
+.path button.done{background:var(--ok);color:#fff}
+.path button.cur{background:var(--navy2);color:#fff}
+.path button:hover:not(.cur):not(.done){background:#DDDBDA}
+
+.ch{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;border-bottom:1px solid var(--line2);font-size:14px;font-weight:700}
+.cb{padding:14px}
+.beat{font-size:18px;font-weight:700;line-height:1.3;padding:2px 2px 0}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:2px 8px;border-radius:12px;background:#F0F0F0;color:var(--ink2);white-space:nowrap}
+.pill.g{background:var(--okbg);color:var(--ok)}.pill.r{background:var(--errbg);color:var(--err)}.pill.b{background:#EAF5FE;color:var(--navy2)}
+.rfq{font-size:16px;line-height:1.55;border-left:3px solid var(--blue);padding:2px 0 2px 14px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 22px}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg2);text-align:left;font-size:12px;font-weight:600;color:var(--ink2);padding:8px 12px;border-bottom:1px solid var(--line)}
+td{padding:10px 12px;border-bottom:1px solid var(--line2);font-size:13px;vertical-align:top;overflow-wrap:anywhere}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right;white-space:nowrap}
+tr.bad td{background:var(--errbg)}tr.fixed td{background:var(--okbg)}tr.total td{font-weight:700;background:var(--bg2)}
+.alert{display:flex;gap:12px;padding:14px;border-radius:4px;color:#fff;background:var(--err)}
+.alert.ok{background:var(--ok)}
+.alert h3{font-size:16px;line-height:1.3}.alert p{font-size:14px;margin-top:3px}
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.way{text-align:left;border:1px solid #AEAEAE;border-radius:6px;padding:12px 14px;background:#fff;display:flex;flex-direction:column;gap:4px;min-height:96px}
+.way:hover{border-color:var(--blue)}
+.way[aria-pressed=true]{border:2px solid var(--blue);background:#F2F8FE;padding:11px 13px}
+.way b{font-size:14px;line-height:1.3}.way span{font-size:13px;color:var(--ink2)}
+.way .p{margin-top:auto;padding-top:4px;font-size:16px;font-weight:700;color:var(--ink)}
+.other{font-size:13px;color:var(--ink2);margin-top:10px}
+.foot{display:flex;justify-content:flex-end;align-items:center;gap:10px}
+.btn{min-height:36px;padding:7px 18px;border-radius:4px;background:var(--blue);color:#fff;font-size:14px;font-weight:600;border:1px solid var(--blue)}
+.btn:hover{background:var(--navy2)}
+.btn[disabled]{background:#C9C7C5;border-color:#C9C7C5;cursor:not-allowed}
+.btn.sec{background:#fff;color:var(--blue);border-color:var(--line)}.btn.sec:hover{background:var(--bg2)}
+.note{font-size:12px;color:var(--ink3)}
+.tl{list-style:none}
+.tl li{display:flex;gap:10px;padding:8px 0;font-size:13px;border-bottom:1px solid var(--line2)}
+.tl li:last-child{border:0}
+.tl i{width:9px;height:9px;border-radius:50%;background:var(--blue);margin-top:6px;flex:none}
+.keep{list-style:none;display:grid;gap:8px}
+.keep li{display:flex;gap:8px;font-size:14px}
+.keep svg{width:16px;height:16px;flex:none;margin-top:3px;fill:var(--ok)}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.tile .l{font-size:12px;color:var(--ink3)}.tile .v{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums}
+.tile .v.r{color:var(--err)}.tile .v.g{color:var(--ok)}
+
+/* Story rail (Nteli, not product) */
+.rail{display:flex;flex-direction:column;gap:12px;position:sticky;top:48px}
+.rc{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:#fff}
+.rc h2{font-size:12px;font-weight:700;color:var(--ink3);margin-bottom:6px}
+.rc.say{background:var(--navy);border-color:var(--navy);color:#fff}
+.rc.say h2{color:#B9D3F0}
+.rc.say p{font-size:17px;line-height:1.4;font-weight:500}
+.rc p{font-size:14px;color:inherit}
+.rc .prod{font-size:13px;font-weight:600;color:var(--navy2)}
+.beatno{font-size:12px;color:#B9D3F0;margin-top:10px}
+
+/* Lower sections */
+.lower{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;padding-bottom:26px}
+.lower h2{font-size:20px;letter-spacing:-.01em;margin-bottom:10px}
+.lower ol,.lower ul{padding-left:20px;font-size:15px;display:grid;gap:7px}
+.lower p{font-size:15px;color:var(--ink2);margin-top:10px}
+.cta{display:inline-block;margin-top:14px;background:var(--navy);color:#fff;padding:10px 20px;border-radius:4px;font-weight:600;text-decoration:none}
+.cta:hover{background:var(--navy2)}
+footer{border-top:1px solid var(--line);padding:16px 0 30px;font-size:12px;color:var(--ink3)}
+
+/* Picker: App Launcher pattern */
+.modal{display:none;position:fixed;inset:0;background:rgba(8,7,7,.6);z-index:100;align-items:flex-start;justify-content:center;padding:60px 16px 16px}
+.modal.on{display:flex}
+.lc{background:#fff;border-radius:8px;width:100%;max-width:860px;max-height:calc(100vh - 76px);display:flex;flex-direction:column;overflow:hidden}
+.lh{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line2)}
+.lh h2{font-size:18px}
+.lc input{margin:12px 18px 2px;height:38px;border:1px solid #747474;border-radius:4px;padding:0 12px;font:inherit;font-size:16px}
+.lg{padding:12px 18px 18px;overflow:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.li{display:block;text-align:left;border:1px solid var(--line);border-radius:4px;padding:10px 12px;font-size:14px;font-weight:600}
+.li:hover{border-color:var(--blue);background:#F2F8FE}
+.li.on{border:2px solid var(--blue);padding:9px 11px}
+.x{font-size:22px;line-height:1;padding:4px 8px;color:var(--ink3)}
+
+@media (max-width:1000px){
+  .stage,.intro,.lower{grid-template-columns:minmax(0,1fr)}
+  .rail{position:static}
+  .flds{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:620px){
+  .wrap{padding:0 16px}
+  h1{font-size:27px}.intro p{font-size:15px}
+  .concept{font-size:12px;padding:6px 12px}
+  .gsearch,.gicons{display:none}
+  .gh{height:40px}.gh .ttl{font-size:13px}
+  .flds{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid2{grid-template-columns:minmax(0,1fr)}
+  .tiles{grid-template-columns:minmax(0,1fr)}
+  .stamp{margin-left:0}
+  .scr{padding:8px}
+  .hide-sm{display:none}
+  td,th{padding:8px}
+  .path button{flex:0 0 auto;padding:0 18px}
+  .lg{grid-template-columns:minmax(0,1fr)}
+  .foot .btn{width:100%}
+  .brand span{display:none}
+}
+@media (min-width:621px){.gh .ttl{display:none}}
+</style>
+</head>
+<body>
+
+<div class="concept" role="note"><b>Point of view, a concept.</b> <span class="hide-sm">How this could look on Revenue Cloud Advanced.</span> Not built on RCA today. <span class="hide-sm">Fictional companies, illustrative figures.</span></div>
+
+<div class="wrap">
+  <div class="brand"><b>nteli<i>.io</i></b><span>Salesforce Premier Partner · Austin, TX</span></div>
+  <header class="intro">
+    <div>
+      <div class="eyebrow">For Salesforce sellers of Manufacturing Cloud and Revenue Cloud · Commercial (SMB)</div>
+      <h1>One story for every small manufacturer you sell to.</h1>
+      <p>A small manufacturer lives on quotes, and the product knowledge sits with one or two people. Pick what your prospect makes. The six beats and the words stay the same, only the product changes.</p>
+    </div>
+    <div class="pick">
+      <label id="picklabel">Your prospect makes</label>
+      <button class="pickbtn" id="pickbtn" aria-haspopup="dialog" aria-labelledby="picklabel pickname"><span id="pickname"></span><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 5l5 5 5-5" fill="none" stroke="#444" stroke-width="2"/></svg></button>
+    </div>
+  </header>
+
+  <main class="stage">
+    <section class="sf" aria-label="Concept product screen" id="sf"></section>
+    <aside class="rail" id="rail" aria-label="The story for this beat"></aside>
+  </main>
+
+  <section class="lower">
+    <div class="rc">
+      <h2>The whole story, in the same words every time</h2>
+      <ol id="story"></ol>
+    </div>
+    <div class="rc">
+      <h2>When to bring Nteli in</h2>
+      <ul>
+        <li>Your prospect builds or configures products to order.</li>
+        <li>Quotes come from spreadsheets, and one or two people know the rules.</li>
+        <li>Wrong combinations get found after the PO.</li>
+        <li>They sell direct, through dealers, or through distributors.</li>
+      </ul>
+      <p>Today these product lines are quoted on the engine Nteli built outside Salesforce. This page is our point of view on how the same story could run on Revenue Cloud Advanced with your prospect.</p>
+      <a class="cta" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=pov-rca" target="_blank" rel="noopener">Talk through a prospect with Nteli</a>
+    </div>
+  </section>
+
+  <footer>Concept mock-up made by Nteli, a Salesforce Premier Partner. It is not a Salesforce product or screen, and Salesforce has not reviewed or endorsed it. Salesforce, Revenue Cloud, Manufacturing Cloud and Channel Revenue Management are trademarks of Salesforce, Inc. All companies are fictional and all figures are illustrative.</footer>
+</div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+  <div class="lc">
+    <div class="lh"><h2 id="mt">What does your prospect make?</h2><button class="x" id="mx" aria-label="Close">×</button></div>
+    <input id="mf" placeholder="Search product lines" aria-label="Search product lines" autocomplete="off">
+    <div class="lg" id="lg"></div>
+  </div>
+</div>
+
+<script>
+/* Every product line fills the same slots: five configuration rows, one stop, a priced way out, five quote lines, three handoff items. */
+var D=[
+{id:'datacenter',n:'Data Center Pods',a:'Tallgrass Modular',e:140,b:'Ninebark Hosting',v:'Direct',o:'200 kW GPU pod',
+ r:'Price a 200 kW GPU pod: one row of five 40 kW racks, 2N, 480 V, 65 kA. Air cooling, to match the rest of our hall.',
+ c:[['Racks','Five at 40 kW'],['Redundancy','2N'],['Service','480 V, 65 kA'],['Water loop','Warm water, 32 °C',1]],bad:['Cooling','Air only, 25 kW per rack'],
+ s:'25 kW of cooling can’t carry a 40 kW rack',y:'Cooling is checked against the heat each rack actually sheds.',
+ w:[{t:'Direct-to-chip liquid cooling',d:'CDUs carry the liquid load, CRAH units the air that remains.',p:1180000},{t:'Rear-door heat exchangers',d:'Heat comes off at the back of each rack.',p:1060000}],
+ l:[['UPS, A and B paths','2','2N doubles the A and B paths'],['Step-down transformers','2','One per side'],['Generators and switchgear','1 set','Sized to the pod’s load'],['Row busway and rack PDUs','5','kW per rack drives the feeds']],
+ k:['Capacity used against its limit, for every size','Commissioning level for the pod','One bill of materials for the build']},
+{id:'panels',n:'Control Panels & Switchgear',a:'Copperline Panel Works',e:62,b:'Orrin Valley Foods',v:'Direct',o:'Motor control panel, four starters',
+ r:'Price a motor control panel: four across-the-line starters (two 5 hp, one 7.5 hp, one 2 hp), 480 V, 22 kA available, NEMA 12.',
+ c:[['Starters','Two 5 hp, one 7.5 hp, one 2 hp'],['Supply','480 V'],['Available fault current','22 kA'],['Enclosure','NEMA 12']],bad:['Short-circuit protection','Standard 5 kA starters'],
+ s:'Starters rated 5 kA on a 22 kA service',y:'Each starter’s short-circuit rating is checked against the fault current at the site, before the panel floor.',
+ w:[{t:'Class J/CC fuse kits and a high-interrupting main',d:'Added to every starter.',p:18400},{t:'Site confirms a lower fault current',d:'Needs the site’s fault study. Standard starters stay.',p:14900}],
+ l:[['Full-voltage starters','4','Motor currents from NEC Table 430.250'],['Main breaker','1','Sized to NEC 430.24 and 409.20'],['NEMA 12 enclosure','1','As the RFQ specifies'],['Control wiring and labels','1 lot','Nothing left off the quote']],
+ k:['Submittal sheet the customer approves before the PO','Ratings, dimensioned layout and one-line diagram','Bill of materials for the panel floor']},
+{id:'power',n:'Power Packages',a:'Quillfeather Power',e:110,b:'St. Ansel Medical Center',v:'Direct',o:'Hospital wing power package',
+ r:'A power package for a hospital wing, N+1, 480 V service, 65 kA: 200 kW critical imaging and IT at 480 V, 50 kW emergency egress lighting and fire alarm at 208 V, 150 kW optional HVAC at 480 V.',
+ c:[['Critical load','200 kW imaging and IT'],['Emergency load','50 kW egress and fire alarm'],['Optional load','150 kW HVAC'],['Redundancy','N+1, 480 V, 65 kA']],bad:['Transfer switches','One switch for all loads'],
+ s:'Emergency and optional loads can’t share a transfer switch',y:'Emergency (NEC 700), critical and optional (NEC 702) loads each get their own switch, sized to that class.',
+ w:[{t:'One transfer switch per load class',d:'Emergency 100 A, critical 400 A, optional 225 A.',p:671000,q:'about '}],
+ l:[['UPS modules, 50 kW','5','Critical load, after redundancy'],['Generators, 500 kW','2','Backed loads, after redundancy'],['Step-down transformer, 300 kVA','1','For the 208 V loads'],['Switchgear, 800 A / 65 kA','1','Service and fault current']],
+ k:['Each capacity used against provided','Service voltage and fault current, stated','One bill of materials for the package']},
+{id:'ic',n:'Instrumentation & Controls',a:'Verrow Instruments',e:75,b:'Dunmere Gas Processing',v:'Direct',o:'SIL 2 pressure transmitter',
+ r:'A pressure transmitter on FOUNDATION Fieldbus for a SIL 2 safety loop.',
+ c:[['Instrument','Pressure transmitter'],['Loop','SIL 2 safety loop'],['Area','General purpose',1],['Quantity','One tag',1]],bad:['Signal','FOUNDATION Fieldbus'],
+ s:'FOUNDATION Fieldbus and SIL 2 can’t go together',y:'Devices for SIL loops (IEC 61508) are offered with a 4-20 mA HART output. Fieldbus versions carry no SIL certificate.',
+ w:[{t:'HART for this loop, with the SIL certificate',d:'The usual choice.',p:1785,q:'from '},{t:'Keep fieldbus',d:'Only if it isn’t a safety loop.',p:1575,q:'from '}],
+ l:[['Pressure transmitter','1','Selected for the process and the area'],['Wetted materials','1 set','Checked against the process'],['Configuration and calibration','1','Per device'],['Instrument data sheet','1','One per tag']],
+ k:['The certificates the order needs, priced as lines','An instrument data sheet per tag','Facts the customer must confirm, stated']},
+{id:'interconnect',n:'Interconnect / Cable Assemblies',a:'Kestrelwire Assemblies',e:48,b:'Oxbow Line Automation',v:'Direct',o:'Ethernet cordsets, 200 units',
+ r:'M12 D-coded to RJ45 Ethernet cable, 5 m, for 10 Gbit/s. We need 200.',
+ c:[['End A','M12'],['End B','RJ45'],['Length','5 m'],['Speed','10 Gbit/s']],bad:['M12 coding','D-coded'],
+ s:'D-coded M12 stops at 100 Mbit/s',y:'D-coded M12 has four contacts, so it can’t carry 10 Gbit/s.',
+ w:[{t:'Move to X-coded for 10 Gbit/s',d:'Keeps the speed the customer asked for.',p:17200},{t:'Keep D-coded at 100 Mbit/s',d:'Keeps the connector, drops the speed.',p:9600}],
+ l:[['M12 to RJ45 cordset, 5 m','200','End A to end B, checked'],['Shielded Ethernet cable','1,000 m','Matched to the connector'],['Molded ends','400','Per IEC 61076 connector ratings'],['Workmanship inspection','1 lot','To IPC/WHMA-A-620']],
+ k:['Cable and connector spec per line','Inspection requirement for the lot','Build quantity for the floor']},
+{id:'electronics',n:'Electronic Components & Assemblies',a:'Lantern Creek Electronics',e:90,b:'Hollis Bay Devices',v:'Direct',o:'Overmolded harness, 500 units',
+ r:'Quote 500 overmolded harnesses, 12 A continuous, 24 AWG wire, with a cert package.',
+ c:[['Assembly','Overmolded harness'],['Current','12 A continuous'],['Quantity','500'],['Documents','Cert package']],bad:['Wire gauge','24 AWG'],
+ s:'24 AWG can’t carry 12 A after derating',y:'Gauge is checked against current after derating, as one assembly with the connector and overmold.',
+ w:[{t:'Step up to 14 AWG',d:'Keeps the 12 A the customer needs.',p:21500},{t:'Lower the current to suit 24 AWG',d:'The customer changes the spec.',p:12800}],
+ l:[['Harness assembly','500','Built as one checked assembly'],['Connector series','1,000','Matched to the wire'],['Overmold tooling and run','1 lot','As the RFQ specifies'],['Cert package','1','Priced as a line']],
+ k:['Assembly spec with the derated current','Cert package requirements','Build quantity for the floor']},
+{id:'nre-services',n:'NRE Services',a:'Merrowdale Contract Mfg',e:180,b:'Tinsley Hearing Sensors',v:'Direct',o:'NRE for an in-ear sensor',
+ r:'Quote NRE for a sterile, ethylene-oxide in-ear sensor, Class II, all five phases, but leave sterilization validation out of the scope.',
+ c:[['Device','Class II in-ear sensor'],['Sterility','Ethylene oxide'],['Phases','All five, design through transfer'],['Payment','Recovered over production volume',1]],bad:['Scope','Sterilization validation left out'],
+ s:'A sterile device needs its sterilization process validated',y:'The device class, sterility, patient contact and electronics decide which deliverables the quote must carry.',
+ w:[{t:'Include the validation',d:'Outside lab, passed through at cost.',p:474536}],o2:'Or the device isn’t sterile, and the scope changes.',
+ l:[['Design phase','1','Hours by phase and role'],['Prototype and tooling phases','2','Hours by phase and role'],['Validation phase','1','Scope the standards add'],['Transfer phase and program setup','1','Hours by phase and role']],
+ k:['Statement of work','Recovery terms with the true-up clause','Change orders for any scope change']},
+{id:'grid',n:'Distribution Transformers',a:'Birchfield Transformer',e:130,b:'Cold Harbor Logistics Park',v:'Direct',o:'1,500 kVA pad-mount',
+ r:'Quote a 1,500 kVA pad-mount, 12.47 kV to 480Y/277, mineral oil, installed inside the building.',
+ c:[['Rating','1,500 kVA'],['Voltage','12.47 kV to 480Y/277'],['Type','Pad-mount'],['Service','Three-phase',1]],bad:['Fluid and location','Mineral oil, indoors, no vault'],
+ s:'Mineral oil indoors needs a vault',y:'Refused under NEC 450.26. Every way out below is priced.',
+ w:[{t:'Natural ester fluid',d:'The usual choice.',p:127000,q:'about '},{t:'Add a vault',d:'Keeps the mineral oil.',p:120000,q:'about '},{t:'Silicone fluid',d:'Stays indoors, no vault.',p:137000,q:'about '}],o2:'Or a dry-type unit, quoted on its own.',
+ l:[['Pad-mount transformer','1','Rating and voltages from the RFQ'],['Insulation level','1','BIL by voltage class (IEEE C57.12)'],['Fusing','1 set','Checked for the voltage class'],['DOE efficiency level','1','10 CFR 431.196, stated on the quote']],
+ k:['Secondary fault current for the switchboard','Efficiency level and its date','Site responsibilities, stated']},
+{id:'hazloc',n:'Hazardous-Area Electrical',a:'Flintmere Electrical',e:55,b:'Ochre Flats Terminal',v:'Direct',o:'Division 2 instrument box',
+ r:'A box for a Class I Division 2, Group D location, outdoors. It holds relays and instruments.',
+ c:[['Location','Class I, Div 2, Group D'],['Mounting','Outdoors'],['Contents','Relays and instruments'],['Quantity','One',1]],bad:['Enclosure','4X stainless box with seals'],
+ s:'Relays change the protection method here',y:'Arcing contacts need a different enclosure. Same location, different contents, explained by code.',
+ w:[{t:'Listed cast explosion-proof enclosure',d:'With a breather and drain.',p:3600,q:'about '},{t:'Terminals only',d:'Relays come out, and the 4X stainless box stands.',p:1000,q:'about '}],
+ l:[['Terminal strip and rail','1','Sized to the contents'],['Conduit seals','1 set','Required at this location'],['Mounting kit','1','Outdoors, as the RFQ says'],['Labels and documents','1','Area classification on the label']],
+ k:['Area classification on the order','Conduit-seal requirements','Reason for the enclosure choice']},
+{id:'hvac',n:'Commercial HVAC',a:'Alderbrook Air',e:160,b:'Mesa Verde Research Campus',v:'Direct',o:'100% outdoor-air lab unit',
+ r:'A 10,000 cfm 100% outdoor-air unit for a lab building in Los Angeles, on the roof, no central plant, with energy recovery and an OSP seismic package.',
+ c:[['Airflow','10,000 cfm, 100% outdoor air'],['Application','Lab building'],['Site','Los Angeles, on the roof'],['Plant','No central plant']],bad:['Energy recovery','Energy-recovery wheel'],
+ s:'Lab exhaust can’t go through an energy-recovery wheel',y:'IMC 514.2. The wheel comes off, and the quote says why.',
+ w:[{t:'Leave the wheel off',d:'100% outdoor air, with its own cooling and heat.',p:186500}],
+ l:[['Outdoor-air unit','1','10,000 cfm, from the RFQ'],['Cooling and heat section','1','No central plant to use'],['OSP seismic package','1','As the RFQ specifies'],['Factory start-up','1','Priced as a line']],
+ k:['Roof structure, for the site to confirm','Intake separation, for the site to confirm','Reason the wheel came off']},
+{id:'pumps',n:'Pumps & Packaged Skids',a:'Greywater Pump & Skid',e:70,b:'Saltgrass Fuel Terminal',v:'Direct',o:'Gasoline transfer pump',
+ r:'Gasoline transfer pump, about 150 gpm, lifting from an underground tank, outdoors in a Class I Division 1 area.',
+ c:[['Liquid','Gasoline'],['Flow','About 150 gpm'],['Area','Class I, Division 1'],['Location','Outdoors']],bad:['Suction','Lifting from an underground tank'],
+ s:'A flammable liquid on a suction lift is short of NPSH',y:'A lift like this needs a vertical can or submerged pump, and that is engineering’s call.',
+ w:[{t:'Put the tank above the pump',d:'Then it is a standard process pump.',p:14200}],o2:'Or a vertical can or submerged pump, which goes to engineering with the details already gathered.',
+ l:[['Process pump','1','Selected for the duty'],['Motor for the area','1','Class I, Division 1'],['Valves and piping','1 set','Packaged with the pump'],['Control panel','1','Priced as a line']],
+ k:['Site facts, each stated','Area classification on the order','Reason for the pump choice']},
+{id:'mobility',n:'Mobility Lifts',a:'Wrenfield Mobility',e:35,b:'A home customer',v:'Through dealers',o:'Scooter lift for a sedan',
+ r:'Customer wants an interior scooter lift for their sedan. The scooter weighs about 220 lb.',
+ c:[['Product','Scooter lift'],['Scooter','About 220 lb'],['Vehicle','Sedan'],['Hitch','None yet',1]],bad:['Mounting','Interior, in the trunk'],
+ s:'A car’s trunk takes no interior lift',y:'The vehicle is checked against the lift before the home visit.',
+ w:[{t:'Exterior lift on the hitch',d:'Hitch added if needed.',p:2675,q:'from '},{t:'Interior lift',d:'If it’s really a crossover or SUV.',p:3875,q:'from '}],
+ l:[['Mounting kit','1','Matched to the vehicle'],['Scooter tie-down','1','Rated for the scooter'],['Installation','1','At the dealer’s install rate'],['Freight','1','At the dealer’s freight zone']],
+ k:['Questions to confirm at the home visit','Dealer freight zone and install rate','Reason the first choice was refused']},
+{id:'medgas',n:'Medical Gas & Headwalls',a:'Clearline Medical Gas',e:65,b:'Lakemont Community Hospital',v:'Direct',o:'ICU headwalls, six beds',
+ r:'Six ICU headwalls with oxygen, medical air and vacuum outlets, tied to the existing manifold.',
+ c:[['Rooms','Six ICU beds'],['Gases','Oxygen, medical air, vacuum'],['Source','Existing manifold'],['Pipeline sizing','Confirmed',1]],bad:['Alarms','None on this zone'],
+ s:'These critical-care outlets have no area alarm',y:'Manifolds, alarms, outlets and headwalls are quoted as one system under NFPA 99.',
+ w:[{t:'Add an area alarm and zone valve box',d:'Quoted with the headwalls.',p:96400},{t:'Tie to an existing area alarm',d:'If the site confirms one covers this zone.',p:84200}],
+ l:[['Headwall','6','From the RFQ'],['Outlets','18','Three gases per bed'],['Pipeline branch','1','Sized as one system'],['Testing and labels','1 lot','Priced as a line']],
+ k:['Zone layout for the install crew','Site facts, each stated','One bill of materials for the system']},
+{id:'surgical-robotics',n:'Surgical Robotic Systems',a:'Tessellate Surgical',e:200,b:'Lindenwold Neurosurgery Group',v:'Through reps',o:'Spine robot, one OR',
+ r:'Quote a spine robot for our OR. We have no 3D imaging and no C-arm in the room.',
+ c:[['System','Spine'],['Room','One OR'],['Service','Standard',1],['Training','Three surgeons',1]],bad:['Imaging','No 3D imaging, no C-arm'],
+ s:'A spine system needs images to register to',y:'The imaging is checked with the room, power and network, before pricing.',
+ w:[{t:'2D C-arm with a pre-operative CT',d:'The usual choice.',p:1320400,q:'from '},{t:'Add intraoperative 3D imaging',d:'With a registration kit.',p:1304400,q:'from '}],
+ l:[['Spine system','1','From the request'],['Planning software','1','Linked to imaging'],['Site survey and installation','1','Room, power and network'],['Surgeon training','3','Three surgeons']],
+ k:['Site-readiness checklist for the hospital','Service plan terms','Payment choice for the system']},
+{id:'boilers',n:'Commercial Boilers',a:'Ironbark Boiler Co.',e:85,b:'Maple Hollow School District',v:'Direct',o:'Two condensing boilers',
+ r:'Two 2,000 MBH condensing boilers for a school retrofit. Reuse the existing Type B vent if we can.',
+ c:[['Boilers','Two at 2,000 MBH'],['Type','Condensing'],['Pressure rating','Low-pressure hot water',1],['Burner turndown','5:1',1]],bad:['Venting','Existing Type B vent'],
+ s:'The existing vent can’t serve a condensing boiler',y:'Pressure rating, burner turndown, trim and venting are checked line by line.',
+ w:[{t:'New stainless vent',d:'Quoted with the boilers.',p:148000},{t:'Polypropylene liner',d:'Run through the existing chase.',p:136500}],
+ l:[['Condensing boiler','2','From the RFQ'],['Burner and controls','2','Turndown as asked'],['Trim package','2','ASME code options'],['Factory start-up','1','Priced as a line']],
+ k:['Venting scope for the installer','Site facts, each stated','Reason the vent changed']},
+{id:'cooling',n:'Cooling Towers',a:'Cedar Mist Towers',e:95,b:'Bright Fork Chemical',v:'Direct',o:'600-ton cooling tower',
+ r:'600 tons of heat rejection for a process loop. One small cell if it fits.',
+ c:[['Duty','600 tons'],['Design wet-bulb','78 °F',1],['Fan','VFD',1],['Basin','Stainless',1]],bad:['Tower','One cell, small frame'],
+ s:'The selected tower can’t reject this duty',y:'Thermal duty is validated before the number exists.',
+ w:[{t:'Larger single cell',d:'Meets the duty in one footprint.',p:212000},{t:'Two cells',d:'More footprint, and a cell to spare during service.',p:238000}],
+ l:[['Fan and VFD','1 set','As asked'],['Stainless basin','1','As asked'],['Drift eliminators','1 set','Option on the quote'],['Factory start-up','1','Priced as a line']],
+ k:['Thermal duty on the order','Basin and fan options','Reason the frame changed']},
+{id:'cranes',n:'Cranes & Hoists',a:'Highbay Crane Works',e:58,b:'Galloway Steel Fabrication',v:'Direct',o:'10-ton bridge crane',
+ r:'10-ton bridge crane, 60 ft span, two shifts of steady production lifts. Keep it to standby class to save money.',
+ c:[['Capacity','10 ton'],['Span','60 ft'],['Use','Two shifts, production'],['Controls','Radio',1]],bad:['Duty class','CMAA Class A, standby'],
+ s:'Standby duty class doesn’t fit production lifting',y:'Span, capacity and CMAA duty class are checked as one system with the runway, hoist and controls.',
+ w:[{t:'Move to CMAA Class C',d:'Moderate service.',p:228000},{t:'Move to CMAA Class D',d:'Heavy service, for a heavier schedule.',p:262000}],
+ l:[['Bridge and end trucks','1','Span from the RFQ'],['Hoist','1','Capacity from the RFQ'],['Runway','1','Checked with the bridge'],['Radio controls','1','As asked']],
+ k:['Duty class on the order','Runway details for the site','Reason the class changed']},
+{id:'doors',n:'Fire Doors & Hardware',a:'Firebrace Door & Frame',e:44,b:'Windward Commons Housing',v:'Direct',o:'Stair openings, 12 doors',
+ r:'Twelve stair doors, 90-minute, hollow metal frames, hardware to the schedule.',
+ c:[['Openings','Twelve'],['Rating','90-minute'],['Frame','Hollow metal'],['Hardware','From the schedule']],bad:['Closer','None on the hardware set'],
+ s:'A rated door with no closer doesn’t meet its label',y:'Every leaf, frame and closer is checked against the label requirement.',
+ w:[{t:'Listed surface closer',d:'Added to each opening.',p:31200},{t:'Listed closer with hold-open',d:'Tied to the fire alarm.',p:38700}],
+ l:[['Door leaf','12','90-minute'],['Hollow metal frame','12','From the RFQ'],['Hardware set','12','From the schedule'],['Labels','12','Label on each opening']],
+ k:['Openings schedule on the order','Hardware set per opening','Reason for the closer']},
+{id:'kitchen',n:'Kitchen Ventilation',a:'Hearthvent Systems',e:40,b:'Copper Spoon Commissary',v:'Direct',o:'16 ft hood line',
+ r:'16 ft exhaust hood over the fryers and grills, with fire suppression. No make-up air in the budget.',
+ c:[['Hood','16 ft exhaust'],['Cooking line','Fryers and grills'],['Fire suppression','Included'],['Clearances','Confirmed',1]],bad:['Make-up air','None'],
+ s:'The exhaust has nothing to balance it',y:'Hoods, exhaust fans and fire suppression are quoted with airflow balance and code clearances.',
+ w:[{t:'Tempered make-up air unit',d:'Heated supply for the kitchen.',p:58600},{t:'Untempered make-up air unit',d:'Lower cost, unheated.',p:47200}],
+ l:[['Exhaust hood, 16 ft','1','From the RFQ'],['Exhaust fan','1','Balanced to the hood'],['Fire suppression','1','From the RFQ'],['Controls','1','Priced as a line']],
+ k:['Airflow balance on the order','Clearances, for the site to confirm','Reason make-up air was added']},
+{id:'lab',n:'Lab Furniture & Fume Hoods',a:'Sashline Lab Furnishings',e:52,b:'Eastgate Biosciences Institute',v:'Direct',o:'Teaching lab fit-out',
+ r:'Eight 6 ft fume hoods and casework runs for a teaching lab. Keep the existing room supply air.',
+ c:[['Hoods','Eight at 6 ft'],['Casework','Runs for a teaching lab'],['Sash','Vertical',1],['Room','Existing',1]],bad:['Room supply air','Existing, unchanged'],
+ s:'The room supply can’t hold hood face velocity',y:'Casework layout and hood airflow are checked and priced together, not separately.',
+ w:[{t:'Add supply air to the room',d:'Keeps all eight hoods as requested.',p:244000},{t:'Variable-air-volume hoods',d:'Less air with the sash lowered.',p:268000}],
+ l:[['Fume hood, 6 ft','8','From the RFQ'],['Casework runs','1 lot','From the layout'],['Work surfaces','1 lot','With the casework'],['Installation','1','Priced as a line']],
+ k:['Layout for the install crew','Airflow requirement on the order','Reason the airflow changed']},
+{id:'safety',n:'Safety & Plumbing Equipment',a:'Clearspray Safety Fixtures',e:38,b:'Sable Point Refinery',v:'Direct',o:'Outdoor shower and eyewash',
+ r:'Emergency shower and eyewash station, outdoors, in a Class I Division 2 area. It freezes here in winter.',
+ c:[['Fixture','Shower and eyewash'],['Location','Outdoors'],['Area','Class I, Division 2'],['Climate','Winter freezes']],bad:['Freeze protection','None'],
+ s:'An outdoor station in freezing weather needs protection',y:'Emergency showers, eyewash and freeze protection are checked line by line.',
+ w:[{t:'Division 2 heat trace and a scald valve',d:'Keeps the station where it is.',p:12800},{t:'Move the station indoors',d:'No heat trace needed.',p:7400}],
+ l:[['Shower and eyewash','1','From the RFQ'],['Supply piping','1 lot','To the station'],['Sign and flow test','1','Priced as a line'],['Freight','1','Priced as a line']],
+ k:['Area classification on the order','Site facts, each stated','Reason for the protection chosen']},
+{id:'water',n:'Water Treatment',a:'Driftwell Water Systems',e:68,b:'Fallbrook Beverage Bottlers',v:'Direct',o:'100 gpm RO skid',
+ r:'100 gpm RO skid for process water, 85% recovery, well feed with high hardness.',
+ c:[['Flow','100 gpm'],['Recovery','85%'],['Feed water','Well, high hardness'],['Use','Process water']],bad:['Pretreatment','None'],
+ s:'85% recovery needs pretreatment on this feed water',y:'Flow, recovery and water chemistry are checked and priced together.',
+ w:[{t:'Softening and antiscalant dosing',d:'Keeps the 85% recovery.',p:168000},{t:'Lower recovery to 70%',d:'Simpler skid, more reject water.',p:129000}],
+ l:[['RO skid, 100 gpm','1','From the RFQ'],['Filtration train','1','Ahead of the membranes'],['Controls','1','Priced as a line'],['Factory test','1','Priced as a line']],
+ k:['Feed water analysis on the order','Skid layout for the site','Reason for the pretreatment']},
+{id:'semiconductors',n:'Semiconductors',a:'Marlow Ridge Semiconductor',e:240,b:'Kestrel Drive Robotics',v:'Through distributors',o:'Special price, 40,000 units',
+ r:'Northgate Components here. Kestrel Drive Robotics needs 40,000 MR8841-PQFN in Q3 at the special price.',
+ c:[['Part','MR8841-PQFN'],['Distributor','Northgate Components'],['End customer','Kestrel Drive Robotics'],['Quantity','40,000']],bad:['Agreement','Ended 06-30, before the Q3 ship date'],
+ s:'The agreement ends before these parts ship',y:'Agreement dates are checked before a special price goes out.',
+ w:[{t:'Extend the agreement through Q3',d:'Keeps the special price.',p:74000},{t:'Quote at distributor book',d:'No special price on this order.',p:86000}],
+ l:[['MR8841-PQFN','40,000','From the request'],['Special price terms','1','Set out in the agreement'],['Named end customer','1','Carried to the claim'],['Design registration','1','Where the agreement requires one']],
+ k:['Agreement in force for the ship window','POS and stock data expected from the distributor','The terms each claim line will be checked against']}
+];
+
+var HP='Harbor Point Power',TI='Tallgrass Inverter',KD='Kestrel Drive Robotics';
+var CL=[[1,HP,'MR7120-QFN',11000,11000,''],[2,HP,'MR3305-SOT',6300,6300,''],[3,TI,'MR2210-DFN',3300,3300,''],
+[4,HP,'MR7120-QFN',9750,8250,'Claimed a $1.75 contract price. The agreement says $1.85.'],[5,HP,'MR7120-QFN',11000,0,'Duplicate of line 1 in this file.'],[6,KD,'MR8841-PQFN',5200,0,'Sold 07-14, after the agreement ended 06-30.'],
+[7,HP,'MR7120-QFN',6600,0,'No resale record for this invoice and part.'],[8,TI,'MR2210-DFN',2640,1650,'Claimed 8,000 units. POS shows 5,000 resold.'],[9,HP,'MR3305-SOT',5250,0,'POS shows a different end customer.'],[10,KD,'MR8841-PQFN',3900,0,'Claimed as sold 06-27. POS shows 07-08.'],
+[11,HP,'MR7120-QFN',16500,13750,'Only 25,000 of 30,000 units fit the stock held.'],[12,TI,'MR2210-DFN',1950,1650,'Credit doesn’t equal price difference times quantity.'],[13,HP,'MR3305-SOT',2100,2100,'Pays as claimed. Flagged: sold after the POS on file.'],
+[14,HP,'MR5500-LGA',7200,0,'Design registered to another distributor.'],[15,TI,'MR2640-QFN',2000,0,'Design registration expired before the sale.'],[16,TI,'MR4410-SOT',1000,0,'No design registration, and the agreement requires one.']];
+var CK=[['Agreement and price',4,18000],['POS resale',4,16740],['Stock held',1,2750],['Design registration, where the agreement requires one',3,10200]];
+
+/* The story. These words never change between product lines. */
+var S=[
+{k:'rfq',p:'RFQ',tab:'Opportunities',ob:'Opportunity',ic:'opp',beat:'The RFQ lands on the Opportunity.',say:'Your RFQ lands on the Opportunity, in the customer’s own words. Nobody retypes it into a spreadsheet.',pr:'Sales Cloud Opportunity, with Manufacturing Cloud account data',n:'Nteli would set up the intake for your prospect’s product line, so what the RFQ says fills in the fields.',nx:'Configure it'},
+{k:'cfg',p:'Configure',tab:'Product Configurator',ob:'Product Configurator',ic:'cfg',beat:'Your rep answers only what changes the product.',say:'Your rep answers only the questions that change the product, so quoting no longer waits on your one expert.',pr:'Revenue Cloud Product Configurator',n:'Nteli would bring the product knowledge a small team doesn’t have time to write down. Our team has built configurators for Cisco, Dell and IBM.',nx:'Check it'},
+{k:'chk',p:'Check',tab:'Product Configurator',ob:'Product Configurator',ic:'cfg',beat:'What can’t be built stops here, with the reason and the ways out.',say:'What can’t be built stops before it gets a price. Your rep sees why, and the ways out.',pr:'Revenue Cloud Product Configurator',n:'This is where a standard rollout runs out of road. Nteli would work with your prospect’s engineers to set up the checks for their products, each with its source.',nx:'Price it'},
+{k:'prc',p:'Price',tab:'Quotes',ob:'Quote',ic:'qte',beat:'Every way out already has a price.',say:'Every way out comes with its price from your price book, so your rep can offer the choice on the same call.',pr:'Revenue Cloud Pricing Procedure',n:'Nteli would load your prospect’s own price book and discount limits. Figures here are illustrative.',nx:'Build the quote'},
+{k:'qte',p:'Quote',tab:'Quotes',ob:'Quote',ic:'qte',beat:'The quote goes out with a reason on every line.',say:'The quote goes out with a reason on every line, so it holds up when someone asks why.',pr:'Revenue Cloud Quote',n:'Nteli would set up the quote document and approvals. Each decision stays on the record, so the quote is auditable.',nx:'Turn it into an order'},
+{k:'ord',p:'Order',tab:'Orders',ob:'Order',ic:'ord',beat:'The won quote becomes the order.',say:'When you win, the quote becomes the order. Nothing gets retyped on its way to your ERP.',pr:'Revenue Cloud Order and Dynamic Revenue Orchestrator',n:'Nteli would connect Salesforce to your prospect’s ERP. CRM-to-ERP integration is part of Nteli’s Salesforce practice.',nx:''},
+{k:'clm',p:'Claim',tab:'Claims',ob:'Claim',ic:'clm',beat:'Sold through a distributor? The claim gets the same check.',say:'When a distributor claims its credit, each line gets the same check, with a reason, before the credit memo goes out.',pr:'Channel Revenue Management for Manufacturing',n:'Nteli would load the agreements, POS and stock your prospect already has, and leave the ERP unchanged until the credit memo is approved.',nx:''}
+];
+
+var IC={opp:['#FF5D2D','M2 15V6l4.5 3L10 3l3.5 6L18 6v9z'],cfg:['#7F8DE1','M3 4h14v3H3zM3 9h9v3H3zM3 14h14v3H3z'],qte:['#3BA755','M5 2h7l4 4v12H5zM7 9h7v1.5H7zm0 3h7v1.5H7z'],ord:['#3296ED','M3 6l7-4 7 4v8l-7 4-7-4zM5 7l5 3 5-3-5-2.6z'],clm:['#9050E9','M3 4h14v12H3zM5 7v1.5h10V7zm0 3v1.5h6V10z']};
+var CHK='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.2 12.4 2 8.2l1.4-1.4 2.8 2.8 6.4-6.4L14 4.6z"/></svg>';
+var CLOUD='<svg class="cloud" viewBox="0 0 38 27" aria-hidden="true"><path fill="#0176D3" d="M15.6 4.2a7 7 0 0 1 5-2.1 7 7 0 0 1 6.1 3.6 8.3 8.3 0 0 1 3.4-.7c4.5 0 8.1 3.7 8.1 8.2s-3.6 8.2-8.1 8.2c-.6 0-1.1-.1-1.6-.2a6 6 0 0 1-5.3 3.1c-.9 0-1.8-.2-2.6-.6a6.900 6.900 0 0 1-12.800-.3c-.4.1-.8.100-1.300.100A6.400 6.400 0 0 1 3 10.100a6.800 6.800 0 0 1 3-9c4-1.600 7.400.100 9.600 3.100z"/></svg>';
+
+var st={i:1,s:0,ch:{}};
+function $(x){return document.getElementById(x)}
+function e(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function usd(n){return '$'+Number(n).toLocaleString('en-US')}
+function L(){return D[st.i]}
+function steps(){return L().id==='semiconductors'?S:S.slice(0,6)}
+function chosen(){var c=st.ch[L().id];return c==null?null:L().w[c]}
+function way(){return chosen()||L().w[0]}
+function amt(w){return (w.q||'')+usd(w.p)}
+function pad(n){return ('000'+n).slice(-4)}
+
+function hdr(step){
+  var l=L(),I=IC[step.ic],past=steps().indexOf(step)>=3||chosen();
+  var A=past?amt(way()):'Not priced yet';
+  return '<div class="card hl"><div class="hltop"><span class="ico" style="background:'+I[0]+'"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="'+I[1]+'"/></svg></span><div><div class="hlo">'+step.ob+'</div><div class="hlt">'+e(step.k==='clm'?'Debit NGC-DM-2026-10':l.o)+'</div></div><span class="stamp">Concept mock-up</span></div>'+
+  '<div class="flds">'+[['Account',l.a+' (fictional)'],['Segment','Commercial (SMB)'],['Employees',l.e],['Their customer',l.b],['Sold',l.v],['Amount',A]].map(function(f){return '<div><div class="fl">'+f[0]+'</div><div class="fv">'+e(f[1])+'</div></div>'}).join('')+'</div></div>';
+}
+function path(){var cur=st.s;return '<div class="card"><nav class="path" id="path" aria-label="The story">'+steps().map(function(x,i){return '<button data-go="'+i+'" class="'+(i<cur?'done':i===cur?'cur':'')+'"'+(i===cur?' aria-current="step"':'')+'>'+x.p+'</button>'}).join('')+'</nav></div>';}
+function foot(step){
+  var i=st.s,all=steps(),h='';
+  if(i===all.length-1) return '<div class="foot"><button class="btn" data-pick="1">Same story, another product line</button></div>';
+  var dis=step.k==='chk'&&!chosen();
+  var label=step.nx||'Check the claim';
+  return '<div class="foot">'+(dis?'<span class="note">Pick a way out to continue</span>':'')+'<button class="btn" data-go="'+(i+1)+'"'+(dis?' disabled':'')+'>'+label+'</button></div>';
+}
+var B={
+rfq:function(l){return '<div class="card"><div class="ch">RFQ from '+e(l.b)+'<span class="pill b">Attached</span></div><div class="cb"><p class="rfq">'+e(l.r)+'</p></div></div>'+
+  '<div class="card"><div class="ch">Read from the RFQ</div><div class="cb"><div class="grid2">'+l.c.filter(function(c){return !c[2]}).concat([l.bad]).map(function(c){return '<div><div class="fl">'+e(c[0])+'</div><div class="fv">'+e(c[1])+'</div></div>'}).join('')+'</div></div></div>'},
+cfg:function(l){var w=chosen();return '<div class="card"><div class="ch">'+e(l.n)+'<span class="pill '+(w?'g':'r')+'">'+(w?'Valid':'1 issue')+'</span></div><table><thead><tr><th>Attribute</th><th>Selection</th><th class="hide-sm">Source</th></tr></thead><tbody>'+
+  l.c.map(function(c){return '<tr><td>'+e(c[0])+'</td><td>'+e(c[1])+'</td><td class="hide-sm"><span class="pill '+(c[2]?'b':'')+'">'+(c[2]?'Asked':'From the RFQ')+'</span></td></tr>'}).join('')+
+  '<tr class="'+(w?'fixed':'bad')+'"><td><b>'+e(l.bad[0])+'</b></td><td><b>'+e(w?w.t:l.bad[1])+'</b></td><td class="hide-sm"><span class="pill '+(w?'g':'r')+'">'+(w?'Changed at the check':'Needs a check')+'</span></td></tr></tbody></table></div>'},
+chk:function(l){var w=chosen();return '<div class="alert'+(w?' ok':'')+'" role="status"><div><h3>'+(w?'Resolved: '+e(w.t):e(l.s))+'</h3><p>'+(w?'Stopped first because: '+e(l.s)+'.':e(l.y))+'</p></div></div>'+
+  '<div class="card"><div class="ch">'+(l.w.length>1?'Ways out, each priced':'The way out, priced')+'</div><div class="cb"><div class="ways">'+l.w.map(function(x,i){return '<button class="way" data-way="'+i+'" aria-pressed="'+(chosen()===x)+'"><b>'+e(x.t)+'</b><span>'+e(x.d)+'</span><div class="p">'+amt(x)+'</div></button>'}).join('')+'</div>'+(l.o2?'<p class="other">'+e(l.o2)+'</p>':'')+'</div></div>'},
+prc:function(l){var w=way();return (chosen()?'':'<p class="note">Showing the first way out. You can change it in Check.</p>')+
+  '<div class="card"><div class="ch">Priced options</div><table><thead><tr><th>Way out</th><th class="n">Price</th></tr></thead><tbody>'+l.w.map(function(x){return '<tr'+(x===w?' class="fixed"':'')+'><td>'+(x===w?'<b>'+e(x.t)+'</b>':e(x.t))+'</td><td class="n">'+amt(x)+'</td></tr>'}).join('')+'</tbody></table></div>'+
+  '<div class="card"><div class="ch">Price summary</div><table><tbody><tr><td>Source</td><td>Customer’s own price book (illustrative here)</td></tr><tr><td>Discount</td><td>None in this example</td></tr><tr><td>Approval</td><td>Not needed in this example</td></tr><tr class="total"><td>Price</td><td>'+amt(w)+'</td></tr></tbody></table></div>'},
+qte:function(l){var w=way(),q=pad(st.i+1041);return (chosen()?'':'<p class="note">Showing the first way out. You can change it in Check.</p>')+
+  '<div class="card"><div class="ch">Quote Q-'+q+'<span class="pill">Draft</span></div><table><thead><tr><th>Product</th><th>Qty</th><th class="hide-sm">Why it’s here</th><th class="n">Amount</th></tr></thead><tbody>'+
+  '<tr><td><b>'+e(l.o)+'</b></td><td>1</td><td class="hide-sm">Package from the RFQ</td><td class="n">'+amt(w)+'</td></tr>'+
+  '<tr class="fixed"><td>'+e(w.t)+'</td><td>1</td><td class="hide-sm">Chosen at the check</td><td class="n">Included</td></tr>'+
+  l.l.map(function(r){return '<tr><td>'+e(r[0])+'</td><td>'+e(r[1])+'</td><td class="hide-sm">'+e(r[2])+'</td><td class="n">Included</td></tr>'}).join('')+
+  '<tr class="total"><td colspan="2">Total</td><td class="hide-sm"></td><td class="n">'+amt(w)+'</td></tr></tbody></table></div>'+
+  '<div class="card"><div class="ch">Activity</div><div class="cb"><ul class="tl">'+['RFQ attached from '+l.b,'Stopped: '+l.s,'Resolved: '+w.t,'Priced from the price book','Quote Q-'+q+' generated'].map(function(t){return '<li><i></i><span>'+e(t)+'</span></li>'}).join('')+'</ul></div></div>'},
+ord:function(l){var w=way();return '<div class="card"><div class="ch">Order O-'+pad(st.i+2207)+'<span class="pill g">Created from quote</span></div><table><tbody><tr><td>Booked</td><td>'+e(l.o)+'</td></tr><tr><td>Configuration</td><td>'+e(w.t)+'</td></tr><tr><td>Amount</td><td>'+amt(w)+'</td></tr><tr><td>Next</td><td>Sent to ERP, with nothing retyped</td></tr><tr><td>Repeat business</td><td>Rolls into a Sales Agreement and the account forecast in Manufacturing Cloud</td></tr></tbody></table></div>'+
+  '<div class="card"><div class="ch">What travels with the order</div><div class="cb"><ul class="keep">'+l.k.map(function(t){return '<li>'+CHK+'<span>'+e(t)+'</span></li>'}).join('')+'</ul></div></div>'},
+clm:function(){return '<div class="card"><div class="ch">Debit NGC-DM-2026-10 from Northgate Components<span class="pill">16 lines</span></div><div class="cb"><div class="tiles"><div class="tile"><div class="l">Claimed</div><div class="v">$95,690</div></div><div class="tile"><div class="l">Pays</div><div class="v g">$48,000</div></div><div class="tile"><div class="l">Caught</div><div class="v r">$47,690</div></div></div></div></div>'+
+  '<div class="card"><div class="ch">What each check caught</div><table><thead><tr><th>Check</th><th class="n">Lines</th><th class="n">Caught</th></tr></thead><tbody>'+CK.map(function(c){return '<tr><td>'+e(c[0])+'</td><td class="n">'+c[1]+'</td><td class="n">'+usd(c[2])+'</td></tr>'}).join('')+'</tbody></table></div>'+
+  '<div class="card"><div class="ch">Each line, with its reason</div><table><thead><tr><th>#</th><th class="hide-sm">Part</th><th class="n">Claimed</th><th class="n">Pays</th><th>Reason</th></tr></thead><tbody>'+CL.map(function(c){var cut=c[3]!==c[4];return '<tr'+(cut?' class="bad"':'')+'><td>'+c[0]+'</td><td class="hide-sm">'+c[2]+'</td><td class="n">'+usd(c[3])+'</td><td class="n">'+usd(c[4])+'</td><td>'+e(c[5]||'Pays as claimed')+'</td></tr>'}).join('')+'</tbody></table></div>'+
+  '<div class="card"><div class="ch">Credit memo CM-CLM-0001<span class="pill g">To ERP</span></div><div class="cb">Credit $48,000. Disputed against the debit $47,690. An auditable reason on every line, and one file per claim.</div></div>'}
+};
+
+function render(){
+  var l=L(),all=steps();if(st.s>=all.length)st.s=all.length-1;
+  var x=all[st.s];
+  $('pickname').textContent=l.n;
+  var app=x.k==='clm'?'Channel Revenue Management':x.k==='rfq'?'Manufacturing Cloud':'Revenue Cloud';
+  var seen={},tabs=all.filter(function(t){if(seen[t.tab])return false;seen[t.tab]=1;return true});
+  $('sf').innerHTML='<div class="gh">'+CLOUD+'<span class="ttl">Salesforce-style concept</span><div class="gsearch" aria-hidden="true">Search…</div><div class="gicons" aria-hidden="true"><span>★</span><span>+</span><span>?</span><span>⚙</span><span class="av">SE</span></div></div>'+
+   '<div class="an"><div class="waffle" aria-hidden="true">'+'<i></i>'.repeat(9)+'</div><span class="appname">'+app+'</span>'+tabs.map(function(t){return '<button data-go="'+all.indexOf(t)+'" class="'+(t.tab===x.tab?'on':'')+'">'+t.tab+'</button>'}).join('')+'</div>'+
+   '<div class="scr">'+hdr(x)+path()+'<div class="beat">'+x.beat+'</div>'+B[x.k](l)+foot(x)+'</div>';
+  $('rail').innerHTML='<div class="rc say"><h2>Tell your prospect</h2><p>'+x.say+'</p><div class="beatno">Beat '+(st.s+1)+' of '+all.length+'</div></div>'+
+   '<div class="rc"><h2>On this screen</h2><p class="prod">'+x.pr+'</p></div>'+
+   '<div class="rc"><h2>Where Nteli comes in</h2><p>'+x.n+'</p></div>'+
+   '<div class="rc"><h2>How this line runs today</h2><p>On the engine, outside Salesforce. <a href="/engine/'+l.id+'" target="_blank" rel="noopener">See '+e(l.n)+'</a></p></div>';
+  var p=$('path'),c=p.querySelector('.cur');if(c)p.scrollLeft=c.offsetLeft-p.offsetLeft-(p.clientWidth-c.offsetWidth)/2;
+  try{history.replaceState(null,'','#'+l.id+'/'+x.k)}catch(_){}
+}
+function fromHash(){var h=location.hash.slice(1).split('/');var i=D.findIndex(function(x){return x.id===h[0]});if(i>=0){st.i=i;var j=steps().findIndex(function(x){return x.k===h[1]});st.s=j>=0?j:0}}
+function list(q){q=(q||'').toLowerCase();$('lg').innerHTML=D.map(function(x,i){return x.n.toLowerCase().indexOf(q)<0?'':'<button class="li'+(i===st.i?' on':'')+'" data-line="'+i+'">'+e(x.n)+'</button>'}).join('')||'<p class="note">No product line matches that search.</p>'}
+function open(){list('');$('mf').value='';$('modal').classList.add('on');$('mf').focus()}
+function close(){$('modal').classList.remove('on');$('pickbtn').focus()}
+
+document.addEventListener('click',function(ev){
+  var b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.go!=null&&!b.disabled){var top=$('sf').getBoundingClientRect().top<40;st.s=+b.dataset.go;render();if(top)$('sf').scrollIntoView({block:'start'});window.scrollBy(0,top?-44:0)}
+  else if(b.dataset.way!=null){st.ch[L().id]=+b.dataset.way;render()}
+  else if(b.dataset.pick){open()}
+  else if(b.dataset.line!=null){st.i=+b.dataset.line;st.s=0;render();close()}
+});
+$('pickbtn').addEventListener('click',open);$('mx').addEventListener('click',close);
+$('modal').addEventListener('click',function(ev){if(ev.target===this)close()});
+$('mf').addEventListener('input',function(){list(this.value)});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&$('modal').classList.contains('on'))close()});
+window.addEventListener('hashchange',function(){fromHash();render()});
+$('story').innerHTML=S.slice(0,6).map(function(x){return '<li>'+x.say+'</li>'}).join('');
+fromHash();render();
+</script>
+</body>
+</html>

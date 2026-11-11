@@ -28,6 +28,7 @@
     { "src": "/saas",         "dest": "/saas.html" },
     { "src": "/channel(\\.html)?", "status": 301, "headers": { "Location": "/ship-and-debit-software" } },
     { "src": "/salesforce",   "dest": "/salesforce.html" },
+    { "src": "/pov/rca", "headers": { "X-Robots-Tag": "noindex, nofollow" }, "dest": "/pov-rca.html" },
     { "src": "/salesforce-consultant-texas", "dest": "/salesforce-consultant-texas.html" },
     { "src": "/thinking/a-ledger-not-a-dashboard", "dest": "/thinking-ledger.html" },
     { "src": "/ship-and-debit-software", "dest": "/ship-and-debit-software.html" },
