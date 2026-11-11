@@ -237,6 +237,37 @@ footer{border-top:1px solid var(--line);padding:14px 0 28px;font-size:12px;color
 .see{list-style:none;display:grid;gap:7px}.see li{display:flex;gap:8px;font-size:13.5px;align-items:flex-start}.see .mk1{margin:1px 0 0}
 .nav{display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid #ECEBEA;flex-wrap:wrap}.nav .logo{font-size:20px;font-weight:700;color:#181818;letter-spacing:-.02em;text-decoration:none}.nav .logo i{font-style:normal;color:#0176D3}.nav .links{display:flex;gap:4px}.nav .links a{padding:7px 14px;border-radius:18px;font-size:14px;font-weight:600;color:#014486;text-decoration:none}.nav .links a:hover{background:#EAF5FE}.nav .links a.on{background:#032D60;color:#fff}.nav .pp{margin-left:auto;font-size:13px;color:#706E6B}@media (max-width:620px){.nav .pp{display:none}.nav{gap:10px}.nav .links a{padding:6px 11px;font-size:13px}}
 .rc.tier{border-color:#C9DBF0;background:#F5F9FD}.rc.tier a{font-weight:600}
+.clk{cursor:pointer}.clk:hover{text-decoration:underline}.sb.clk:hover,.mini.clk:hover,.fb.clk:hover{background:#F3F3F3;text-decoration:none}.mk.clk:hover{background:var(--navy2);text-decoration:none}
+.tle a,.lk{cursor:pointer}
+.dm{display:none;position:fixed;inset:0;background:rgba(8,7,7,.55);z-index:120;align-items:flex-start;justify-content:center;padding:44px 14px 14px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px}
+.dm.on{display:flex}
+.dmc{background:#fff;border-radius:6px;width:100%;max-width:780px;max-height:calc(100vh - 60px);overflow:auto;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.dmh{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:1;flex-wrap:wrap}
+.dmh .x{margin-left:auto}
+.dmb{padding:4px 16px 16px}
+.dmb h4{font-size:14px;font-weight:700;margin:14px 0 6px;padding:6px 10px;background:#F3F3F3;border-radius:4px}
+.dmb .dgrid{padding:2px 10px 4px}
+.dmb .fv{border-bottom:1px solid var(--line2);padding-bottom:3px}
+.dmf{display:flex;justify-content:flex-end;gap:6px;padding:10px 16px;border-top:1px solid var(--line);background:#F3F3F3}
+.pv{background:#3E3E3C}
+.pvh{display:flex;align-items:center;gap:10px;color:#fff;padding:10px 16px;background:#2B2826;position:sticky;top:0;z-index:1;flex-wrap:wrap}
+.pvh b{font-size:14px}.pvh .x{color:#fff;margin-left:auto}
+.pvb{padding:18px}
+.pg{background:#fff;max-width:640px;margin:0 auto;padding:30px 34px;box-shadow:0 2px 12px rgba(0,0,0,.4);font-family:Georgia,'Times New Roman',serif;color:#222;font-size:12.5px;line-height:1.45}
+.pg h3{font-family:-apple-system,'Segoe UI',sans-serif;font-size:19px;letter-spacing:.02em}
+.pg .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pg .lbl{font-family:-apple-system,'Segoe UI',sans-serif;font-size:10.5px;color:#666;text-transform:uppercase;letter-spacing:.05em}
+.pg table{width:100%;border-collapse:collapse;margin:12px 0}
+.pg th{font-family:-apple-system,'Segoe UI',sans-serif;font-size:10.5px;text-align:left;border-bottom:1.5px solid #333;padding:5px 6px;text-transform:uppercase;letter-spacing:.04em}
+.pg td{border-bottom:1px solid #ddd;padding:5px 6px;vertical-align:top}
+.pg td.n,.pg th.n{text-align:right;white-space:nowrap}
+.pg tr.t td{font-weight:700;border-bottom:0}
+.pg hr{border:0;border-top:2px solid #032D60;margin:12px 0}
+.pg .sig{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:22px}.pg .sig div{border-top:1px solid #333;padding-top:4px;font-size:11px;color:#555}
+.pg .ft{margin-top:18px;font-size:10px;color:#888;font-family:-apple-system,'Segoe UI',sans-serif;text-align:center}
+.ftoast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:var(--ok);color:#fff;padding:8px 18px;border-radius:4px;z-index:130;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none}
+.ftoast.on{display:block}
+@media (max-width:620px){.pg{padding:20px 18px}.pvb{padding:10px}}
 @media (max-width:1120px){.stage,.intro,.lower{grid-template-columns:minmax(0,1fr)}.rail{position:static}.deep{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:760px){.cfgb,.col2{grid-template-columns:minmax(0,1fr)}.flds{grid-auto-flow:row;grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){
@@ -288,6 +319,7 @@ footer{border-top:1px solid var(--line);padding:14px 0 28px;font-size:12px;color
   </section>
   <footer>Concept mock-up made by Nteli, a Salesforce Premier Partner. It is not a Salesforce product or screen, and Salesforce has not reviewed or endorsed it. Salesforce, Agentforce, Revenue Cloud, Agentforce Manufacturing, Manufacturing Cloud and Channel Revenue Management are trademarks of Salesforce, Inc. All companies are fictional and all figures are illustrative.</footer>
 </div>
+<div class="dm" id="dm" role="dialog" aria-modal="true" aria-label="Record details"><div class="dmc" id="dmc"></div></div><div class="ftoast" id="ftoast" role="status"></div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
   <div class="lc">
     <div class="lh"><h2 id="mt">What does your prospect make?</h2><button class="x" id="mx" aria-label="Close">×</button></div>
@@ -647,6 +679,91 @@ function configurator(l,isCheck){
    '<div class="cfgf"><span class="fb">Cancel</span><span class="fb '+(w||!isCheck?'p':'off')+'">Save &amp; Exit</span></div></div>';
 }
 
+
+/* ===== Clickable links: record details, file previews, actions. All data fictional. ===== */
+var CITIES=['Columbus, OH','Greenville, SC','Fort Wayne, IN','Tulsa, OK','Rockford, IL','Chattanooga, TN','Wichita, KS','Spokane, WA','Erie, PA','Fresno, CA','Boise, ID','Dayton, OH'];
+function city(n){return CITIES[n%CITIES.length]}
+function pcode(name){var w=name.replace(/[^A-Za-z0-9 ]/g,' ').split(' ').filter(Boolean);var h=0;for(var i=0;i<name.length;i++)h=(h*31+name.charCodeAt(i))%9000;return w.map(function(x){return x[0]}).join('').slice(0,4).toUpperCase()+'-'+(1000+h)}
+function curStep(){return steps()[st.s]}
+function qno(){return pad(st.i+1041,8)}
+function holder(){var m=MC[L().id];return m[3]||L().b}
+function stageFor(k){return {acc:['Needs Analysis',20],rfq:['Needs Analysis',20],cfg:['Value Proposition',50],chk:['Value Proposition',50],prc:['Proposal/Price Quote',75],qte:['Proposal/Price Quote',75],ord:['Closed Won',100],clm:['Closed Won',100]}[k]}
+function agreementProducts(){var l=L(),m=MC[l.id],z=M2[l.id];return [[m[0],Math.max(1,Math.round(m[2]/3)),z[0]],[z[1],z[2],z[3]],[z[4],z[5],z[6]]]}
+function fld(a){return '<div class="dgrid">'+a.map(function(f){return '<div><div class="fl">'+e(f[0])+'</div><div class="fv">'+e(f[1])+'</div></div>'}).join('')+'</div>'}
+function openDM(icon,obj,title,sections,extra,foot){
+  $('dmc').className='dmc';
+  $('dmc').innerHTML='<div class="dmh">'+ico(icon)+'<div><div class="hlo">'+e(obj)+'</div><div class="hlt">'+e(title)+'</div></div>'+STAMP+'<button class="x" data-dmx="1" aria-label="Close">×</button></div><div class="dmb">'+sections.map(function(s){return '<h4>'+e(s[0])+'</h4>'+fld(s[1])}).join('')+(extra||'')+'</div><div class="dmf">'+(foot||'')+'<button class="fb p" data-dmx="1">Close</button></div>';
+  $('dm').classList.add('on');$('dmc').querySelector('.x').focus();
+}
+function openPV(name,page){
+  $('dmc').className='dmc pv';
+  $('dmc').innerHTML='<div class="pvh"><b>'+e(name)+'</b><span class="stamp">Concept mock-up</span><span style="font-size:12px;color:#C9C7C5">PDF · 1 page</span><button class="x" data-dmx="1" aria-label="Close">×</button></div><div class="pvb"><div class="pg">'+page+'</div></div>';
+  $('dm').classList.add('on');$('dmc').querySelector('.x').focus();
+}
+function closeDM(){$('dm').classList.remove('on')}
+function ftoast(m){var t=$('ftoast');t.textContent=m;t.classList.add('on');clearTimeout(ftoast.t);ftoast.t=setTimeout(function(){t.classList.remove('on')},2600)}
+function goK(k){var n=steps().findIndex(function(s){return s.k===k});if(n>=0){st.s=n;st.calc=null;st.tab=0;render()}}
+function tbl(head,rows,nums){return '<table class="tle" style="margin-top:6px"><thead><tr>'+head.map(function(h,i){return '<th'+(nums&&nums.indexOf(i)>=0?' class="n"':'')+'>'+e(h)+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(c,i){return '<td'+(nums&&nums.indexOf(i)>=0?' class="n"':' class="w"')+'>'+e(c)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'}
+
+var REC={
+ accM:function(){var l=L();openDM('agr','Account',l.a+' (fictional)',[['Account Information',[['Account Name',l.a],['Type','Customer'],['Industry','Manufacturing'],['Product Line',l.n],['Segment','Commercial (SMB)'],['Employees',l.e],['Sells',l.v],['Account Owner','S. Ellis']]],['Address Information',[['Billing Address','1200 Industrial Pkwy, '+city(st.i)],['Phone','(555) 010-'+pad(st.i+20,4)]]],['Related',[['Open Opportunities','1: '+l.o],['Sales Agreements','1 activated'],['Quotes',curStep().k==='acc'||curStep().k==='rfq'?'0':'1: Q-'+qno()],['Orders',['ord','clm'].indexOf(curStep().k)>=0?'1: O-'+pad(st.i+2207,8):'0']]]])},
+ accB:function(name){var l=L(),dist=name==='Northgate Components';openDM('agr','Account',name+' (fictional)',[['Account Information',[['Account Name',name],['Type',dist?'Distributor':'Customer of '+l.a],['Industry',dist?'Electronics distribution':'End user'],['Account Owner','S. Ellis']]],['Address Information',[['Shipping Address','400 Commerce Dr, '+city(st.i+5)],['Phone','(555) 014-'+pad(st.i+40,4)]]],['Buying with '+l.a,[['Sales Agreement',dist||name===holder()?'SA-'+pad(st.i+3120)+', activated':'None'],['Open RFQ',l.o]]]])},
+ opp:function(){var l=L(),k=curStep().k,sg=stageFor(k),w=chosen();openDM('opp','Opportunity',l.o,[['Opportunity Information',[['Opportunity Name',l.o],['Account Name',l.a],['Their Customer',l.b],['Stage',sg[0]],['Probability (%)',sg[1]],['Close Date','Dec 18, 2026'],['Amount',w||['prc','qte','ord','clm'].indexOf(k)>=0?amt(way()):'Not priced yet'],['Type','New Business'],['Lead Source','Email RFQ'],['Opportunity Owner','S. Ellis']]],['Quote',[['Primary Quote',['acc','rfq'].indexOf(k)>=0?'Not created yet':'Q-'+qno()],['Next Step',{acc:'Open the new RFQ',rfq:'Configure the product',cfg:'Run validation',chk:'Pick a way out',prc:'Send the quote',qte:'Customer accepts',ord:'Track fulfillment',clm:'Check the distributor claim'}[k]]]]])},
+ prod:function(name){var l=L(),Rw=lines(l,way()),r=Rw.find(function(x){return x.n===name});
+   if(!r){var ap=agreementProducts().find(function(x){return x[0]===name});if(ap){openDM('lin','Product',name,[['Product Information',[['Product Name',name],['Product Code',pcode(name)],['Product Family',l.n],['Unit Price',usd2(ap[2])],['Planned Quantity per Month',num(ap[1])],['Schedule','Monthly'],['Sales Agreement','SA-'+pad(st.i+3120)],['Actuals','From direct orders']]]]);return}
+     openDM('lin','Product',name,[['Product Information',[['Product Name',name],['Product Code',pcode(name)],['Product Family',l.n],['Selling Model','One Time'],['Type','Bundle'],['Components',Rw.length+' included lines']]]]);return}
+   var sec=[['Product Information',[['Product Name',r.n],['Product Code',pcode(r.n)],['Product Family',l.n],['Selling Model','One Time']]],['Pricing',[['Quantity',r.qty],['List Price',usd2(r.list)],['Discount',r.disc?Math.round(r.disc*100)+'%':'None'],['Net Unit Price',usd2(r.unitN)],['Net Total Price',usd2(r.net)],['Price Source','Price book (illustrative)']]],['Why it’s here',[['Reason',r.why],['Added',r.fix?'At the check, because: '+l.s:'From the configuration']]]];
+   openDM('lin','Quote Line Item',r.n,sec)},
+ agreement:function(){var l=L(),P=agreementProducts();openDM('agr','Sales Agreement',holder()+', FY26 agreement',[['Agreement Information',[['Name',holder()+', FY26 agreement'],['Account',holder()],['Seller',l.a],['Status','Activated'],['Start Date','Jul 1, 2026'],['End Date','Dec 31, 2026'],['Schedule Frequency','Monthly'],['Schedule Count','6'],['Pricing','Use price book'],['Actuals Calculation','From direct orders']]]],'<h4>Products</h4>'+tbl(['Product','Unit Price','Planned per Month'],P.map(function(x){return [x[0],usd2(x[2]),num(x[1])]}),[1,2]))},
+ quote:function(){var l=L(),w=way(),k=curStep().k,Rw=lines(l,w),LT=Rw.reduce(function(a,x){return a+x.list},0);openDM('qte','Quote',qno(),[['Quote Information',[['Quote Number',qno()],['Status',k==='qte'?'Presented':k==='ord'||k==='clm'?'Accepted':'Draft'],['Expiration Date','Jan 17, 2027'],['Opportunity Name',l.o],['Account Name',l.a],['Bill To',l.b]]],['Totals',[['Total Price',usd2(LT)],['Discount',usd2(LT-w.p)],['Grand Total',usd2(w.p)],['Price Book','Standard (illustrative)']]],['Terms',[['Payment Terms','Net 30'],['Shipping','FOB origin, freight prepaid and added'],['Valid For','30 days'],['Approvals','Discount approved, engineering not required']]]],'',' <button class="fb" data-act="pdfq">Preview Document</button>')},
+ order:function(){var l=L(),w=way();openDM('ord','Order',pad(st.i+2207,8),[['Order Information',[['Order Number',pad(st.i+2207,8)],['Status','Activated'],['Order Start Date','Dec 18, 2026'],['Account Name',l.a],['Bill To',l.b],['Order Amount',amt(w)],['PO Number','PO-'+(44120+st.i)],['Billing Frequency','One Time']]],['Fulfillment',[['Fulfillment Plan','In progress: procure long-lead items'],['ERP Sync','Sent, nothing retyped'],['Assets','Created on activation'],['Back in '+MFG,'Account Forecast updated']]]])},
+ claim:function(){var l=L();openDM('clm','Claim','Debit NGC-DM-2026-10',[['Claim Information',[['Distributor','Northgate Components'],['Manufacturer',l.a],['Program','Ship and Debit, Q3'],['Lines','16'],['Claimed','$95,690'],['Pays','$48,000'],['Caught','$47,690'],['Credit Memo','CM-CLM-0001']]],['Sources',[['POS resale','EDI 867, as filed'],['Stock held','Distributor inventory file'],['Agreements','3 special pricing agreements'],['Design registration','Matched where the agreement requires one']]]])},
+ catalog:function(){var l=L(),Rw=lines(l,way());openDM('cfg','Product Catalog',l.n,[['Catalog',[['Catalog',l.n],['Products',Rw.length+1],['Price Book','Standard (illustrative)'],['Selling Model','One Time']]]],'<h4>Products</h4>'+tbl(['Product','Product Code','List Price'],[[l.o+' (bundle)',pcode(l.o),usd2(Rw.reduce(function(a,x){return a+x.list},0))]].concat(Rw.map(function(r){return [r.n,pcode(r.n),usd2(r.list)]})),[2]))},
+ forecast:function(){var P=agreementProducts();openDM('agr','Account Forecast',holder()+', FY26',[['Forecast',[['Account',holder()],['Period','Monthly, rolling'],['Sources','Sales Agreements, Orders, Opportunities'],['Updated','Today']]]],'<h4>Forecasted Quantity</h4>'+tbl(['Product','Nov 2026','Dec 2026','Q4 Total'],P.map(function(x){var a=Math.round(x[1]*1.1),b=Math.round(x[1]*1.15);return [x[0],num(a),num(b),num(a+b+Math.round(x[1]*.92))]}),[1,2,3]))},
+ assets:function(){var l=L(),Rw=lines(l,way()),k=curStep().k,has=['ord','clm'].indexOf(k)>=0;openDM('ord','Assets',l.a+' customer assets',[['Assets',[['Account',l.b],['Count',has?Rw.length:0],['Created','On order activation']]]],has?'<h4>Assets</h4>'+tbl(['Asset','Quantity','Status'],Rw.map(function(r){return [r.n,r.qty,'Purchased']}),[1]):'<p class="note" style="padding:8px 10px">Assets are created when the order is activated.</p>')},
+ program:function(){var l=L();openDM('clm','Program','Ship and Debit, Q3',[['Program Information',[['Program','Ship and Debit, Q3'],['Manufacturer',l.a],['Distributor','Northgate Components'],['Special Pricing Agreements','3'],['Claims This Quarter','1 open'],['Design Registration','Where the agreement requires one']]]])},
+ approvals:function(){openDM('qte','Approvals','Quote '+qno(),[['Approvals',[['Discount','Approved: 5% on two lines, inside the rep’s limit'],['Engineering','Not required: passed Product Validation'],['Submitted By','S. Ellis'],['Routing','Only what needs a person']]]])},
+ related:function(){var l=L();openDM('agr','Related',l.o,[['Related Lists',[['Files','1: RFQ from '+l.b],['Quotes',['acc','rfq'].indexOf(curStep().k)>=0?'0':'1'],['Sales Agreements','1'],['Activity','RFQ email, quote task']]]])}
+};
+function current(){return {acc:REC.agreement,rfq:REC.opp,cfg:REC.quote,chk:REC.quote,prc:REC.quote,qte:REC.quote,ord:REC.order,clm:REC.claim}[curStep().k]}
+function pdfRFQ(){var l=L(),rows=l.c.concat([l.bad]);openPV('RFQ_'+l.b.replace(/[^A-Za-z]+/g,'_')+'.pdf',
+ '<div class="row"><div><h3>'+e(l.b)+'</h3><div>400 Commerce Dr<br>'+e(city(st.i+5))+'</div></div><div style="text-align:right"><h3>REQUEST FOR QUOTATION</h3><div><span class="lbl">RFQ No.</span> RFQ-2026-'+pad(st.i+311)+'<br><span class="lbl">Date</span> Nov 10, 2026<br><span class="lbl">Respond by</span> Nov 24, 2026</div></div></div><hr>'+
+ '<div class="row"><div><span class="lbl">To</span><br>'+e(l.a)+', Sales<br>1200 Industrial Pkwy, '+e(city(st.i))+'</div><div><span class="lbl">From</span><br>Purchasing, '+e(l.b)+'</div></div>'+
+ '<p style="margin-top:12px"><span class="lbl">Description</span><br>'+e(l.r)+'</p>'+
+ '<table><thead><tr><th>#</th><th>Requirement</th><th>Specification</th></tr></thead><tbody>'+rows.map(function(c,i){return '<tr><td>'+(i+1)+'</td><td>'+e(c[0])+'</td><td>'+e(c[1])+'</td></tr>'}).join('')+'</tbody></table>'+
+ '<div class="row"><div><span class="lbl">Ship to</span><br>'+e(l.b)+'<br>400 Commerce Dr, '+e(city(st.i+5))+'</div><div><span class="lbl">Required by</span><br>Feb 2027</div><div><span class="lbl">Terms</span><br>Net 30, FOB origin</div></div>'+
+ '<p style="margin-top:12px"><span class="lbl">Notes</span><br>Please quote with lead time and list any exceptions to the specification.</p><div class="ft">Fictional document for a Nteli concept demo.</div>')}
+function pdfQuote(){var l=L(),w=way(),Rw=lines(l,w),LT=Rw.reduce(function(a,x){return a+x.list},0);openPV('Quote_'+qno()+'.pdf',
+ '<div class="row"><div><h3>'+e(l.a)+'</h3><div>1200 Industrial Pkwy<br>'+e(city(st.i))+'</div></div><div style="text-align:right"><h3>QUOTE</h3><div><span class="lbl">Quote No.</span> '+qno()+'<br><span class="lbl">Date</span> Nov 12, 2026<br><span class="lbl">Valid until</span> Jan 17, 2027</div></div></div><hr>'+
+ '<div class="row"><div><span class="lbl">Prepared for</span><br>'+e(l.b)+'<br>400 Commerce Dr, '+e(city(st.i+5))+'</div><div><span class="lbl">Reference</span><br>RFQ-2026-'+pad(st.i+311)+'<br>'+e(l.o)+'</div></div>'+
+ '<table><thead><tr><th>Item</th><th>Why it’s here</th><th class="n">Qty</th><th class="n">Amount</th></tr></thead><tbody>'+Rw.map(function(r){return '<tr><td>'+e(r.n)+'</td><td>'+e(r.why)+'</td><td class="n">'+e(r.qty)+'</td><td class="n">'+usd(r.net)+'</td></tr>'}).join('')+
+ '<tr><td colspan="3">List total</td><td class="n">'+usd(LT)+'</td></tr><tr><td colspan="3">Discount</td><td class="n">-'+usd(LT-w.p)+'</td></tr><tr class="t"><td colspan="3">Total</td><td class="n">'+amt(w)+'</td></tr></tbody></table>'+
+ '<div class="row"><div><span class="lbl">Terms</span><br>Net 30. FOB origin, freight prepaid and added.</div><div><span class="lbl">Checked</span><br>'+e(l.s)+': resolved with '+e(w.t)+'.</div></div>'+
+ '<div class="sig"><div>Accepted by, '+e(l.b)+'</div><div>Date</div></div><div class="ft">Illustrative prices. Fictional companies. Nteli concept demo.</div>')}
+
+/* Which element does what. Returns a function, or null when an element stays inert. */
+function route(el){
+  var l=L(),k=curStep().k,t=el.textContent.replace(/^⌄\s*/,'').trim(),tn=t.replace(/ \(fictional\)$/,'');
+  if(/\.pdf$/.test(t))return pdfRFQ;
+  if(el.classList.contains('doc'))return pdfQuote;
+  if(el.classList.contains('sb')||el.classList.contains('mini')||el.classList.contains('fb')||el.classList.contains('mk')){
+    var A={'Create Quote':function(){goK('cfg')},'Create Order':function(){goK('ord')},'Browse Catalogs':REC.catalog,'Generate Document':pdfQuote,'Recalculate Actuals':function(){ftoast('Actuals recalculated from orders.')},'Mass Update':REC.agreement,'Approve Credit':function(){ftoast('Credit memo CM-CLM-0001 approved and sent to the ERP.')},'Edit':current(),'▾':current(),'Add Assets':REC.assets,'Add Group':function(){ftoast('Lines grouped by Selling Model Type.')},'Quantity ▾':function(){ftoast('Showing the Quantity metric group. Revenue is the other one.')},'Mark Status as Complete':function(){if(st.s<steps().length-1){st.s++;render()}}};
+    if(t==='Cancel')return function(){goK('rfq')};
+    if(t==='Save & Exit'&&(k==='cfg'||chosen()))return function(){goK(k==='cfg'?'chk':'prc')};
+    return A[t]||null;
+  }
+  if(el.closest('.an')){return {'Accounts':REC.accM,'Account Forecasts':REC.forecast,'Product Catalogs':REC.catalog,'Assets':REC.assets,'Programs':REC.program}[t]||null}
+  if(el.closest('.tabs')&&k==='chk'&&(t==='Requirements'||t==='Included'))return function(){var tb=t==='Requirements'?0:2;goK('cfg');st.tab=tb;render()};
+  if(el.closest('.tabs')){return {'Details':current(),'Related':REC.related,'Activity':REC.opp,'Approvals':REC.approvals}[t]||null}
+  if(t==='Return to Quote')return function(){goK('prc')};
+  if(tn===l.a)return REC.accM;
+  if(tn===l.b||tn===holder()||tn==='Northgate Components')return function(){REC.accB(tn)};
+  if(tn===l.o)return el.closest('.tle')?function(){REC.prod(l.o)}:REC.opp;
+  var Rw=lines(l,way());if(Rw.some(function(r){return r.n===tn})||agreementProducts().some(function(x){return x[0]===tn}))return function(){REC.prod(tn)};
+  return null;
+}
+function markClk(){document.querySelectorAll('#sf .doc,#sf .fv.a,#sf .tle a,#sf .lk,#sf .sb,#sf .an span.t,#sf .tabs span:not(.on),#sf .mk:not(.off),#sf .mini,#sf .fb').forEach(function(el){if(route(el)){el.setAttribute('data-clk','1');el.tabIndex=0;el.setAttribute('role','button');el.classList.add('clk')}})}
+
 function render(){
   var l=L(),all=steps();if(st.s>=all.length)st.s=all.length-1;
   var x=all[st.s],i=st.s;
@@ -664,6 +781,7 @@ function render(){
   var askList=x.ask.map(function(a){return a==='@'?'Who catches “'+l.s+'” today, and how late?':a});
   $('deep').innerHTML='<div class="rc"><h2>Ask your prospect</h2><ul>'+askList.map(function(a){return '<li>'+e(a)+'</li>'}).join('')+'</ul></div><div class="rc"><h2>If they say</h2><div class="q">'+x.q+'</div><div class="a">'+x.a+'</div></div><div class="rc"><h2>What’s underneath on Salesforce</h2><ul>'+x.un.map(function(a){return '<li>'+e(a)+'</li>'}).join('')+'</ul></div>';
   var bb=$('beats'),c=bb.querySelector('.cur');if(c)bb.scrollLeft=c.offsetLeft-bb.offsetLeft-(bb.clientWidth-c.offsetWidth)/2;
+  markClk();
   try{history.replaceState(null,'','#'+l.id+'/'+x.k)}catch(_){}
 }
 function fromHash(){var h=location.hash.slice(1).split('/');var i=D.findIndex(function(x){return x.id===h[0]});if(i>=0){st.i=i;var j=steps().findIndex(function(x){return x.k===h[1]});st.s=j>=0?j:0}}
@@ -671,6 +789,9 @@ function list(q){q=(q||'').toLowerCase();$('lg').innerHTML=D.map(function(x,i){r
 function open(){list('');$('mf').value='';$('modal').classList.add('on');$('mf').focus()}
 function close(){$('modal').classList.remove('on');$('pickbtn').focus()}
 document.addEventListener('click',function(ev){
+  var c=ev.target.closest('[data-clk]');if(c){var f=route(c);if(f)f();return}
+  if(ev.target.closest('[data-dmx]')||ev.target===$('dm')){closeDM();return}
+  var ac=ev.target.closest('[data-act]');if(ac){if(ac.dataset.act==='pdfq')pdfQuote();return}
   var b=ev.target.closest('button');if(!b)return;
   if(b.dataset.go!=null&&!b.disabled){st.s=+b.dataset.go;st.calc=null;st.tab=0;render();var y=$('beats').getBoundingClientRect().top;if(y<40)window.scrollBy(0,y-44)}
   else if(b.dataset.way!=null){st.ch[L().id]=+b.dataset.way;render()}
@@ -682,7 +803,7 @@ document.addEventListener('click',function(ev){
 $('pickbtn').addEventListener('click',open);$('mx').addEventListener('click',close);
 $('modal').addEventListener('click',function(ev){if(ev.target===this)close()});
 $('mf').addEventListener('input',function(){list(this.value)});
-document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&$('modal').classList.contains('on'))close()});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'){if($('dm').classList.contains('on'))closeDM();else if($('modal').classList.contains('on'))close()}var c=ev.target.closest&&ev.target.closest('[data-clk]');if(c&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();var f=route(c);if(f)f()}});
 window.addEventListener('hashchange',function(){fromHash();render()});
 $('story').innerHTML=S.slice(0,7).map(function(x){return '<li>'+x.say+'</li>'}).join('');
 fromHash();render();
