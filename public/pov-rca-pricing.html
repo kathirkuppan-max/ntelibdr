@@ -62,13 +62,15 @@ td.y{color:var(--ok);font-weight:700;font-size:16px}td.n{color:#B0ADAB}
 .cta h2{font-size:20px}.cta p{color:#C9DBF0;font-size:14px}
 .cta a{background:#fff;color:var(--navy);font-weight:700;text-decoration:none;padding:11px 20px;border-radius:4px;white-space:nowrap}
 footer{border-top:1px solid var(--line);padding:14px 0 30px;font-size:12px;color:var(--ink3)}
+.nav{display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid #ECEBEA;flex-wrap:wrap}.nav .logo{font-size:20px;font-weight:700;color:#181818;letter-spacing:-.02em;text-decoration:none}.nav .logo i{font-style:normal;color:#0176D3}.nav .links{display:flex;gap:4px}.nav .links a{padding:7px 14px;border-radius:18px;font-size:14px;font-weight:600;color:#014486;text-decoration:none}.nav .links a:hover{background:#EAF5FE}.nav .links a.on{background:#032D60;color:#fff}.nav .pp{margin-left:auto;font-size:13px;color:#706E6B}@media (max-width:620px){.nav .pp{display:none}.nav{gap:10px}.nav .links a{padding:6px 11px;font-size:13px}}
+.story{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:18px 0 0;padding:12px 14px;background:#F5F9FD;border:1px solid #C9DBF0;border-radius:8px;font-size:14px}.story b{color:#032D60;margin-right:4px}.story a{padding:4px 11px;border-radius:14px;background:#fff;border:1px solid #C9DBF0;font-size:13px;font-weight:600;text-decoration:none}.story a:hover{border-color:#0176D3}.story select{font:inherit;font-size:13px;padding:4px 8px;border:1px solid #AEAEAE;border-radius:4px;margin-left:auto;max-width:100%}
 @media (max-width:900px){.tablew{display:none}.cards{display:grid}.why,.cols{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:620px){.wrap{padding:0 16px}h1{font-size:27px}.lead{font-size:15.5px}.top span{display:none}.cta a{width:100%;text-align:center}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><b>nteli<i>.io</i></b><span>Salesforce Premier Partner · Austin, TX</span><a href="/pov/rca">See the story on Salesforce</a></div>
+  <nav class="nav" aria-label="Point of view"><a class="logo" href="/">nteli<i>.io</i></a><div class="links"><a id="nav-story" href="/pov/rca">The story</a><a class="on" aria-current="page">Three ways to start</a></div><span class="pp">Salesforce Premier Partner · Austin, TX</span></nav>
 
   <div class="eyebrow">For Salesforce sellers of manufacturing products · Commercial (SMB)</div>
   <h1>Three ways to start on Agentforce Manufacturing and Agentforce Revenue Management.</h1>
@@ -80,6 +82,7 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;font-size:12px;color
     <div><b>Built by configurator people</b>Our team has built product configurators for Cisco, Dell and IBM.</div>
   </div>
 
+  <div class="story" id="story" aria-label="Every band runs the same story"></div>
   <div class="tablew" id="tablew"></div>
   <div class="cards" id="cards"></div>
 
@@ -115,6 +118,8 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;font-size:12px;color
   <footer>Nteli is a Salesforce Premier Partner. This offer is Nteli’s, not Salesforce’s. Salesforce, Agentforce, Agentforce Manufacturing and Agentforce Revenue Management are trademarks of Salesforce, Inc. Scope and timing are confirmed for each customer before work starts.</footer>
 </div>
 <script>
+function U(p){var loc=location.hostname==='localhost'||location.protocol==='file:';return loc?(p==='/pov/rca'?'/pov-rca.html':'/pov-rca-pricing.html'):p}
+var ORDER=["datacenter", "panels", "power", "ic", "interconnect", "electronics", "nre-services", "grid", "hazloc", "hvac", "pumps", "mobility", "medgas", "surgical-robotics", "boilers", "cooling", "cranes", "doors", "kitchen", "lab", "safety", "water", "semiconductors"],NAMES={"datacenter": "Data Center Pods", "panels": "Control Panels & Switchgear", "power": "Power Packages", "ic": "Instrumentation & Controls", "interconnect": "Interconnect / Cable Assemblies", "electronics": "Electronic Components & Assemblies", "nre-services": "NRE Services", "grid": "Distribution Transformers", "hazloc": "Hazardous-Area Electrical", "hvac": "Commercial HVAC", "pumps": "Pumps & Packaged Skids", "mobility": "Mobility Lifts", "medgas": "Medical Gas & Headwalls", "surgical-robotics": "Surgical Robotic Systems", "boilers": "Commercial Boilers", "cooling": "Cooling Towers", "cranes": "Cranes & Hoists", "doors": "Fire Doors & Hardware", "kitchen": "Kitchen Ventilation", "lab": "Lab Furniture & Fume Hoods", "safety": "Safety & Plumbing Equipment", "water": "Water Treatment", "semiconductors": "Semiconductors"},BEATS=[["acc", "Account"], ["rfq", "RFQ"], ["cfg", "Configure"], ["chk", "Check"], ["prc", "Price"], ["qte", "Quote"], ["ord", "Order"]];
 var BANDS=[['Quick Start','Quoting right, in a week'],['Migrate','Their history from day one, not an empty system'],['Full Rollout','The whole flow end to end, with Agentforce, team trained']];
 /* [label, note, quick, migrate, full]; 'G' rows are group headers. '+' = included. */
 var ROWS=[
@@ -145,6 +150,12 @@ var t='<table><colgroup><col class="l"><col><col><col></colgroup><thead><tr><th>
 ROWS.forEach(function(r){if(r[0]==='G'){t+='<tr class="grp"><td colspan="4">'+r[1]+'</td></tr>';return}t+='<tr'+(r[5]?' class="'+r[5]+'"':'')+'><td>'+e(r[0])+(r[1]?'<small>'+e(r[1])+'</small>':'')+'</td>'+cell(r[2])+cell(r[3])+cell(r[4])+'</tr>'});
 document.getElementById('tablew').innerHTML=t+'</tbody></table>';
 document.getElementById('cards').innerHTML=BANDS.map(function(b,i){var h='<div class="card"><h2>'+b[0]+'<span>'+b[1]+'</span></h2><div class="p">'+ROWS[0][2+i]+'</div><dl>';ROWS.slice(1).forEach(function(r){if(r[0]==='G'){h+='<div class="g">'+r[1]+'</div>';return}h+='<dt>'+e(r[0])+'</dt><dd>'+e(txt(r[2+i]))+'</dd>'});return h+'</dl></div>'}).join('');
+function story(){var id=(location.hash.slice(1).split('/')[0]);if(!NAMES[id])id='panels';
+  var base=U('/pov/rca')+'#'+id+'/';
+  document.getElementById('story').innerHTML='<b>Every band runs the same story.</b> See it for '+'<select id="line" aria-label="Product line">'+ORDER.map(function(k){return '<option value="'+k+'"'+(k===id?' selected':'')+'>'+e(NAMES[k])+'</option>'}).join('')+'</select><span style="flex-basis:100%;height:0"></span>'+BEATS.map(function(b,i){return '<a href="'+base+b[0]+'">'+(i+1)+' '+b[1]+'</a>'}).join('');
+  document.getElementById('line').onchange=function(){location.hash=this.value};
+  document.getElementById('nav-story').href=base+'acc';}
+story();window.addEventListener('hashchange',story);
 </script>
 </body>
 </html>
