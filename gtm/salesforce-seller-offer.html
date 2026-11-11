@@ -11,7 +11,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--navy:#032D60;--navy2:#014486;--blue:#0176D3;--line:#D8DDE6;--ink:#181818;--ink2:#3E3E3C;--ink3:#706E6B;--tint:#F3F6FA}
 html{background:#E9ECEF}
-body{font-family:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;color:var(--ink);font-size:9.1px;line-height:1.32;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;color:var(--ink);font-size:8.8px;line-height:1.3;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .page{width:8.5in;min-height:11in;margin:20px auto;background:#fff;padding:.45in;box-shadow:0 2px 16px rgba(0,0,0,.12)}
 @media print{html{background:#fff}.page{margin:0;padding:0;width:auto;min-height:0;box-shadow:none}}
 header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:2px solid var(--navy);padding-bottom:8px}
@@ -27,10 +27,10 @@ col.l{width:23%}
 th{background:var(--navy);color:#fff;text-align:left;padding:6px 7px;font-size:10.5px;vertical-align:top}
 th span{display:block;font-weight:400;font-size:9px;color:#C9DBF0;margin-top:1px}
 th.blank{background:#fff}
-td{padding:2.3px 7px;border-bottom:1px solid var(--line);vertical-align:top}
+td{padding:2px 7px;border-bottom:1px solid var(--line);vertical-align:top}
 td:first-child{font-weight:600;color:var(--ink2)}
 td:first-child small{display:block;font-weight:400;color:var(--ink3);font-size:8.6px}
-tr.price td{font-size:12px;font-weight:700;color:var(--navy);background:var(--tint)}
+tr.price td{font-size:11px;font-weight:700;color:var(--navy);background:var(--tint)}
 tr.price td:first-child{font-size:9.6px;color:var(--ink2)}
 tr.grp td{background:#fff;color:var(--blue);font-size:8.4px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding-top:4px;border-bottom:1px solid var(--blue)}
 .y{color:#2E844A;font-weight:700}
@@ -74,7 +74,7 @@ footer b{color:var(--navy);font-size:9.6px}
     <tr><td>Who loads the data</td><td>Customer, using Nteli’s templates</td><td>Nteli</td><td>Nteli</td></tr>
     <tr><td>Data sources<small>Spreadsheets, an old CPQ, an ERP export</small></td><td>1: Nteli’s catalog, price book and agreement templates</td><td>Up to 3. About $40K for 1–2 clean sources, up to $60K for 3 or messy ones</td><td>Up to 5, plus 1 ERP</td></tr>
     <tr class="grp"><td colspan="4">What every customer gets</td></tr>
-    <tr><td>Foundation functions<small>Sales Agreements and Account Forecast, Opportunity and RFQ, Configure, Check, Price, Quote, Order</small></td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
+    <tr><td>Foundation functions<small>Sales Agreements and Account Forecast, Opportunity and RFQ, Configure, Check, Price with cost and margin, Quote, Order</small></td><td class="y">✓</td><td class="y">✓</td><td class="y">✓</td></tr>
     <tr><td>Current Sales Agreements loaded</td><td>✓ From the template</td><td class="y">✓</td><td class="y">✓</td></tr>
     <tr><td>Branded quote templates</td><td>1</td><td>3</td><td>5</td></tr>
     <tr><td>Checks that stop what can’t be built</td><td>Up to 10</td><td>Up to 25</td><td>Up to 50, plus routing to engineering review</td></tr>
@@ -83,7 +83,8 @@ footer b{color:var(--navy);font-size:9.6px}
     <tr><td>Data migration<small>Catalog, price books, accounts, open quotes</small></td><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
     <tr><td>Order history loaded<small>Run-rate and forecast work from day one</small></td><td class="n">—</td><td class="y">✓</td><td class="y">✓</td></tr>
     <tr><td>ERP integration</td><td>File export of orders</td><td>File export of orders</td><td>1 ERP: orders out, status back. Integration license, such as MuleSoft, separate if needed</td></tr>
-    <tr><td>Agentforce</td><td class="n">—</td><td>Account briefing before a call</td><td>Account briefing, plus drafting the quote from the RFQ</td></tr>
+    <tr><td>Agentforce<small>Proposes; your rep approves</small></td><td class="n">—</td><td>Forecast briefing, with adjustments the rep approves</td><td>Plus RFQ reading, stop explanations, quote and email drafting, order updates, claim summaries</td></tr>
+    <tr><td>Dashboards</td><td>Standard Quote-to-Order dashboard</td><td>Plus agreement attainment and forecast accuracy</td><td>Plus dashboards on the customer’s own measures</td></tr>
     <tr><td>Training</td><td>Recorded walkthrough</td><td>Live session for sales</td><td>Admin, sales team, and train-the-trainer</td></tr>
     <tr><td>Add-ons</td><td class="n">—</td><td class="n">—</td><td>Pick two: Fulfillment Plan, distributor claim checking, dealer quoting</td></tr>
     <tr><td>Support after go-live<small>Then an optional monthly retainer</small></td><td>2 weeks</td><td>30 days</td><td>60 days</td></tr>

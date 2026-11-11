@@ -119,7 +119,7 @@ footer{border-top:1px solid var(--line);padding:14px 0 30px;font-size:12px;color
 </div>
 <script>
 function U(p){var loc=location.hostname==='localhost'||location.protocol==='file:';return loc?(p==='/pov/rca'?'/pov-rca.html':'/pov-rca-pricing.html'):p}
-var ORDER=["datacenter", "panels", "power", "ic", "interconnect", "electronics", "nre-services", "grid", "hazloc", "hvac", "pumps", "mobility", "medgas", "surgical-robotics", "boilers", "cooling", "cranes", "doors", "kitchen", "lab", "safety", "water", "semiconductors"],NAMES={"datacenter": "Data Center Pods", "panels": "Control Panels & Switchgear", "power": "Power Packages", "ic": "Instrumentation & Controls", "interconnect": "Interconnect / Cable Assemblies", "electronics": "Electronic Components & Assemblies", "nre-services": "NRE Services", "grid": "Distribution Transformers", "hazloc": "Hazardous-Area Electrical", "hvac": "Commercial HVAC", "pumps": "Pumps & Packaged Skids", "mobility": "Mobility Lifts", "medgas": "Medical Gas & Headwalls", "surgical-robotics": "Surgical Robotic Systems", "boilers": "Commercial Boilers", "cooling": "Cooling Towers", "cranes": "Cranes & Hoists", "doors": "Fire Doors & Hardware", "kitchen": "Kitchen Ventilation", "lab": "Lab Furniture & Fume Hoods", "safety": "Safety & Plumbing Equipment", "water": "Water Treatment", "semiconductors": "Semiconductors"},BEATS=[["acc", "Account"], ["rfq", "RFQ"], ["cfg", "Configure"], ["chk", "Check"], ["prc", "Price"], ["qte", "Quote"], ["ord", "Order"]];
+var ORDER=["datacenter", "panels", "power", "ic", "interconnect", "electronics", "nre-services", "grid", "hazloc", "hvac", "pumps", "mobility", "medgas", "surgical-robotics", "boilers", "cooling", "cranes", "doors", "kitchen", "lab", "safety", "water", "semiconductors"],NAMES={"datacenter": "Data Center Pods", "panels": "Control Panels & Switchgear", "power": "Power Packages", "ic": "Instrumentation & Controls", "interconnect": "Interconnect / Cable Assemblies", "electronics": "Electronic Components & Assemblies", "nre-services": "NRE Services", "grid": "Distribution Transformers", "hazloc": "Hazardous-Area Electrical", "hvac": "Commercial HVAC", "pumps": "Pumps & Packaged Skids", "mobility": "Mobility Lifts", "medgas": "Medical Gas & Headwalls", "surgical-robotics": "Surgical Robotic Systems", "boilers": "Commercial Boilers", "cooling": "Cooling Towers", "cranes": "Cranes & Hoists", "doors": "Fire Doors & Hardware", "kitchen": "Kitchen Ventilation", "lab": "Lab Furniture & Fume Hoods", "safety": "Safety & Plumbing Equipment", "water": "Water Treatment", "semiconductors": "Semiconductors"},BEATS=[["acc", "Account"], ["rfq", "RFQ"], ["cfg", "Configure"], ["chk", "Check"], ["prc", "Price"], ["qte", "Quote"], ["ord", "Order"], ["dsh", "Dashboard"]];
 var BANDS=[['Quick Start','Quoting right, in a week'],['Migrate','Their history from day one, not an empty system'],['Full Rollout','The whole flow end to end, with Agentforce, team trained']];
 /* [label, note, quick, migrate, full]; 'G' rows are group headers. '+' = included. */
 var ROWS=[
@@ -128,7 +128,7 @@ var ROWS=[
 ['Who loads the data','', 'Customer, using Nteli’s templates','Nteli','Nteli'],
 ['Data sources','Spreadsheets, an old CPQ, an ERP export','1: Nteli’s catalog, price book and agreement templates','Up to 3. About $40K for 1–2 clean sources, up to $60K for 3 or messy ones','Up to 5, plus 1 ERP'],
 ['G','What every customer gets'],
-['Foundation functions','Sales Agreements and Account Forecast, Opportunity and RFQ, Configure, Check, Price, Quote, Order','+','+','+'],
+['Foundation functions','Sales Agreements and Account Forecast, Opportunity and RFQ, Configure, Check, Price with cost and margin, Quote, Order','+','+','+'],
 ['Current Sales Agreements loaded','So the account screen isn’t blank','+ From the template','+','+'],
 ['Branded quote templates','', '1','3','5'],
 ['Checks that stop what can’t be built','', 'Up to 10','Up to 25','Up to 50, plus routing to engineering review'],
@@ -137,7 +137,8 @@ var ROWS=[
 ['Data migration','Catalog, price books, accounts, open quotes','-','+','+'],
 ['Order history loaded','Run-rate and forecast work from day one','-','+','+'],
 ['ERP integration','', 'File export of orders','File export of orders','1 ERP: orders out, status back. An integration license, such as MuleSoft, is separate if needed'],
-['Agentforce','', '-','Account briefing before a call','Account briefing, plus drafting the quote from the RFQ'],
+['Agentforce','Proposes; your rep approves', '-','Forecast briefing before a call, with adjustments the rep approves','Forecast briefing, plus RFQ reading, stop explanations, quote and email drafting, order updates and claim summaries'],
+['Dashboards','', 'Standard Quote-to-Order dashboard','Plus agreement attainment and forecast accuracy from order history','Plus dashboards on the customer’s own measures'],
 ['Training','', 'Recorded walkthrough','Live session for sales','Admin, sales team, and train-the-trainer'],
 ['Add-ons','', '-','-','Pick two: Fulfillment Plan, distributor claim checking, dealer quoting'],
 ['Support after go-live','Then an optional monthly retainer','2 weeks','30 days','60 days'],

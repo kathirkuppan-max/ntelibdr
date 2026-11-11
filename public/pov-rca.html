@@ -268,6 +268,43 @@ footer{border-top:1px solid var(--line);padding:14px 0 28px;font-size:12px;color
 .ftoast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:var(--ok);color:#fff;padding:8px 18px;border-radius:4px;z-index:130;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none}
 .ftoast.on{display:block}
 @media (max-width:620px){.pg{padding:20px 18px}.pvb{padding:10px}}
+.afb{display:inline-flex;align-items:center;gap:6px;border:1px solid #C9C7C5;border-radius:16px;padding:4px 12px 4px 9px;font-size:12.5px;font-weight:600;color:#032D60;background:linear-gradient(90deg,#F0F7FF,#F6F0FF);flex:none}
+.afb.on{background:#032D60;color:#fff;border-color:#032D60}
+.afb svg{width:14px;height:14px}
+.sfb{display:grid;grid-template-columns:minmax(0,1fr)}
+.sfb.af{grid-template-columns:minmax(0,1fr) 310px}
+.afp{background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.afh{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px;flex-wrap:wrap}
+.afh svg{width:18px;height:18px}
+.afh .x{margin-left:auto;font-size:18px}
+.afm{padding:12px;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.bub{padding:9px 11px;border-radius:10px;line-height:1.45}
+.bub.me{align-self:flex-end;background:#0176D3;color:#fff;border-bottom-right-radius:3px;max-width:88%}
+.bub.ai{background:#F3F2F2;border-bottom-left-radius:3px}
+.bub.ai ul{padding-left:16px;margin-top:4px}.bub.ai li{margin:2px 0}
+.bub.ai .em{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin-top:6px;white-space:pre-wrap;font-size:12.5px}
+.act{border:1px solid #9050E9;border-radius:8px;padding:10px 11px;background:#FBF8FF}
+.act .lb{font-size:11px;font-weight:700;color:#7526E3;text-transform:uppercase;letter-spacing:.05em}
+.act b{display:block;margin:3px 0 2px;font-size:13.5px}
+.act .tr{font-size:11.5px;color:var(--ink3)}
+.act .bt{display:flex;gap:6px;margin-top:8px}
+.act .ok{color:var(--ok);font-weight:700;margin-top:6px;font-size:12.5px}
+.aff{margin-top:auto;padding:9px 12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink3);background:#FAFAF9}
+.kpi{padding:10px 12px}
+.kpi .l{font-size:11.5px;color:var(--ink3)}.kpi .v{font-size:24px;font-weight:300;color:#032D60;line-height:1.2;font-variant-numeric:tabular-nums}.kpi .s{font-size:11px;color:var(--ink3)}
+.dgrid2{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.comp{display:flex;flex-direction:column}
+.comp .cb{padding:4px 12px 6px;flex:1}
+.comp .vr{display:block;text-align:left;border-top:1px solid var(--line2);padding:6px 12px;font-size:12px;color:var(--blue);width:100%}
+.comp .vr:hover{text-decoration:underline}
+.dash3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.dash2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:10px}
+.hb{display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr) auto;gap:6px;align-items:center;font-size:12px;margin:5px 0}
+.hb .bar{height:14px;border-radius:2px;background:#1B96FF}
+.hb .bar.alt{background:#9050E9}.hb .bar.ok{background:#2E844A}
+.hb .t{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--ink2)}
+@media (max-width:1000px){.sfb.af{grid-template-columns:minmax(0,1fr)}.afp{border-left:0;border-top:1px solid var(--line)}.dgrid2{grid-template-columns:repeat(3,minmax(0,1fr))}.dash3,.dash2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:620px){.dgrid2{grid-template-columns:repeat(2,minmax(0,1fr))}.afb span{display:none}}
 @media (max-width:1120px){.stage,.intro,.lower{grid-template-columns:minmax(0,1fr)}.rail{position:static}.deep{grid-template-columns:minmax(0,1fr)}}
 @media (max-width:760px){.cfgb,.col2{grid-template-columns:minmax(0,1fr)}.flds{grid-auto-flow:row;grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){
@@ -516,7 +553,7 @@ var MFG='Agentforce Manufacturing',REV='Agentforce Revenue Management',CHN='Chan
 
 /* The story. These words never change between product lines. */
 var S=[
-{k:'acc',tier:'Every start sets up Sales Agreements and Account Forecast. Migrate and Full Rollout also load order history, so the forecast works from day one.',see:['Agreement Terms: planned against actual and forecast, by product and month.','The trend at a glance: planned, actual and forecast.','The new RFQ, sitting outside the agreement.'],p:'Account',tab:'Sales Agreements',app:MFG,beat:'Your rep starts with what the account already buys.',say:'Your rep opens the account and sees what the customer agreed to buy, what they actually ordered, and what’s forecast.',n:'Nteli would bring your prospect’s agreements and order history into '+MFG+', so the forecast starts from what really shipped.',nx:'Open the new RFQ',
+{k:'acc',tier:'Every start sets up Sales Agreements and the Account Forecast. Migrate and Full Rollout load order history, so run-rate and forecast accuracy work from day one.',see:['Agreement Terms: planned against actual and forecast, by product and month.','The Account Forecast: actuals, run-rate and the new RFQ, six months ahead.','The new RFQ, sitting outside the agreement.'],p:'Account',tab:'Sales Agreements',app:MFG,beat:'Your rep starts with what the account already buys.',say:'Your rep opens the account and sees what the customer agreed to buy, what they actually ordered, and what’s forecast.',n:'Nteli would bring your prospect’s agreements and order history into '+MFG+', so the forecast starts from what really shipped.',nx:'Open the new RFQ',
  ask:['How do you compare what customers agreed to buy with what they actually ordered?','Who knows when an account is running behind its plan, and how soon?'],
  q:'“We already have this in the ERP.”',a:'The ERP knows what shipped. The Sales Agreement puts plan, actuals and forecast next to the next deal, where sales can act on it.',
  un:['Sales Agreements hold planned quantity and revenue by product and period.','Actuals can be calculated automatically from orders.','Account Forecast rolls agreements, orders and opportunities up by product and period.']},
@@ -544,24 +581,28 @@ var S=[
  ask:['How many times is an order typed between sales and the plant?','Who tells sales when a build slips?'],
  q:'“Our ERP has to stay the system of record.”',a:'It does. Salesforce captures the order and sends it. The ERP keeps building, shipping and invoicing.',
  un:['Create Order builds the Order and Order Products from the quote.','Activating an order can create Assets on the account.','Dynamic Revenue Orchestrator can run the fulfillment steps.']},
+{k:'dsh',tier:'In every start: the standard Quote-to-Order dashboard. Migrate adds agreement attainment from order history. Full Rollout adds dashboards on the customer’s own measures.',see:['Quotes, win rate and time to quote at a glance.','Forecast against plan for the next six months.','What the checks stopped, and how often.'],p:'Dashboard',tab:'Dashboards',app:REV,beat:'The owner sees the whole flow on one dashboard.',say:'You see quotes, win rate, what the checks stopped and how each account runs against its agreement, in one place, without asking anyone.',n:'Nteli would build the dashboards on your prospect’s own measures, from the same records this story creates.',nx:'',
+ ask:['Which three numbers does the owner ask for every Monday?','How long does it take to put those numbers together today?'],
+ q:'“We already have reports in the ERP.”',a:'The ERP reports what shipped. This shows what was quoted, what was stopped and why, and how each account runs against its agreement, before anything ships.',
+ un:['Dashboards sit on standard reports over Opportunities, Quotes, Orders and Sales Agreements.','Each component opens its report.','Figures here are illustrative.']},
 {k:'clm',tier:'Distributor claim checking is a Full Rollout add-on.',see:['Every claim line, decided with its reason.','What each check caught, in dollars.','One credit memo for the ERP.'],p:'Claim',tab:'Claims',app:CHN,beat:'Sold through a distributor? The claim gets the same check.',say:'When a distributor claims its credit, each line gets the same check, with a reason, before the credit memo goes out.',n:'Nteli would load the agreements, POS and stock your prospect already has, and leave the ERP unchanged until the credit memo is approved.',nx:'',
  ask:['How do you check a distributor’s debit today?','How much gets paid because nobody has time to check it?'],
  q:'“Our distributors won’t change how they file.”',a:'They don’t have to. The debit, POS and stock come in as they are.',
  un:['Ship and debit programs sit in '+CHN+' for Manufacturing.','Claims are checked against the special pricing terms.','Design registration is matched where the agreement requires one.']}
 ];
-var TABS={};TABS[MFG]=['Accounts','Sales Agreements','Account Forecasts','Opportunities'];TABS[REV]=['Product Catalogs','Quotes','Orders','Assets'];TABS[CHN]=['Programs','Claims','Sales Agreements'];
+var TABS={};TABS[MFG]=['Accounts','Sales Agreements','Account Forecasts','Opportunities','Dashboards'];TABS[REV]=['Product Catalogs','Quotes','Orders','Assets','Dashboards'];TABS[CHN]=['Programs','Claims','Sales Agreements','Dashboards'];
 
 var IC={agr:['#00A1A7','M4 2h12v16H4zM7 6v1.5h6V6zm0 3.5V11h6V9.5zM7 13v1.5h4V13z'],opp:['#FF5D2D','M2 15V6l4.5 3L10 3l3.5 6L18 6v9z'],cfg:['#7F8DE1','M3 4h14v3H3zM3 9h9v3H3zM3 14h14v3H3z'],qte:['#3BA755','M5 2h7l4 4v12H5zM7 9h7v1.5H7zm0 3h7v1.5H7z'],lin:['#FF5D2D','M3 3h14v14H3zM5 6v1.5h4V6zm6 0v1.5h4V6zm-6 3.5V11h4V9.5zm6 0V11h4V9.5zM5 13v1.5h4V13zm6 0v1.5h4V13z'],ord:['#3296ED','M3 6l7-4 7 4v8l-7 4-7-4zM5 7l5 3 5-3-5-2.6z'],clm:['#9050E9','M3 4h14v12H3zM5 7v1.5h10V7zm0 3v1.5h6V10z']};
 var CLOUD='<svg class="cloud" viewBox="0 0 38 27" aria-hidden="true"><path fill="#0176D3" d="M15.6 4.2a7 7 0 0 1 5-2.1 7 7 0 0 1 6.1 3.6 8.3 8.3 0 0 1 3.4-.7c4.5 0 8.1 3.7 8.1 8.2s-3.6 8.2-8.1 8.2c-.6 0-1.1-.1-1.6-.2a6 6 0 0 1-5.300 3.100c-.9 0-1.800-.2-2.600-.6a6.900 6.900 0 0 1-12.800-.3c-.4.1-.8.1-1.300.1A6.400 6.400 0 0 1 3 10.100a6.800 6.800 0 0 1 3-9c4-1.600 7.400.1 9.600 3.100z"/></svg>';
 
-var st={i:1,s:0,ch:{},calc:null,tab:0};
+var st={i:1,s:0,ch:{},calc:null,tab:0,af:false,afd:{},fadj:{}};
 function $(x){return document.getElementById(x)}
 function e(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function usd(n){return '$'+Number(n).toLocaleString('en-US')}
 function usd2(n){return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function num(n){return Number(n).toLocaleString('en-US')}
 function L(){return D[st.i]}
-function steps(){return L().id==='semiconductors'?S:S.slice(0,7)}
+function steps(){var semi=L().id==='semiconductors';var a=S.filter(function(s){return s.k!=='dsh'&&(semi||s.k!=='clm')});a.push(S.find(function(s){return s.k==='dsh'}));return a}
 function cIdx(){return st.ch[L().id]}
 function chosen(){var c=cIdx();return c==null?null:L().w[c]}
 function way(){return chosen()||L().w[0]}
@@ -590,7 +631,7 @@ function statusPath(items,cur,mark){
 function tabs(arr,on){return '<div class="tabs" aria-hidden="true">'+arr.map(function(t){return '<span class="'+(t===on?'on':'')+'">'+t+'</span>'}).join('')+'</div>'}
 function tleHead(title){return '<div class="ch">'+ico('lin',1)+title+'<div class="r"><span class="tog">Instant Pricing <i></i></span><span class="mini hide-sm">Add Assets</span><span class="mini hide-sm">Add Group</span><span class="findp hide-sm">Add Product</span></div></div>'}
 var QPATH=['Draft','Needs Review','In Review','Approved','Rejected','Presented','Accepted','Denied'];
-function calcBox(r){var d=r.disc;return '<div class="calc"><h4>Calculation Details'+(B.__p?M(2):'')+'</h4><table><thead><tr><th>Price Detail</th><th class="n">Adjustment</th><th class="n">Amount</th></tr></thead><tbody><tr><td>Price Book Entries</td><td class="n">-</td><td class="n">'+usd2(r.unitL)+'</td></tr><tr><td>Percentage-Based (Line-Level)</td><td class="n">'+(d?Math.round(d*100)+'%':'-')+'</td><td class="n">'+(d?'-'+usd2(r.unitL-r.unitN):usd2(0))+'</td></tr><tr class="b"><td>Net Unit Price</td><td></td><td class="n">'+usd2(r.unitN)+'</td></tr></tbody></table></div>'}
+function calcBox(r){var d=r.disc;return '<div class="calc"><h4>Calculation Details'+(B.__p?M(2):'')+'</h4><table><thead><tr><th>Price Detail</th><th class="n">Adjustment</th><th class="n">Amount</th></tr></thead><tbody><tr><td>Price Book Entries</td><td class="n">-</td><td class="n">'+usd2(r.unitL)+'</td></tr><tr><td>Percentage-Based (Line-Level)</td><td class="n">'+(d?Math.round(d*100)+'%':'-')+'</td><td class="n">'+(d?'-'+usd2(r.unitL-r.unitN):usd2(0))+'</td></tr><tr class="b"><td>Net Unit Price</td><td></td><td class="n">'+usd2(r.unitN)+'</td></tr><tr><td colspan="3" style="font-size:11px;color:#706E6B;padding-top:8px">Your team only</td></tr><tr><td>Unit cost (COGS)</td><td></td><td class="n">'+usd2(r.unitL*(1-mtgt()))+'</td></tr><tr><td>Unit margin</td><td class="n">'+Math.round((1-r.unitL*(1-mtgt())/r.unitN)*100)+'%</td><td class="n">'+usd2(r.unitN-r.unitL*(1-mtgt()))+'</td></tr></tbody></table></div>'}
 function tle(l,w,opts){
   var R=lines(l,w),T=R.reduce(function(a,x){return a+x.net},0),LT=R.reduce(function(a,x){return a+x.list},0),o=st.calc==null?(opts.calc?2:null):st.calc;
   var h=tleHead((opts.obj||'Quote Line Items')+' ('+(R.length+1)+')'+(opts.mk?M(opts.mk):''))+'<div class="gridw"><table class="tle"><thead><tr><th></th><th>#</th><th>Product ID</th><th class="n">Quantity</th><th class="n">List Price</th><th class="n">Discount</th><th class="n">Net Unit Price</th><th class="n">Net Total Price</th><th>Selling Model Type</th>'+(opts.why?'<th>Why it’s here</th>':'')+'</tr></thead><tbody>';
@@ -606,16 +647,16 @@ var B={
 acc:function(l,x){
   var m=MC[l.id],z=M2[l.id],holder=m[3]||l.b,sa='SA-'+pad(st.i+3120),P=[[m[0],Math.max(1,Math.round(m[2]/3)),z[0]],[z[1],z[2],z[3]],[z[4],z[5],z[6]]],fa=[1.04,.96,1.08,.92],ff=[1.1,1.15],MO=['Jul 2026','Aug 2026','Sep 2026','Oct 2026','Nov 2026','Dec 2026'];
   var plan=0,act=0;
-  var rows=P.map(function(p,pi){var cells='',pSum=0,aSum=0;MO.forEach(function(_,i){var pq=Math.max(1,Math.round(p[1]*(1+.02*((i+pi)%3-1))));var q=i<4?Math.max(0,Math.round(pq*fa[(i+pi)%4])):Math.round(pq*ff[i-4]);pSum+=pq;if(i<4)aSum+=q;plan+=pq*p[2];if(i<4)act+=q*p[2];cells+='<td class="n">'+num(pq)+'<br><span style="color:'+(i<4?'#2E844A':'#0176D3')+'">'+num(q)+'</span></td>'});return '<tr><td><span class="cbx"></span></td><td class="w"><a>'+e(p[0])+'</a><br><span class="note">Planned Quantity<br>'+(1?'Actual / Forecasted Quantity':'')+'</span></td><td class="n">'+usd2(p[2])+'</td>'+cells+'<td class="n"><b>'+num(pSum)+'</b><br>'+num(aSum)+'</td></tr>'}).join('');
+  var rows=P.map(function(p,pi){var cells='',pSum=0,aSum=0;MO.forEach(function(_,i){var pq=Math.max(1,Math.round(p[1]*(1+.02*((i+pi)%3-1))));var q=i<4?Math.max(0,Math.round(pq*fa[(i+pi)%4]*bias(pi))):Math.round(pq*ff[i-4]*bias(pi));pSum+=pq;if(i<4)aSum+=q;plan+=pq*p[2];if(i<4)act+=q*p[2];cells+='<td class="n">'+num(pq)+'<br><span style="color:'+(i<4?'#2E844A':'#0176D3')+'">'+num(q)+'</span></td>'});return '<tr><td><span class="cbx"></span></td><td class="w"><a>'+e(p[0])+'</a><br><span class="note">Planned Quantity<br>'+(1?'Actual / Forecasted Quantity':'')+'</span></td><td class="n">'+usd2(p[2])+'</td>'+cells+'<td class="n"><b>'+num(pSum)+'</b><br>'+num(aSum)+'</td></tr>'}).join('');
   var fmt=function(v){return '$'+Math.round(v).toLocaleString('en-US')};
   var months=[62,58,66,54,70,74],hs=months.map(function(p,i){var a=i<4?p*fa[i]*.92:p*ff[i-4];var X=10+i*57;return '<rect x="'+X+'" y="'+(90-p)+'" width="20" height="'+p+'" fill="#B0C4DF"/><rect x="'+(X+22)+'" y="'+(90-a)+'" width="20" height="'+a+'" fill="'+(i<4?'#2E844A':'#0176D3')+'"/><text x="'+(X+21)+'" y="103" font-size="9" text-anchor="middle" fill="#706E6B">'+MO[i].slice(0,3)+'</text>'}).join('');
   return highlight('agr','Sales Agreement',holder+', FY26 agreement',[['Account',holder,1],['Seller',l.a+' (fictional)'],['Status','Activated'],['Start Date','Jul 1, 2026'],['End Date','Dec 31, 2026'],['Schedule','Monthly'],['Planned Amount',fmt(plan)]],['Recalculate Actuals','Mass Update','Edit'])+
   '<div class="card">'+statusPath(['Draft','Under Review','Approved','Activated','Expired'],3,0)+'</div>'+
   '<div class="card">'+tabs(['Agreement Terms','Details','Related','Activity'],'Agreement Terms')+
   '<div class="ch">'+ico('agr',1)+'Agreement Terms ('+P.length+')'+M(1)+'<div class="r"><span class="mini">Quantity ▾</span><span class="note">Actuals: from direct orders</span></div></div><div class="gridw"><table class="tle"><thead><tr><th></th><th>Product</th><th class="n">Price</th>'+MO.map(function(m){return '<th class="n">'+m+'</th>'}).join('')+'<th class="n">Total</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
-  '<div class="col2"><div class="card"><div class="ch">Planned vs Actual and Forecast'+M(2)+'</div><div class="chart"><svg viewBox="0 0 356 108" style="width:100%;height:auto" role="img" aria-label="Planned against actual and forecast by month">'+hs+'</svg></div><div class="legend"><span><i style="background:#B0C4DF"></i>Planned</span><span><i style="background:#2E844A"></i>Actual</span><span><i style="background:#0176D3"></i>Forecast</span></div></div>'+
-  '<div class="stack"><div class="card"><div class="ch">Run-rate this agreement</div><div class="dgrid"><div><div class="fl">Actual Revenue to date</div><div class="fv">'+fmt(act)+'</div></div><div><div class="fl">Attainment to date</div><div class="fv">'+Math.round(act/plan*100)+'% of full-term plan</div></div></div></div>'+
-  '<div class="card"><div class="ch">'+ico('opp',1)+'Open Opportunities (1)'+M(3)+'</div><div class="pad"><a class="lk">'+e(l.o)+'</a> <span class="pill b">New RFQ</span><br><span class="note">Configured work outside this agreement. Their customer: '+e(l.b)+'</span></div></div></div></div>'
+  forecastCard(l,2)+
+  '<div class="col2"><div class="card"><div class="ch">Run-rate this agreement</div><div class="dgrid"><div><div class="fl">Actual Revenue to date</div><div class="fv">'+fmt(act)+'</div></div><div><div class="fl">Attainment to date</div><div class="fv">'+Math.round(act/plan*100)+'% of full-term plan</div></div></div></div>'+
+  '<div class="card"><div class="ch">'+ico('opp',1)+'Open Opportunities (1)'+M(3)+'</div><div class="pad"><a class="lk">'+e(l.o)+'</a> <span class="pill b">New RFQ</span><br><span class="note">Configured work outside this agreement. Their customer: '+e(l.b)+'</span></div></div></div>'
 },
 rfq:function(l){
   var stg=['Prospecting','Qualification','Needs Analysis','Value Proposition','Proposal/Price Quote','Negotiation/Review','Closed'];
@@ -628,13 +669,13 @@ chk:function(l,x){return configurator(l,true)},
 prc:function(l){
   B.__p=1;var w=way(),t=tle(l,w,{calc:true,mk:1}),q=pad(st.i+1041,8);
   return quoteHead(l,w,q,0)+'<div class="card">'+statusPath(QPATH,0)+'</div><div class="card">'+tabs(['Lines','Details','Related','Approvals'],'Lines')+t.html+'</div>'+
-  '<div class="col2"><div class="card"><div class="ch">Every way out, priced'+M(3)+'</div><div class="gridw"><table class="tle"><thead><tr><th>Option</th><th class="n">Grand Total</th><th class="n">Against this quote</th></tr></thead><tbody>'+l.w.map(function(a){var dl=a.p-w.p;return '<tr class="'+(a===w?'new':'')+'"><td class="w">'+(a===w?'<b>':'')+e(a.t)+(a===w?'</b>':'')+'</td><td class="n">'+amt(a)+'</td><td class="n">'+(a===w?'Selected':(dl>0?'+':'-')+usd(Math.abs(dl)))+'</td></tr>'}).join('')+'</tbody></table></div></div>'+qSummary(t)+'</div>'
+  waterfallCard(l,w)+'<div class="col2"><div class="card"><div class="ch">Every way out, priced'+M(3)+'</div><div class="gridw"><table class="tle"><thead><tr><th>Option</th><th class="n">Grand Total</th><th class="n">Against this quote</th></tr></thead><tbody>'+l.w.map(function(a){var dl=a.p-w.p;return '<tr class="'+(a===w?'new':'')+'"><td class="w">'+(a===w?'<b>':'')+e(a.t)+(a===w?'</b>':'')+'</td><td class="n">'+amt(a)+'</td><td class="n">'+(a===w?'Selected':(dl>0?'+':'-')+usd(Math.abs(dl)))+'</td></tr>'}).join('')+'</tbody></table></div></div>'+qSummary(t)+'</div>'
 },
 qte:function(l){
   var w=way(),t=tle(l,w,{why:true}),q=pad(st.i+1041,8),approved=1,R=lines(l,w);
   return quoteHead(l,w,q,1)+'<div class="card">'+statusPath(QPATH,5)+'</div><div class="card">'+tabs(['Lines','Details','Related','Approvals'],'Lines')+t.html+'</div>'+
   '<div class="col2"><div class="card"><div class="ch">'+ico('qte',1)+'Quote Document'+M(1)+'<div class="r"><span class="mini">Generate Document</span></div></div><div class="doc"><h4>Quote '+q+'</h4><p>'+e(l.a)+' to '+e(l.b)+'. Valid 30 days. Illustrative prices.</p><table><thead><tr><th>Item</th><th>Why it’s here</th><th class="n">Amount</th></tr></thead><tbody>'+R.map(function(r){return '<tr><td>'+e(r.n)+'</td><td>'+e(r.why)+'</td><td class="n">'+usd(r.net)+'</td></tr>'}).join('')+'<tr class="t"><td colspan="2">Total</td><td class="n">'+amt(w)+'</td></tr></tbody></table></div></div>'+
-  '<div class="stack"><div class="card"><div class="ch">Approvals'+M(2)+'</div><div class="pad"><ul class="tl"><li><i class="g"></i><div><b>Discount</b> <span class="pill g">Approved</span><br><span class="note">5% on two lines, inside the rep’s limit. No person needed.</span></div></li><li><i class="g"></i><div><b>Engineering</b> <span class="pill g">Not required</span><br><span class="note">The combination passed Product Validation.</span></div></li></ul></div></div>'+
+  '<div class="stack"><div class="card"><div class="ch">Approvals'+M(2)+'</div><div class="pad"><ul class="tl"><li><i class="g"></i><div><b>Discount</b> <span class="pill g">Approved</span><br><span class="note">5% on two lines, inside the rep’s limit. No person needed.</span></div></li><li><i class="g"></i><div><b>Margin</b> <span class="pill g">Approved</span><br><span class="note">'+money(l,w).mgp+'% gross margin, above the 30% floor.</span></div></li><li><i class="g"></i><div><b>Engineering</b> <span class="pill g">Not required</span><br><span class="note">The combination passed Product Validation.</span></div></li></ul></div></div>'+
   '<div class="card"><div class="ch">Activity'+M(3)+'</div><div class="pad"><ul class="tl">'+[['o','RFQ attached from '+l.b],['p','Stopped: '+l.s],['p','Changed: '+w.t],['g','Priced from the price book'],['g','Quote '+q+' presented']].map(function(a){return '<li><i class="'+a[0]+'"></i><span>'+e(a[1])+'</span></li>'}).join('')+'</ul></div></div></div></div>'
 },
 ord:function(l){
@@ -645,8 +686,15 @@ ord:function(l){
   '<div class="ch">'+ico('lin',1)+'Order Products ('+R.length+')'+M(1)+'<div class="r"><span class="tog">Instant Pricing <i></i></span></div></div><div class="gridw"><table class="tle"><thead><tr><th>#</th><th>Product ID</th><th class="n">Quantity</th><th class="n">Net Unit Price</th><th class="n">Discount</th><th class="n">Net Total Price</th></tr></thead><tbody>'+R.map(function(r,i){return '<tr'+(r.fix?' class="new"':'')+'><td>'+(i+1)+'</td><td><a>'+e(r.n)+'</a></td><td class="n">'+e(r.qty)+'</td><td class="n">'+usd2(r.unitN)+'</td><td class="n">'+(r.disc?Math.round(r.disc*100)+'.00%':'')+'</td><td class="n">'+usd2(r.net)+'</td></tr>'}).join('')+'</tbody></table></div></div>'+
   '<div class="card"><div class="ch">Fulfillment Plan'+M(2)+'<div class="r"><span class="pill b">In progress</span></div></div><div class="fplan">'+FP.map(function(f,i){return '<div class="fstep"><div class="fdot '+(i<2?'d':i===2?'c':'')+'"></div><b>'+f+'</b><small>'+(i<2?'Completed':i===2?'In progress':'Not started')+'</small></div>'}).join('')+'</div></div>'+
   '<div class="col2"><div class="card"><div class="ch">'+ico('lin',1)+'What travels with the order</div><div class="pad"><ul class="tl">'+l.k.map(function(t){return '<li><i class="g"></i><span>'+e(t)+'</span></li>'}).join('')+'</ul></div></div>'+
-  '<div class="card"><div class="ch">'+ico('agr',1)+'Back in '+MFG+M(3)+'</div><div class="dgrid"><div><div class="fl">Account Forecast</div><div class="fv">Updated with this order</div></div><div><div class="fl">Repeat business</div><div class="fv">Can roll into the Sales Agreement</div></div><div><div class="fl">ERP Sync</div><div class="fv"><span class="pill g">Sent, nothing retyped</span></div></div><div><div class="fl">Assets</div><div class="fv">Created on activation</div></div></div></div></div>'
+  '<div class="card"><div class="ch">'+ico('agr',1)+'Back in '+MFG+M(3)+'</div><div class="dgrid"><div><div class="fl">Account Forecast</div><div class="fv">+'+kfmt(way().p)+' in Feb 2027, replacing the weighted RFQ</div></div><div><div class="fl">Repeat business</div><div class="fv">Can roll into the Sales Agreement</div></div><div><div class="fl">ERP Sync</div><div class="fv"><span class="pill g">Sent, nothing retyped</span></div></div><div><div class="fl">Assets</div><div class="fv">Created on activation</div></div></div></div></div>'
 },
+dsh:function(l){var d=dashData();
+  return '<div class="card hl"><div class="hltop">'+ico('lin')+'<div><div class="hlo">Dashboard</div><div class="hlt">'+e(l.n)+': Quote-to-Order</div></div><div class="acts">'+STAMP+'<span class="sb">Refresh</span><span class="sb">Subscribe</span><span class="sb">Edit</span></div></div><div class="note" style="margin-top:6px">As of today, 9:14 AM · This quarter · Illustrative figures</div></div>'+
+  '<div class="dgrid2">'+[['Open RFQs',d.open,'Waiting for a quote'],['Quotes sent',d.sent,'This quarter'],['Win rate',d.win+'%','Quotes won'],['Median time to quote',d.ttq+' days','RFQ to quote sent'],['Stopped by a check',d.stops,'Before a price went out'],['Open pipeline','$'+(d.pipe>=1e6?(d.pipe/1e6).toFixed(1)+'M':Math.round(d.pipe/1e3)+'K'),'Weighted']].map(function(k,n){return '<div class="card kpi"><div class="l">'+k[0]+(n===0?M(1):'')+'</div><div class="v">'+k[1]+'</div><div class="s">'+k[2]+'</div></div>'}).join('')+'</div>'+
+  '<div class="dash2">'+comp('Forecast against plan, next six months',fcChart(fc()),'fc',2)+comp('What the checks stopped',hbars(d.why,null,'alt'),'why',3)+'</div>'+
+  '<div class="dash3" style="grid-template-columns:repeat(2,minmax(0,1fr))">'+comp('Agreement attainment to date',hbars(d.att,function(v){return v+'%'},'ok'),'att')+comp('Pipeline by stage',hbars(d.st4),'pipe')+'</div><div class="dash3" style="grid-template-columns:repeat(2,minmax(0,1fr))">'+comp('Quotes sent per week',cols(d.wk),'wk')+comp('Orders by status',donut(d.ord),'ord')+'</div>'
+},
+
 clm:function(l){
   return highlight('clm','Claim','Debit NGC-DM-2026-10',[['Distributor','Northgate Components',1],['Manufacturer',l.a+' (fictional)'],['Program','Ship and Debit, Q3'],['Lines','16'],['Credit Memo','CM-CLM-0001']],['Approve Credit','Edit','▾'])+
   '<div class="card">'+statusPath(['Submitted','In Validation','Reviewed','Credited'],2)+'</div>'+
@@ -679,6 +727,97 @@ function configurator(l,isCheck){
    '<div class="cfgf"><span class="fb">Cancel</span><span class="fb '+(w||!isCheck?'p':'off')+'">Save &amp; Exit</span></div></div>';
 }
 
+
+/* ===== Account Forecast: actuals, run-rate, weighted opportunity, six months ahead. Fictional. ===== */
+function bias(pi){return [1.0,.93,1.07][pi]*(1+(((st.i+pi)%3)-1)*.02)}
+function lowIdx(){var b=[0,1,2].map(bias);return b.indexOf(Math.min.apply(null,b))}
+var FMO=['Jul 2026','Aug 2026','Sep 2026','Oct 2026','Nov 2026','Dec 2026','Jan 2027','Feb 2027','Mar 2027','Apr 2027'],SEAS=[1,1,1,1,1.05,.91,.97,1.07,1.11,1.04];
+function fc(){var l=L(),k=curStep().k,P=agreementProducts(),fa=[1.04,.96,1.08,.92],adj=st.fadj[l.id],won=['ord','clm','dsh'].indexOf(k)>=0,prob=won?100:stageFor(k)[1],w=way();
+  var prod=P.map(function(p,pi){var pl=[],ac=[],fq=[];for(var m=0;m<10;m++){var pq=m<6?Math.max(1,Math.round(p[1]*(1+.02*((m+pi)%3-1)))):p[1];pl.push(pq);ac.push(m<4?Math.max(0,Math.round(pq*fa[(m+pi)%4]*bias(pi))):null)}
+    var rr=ac.slice(0,4).reduce(function(a,b){return a+b},0)/pl.slice(0,4).reduce(function(a,b){return a+b},0);
+    for(var m2=0;m2<10;m2++){fq.push(m2<4?ac[m2]:Math.round(pl[m2]*rr*SEAS[m2]*(adj&&pi===lowIdx()&&(m2===4||m2===5)?.96:1)))}
+    return {n:p[0],price:p[2],pl:pl,ac:ac,fq:fq,rr:rr}});
+  var plan=[],act=[],opp=[],ordr=[],fcs=[];
+  for(var m=0;m<10;m++){var pv=0,av=0,fv=0;prod.forEach(function(p){pv+=p.pl[m]*p.price;fv+=p.fq[m]*p.price;if(m<4)av+=p.ac[m]*p.price});
+    var o=m===7?w.p*prob/100:0;plan.push(pv);act.push(m<4?av:null);opp.push(won?0:o);ordr.push(won&&m===7?w.p:0);fcs.push(m<4?av:fv+o+(won&&m===7?w.p:0))}
+  var n6=fcs.slice(4).reduce(function(a,b){return a+b},0),p6=plan.slice(4).reduce(function(a,b){return a+b},0),rr=act.slice(0,4).reduce(function(a,b){return a+b},0)/plan.slice(0,4).reduce(function(a,b){return a+b},0);
+  return {prod:prod,plan:plan,act:act,opp:opp,ordr:ordr,fcs:fcs,n6:n6,p6:p6,vs:Math.round((n6/p6-1)*1000)/10,rr:Math.round(rr*100),runm:act.slice(0,4).reduce(function(a,b){return a+b},0)/4,acc:92+st.i%6,prob:prob,won:won,adj:adj,oppAmt:w.p*prob/100}}
+function kfmt(v){v=Math.round(v);return v>=1e6?'$'+(v/1e6).toFixed(2)+'M':v>=1e4?'$'+Math.round(v/1e3)+'K':'$'+v.toLocaleString('en-US')}
+function fcChart(f){var W=560,H=190,L0=46,T0=14,B0=26,mx=Math.max.apply(null,f.plan.concat(f.fcs))*1.1,mn=Math.min.apply(null,f.plan.concat(f.fcs))*.84,x=function(m){return L0+m*(W-L0-12)/9},y=function(v){return T0+(H-T0-B0)*(1-(v-mn)/(mx-mn))};
+  var path=function(arr,a,b){var d='';for(var m=a;m<=b;m++){d+=(m===a?'M':'L')+x(m).toFixed(1)+' '+y(arr[m]).toFixed(1)}return d};
+  var band='';for(var m=3;m<10;m++){var sp=m===3?0:.03+.012*(m-3);band+=(m===3?'M':'L')+x(m).toFixed(1)+' '+y(f.fcs[m]*(1+sp)).toFixed(1)}for(var m2=9;m2>=3;m2--){var sp2=m2===3?0:.03+.012*(m2-3);band+='L'+x(m2).toFixed(1)+' '+y(f.fcs[m2]*(1-sp2)).toFixed(1)}band+='Z';
+  var grid='';for(var g=0;g<=3;g++){var v=mn+(mx-mn)*g/3;grid+='<line x1="'+L0+'" x2="'+(W-8)+'" y1="'+y(v).toFixed(1)+'" y2="'+y(v).toFixed(1)+'" stroke="#ECEBEA"/><text x="'+(L0-6)+'" y="'+(y(v)+3).toFixed(1)+'" font-size="9" text-anchor="end" fill="#706E6B">'+kfmt(v)+'</text>'}
+  var lab=FMO.map(function(m,n){return '<text x="'+x(n).toFixed(1)+'" y="'+(H-8)+'" font-size="9" text-anchor="middle" fill="#706E6B">'+m.slice(0,3)+'</text>'}).join('');
+  var opx=f.opp[7]||f.ordr[7];
+  return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="Account forecast against plan">'+grid+lab+
+   '<rect x="'+((x(3)+x(4))/2).toFixed(1)+'" y="'+T0+'" width="'+(W-8-(x(3)+x(4))/2).toFixed(1)+'" height="'+(H-T0-B0)+'" fill="#F5F9FD"/>'+
+   '<path d="'+band+'" fill="#1B96FF" opacity=".16"/>'+
+   '<path d="'+path(f.plan,0,9)+'" fill="none" stroke="#8C8C8C" stroke-width="1.6" stroke-dasharray="5 4"/>'+
+   '<path d="'+path(f.fcs,3,9)+'" fill="none" stroke="#0176D3" stroke-width="2.4"/>'+
+   '<path d="'+path(f.fcs,0,3)+'" fill="none" stroke="#2E844A" stroke-width="2.6"/>'+
+   f.fcs.map(function(v,n){return '<circle cx="'+x(n).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="'+(n===7&&opx?5:2.6)+'" fill="'+(n<4?'#2E844A':n===7&&opx?'#9050E9':'#0176D3')+'"/>'}).join('')+
+   (opx?'<text x="'+x(7).toFixed(1)+'" y="'+(y(f.fcs[7])-10).toFixed(1)+'" font-size="9.5" text-anchor="middle" fill="#7526E3" font-weight="700">'+(f.won?'New order':'New RFQ, weighted')+'</text>':'')+
+   '<line x1="'+((x(3)+x(4))/2).toFixed(1)+'" x2="'+((x(3)+x(4))/2).toFixed(1)+'" y1="'+T0+'" y2="'+(H-B0)+'" stroke="#706E6B" stroke-dasharray="2 3"/><text x="'+((x(3)+x(4))/2+4).toFixed(1)+'" y="'+(T0+9)+'" font-size="9" fill="#706E6B">Today</text></svg>'+
+   '<div class="legend" style="padding:2px 0 0"><span><i style="background:#2E844A"></i>Actual</span><span><i style="background:#0176D3"></i>Forecast</span><span><i style="background:#1B96FF;opacity:.3"></i>Range</span><span><i style="background:#8C8C8C"></i>Plan</span><span><i style="background:#9050E9"></i>'+(f.won?'Order':'Opportunity')+'</span></div>'}
+function fcKpis(f){return '<div class="dgrid2" style="grid-template-columns:repeat(4,minmax(0,1fr))">'+[['Forecast, next 6 months',kfmt(f.n6),(f.vs>=0?'+':'')+f.vs+'% vs plan'],['Run-rate',kfmt(f.runm)+'/mo',f.rr+'% of plan, Jul–Oct'],['Forecast accuracy',f.acc+'%','Last 3 months'],[f.won?'Won order':'New RFQ, weighted',kfmt(f.won?f.ordr[7]:f.oppAmt),f.won?'In Feb 2027':f.prob+'% of the estimate, Feb 2027']].map(function(k){return '<div class="card kpi"><div class="l">'+k[0]+'</div><div class="v">'+k[1]+'</div><div class="s">'+k[2]+'</div></div>'}).join('')+'</div>'}
+function fcGrid(f){var rows=[['Sales Agreement plan',f.plan],['Orders (actual)',f.act.map(function(v,n){return n<4?v:(f.ordr[n]||null)})],[f.won?'Won order':'Opportunities (weighted)',f.won?f.ordr:f.opp],['Forecast',f.fcs],['Variance to plan',f.fcs.map(function(v,n){return v-f.plan[n]})]];
+  return '<div class="gridw"><table class="tle"><thead><tr><th>Revenue</th>'+FMO.map(function(m,n){return '<th class="n"'+(n>3?' style="background:#EAF5FE"':'')+'>'+m+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r,ri){return '<tr'+(ri===3?' class="hi"':'')+'><td'+(ri===3?' style="font-weight:700"':'')+'>'+r[0]+'</td>'+r[1].map(function(v){return '<td class="n"'+(ri===4&&v<0?' style="color:#BA0517"':ri===4&&v>0?' style="color:#2E844A"':'')+'>'+(v==null||v===0&&ri!==4?'—':(ri===4&&v>0?'+':'')+kfmt(v).replace('$-','-$'))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>'}
+function fcQty(f){return '<div class="gridw"><table class="tle"><thead><tr><th>Forecasted Quantity</th>'+FMO.slice(4).map(function(m){return '<th class="n">'+m+'</th>'}).join('')+'<th class="n">Run-rate</th></tr></thead><tbody>'+f.prod.map(function(p,pi){return '<tr><td class="w"><a>'+e(p.n)+'</a></td>'+p.fq.slice(4).map(function(v,n){return '<td class="n"'+(f.adj&&pi===lowIdx()&&n<2?' style="color:#7526E3;font-weight:700"':'')+'>'+num(v)+'</td>'}).join('')+'<td class="n">'+Math.round(p.rr*100)+'%</td></tr>'}).join('')+'</tbody></table></div>'}
+function forecastCard(l,mk){var f=fc();return '<div class="card"><div class="ch">'+ico('agr',1)+'Account Forecast: '+e(holder())+(mk?M(mk):'')+'<div class="r">'+(f.adj?'<span class="pill" style="background:#F3EBFF;color:#7526E3">Adjusted by S. Ellis</span>':'')+'<span class="mini">Monthly ▾</span><span class="note">Sources: agreement, orders, opportunities</span></div></div><div class="pad">'+fcKpis(f)+'<div style="margin-top:10px">'+fcChart(f)+'</div></div>'+fcGrid(f)+'</div>'}
+
+/* ===== Manufacturer price waterfall and margin. Fictional cost data. ===== */
+function mtgt(){return (36+(st.i*3)%8)/100}
+function money(l,w){var R0=lines(l,w),LT=R0.reduce(function(a,x){return a+x.list},0),T=w.p,cogs=Math.round(LT*(1-mtgt())),mat=Math.round(cogs*.62),lab=Math.round(cogs*.23),ovh=cogs-mat-lab;return {LT:LT,T:T,D:LT-T,cogs:cogs,mat:mat,lab:lab,ovh:ovh,mL:LT-cogs,mg:T-cogs,mgp:Math.round((T-cogs)/T*1000)/10}}
+function waterfall(m){var it=[['Material',m.mat,'c'],['Labor',m.lab,'c'],['Overhead',m.ovh,'c'],['COGS',m.cogs,'t'],['Margin',m.mL,'g'],['List price',m.LT,'t'],['Discount',-m.D,'r'],['Net price',m.T,'t']];
+  var W=560,H=200,T0=18,B0=34,bw=(W-20)/it.length,mx=m.LT*1.08,y=function(v){return T0+(H-T0-B0)*(1-v/mx)},base=0,out='',C={c:'#FE9339',t:'#032D60',g:'#2E844A',r:'#BA0517'};
+  it.forEach(function(r,n){var v=r[1],y0,y1;if(r[2]==='t'){y0=y(0);y1=y(v);base=v}else{y0=y(base);base+=v;y1=y(base)}var top=Math.min(y0,y1),h=Math.max(1.5,Math.abs(y0-y1)),X=10+n*bw+6;
+    out+='<rect x="'+X.toFixed(1)+'" y="'+top.toFixed(1)+'" width="'+(bw-12).toFixed(1)+'" height="'+h.toFixed(1)+'" rx="2" fill="'+C[r[2]]+'"/><text x="'+(X+(bw-12)/2).toFixed(1)+'" y="'+(top-4).toFixed(1)+'" font-size="9.5" text-anchor="middle" fill="#181818">'+(v<0?'-':'')+kfmt(Math.abs(v))+'</text><text x="'+(X+(bw-12)/2).toFixed(1)+'" y="'+(H-B0+14)+'" font-size="9.5" text-anchor="middle" fill="#444">'+r[0]+'</text>'});
+  return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="Price waterfall from cost to net price">'+out+'</svg>'}
+function waterfallCard(l,w){var m=money(l,w),fl=30;return '<div class="card"><div class="ch">Price Waterfall and Margin<div class="r"><span class="pill b">Your team sees this. The customer doesn’t.</span></div></div><div class="pad"><div class="col2" style="align-items:center"><div>'+waterfall(m)+'</div><div><table class="tle"><tbody>'+
+  [['Material',usd(m.mat)],['Labor',usd(m.lab)],['Overhead',usd(m.ovh)],['Cost of goods sold',usd(m.cogs)],['Target margin on list',Math.round(mtgt()*100)+'%'],['List price',usd(m.LT)],['Discount','-'+usd(m.D)],['Net price',usd(m.T)],['Gross margin',usd(m.mg)+' ('+m.mgp+'%)'],['Margin floor',fl+'%: '+(m.mgp>=fl?'above, no approval':'below, needs approval')]].map(function(r,n){return '<tr'+(n===3||n===7?' class="total"':'')+(n===8?' class="new"':'')+'><td>'+r[0]+'</td><td class="n">'+r[1]+'</td></tr>'}).join('')+'</tbody></table></div></div></div></div>'}
+
+/* ===== Dashboard: illustrative figures, deterministic per product line ===== */
+function dashData(){var l=L(),i=st.i,w=way(),open=6+(i*3)%9,sent=28+(i*7)%40,win=31+(i*5)%18,ttq=(1.2+((i*7)%9)/10).toFixed(1),stops=5+(i*3)%11;
+  var wk=[0,1,2,3,4,5,6,7].map(function(n){return Math.max(1,Math.round(sent/8*(0.75+((i+n*3)%6)/10)))});
+  var st4=[['Needs Analysis',open+3],['Value Proposition',open],['Proposal/Price Quote',Math.max(2,open-2)],['Negotiation/Review',Math.max(1,Math.round(open/3))]];
+  var pipe=st4.reduce(function(a,x){return a+x[1]},0)*w.p*0.6;
+  var why=[[l.s,Math.max(2,Math.round(stops*.45))],['A site fact was missing',Math.max(1,Math.round(stops*.25))],['Discount over the rep’s limit',Math.max(1,Math.round(stops*.18))],['Option not sold with this product',Math.max(1,Math.round(stops*.12))]];
+  var P=agreementProducts(),fa=[1.04,.96,1.08,.92],att=P.map(function(p,pi){var pl=0,ac=0;for(var m=0;m<4;m++){var pq=Math.max(1,Math.round(p[1]*(1+.02*((m+pi)%3-1))));pl+=pq;ac+=Math.max(0,Math.round(pq*fa[(m+pi)%4]*bias(pi)))}return [p[0],Math.round(ac/pl*100)]});
+  var ord=[['Sent to ERP',3+(i%4)],['In build',4+(i*2)%5],['Shipped',6+(i*3)%7]];
+  return {open:open,sent:sent,win:win,ttq:ttq,stops:stops,wk:wk,st4:st4,pipe:pipe,why:why,att:att,ord:ord}}
+function hbars(rows,fmt,cls){var mx=Math.max.apply(null,rows.map(function(r){return r[1]}));return rows.map(function(r){return '<div class="hb"><span>'+e(r[0])+'</span><span><span class="bar '+(cls||'')+'" style="display:block;width:'+Math.max(4,Math.round(r[1]/mx*100))+'%"></span></span><span class="t">'+(fmt?fmt(r[1]):r[1])+'</span></div>'}).join('')}
+function cols(vals){var mx=Math.max.apply(null,vals),W=300,H=110,bw=W/vals.length;return '<svg viewBox="0 0 '+W+' '+(H+16)+'" style="width:100%;height:auto" role="img" aria-label="Quotes sent per week">'+vals.map(function(v,n){var h=Math.round(v/mx*(H-14));return '<rect x="'+(n*bw+6)+'" y="'+(H-h)+'" width="'+(bw-12)+'" height="'+h+'" rx="2" fill="'+(n===vals.length-1?'#032D60':'#1B96FF')+'"/><text x="'+(n*bw+bw/2)+'" y="'+(H-h-3)+'" font-size="10" text-anchor="middle" fill="#444">'+v+'</text><text x="'+(n*bw+bw/2)+'" y="'+(H+12)+'" font-size="9" text-anchor="middle" fill="#706E6B">W'+(n+38)+'</text>'}).join('')+'</svg>'}
+function donut(rows){var tot=rows.reduce(function(a,r){return a+r[1]},0),C=['#1B96FF','#9050E9','#2E844A'],a0=0,R0=42,cx=60,cy=55,seg='';rows.forEach(function(r,n){var a1=a0+r[1]/tot*Math.PI*2,x0=cx+R0*Math.sin(a0),y0=cy-R0*Math.cos(a0),x1=cx+R0*Math.sin(a1),y1=cy-R0*Math.cos(a1);seg+='<path d="M'+x0.toFixed(2)+' '+y0.toFixed(2)+' A'+R0+' '+R0+' 0 '+(a1-a0>Math.PI?1:0)+' 1 '+x1.toFixed(2)+' '+y1.toFixed(2)+'" stroke="'+C[n]+'" stroke-width="16" fill="none"/>';a0=a1});
+  return '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><svg viewBox="0 0 120 110" style="width:120px;flex:none" role="img" aria-label="Orders by status">'+seg+'<text x="60" y="61" font-size="18" text-anchor="middle" fill="#032D60">'+tot+'</text></svg><div>'+rows.map(function(r,n){return '<div style="font-size:12px;margin:3px 0"><i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+C[n]+';margin-right:5px"></i>'+e(r[0])+': <b>'+r[1]+'</b></div>'}).join('')+'</div></div>'}
+function comp(title,body,rep,mk){return '<div class="card comp"><div class="ch">'+title+(mk?M(mk):'')+'</div><div class="cb">'+body+'</div><button class="vr" data-rep="'+rep+'">View Report</button></div>'}
+function openRep(k){if(k==='fc'){REC.forecast();return}var d=dashData(),l=L(),T={
+  pipe:['Pipeline by Stage',['Stage','Open Opportunities'],d.st4.map(function(r){return [r[0],String(r[1])]})],
+  wk:['Quotes Sent per Week',['Week','Quotes Sent'],d.wk.map(function(v,n){return ['Week '+(n+38),String(v)]})],
+  why:['What the Checks Stopped',['Reason','Quotes Stopped'],d.why.map(function(r){return [r[0],String(r[1])]})],
+  att:['Agreement Attainment to Date',['Product','Actual vs Plan'],d.att.map(function(r){return [r[0],r[1]+'%']})],
+  ord:['Orders by Status',['Status','Orders'],d.ord.map(function(r){return [r[0],String(r[1])]})]}[k];
+  openDM('lin','Report',T[0],[['Report',[['Product Line',l.n],['Range','This quarter'],['Source','Standard report'],['Figures','Illustrative']]]],'<h4>Results</h4>'+tbl(T[1],T[2],[1]))}
+
+/* ===== Agentforce: proposes one action per beat; the rep approves. ===== */
+function lc(t){return t.charAt(0).toLowerCase()+t.slice(1)}
+function AF(){var l=L(),k=curStep().k,w=way(),d=dashData(),P=agreementProducts(),R0=lines(l,w),LT=R0.reduce(function(a,x){return a+x.list},0),att=Math.round(d.att.reduce(function(a,x){return a+x[1]},0)/d.att.length);
+ var full='In Full Rollout',mig='In Migrate and Full Rollout';
+ return {
+ acc:{ask:'What’s driving the forecast for '+holder()+'?',rep:(function(){var f=fc();return '<ul><li>Run-rate is '+f.rr+'% of plan over the last four months.</li><li>'+e(P[lowIdx()][0])+' is running at '+Math.round(f.prod[lowIdx()].rr*100)+'% of plan. The forecast follows that run-rate.</li><li>The new RFQ adds about '+kfmt(f.oppAmt)+' in Feb 2027, weighted at '+f.prob+'%.</li><li>Next six months: '+kfmt(f.n6)+', '+(f.vs>=0?'+':'')+f.vs+'% against plan.</li></ul>'})(),t:'Lower the '+P[lowIdx()][0]+' forecast 4% for Nov and Dec to match its recent orders',tier:mig,adj:1,done:'Forecast adjusted. The change is on the record.'},
+ rfq:{ask:'Read this RFQ and fill in the details.',rep:'Found '+(l.c.length+1)+' requirements in the email:<ul>'+l.c.concat([l.bad]).map(function(c){return '<li>'+e(c[0])+': '+e(c[1])+'</li>'}).join('')+'</ul>Nothing is priced yet. The checks run at configuration.',t:'Fill RFQ Details on the Opportunity',tier:full,done:'RFQ Details filled.'},
+ cfg:{ask:'What’s still open on this configuration?',rep:'Everything that changes the product is answered:<ul>'+l.c.map(function(c){return '<li>'+e(c[0])+': '+e(c[1])+(c[2]?' (asked)':'')+'</li>'}).join('')+'</ul>Next: validate it.',t:'Run validation on this configuration',tier:full,go:'chk'},
+ chk:{ask:'Why did this stop, and what are my options?',rep:'<b>'+e(l.s)+'.</b> '+e(l.y)+'<ul>'+l.w.map(function(x){return '<li>'+e(x.t)+': '+amt(x)+'</li>'}).join('')+'</ul>The check decided this, not Agentforce.',t:'Apply the first way out: '+l.w[0].t,tier:full,apply:1,done:'Configuration validated.'},
+ prc:{ask:'Is this price inside my limits?',rep:'Net '+usd(w.p)+' against a list total of '+usd(LT)+'. The 5% on two lines is inside your 10% limit, so no approval is needed. Gross margin is '+money(l,w).mgp+'%, above your 30% floor.',t:l.w.length>1?'Show the customer both options on the quote':'Add this price summary to the Opportunity',tier:full,done:l.w.length>1?'Both options added to the quote.':'Summary added.'},
+ qte:{ask:'Draft the cover email for this quote.',rep:'Here’s a draft:<div class="em">Subject: Quote '+qno()+' for '+e(l.o)+'\n\nHello '+e(l.b)+' team,\n\nAttached is our quote for your RFQ. One item changed: '+e(lc(l.s))+', so we quoted '+e(lc(w.t))+'.\n\nTotal: '+amt(w)+'. Valid until Jan 17, 2027.\n\nS. Ellis, '+e(l.a)+'</div>',t:'Send the quote with this email',tier:full,done:'Quote and email sent to '+l.b+'.'},
+ ord:{ask:'Where is this order?',rep:'<ul><li>Engineering release is done.</li><li>Long-lead items are being procured.</li><li>Next: build and test.</li></ul>The ERP has the order. Nothing was retyped.',t:'Send '+l.b+' a status update',tier:full,done:'Status update sent.'},
+ clm:{ask:'Summarize this claim.',rep:'16 lines, $95,690 claimed. $48,000 pays and $47,690 is caught:<ul>'+CK.map(function(c){return '<li>'+e(c[0])+': '+usd(c[2])+'</li>'}).join('')+'</ul>',t:'Send Northgate the dispute notice for $47,690',tier:'Full Rollout add-on',done:'Dispute notice sent to Northgate.'},
+ dsh:{ask:'What changed this week?',rep:'<ul><li>'+d.wk[7]+' quotes sent, against '+d.wk[6]+' the week before.</li><li>Most common stop: '+e(lc(l.s))+'.</li><li>Agreement attainment about '+att+'% to date.</li></ul>',t:'Schedule the Monday forecast review',tier:full,done:'Review scheduled for Monday, 9:00 AM.'}
+ }[k];}
+var AFI='<svg viewBox="0 0 20 20" aria-hidden="true"><path fill="#9050E9" d="M10 1l2.2 5.3L17.5 8l-5.3 2.2L10 15.5 7.8 10.2 2.5 8l5.3-1.7z"/><path fill="#1B96FF" d="M16 12l.9 2.1 2.1.9-2.1.9L16 18l-.9-2.1-2.1-.9 2.1-.9z"/></svg>';
+function afPanel(){var a=AF(),key=L().id+'/'+curStep().k,done=st.afd[key]||(a.apply&&chosen());
+ return '<aside class="afp" aria-label="Agentforce"><div class="afh">'+AFI+'Agentforce'+STAMP+'<button class="x" data-af="1" aria-label="Close Agentforce">×</button></div><div class="afm"><div class="bub me">'+e(a.ask)+'</div><div class="bub ai">'+a.rep+'</div>'+
+ '<div class="act"><div class="lb">Proposed action</div><b>'+e(a.t)+'</b><div class="tr">'+e(a.tier)+'</div>'+(done?'<div class="ok">✓ Approved by S. Ellis'+(a.done?'. '+e(a.done):'')+'</div>':'<div class="bt"><button class="fb p" data-afok="1">Approve</button><button class="fb" data-afno="1">Dismiss</button></div>')+'</div></div>'+
+ '<div class="aff">Agentforce proposes. Your rep approves. Prices and checks come from the price book and the checks.</div></aside>'}
 
 /* ===== Clickable links: record details, file previews, actions. All data fictional. ===== */
 var CITIES=['Columbus, OH','Greenville, SC','Fort Wayne, IN','Tulsa, OK','Rockford, IL','Chattanooga, TN','Wichita, KS','Spokane, WA','Erie, PA','Fresno, CA','Boise, ID','Dayton, OH'];
@@ -719,13 +858,14 @@ var REC={
  order:function(){var l=L(),w=way();openDM('ord','Order',pad(st.i+2207,8),[['Order Information',[['Order Number',pad(st.i+2207,8)],['Status','Activated'],['Order Start Date','Dec 18, 2026'],['Account Name',l.a],['Bill To',l.b],['Order Amount',amt(w)],['PO Number','PO-'+(44120+st.i)],['Billing Frequency','One Time']]],['Fulfillment',[['Fulfillment Plan','In progress: procure long-lead items'],['ERP Sync','Sent, nothing retyped'],['Assets','Created on activation'],['Back in '+MFG,'Account Forecast updated']]]])},
  claim:function(){var l=L();openDM('clm','Claim','Debit NGC-DM-2026-10',[['Claim Information',[['Distributor','Northgate Components'],['Manufacturer',l.a],['Program','Ship and Debit, Q3'],['Lines','16'],['Claimed','$95,690'],['Pays','$48,000'],['Caught','$47,690'],['Credit Memo','CM-CLM-0001']]],['Sources',[['POS resale','EDI 867, as filed'],['Stock held','Distributor inventory file'],['Agreements','3 special pricing agreements'],['Design registration','Matched where the agreement requires one']]]])},
  catalog:function(){var l=L(),Rw=lines(l,way());openDM('cfg','Product Catalog',l.n,[['Catalog',[['Catalog',l.n],['Products',Rw.length+1],['Price Book','Standard (illustrative)'],['Selling Model','One Time']]]],'<h4>Products</h4>'+tbl(['Product','Product Code','List Price'],[[l.o+' (bundle)',pcode(l.o),usd2(Rw.reduce(function(a,x){return a+x.list},0))]].concat(Rw.map(function(r){return [r.n,pcode(r.n),usd2(r.list)]})),[2]))},
- forecast:function(){var P=agreementProducts();openDM('agr','Account Forecast',holder()+', FY26',[['Forecast',[['Account',holder()],['Period','Monthly, rolling'],['Sources','Sales Agreements, Orders, Opportunities'],['Updated','Today']]]],'<h4>Forecasted Quantity</h4>'+tbl(['Product','Nov 2026','Dec 2026','Q4 Total'],P.map(function(x){var a=Math.round(x[1]*1.1),b=Math.round(x[1]*1.15);return [x[0],num(a),num(b),num(a+b+Math.round(x[1]*.92))]}),[1,2,3]))},
+ forecastOld:function(){var P=agreementProducts();openDM('agr','Account Forecast',holder()+', FY26',[['Forecast',[['Account',holder()],['Period','Monthly, rolling'],['Sources','Sales Agreements, Orders, Opportunities'],['Updated','Today']]]],'<h4>Forecasted Quantity</h4>'+tbl(['Product','Nov 2026','Dec 2026','Q4 Total'],P.map(function(x){var a=Math.round(x[1]*1.1),b=Math.round(x[1]*1.15);return [x[0],num(a),num(b),num(a+b+Math.round(x[1]*.92))]}),[1,2,3]))},
  assets:function(){var l=L(),Rw=lines(l,way()),k=curStep().k,has=['ord','clm'].indexOf(k)>=0;openDM('ord','Assets',l.a+' customer assets',[['Assets',[['Account',l.b],['Count',has?Rw.length:0],['Created','On order activation']]]],has?'<h4>Assets</h4>'+tbl(['Asset','Quantity','Status'],Rw.map(function(r){return [r.n,r.qty,'Purchased']}),[1]):'<p class="note" style="padding:8px 10px">Assets are created when the order is activated.</p>')},
  program:function(){var l=L();openDM('clm','Program','Ship and Debit, Q3',[['Program Information',[['Program','Ship and Debit, Q3'],['Manufacturer',l.a],['Distributor','Northgate Components'],['Special Pricing Agreements','3'],['Claims This Quarter','1 open'],['Design Registration','Where the agreement requires one']]]])},
  approvals:function(){openDM('qte','Approvals','Quote '+qno(),[['Approvals',[['Discount','Approved: 5% on two lines, inside the rep’s limit'],['Engineering','Not required: passed Product Validation'],['Submitted By','S. Ellis'],['Routing','Only what needs a person']]]])},
  related:function(){var l=L();openDM('agr','Related',l.o,[['Related Lists',[['Files','1: RFQ from '+l.b],['Quotes',['acc','rfq'].indexOf(curStep().k)>=0?'0':'1'],['Sales Agreements','1'],['Activity','RFQ email, quote task']]]])}
 };
-function current(){return {acc:REC.agreement,rfq:REC.opp,cfg:REC.quote,chk:REC.quote,prc:REC.quote,qte:REC.quote,ord:REC.order,clm:REC.claim}[curStep().k]}
+REC.forecast=function(){var f=fc();openDM('agr','Account Forecast',holder()+', rolling 10 months',[['Forecast',[['Account',holder()],['Sources','Sales Agreement, orders, opportunities (weighted by stage)'],['Period','Monthly, 4 months actual and 6 ahead'],['Figures','Illustrative']]]],'<h4>Next six months</h4><div style="padding:4px 10px">'+fcKpis(f)+'<div style="margin-top:10px">'+fcChart(f)+'</div></div><h4>Revenue</h4>'+fcGrid(f)+'<h4>By product</h4>'+fcQty(f))};
+function current(){return {dsh:REC.related,acc:REC.agreement,rfq:REC.opp,cfg:REC.quote,chk:REC.quote,prc:REC.quote,qte:REC.quote,ord:REC.order,clm:REC.claim}[curStep().k]}
 function pdfRFQ(){var l=L(),rows=l.c.concat([l.bad]);openPV('RFQ_'+l.b.replace(/[^A-Za-z]+/g,'_')+'.pdf',
  '<div class="row"><div><h3>'+e(l.b)+'</h3><div>400 Commerce Dr<br>'+e(city(st.i+5))+'</div></div><div style="text-align:right"><h3>REQUEST FOR QUOTATION</h3><div><span class="lbl">RFQ No.</span> RFQ-2026-'+pad(st.i+311)+'<br><span class="lbl">Date</span> Nov 10, 2026<br><span class="lbl">Respond by</span> Nov 24, 2026</div></div></div><hr>'+
  '<div class="row"><div><span class="lbl">To</span><br>'+e(l.a)+', Sales<br>1200 Industrial Pkwy, '+e(city(st.i))+'</div><div><span class="lbl">From</span><br>Purchasing, '+e(l.b)+'</div></div>'+
@@ -747,7 +887,7 @@ function route(el){
   if(/\.pdf$/.test(t))return pdfRFQ;
   if(el.classList.contains('doc'))return pdfQuote;
   if(el.classList.contains('sb')||el.classList.contains('mini')||el.classList.contains('fb')||el.classList.contains('mk')){
-    var A={'Create Quote':function(){goK('cfg')},'Create Order':function(){goK('ord')},'Browse Catalogs':REC.catalog,'Generate Document':pdfQuote,'Recalculate Actuals':function(){ftoast('Actuals recalculated from orders.')},'Mass Update':REC.agreement,'Approve Credit':function(){ftoast('Credit memo CM-CLM-0001 approved and sent to the ERP.')},'Edit':current(),'▾':current(),'Add Assets':REC.assets,'Add Group':function(){ftoast('Lines grouped by Selling Model Type.')},'Quantity ▾':function(){ftoast('Showing the Quantity metric group. Revenue is the other one.')},'Mark Status as Complete':function(){if(st.s<steps().length-1){st.s++;render()}}};
+    var A={'Create Quote':function(){goK('cfg')},'Create Order':function(){goK('ord')},'Browse Catalogs':REC.catalog,'Generate Document':pdfQuote,'Recalculate Actuals':function(){ftoast('Actuals recalculated from orders.')},'Mass Update':REC.agreement,'Approve Credit':function(){ftoast('Credit memo CM-CLM-0001 approved and sent to the ERP.')},'Edit':current(),'▾':current(),'Add Assets':REC.assets,'Monthly ▾':function(){ftoast('Showing monthly buckets. Quarterly is the other view.')},'Add Group':function(){ftoast('Lines grouped by Selling Model Type.')},'Quantity ▾':function(){ftoast('Showing the Quantity metric group. Revenue is the other one.')},'Refresh':function(){ftoast('Dashboard refreshed.')},'Subscribe':function(){ftoast('Subscribed: every Monday at 8:00 AM.')},'Mark Status as Complete':function(){if(st.s<steps().length-1){st.s++;render()}}};
     if(t==='Cancel')return function(){goK('rfq')};
     if(t==='Save & Exit'&&(k==='cfg'||chosen()))return function(){goK(k==='cfg'?'chk':'prc')};
     return A[t]||null;
@@ -769,15 +909,15 @@ function render(){
   var x=all[st.s],i=st.s;
   $('pickname').textContent=l.n;
   $('beats').innerHTML=all.map(function(b,n){return '<button data-go="'+n+'" class="'+(n<i?'done':n===i?'cur':'')+'"'+(n===i?' aria-current="step"':'')+'><i>'+(n+1)+'</i>'+b.p+'</button>'}).join('');
-  var last=i===all.length-1,dis=x.k==='chk'&&!chosen(),lab=x.nx||'Check the claim',pu=U('/pov/rca/pricing')+'#'+l.id;
+  var last=i===all.length-1,dis=x.k==='chk'&&!chosen(),lab=x.nx||(all[i+1]&&all[i+1].k==='clm'?'Check the claim':'See the dashboard'),pu=U('/pov/rca/pricing')+'#'+l.id;
   $('nextw').innerHTML=last?'<a class="nextb" style="display:inline-block;text-decoration:none" href="'+pu+'">See the three ways to start</a> <button class="note" data-pick="1" style="margin-left:10px;color:#0176D3;font-weight:600">or another product line</button>':'<button class="nextb" data-go="'+(i+1)+'"'+(dis?' disabled title="Pick a way out to continue"':'')+'>'+lab+(dis?' (pick a way out first)':'')+'</button>';
   $('nav-price').href=pu;$('cta-price').href=pu;$('nav-story').href=U('/pov/rca')+'#'+l.id+'/'+x.k;
   $('beat').textContent=x.beat;
   var tabList=TABS[x.app],map={};all.forEach(function(s,n){if(map[s.tab]==null)map[s.tab]=n});
-  B.__p=0;$('sf').innerHTML='<div class="gh">'+CLOUD+'<span class="ttl">Salesforce-style concept</span><div class="gsearch" aria-hidden="true">Search...</div><div class="gicons" aria-hidden="true"><span>★</span><span>+</span><span>?</span><span>⚙</span><span class="av">SE</span></div></div>'+
+  B.__p=0;$('sf').innerHTML='<div class="gh">'+CLOUD+'<span class="ttl">Salesforce-style concept</span><div class="gsearch" aria-hidden="true">Search...</div><button class="afb'+(st.af?' on':'')+'" data-af="1" aria-pressed="'+st.af+'">'+AFI+'<span>Agentforce</span></button><div class="gicons" aria-hidden="true"><span>★</span><span>+</span><span>?</span><span>⚙</span><span class="av">SE</span></div></div>'+
    '<div class="an"><div class="waffle" aria-hidden="true">'+'<i></i>'.repeat(9)+'</div><span class="appname">'+x.app+'</span>'+tabList.map(function(t){var on=t===x.tab;return map[t]!=null?'<button data-go="'+map[t]+'" class="'+(on?'on':'')+'">'+t+'</button>':'<span class="t">'+t+'</span>'}).join('')+'</div>'+
-   '<div class="scr">'+B[x.k](l,x)+'</div>';
-  $('rail').innerHTML='<div class="rc say"><h2>Tell your prospect</h2><p>'+x.say+'</p></div><div class="rc"><h2>What you’re looking at</h2><ol class="see">'+x.see.map(function(t,n){return '<li>'+M(n+1)+'<span>'+e(t)+'</span></li>'}).join('')+'</ol></div><div class="rc"><h2>Where Nteli comes in</h2><p>'+x.n+'</p></div><div class="rc tier"><h2>In the three ways to start</h2><p>'+x.tier+' <a href="'+pu+'">Compare them</a></p></div><div class="rc"><h2>How this line runs today</h2><p>On the engine, outside Salesforce. <a href="/engine/'+l.id+'" target="_blank" rel="noopener">See '+e(l.n)+'</a></p></div>';
+   '<div class="sfb'+(st.af?' af':'')+'"><div class="scr">'+B[x.k](l,x)+'</div>'+(st.af?afPanel():'')+'</div>';
+  $('rail').innerHTML='<div class="rc say"><h2>Tell your prospect</h2><p>'+x.say+'</p></div><div class="rc"><h2>What you’re looking at</h2><ol class="see">'+x.see.map(function(t,n){return '<li>'+M(n+1)+'<span>'+e(t)+'</span></li>'}).join('')+'</ol></div><div class="rc"><h2>Where Nteli comes in</h2><p>'+x.n+'</p></div><div class="rc"><h2>Agentforce on this screen</h2><p>“'+e(AF().ask)+'” <button class="lk" data-af="1" style="font-weight:600">'+(st.af?'Close Agentforce':'Open Agentforce')+'</button></p></div><div class="rc tier"><h2>In the three ways to start</h2><p>'+x.tier+' <a href="'+pu+'">Compare them</a></p></div><div class="rc"><h2>How this line runs today</h2><p>On the engine, outside Salesforce. <a href="/engine/'+l.id+'" target="_blank" rel="noopener">See '+e(l.n)+'</a></p></div>';
   var askList=x.ask.map(function(a){return a==='@'?'Who catches “'+l.s+'” today, and how late?':a});
   $('deep').innerHTML='<div class="rc"><h2>Ask your prospect</h2><ul>'+askList.map(function(a){return '<li>'+e(a)+'</li>'}).join('')+'</ul></div><div class="rc"><h2>If they say</h2><div class="q">'+x.q+'</div><div class="a">'+x.a+'</div></div><div class="rc"><h2>What’s underneath on Salesforce</h2><ul>'+x.un.map(function(a){return '<li>'+e(a)+'</li>'}).join('')+'</ul></div>';
   var bb=$('beats'),c=bb.querySelector('.cur');if(c)bb.scrollLeft=c.offsetLeft-bb.offsetLeft-(bb.clientWidth-c.offsetWidth)/2;
@@ -789,6 +929,10 @@ function list(q){q=(q||'').toLowerCase();$('lg').innerHTML=D.map(function(x,i){r
 function open(){list('');$('mf').value='';$('modal').classList.add('on');$('mf').focus()}
 function close(){$('modal').classList.remove('on');$('pickbtn').focus()}
 document.addEventListener('click',function(ev){
+  var af=ev.target.closest('[data-af]');if(af){st.af=!st.af;render();return}
+  if(ev.target.closest('[data-afok]')){var A=AF();st.afd[L().id+'/'+curStep().k]=1;if(A.apply){st.ch[L().id]=0}if(A.adj){st.fadj[L().id]=1}if(A.go){goK(A.go);ftoast('Approved. Validation ran.');return}render();ftoast('Approved. '+(A.done||''));return}
+  if(ev.target.closest('[data-afno]')){st.af=false;render();return}
+  var rp=ev.target.closest('[data-rep]');if(rp){openRep(rp.dataset.rep);return}
   var c=ev.target.closest('[data-clk]');if(c){var f=route(c);if(f)f();return}
   if(ev.target.closest('[data-dmx]')||ev.target===$('dm')){closeDM();return}
   var ac=ev.target.closest('[data-act]');if(ac){if(ac.dataset.act==='pdfq')pdfQuote();return}
@@ -805,7 +949,7 @@ $('modal').addEventListener('click',function(ev){if(ev.target===this)close()});
 $('mf').addEventListener('input',function(){list(this.value)});
 document.addEventListener('keydown',function(ev){if(ev.key==='Escape'){if($('dm').classList.contains('on'))closeDM();else if($('modal').classList.contains('on'))close()}var c=ev.target.closest&&ev.target.closest('[data-clk]');if(c&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();var f=route(c);if(f)f()}});
 window.addEventListener('hashchange',function(){fromHash();render()});
-$('story').innerHTML=S.slice(0,7).map(function(x){return '<li>'+x.say+'</li>'}).join('');
+$('story').innerHTML=S.filter(function(s){return s.k!=='clm'&&s.k!=='dsh'}).concat([S.find(function(s){return s.k==='dsh'})]).map(function(x){return '<li>'+x.say+'</li>'}).join('');
 fromHash();render();
 </script>
 </body>
