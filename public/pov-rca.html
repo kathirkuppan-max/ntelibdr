@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>Point of View: Quote-to-Order on Salesforce (Concept) | Nteli</title>
-<meta name="description" content="A point of view for Salesforce sellers: one story for small manufacturers, shown as a concept of how quoting could look on Manufacturing Cloud and Agentforce Revenue Management. Not built on Salesforce today.">
+<meta name="description" content="A point of view for Salesforce sellers: one story for small manufacturers, shown as a concept of how quoting could look on Agentforce Manufacturing and Agentforce Revenue Management. Not built on Salesforce today.">
 <meta property="og:title" content="Point of view: one Quote-to-Order story on Salesforce (concept)">
 <meta property="og:description" content="For Salesforce sellers working small manufacturers. A concept, not built on Salesforce today.">
 <link rel="icon" href="/favicon.ico">
@@ -247,14 +247,14 @@ footer{border-top:1px solid var(--line);padding:14px 0 28px;font-size:12px;color
 </style>
 </head>
 <body>
-<div class="concept" role="note"><b>Point of view, a concept.</b> <span class="hide-sm">How this could look on Manufacturing Cloud and Agentforce Revenue Management.</span> Not built on Salesforce today. <span class="hide-sm">Fictional companies, illustrative figures.</span></div>
+<div class="concept" role="note"><b>Point of view, a concept.</b> <span class="hide-sm">How this could look on Agentforce Manufacturing and Agentforce Revenue Management.</span> Not built on Salesforce today. <span class="hide-sm">Fictional companies, illustrative figures.</span></div>
 <div class="wrap">
   <div class="brand"><b>nteli<i>.io</i></b><span>Salesforce Premier Partner · Austin, TX</span></div>
   <header class="intro">
     <div>
       <div class="eyebrow">For Salesforce sellers of manufacturing products · Commercial (SMB)</div>
       <h1>One story for every small manufacturer you sell to.</h1>
-      <p>A small manufacturer lives on quotes, and the product knowledge sits with one or two people. Manufacturing Cloud shows what the account already buys. Agentforce Revenue Management (formerly Revenue Cloud Advanced) takes the new RFQ from configure to order.</p>
+      <p>A small manufacturer lives on quotes, and the product knowledge sits with one or two people. Agentforce Manufacturing shows what the account already buys. Agentforce Revenue Management (formerly Revenue Cloud Advanced) takes the new RFQ from configure to order.</p>
     </div>
     <div class="pick">
       <label id="picklabel">Your prospect makes</label>
@@ -278,11 +278,11 @@ footer{border-top:1px solid var(--line);padding:14px 0 28px;font-size:12px;color
         <li>Wrong combinations get found after the PO.</li>
         <li>They sell direct, through dealers, or through distributors.</li>
       </ul>
-      <p>Today these product lines are quoted on the engine Nteli built outside Salesforce. This page is our point of view on how the same story could run on Manufacturing Cloud and Agentforce Revenue Management with your prospect.</p>
+      <p>Today these product lines are quoted on the engine Nteli built outside Salesforce. This page is our point of view on how the same story could run on Agentforce Manufacturing and Agentforce Revenue Management with your prospect.</p>
       <a class="cta" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=pov-rca" target="_blank" rel="noopener">Talk through a prospect with Nteli</a>
     </div>
   </section>
-  <footer>Concept mock-up made by Nteli, a Salesforce Premier Partner. It is not a Salesforce product or screen, and Salesforce has not reviewed or endorsed it. Salesforce, Agentforce, Revenue Cloud, Manufacturing Cloud and Channel Revenue Management are trademarks of Salesforce, Inc. All companies are fictional and all figures are illustrative.</footer>
+  <footer>Concept mock-up made by Nteli, a Salesforce Premier Partner. It is not a Salesforce product or screen, and Salesforce has not reviewed or endorsed it. Salesforce, Agentforce, Revenue Cloud, Agentforce Manufacturing, Manufacturing Cloud and Channel Revenue Management are trademarks of Salesforce, Inc. All companies are fictional and all figures are illustrative.</footer>
 </div>
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
   <div class="lc">
@@ -465,7 +465,7 @@ var CL=[[1,HP,'MR7120-QFN',11000,11000,''],[2,HP,'MR3305-SOT',6300,6300,''],[3,T
 [14,HP,'MR5500-LGA',7200,0,'Design registered to another distributor.'],[15,TI,'MR2640-QFN',2000,0,'Design registration expired before the sale.'],[16,TI,'MR4410-SOT',1000,0,'No design registration, and the agreement requires one.']];
 var CK=[['Agreement and price',4,18000],['POS resale',4,16740],['Stock held',1,2750],['Design registration, where the agreement requires one',3,10200]];
 
-/* Manufacturing Cloud slot for each line: repeat product, unit, planned per quarter, and the agreement holder where it isn't the RFQ's customer. Fictional. */
+/* Agentforce Manufacturing slot for each line: repeat product, unit, planned per quarter, and the agreement holder where it isn't the RFQ's customer. Fictional. */
 var MC={datacenter:['Standard rack PDUs','units',120],panels:['Standard pump panels','panels',24],power:['UPS battery cabinets','cabinets',10],ic:['Pressure transmitters','tags',60],interconnect:['M12 sensor cordsets','units',1800],electronics:['Sensor harnesses','units',4000],'nre-services':['Production sensors','units',6250],grid:['75 kVA pad-mounts','units',16],hazloc:['Junction boxes','boxes',40],hvac:['Rooftop units','units',6],pumps:['Process pumps','units',14],mobility:['Stairlifts','units',45,'Sunbelt Access Dealers'],medgas:['Headwalls','units',30],'surgical-robotics':['Instrument kits','kits',40],boilers:['Burner service kits','kits',20],cooling:['Fill and drift packs','packs',12],cranes:['Hoist service units','units',8],doors:['Door and frame sets','sets',150],kitchen:['Hood filter packs','packs',90],lab:['Casework runs','runs',25],safety:['Eyewash stations','stations',35],water:['Membrane sets','sets',18],semiconductors:['MR7120-QFN','units',30000,'Northgate Components']};
 
 /* Second and third repeat products on each account's Sales Agreement, plus unit prices. All fictional. [price1, name2, monthly2, price2, name3, monthly3, price3] */
@@ -476,7 +476,7 @@ var PX={datacenter:[34,14,36,16],panels:[42,20,24,14],power:[34,38,8,20],ic:[62,
 var PT={'panels-1':'Standard 5 kA starter kit','power-0':'Transfer switches, one per load class','ic-0':'HART electronics with SIL certificate','ic-1':'FOUNDATION Fieldbus electronics','interconnect-0':'X-coded M12 connectors','interconnect-1':'D-coded M12 connectors','electronics-0':'14 AWG wire','electronics-1':'24 AWG wire','nre-services-0':'Sterilization validation and pass-through costs','grid-1':'Indoor vault, mineral oil','hazloc-1':'4X stainless enclosure','hvac-0':'Outdoor-air section, no wheel','pumps-0':'Standard process pump, flooded suction','medgas-1':'Tie-in to existing area alarm','surgical-robotics-0':'2D fluoroscopy registration kit and CT merge licence','surgical-robotics-1':'Intraoperative 3D registration kit','cranes-0':'CMAA Class C bridge and hoist','cranes-1':'CMAA Class D bridge and hoist','lab-0':'Supply air addition','safety-1':'Indoor mounting kit','water-1':'Membrane array at 70% recovery','semiconductors-0':'Special price, agreement extended','semiconductors-1':'Distributor book price'};
 
 /* Change a product name here and it changes on every screen. */
-var MFG='Manufacturing Cloud',REV='Agentforce Revenue Management',CHN='Channel Revenue Management';
+var MFG='Agentforce Manufacturing',REV='Agentforce Revenue Management',CHN='Channel Revenue Management';
 
 /* The story. These words never change between product lines. */
 var S=[
