@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>Point of View: Quote-to-Order on Revenue Cloud (Concept) | Nteli</title>
-<meta name="description" content="A point of view for Salesforce sellers: one story for small manufacturers, shown as a concept of how quoting could look on Revenue Cloud Advanced. Not built on RCA today.">
-<meta property="og:title" content="Point of view: one Quote-to-Order story on Revenue Cloud (concept)">
-<meta property="og:description" content="For Salesforce sellers working small manufacturers. A concept, not built on RCA today.">
+<title>Point of View: Quote-to-Order on Manufacturing Cloud and Revenue Cloud (Concept) | Nteli</title>
+<meta name="description" content="A point of view for Salesforce sellers: one story for small manufacturers, shown as a concept of how quoting could look on Manufacturing Cloud and Revenue Cloud Advanced. Not built on Salesforce today.">
+<meta property="og:title" content="Point of view: one Quote-to-Order story on Manufacturing Cloud and Revenue Cloud (concept)">
+<meta property="og:description" content="For Salesforce sellers working small manufacturers. A concept, not built on Salesforce today.">
 <link rel="icon" href="/favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -73,7 +73,7 @@ h1{font-size:34px;line-height:1.15;letter-spacing:-.02em;font-weight:700;max-wid
 /* Path */
 .path{display:flex;overflow-x:auto;scrollbar-width:none;padding:8px 10px;gap:0}
 .path::-webkit-scrollbar{display:none}
-.path button{flex:1 0 96px;height:32px;margin-right:-6px;padding:0 16px;font-size:13px;font-weight:600;white-space:nowrap;background:var(--line2);color:var(--ink2);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%)}
+.path button{flex:1 0 88px;height:32px;margin-right:-6px;padding:0 16px;font-size:13px;font-weight:600;white-space:nowrap;background:var(--line2);color:var(--ink2);clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%,10px 50%)}
 .path button:first-child{clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);border-radius:16px 0 0 16px}
 .path button:last-child{margin-right:0}
 .path button.done{background:var(--ok);color:#fff}
@@ -181,7 +181,7 @@ footer{border-top:1px solid var(--line);padding:16px 0 30px;font-size:12px;color
 </head>
 <body>
 
-<div class="concept" role="note"><b>Point of view, a concept.</b> <span class="hide-sm">How this could look on Revenue Cloud Advanced.</span> Not built on RCA today. <span class="hide-sm">Fictional companies, illustrative figures.</span></div>
+<div class="concept" role="note"><b>Point of view, a concept.</b> <span class="hide-sm">How this could look on Manufacturing Cloud and Revenue Cloud Advanced.</span> Not built on Salesforce today. <span class="hide-sm">Fictional companies, illustrative figures.</span></div>
 
 <div class="wrap">
   <div class="brand"><b>nteli<i>.io</i></b><span>Salesforce Premier Partner · Austin, TX</span></div>
@@ -189,7 +189,7 @@ footer{border-top:1px solid var(--line);padding:16px 0 30px;font-size:12px;color
     <div>
       <div class="eyebrow">For Salesforce sellers of Manufacturing Cloud and Revenue Cloud · Commercial (SMB)</div>
       <h1>One story for every small manufacturer you sell to.</h1>
-      <p>A small manufacturer lives on quotes, and the product knowledge sits with one or two people. Pick what your prospect makes. The six beats and the words stay the same, only the product changes.</p>
+      <p>A small manufacturer lives on quotes, and the product knowledge sits with one or two people. Manufacturing Cloud shows what the account already buys. Revenue Cloud Advanced takes the new RFQ from configure to order. Pick what your prospect makes: the beats and the words stay the same, only the product changes.</p>
     </div>
     <div class="pick">
       <label id="picklabel">Your prospect makes</label>
@@ -215,7 +215,7 @@ footer{border-top:1px solid var(--line);padding:16px 0 30px;font-size:12px;color
         <li>Wrong combinations get found after the PO.</li>
         <li>They sell direct, through dealers, or through distributors.</li>
       </ul>
-      <p>Today these product lines are quoted on the engine Nteli built outside Salesforce. This page is our point of view on how the same story could run on Revenue Cloud Advanced with your prospect.</p>
+      <p>Today these product lines are quoted on the engine Nteli built outside Salesforce. This page is our point of view on how the same story could run on Manufacturing Cloud and Revenue Cloud Advanced with your prospect.</p>
       <a class="cta" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=pov-rca" target="_blank" rel="noopener">Talk through a prospect with Nteli</a>
     </div>
   </section>
@@ -405,18 +405,22 @@ var CL=[[1,HP,'MR7120-QFN',11000,11000,''],[2,HP,'MR3305-SOT',6300,6300,''],[3,T
 [14,HP,'MR5500-LGA',7200,0,'Design registered to another distributor.'],[15,TI,'MR2640-QFN',2000,0,'Design registration expired before the sale.'],[16,TI,'MR4410-SOT',1000,0,'No design registration, and the agreement requires one.']];
 var CK=[['Agreement and price',4,18000],['POS resale',4,16740],['Stock held',1,2750],['Design registration, where the agreement requires one',3,10200]];
 
+/* Manufacturing Cloud slot for each line: repeat product, unit, planned per quarter, and the agreement holder where it isn't the RFQ's customer. Fictional. */
+var MC={datacenter:['Standard rack PDUs','units',120],panels:['Standard pump panels','panels',24],power:['UPS battery cabinets','cabinets',10],ic:['Pressure transmitters','tags',60],interconnect:['M12 sensor cordsets','units',1800],electronics:['Sensor harnesses','units',4000],'nre-services':['Production sensors','units',6250],grid:['75 kVA pad-mounts','units',16],hazloc:['Junction boxes','boxes',40],hvac:['Rooftop units','units',6],pumps:['Process pumps','units',14],mobility:['Stairlifts','units',45,'Sunbelt Access Dealers'],medgas:['Headwalls','units',30],'surgical-robotics':['Instrument kits','kits',40],boilers:['Burner service kits','kits',20],cooling:['Fill and drift packs','packs',12],cranes:['Hoist service units','units',8],doors:['Door and frame sets','sets',150],kitchen:['Hood filter packs','packs',90],lab:['Casework runs','runs',25],safety:['Eyewash stations','stations',35],water:['Membrane sets','sets',18],semiconductors:['MR7120-QFN','units',30000,'Northgate Components']};
+
 /* The story. These words never change between product lines. */
 var S=[
+{k:'acc',p:'Account',tab:'Sales Agreements',ob:'Sales Agreement',ic:'agr',beat:'Your rep starts with what the account already buys.',say:'Your rep opens the account and sees what the customer agreed to buy, what they actually ordered, and what’s forecast.',pr:'Manufacturing Cloud Sales Agreement and Account Forecast',n:'Nteli would bring your prospect’s agreements and order history into Manufacturing Cloud, so the forecast starts from what really shipped.',nx:'Open the new RFQ'},
 {k:'rfq',p:'RFQ',tab:'Opportunities',ob:'Opportunity',ic:'opp',beat:'The RFQ lands on the Opportunity.',say:'Your RFQ lands on the Opportunity, in the customer’s own words. Nobody retypes it into a spreadsheet.',pr:'Sales Cloud Opportunity, with Manufacturing Cloud account data',n:'Nteli would set up the intake for your prospect’s product line, so what the RFQ says fills in the fields.',nx:'Configure it'},
 {k:'cfg',p:'Configure',tab:'Product Configurator',ob:'Product Configurator',ic:'cfg',beat:'Your rep answers only what changes the product.',say:'Your rep answers only the questions that change the product, so quoting no longer waits on your one expert.',pr:'Revenue Cloud Product Configurator',n:'Nteli would bring the product knowledge a small team doesn’t have time to write down. Our team has built configurators for Cisco, Dell and IBM.',nx:'Check it'},
 {k:'chk',p:'Check',tab:'Product Configurator',ob:'Product Configurator',ic:'cfg',beat:'What can’t be built stops here, with the reason and the ways out.',say:'What can’t be built stops before it gets a price. Your rep sees why, and the ways out.',pr:'Revenue Cloud Product Configurator',n:'This is where a standard rollout runs out of road. Nteli would work with your prospect’s engineers to set up the checks for their products, each with its source.',nx:'Price it'},
 {k:'prc',p:'Price',tab:'Quotes',ob:'Quote',ic:'qte',beat:'Every way out already has a price.',say:'Every way out comes with its price from your price book, so your rep can offer the choice on the same call.',pr:'Revenue Cloud Pricing Procedure',n:'Nteli would load your prospect’s own price book and discount limits. Figures here are illustrative.',nx:'Build the quote'},
 {k:'qte',p:'Quote',tab:'Quotes',ob:'Quote',ic:'qte',beat:'The quote goes out with a reason on every line.',say:'The quote goes out with a reason on every line, so it holds up when someone asks why.',pr:'Revenue Cloud Quote',n:'Nteli would set up the quote document and approvals. Each decision stays on the record, so the quote is auditable.',nx:'Turn it into an order'},
-{k:'ord',p:'Order',tab:'Orders',ob:'Order',ic:'ord',beat:'The won quote becomes the order.',say:'When you win, the quote becomes the order. Nothing gets retyped on its way to your ERP.',pr:'Revenue Cloud Order and Dynamic Revenue Orchestrator',n:'Nteli would connect Salesforce to your prospect’s ERP. CRM-to-ERP integration is part of Nteli’s Salesforce practice.',nx:''},
+{k:'ord',p:'Order',tab:'Orders',ob:'Order',ic:'ord',beat:'The won quote becomes the order.',say:'When you win, the quote becomes the order. Nothing gets retyped on its way to your ERP, and Manufacturing Cloud sees it in the forecast.',pr:'Revenue Cloud Order and Dynamic Revenue Orchestrator, back to Manufacturing Cloud',n:'Nteli would connect Salesforce to your prospect’s ERP. CRM-to-ERP integration is part of Nteli’s Salesforce practice.',nx:''},
 {k:'clm',p:'Claim',tab:'Claims',ob:'Claim',ic:'clm',beat:'Sold through a distributor? The claim gets the same check.',say:'When a distributor claims its credit, each line gets the same check, with a reason, before the credit memo goes out.',pr:'Channel Revenue Management for Manufacturing',n:'Nteli would load the agreements, POS and stock your prospect already has, and leave the ERP unchanged until the credit memo is approved.',nx:''}
 ];
 
-var IC={opp:['#FF5D2D','M2 15V6l4.5 3L10 3l3.5 6L18 6v9z'],cfg:['#7F8DE1','M3 4h14v3H3zM3 9h9v3H3zM3 14h14v3H3z'],qte:['#3BA755','M5 2h7l4 4v12H5zM7 9h7v1.5H7zm0 3h7v1.5H7z'],ord:['#3296ED','M3 6l7-4 7 4v8l-7 4-7-4zM5 7l5 3 5-3-5-2.6z'],clm:['#9050E9','M3 4h14v12H3zM5 7v1.5h10V7zm0 3v1.5h6V10z']};
+var IC={agr:['#00A1A7','M4 2h12v16H4zM7 6v1.5h6V6zm0 3.5V11h6V9.5zM7 13v1.5h4V13z'],opp:['#FF5D2D','M2 15V6l4.5 3L10 3l3.5 6L18 6v9z'],cfg:['#7F8DE1','M3 4h14v3H3zM3 9h9v3H3zM3 14h14v3H3z'],qte:['#3BA755','M5 2h7l4 4v12H5zM7 9h7v1.5H7zm0 3h7v1.5H7z'],ord:['#3296ED','M3 6l7-4 7 4v8l-7 4-7-4zM5 7l5 3 5-3-5-2.6z'],clm:['#9050E9','M3 4h14v12H3zM5 7v1.5h10V7zm0 3v1.5h6V10z']};
 var CHK='<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6.2 12.4 2 8.2l1.4-1.4 2.8 2.8 6.4-6.4L14 4.6z"/></svg>';
 var CLOUD='<svg class="cloud" viewBox="0 0 38 27" aria-hidden="true"><path fill="#0176D3" d="M15.6 4.2a7 7 0 0 1 5-2.1 7 7 0 0 1 6.1 3.6 8.3 8.3 0 0 1 3.4-.7c4.5 0 8.1 3.7 8.1 8.2s-3.6 8.2-8.1 8.2c-.6 0-1.1-.1-1.6-.2a6 6 0 0 1-5.3 3.1c-.9 0-1.8-.2-2.6-.6a6.900 6.900 0 0 1-12.800-.3c-.4.1-.8.100-1.300.100A6.400 6.400 0 0 1 3 10.100a6.800 6.800 0 0 1 3-9c4-1.600 7.400.100 9.600 3.100z"/></svg>';
 
@@ -425,16 +429,16 @@ function $(x){return document.getElementById(x)}
 function e(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
 function usd(n){return '$'+Number(n).toLocaleString('en-US')}
 function L(){return D[st.i]}
-function steps(){return L().id==='semiconductors'?S:S.slice(0,6)}
+function steps(){return L().id==='semiconductors'?S:S.slice(0,7)}
 function chosen(){var c=st.ch[L().id];return c==null?null:L().w[c]}
 function way(){return chosen()||L().w[0]}
 function amt(w){return (w.q||'')+usd(w.p)}
 function pad(n){return ('000'+n).slice(-4)}
 
 function hdr(step){
-  var l=L(),I=IC[step.ic],past=steps().indexOf(step)>=3||chosen();
+  var l=L(),I=IC[step.ic],past=['prc','qte','ord','clm'].indexOf(step.k)>=0||chosen();
   var A=past?amt(way()):'Not priced yet';
-  return '<div class="card hl"><div class="hltop"><span class="ico" style="background:'+I[0]+'"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="'+I[1]+'"/></svg></span><div><div class="hlo">'+step.ob+'</div><div class="hlt">'+e(step.k==='clm'?'Debit NGC-DM-2026-10':l.o)+'</div></div><span class="stamp">Concept mock-up</span></div>'+
+  return '<div class="card hl"><div class="hltop"><span class="ico" style="background:'+I[0]+'"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="'+I[1]+'"/></svg></span><div><div class="hlo">'+step.ob+'</div><div class="hlt">'+e(step.k==='clm'?'Debit NGC-DM-2026-10':step.k==='acc'?(MC[l.id][3]||l.b)+', FY27 agreement':l.o)+'</div></div><span class="stamp">Concept mock-up</span></div>'+
   '<div class="flds">'+[['Account',l.a+' (fictional)'],['Segment','Commercial (SMB)'],['Employees',l.e],['Their customer',l.b],['Sold',l.v],['Amount',A]].map(function(f){return '<div><div class="fl">'+f[0]+'</div><div class="fv">'+e(f[1])+'</div></div>'}).join('')+'</div></div>';
 }
 function path(){var cur=st.s;return '<div class="card"><nav class="path" id="path" aria-label="The story">'+steps().map(function(x,i){return '<button data-go="'+i+'" class="'+(i<cur?'done':i===cur?'cur':'')+'"'+(i===cur?' aria-current="step"':'')+'>'+x.p+'</button>'}).join('')+'</nav></div>';}
@@ -446,6 +450,10 @@ function foot(step){
   return '<div class="foot">'+(dis?'<span class="note">Pick a way out to continue</span>':'')+'<button class="btn" data-go="'+(i+1)+'"'+(dis?' disabled':'')+'>'+label+'</button></div>';
 }
 var B={
+acc:function(l){var m=MC[l.id],q=[1.1,.9,1],a=q.map(function(x){return Math.round(m[2]*x)}),f=Math.round(m[2]*1.2),num=function(x){return Number(x).toLocaleString('en-US')},sum=a[0]+a[1]+a[2];
+  return '<div class="card"><div class="ch">Run-rate: '+e(m[0])+'<span class="pill g">Active</span></div><div class="cb"><div class="tiles"><div class="tile"><div class="l">Agreed this year</div><div class="v">'+num(m[2]*4)+'</div></div><div class="tile"><div class="l">Ordered so far</div><div class="v">'+num(sum)+'</div></div><div class="tile"><div class="l">Q4 forecast</div><div class="v">'+num(f)+'</div></div></div><p class="note" style="margin-top:8px">In '+e(m[1])+'.</p></div></div>'+
+  '<div class="card"><div class="ch">Sales Agreement SA-'+pad(st.i+3120)+'</div><table><thead><tr><th>Period</th><th class="n">Planned</th><th class="n">Actual or forecast</th></tr></thead><tbody>'+a.map(function(x,i){return '<tr><td>Q'+(i+1)+'</td><td class="n">'+num(m[2])+'</td><td class="n">'+num(x)+'</td></tr>'}).join('')+'<tr><td>Q4</td><td class="n">'+num(m[2])+'</td><td class="n">'+num(f)+' forecast</td></tr></tbody></table></div>'+
+  '<div class="card"><div class="ch">New on this account<span class="pill b">Not on the agreement</span></div><div class="cb"><b>'+e(l.o)+'</b>. RFQ from '+e(l.b)+'. The agreement covers the repeat product, and this is new configured work.</div></div>'},
 rfq:function(l){return '<div class="card"><div class="ch">RFQ from '+e(l.b)+'<span class="pill b">Attached</span></div><div class="cb"><p class="rfq">'+e(l.r)+'</p></div></div>'+
   '<div class="card"><div class="ch">Read from the RFQ</div><div class="cb"><div class="grid2">'+l.c.filter(function(c){return !c[2]}).concat([l.bad]).map(function(c){return '<div><div class="fl">'+e(c[0])+'</div><div class="fv">'+e(c[1])+'</div></div>'}).join('')+'</div></div></div>'},
 cfg:function(l){var w=chosen();return '<div class="card"><div class="ch">'+e(l.n)+'<span class="pill '+(w?'g':'r')+'">'+(w?'Valid':'1 issue')+'</span></div><table><thead><tr><th>Attribute</th><th>Selection</th><th class="hide-sm">Source</th></tr></thead><tbody>'+
@@ -463,7 +471,7 @@ qte:function(l){var w=way(),q=pad(st.i+1041);return (chosen()?'':'<p class="note
   l.l.map(function(r){return '<tr><td>'+e(r[0])+'</td><td>'+e(r[1])+'</td><td class="hide-sm">'+e(r[2])+'</td><td class="n">Included</td></tr>'}).join('')+
   '<tr class="total"><td colspan="2">Total</td><td class="hide-sm"></td><td class="n">'+amt(w)+'</td></tr></tbody></table></div>'+
   '<div class="card"><div class="ch">Activity</div><div class="cb"><ul class="tl">'+['RFQ attached from '+l.b,'Stopped: '+l.s,'Resolved: '+w.t,'Priced from the price book','Quote Q-'+q+' generated'].map(function(t){return '<li><i></i><span>'+e(t)+'</span></li>'}).join('')+'</ul></div></div>'},
-ord:function(l){var w=way();return '<div class="card"><div class="ch">Order O-'+pad(st.i+2207)+'<span class="pill g">Created from quote</span></div><table><tbody><tr><td>Booked</td><td>'+e(l.o)+'</td></tr><tr><td>Configuration</td><td>'+e(w.t)+'</td></tr><tr><td>Amount</td><td>'+amt(w)+'</td></tr><tr><td>Next</td><td>Sent to ERP, with nothing retyped</td></tr><tr><td>Repeat business</td><td>Rolls into a Sales Agreement and the account forecast in Manufacturing Cloud</td></tr></tbody></table></div>'+
+ord:function(l){var w=way();return '<div class="card"><div class="ch">Order O-'+pad(st.i+2207)+'<span class="pill g">Created from quote</span></div><table><tbody><tr><td>Booked</td><td>'+e(l.o)+'</td></tr><tr><td>Configuration</td><td>'+e(w.t)+'</td></tr><tr><td>Amount</td><td>'+amt(w)+'</td></tr><tr><td>Next</td><td>Sent to ERP, with nothing retyped</td></tr><tr><td>Back in Manufacturing Cloud</td><td>The order updates the account forecast, and repeat business can roll into the Sales Agreement</td></tr></tbody></table></div>'+
   '<div class="card"><div class="ch">What travels with the order</div><div class="cb"><ul class="keep">'+l.k.map(function(t){return '<li>'+CHK+'<span>'+e(t)+'</span></li>'}).join('')+'</ul></div></div>'},
 clm:function(){return '<div class="card"><div class="ch">Debit NGC-DM-2026-10 from Northgate Components<span class="pill">16 lines</span></div><div class="cb"><div class="tiles"><div class="tile"><div class="l">Claimed</div><div class="v">$95,690</div></div><div class="tile"><div class="l">Pays</div><div class="v g">$48,000</div></div><div class="tile"><div class="l">Caught</div><div class="v r">$47,690</div></div></div></div></div>'+
   '<div class="card"><div class="ch">What each check caught</div><table><thead><tr><th>Check</th><th class="n">Lines</th><th class="n">Caught</th></tr></thead><tbody>'+CK.map(function(c){return '<tr><td>'+e(c[0])+'</td><td class="n">'+c[1]+'</td><td class="n">'+usd(c[2])+'</td></tr>'}).join('')+'</tbody></table></div>'+
@@ -475,7 +483,7 @@ function render(){
   var l=L(),all=steps();if(st.s>=all.length)st.s=all.length-1;
   var x=all[st.s];
   $('pickname').textContent=l.n;
-  var app=x.k==='clm'?'Channel Revenue Management':x.k==='rfq'?'Manufacturing Cloud':'Revenue Cloud';
+  var app=x.k==='clm'?'Channel Revenue Management':(x.k==='rfq'||x.k==='acc')?'Manufacturing Cloud':'Revenue Cloud';
   var seen={},tabs=all.filter(function(t){if(seen[t.tab])return false;seen[t.tab]=1;return true});
   $('sf').innerHTML='<div class="gh">'+CLOUD+'<span class="ttl">Salesforce-style concept</span><div class="gsearch" aria-hidden="true">Search…</div><div class="gicons" aria-hidden="true"><span>★</span><span>+</span><span>?</span><span>⚙</span><span class="av">SE</span></div></div>'+
    '<div class="an"><div class="waffle" aria-hidden="true">'+'<i></i>'.repeat(9)+'</div><span class="appname">'+app+'</span>'+tabs.map(function(t){return '<button data-go="'+all.indexOf(t)+'" class="'+(t.tab===x.tab?'on':'')+'">'+t.tab+'</button>'}).join('')+'</div>'+
@@ -504,7 +512,7 @@ $('modal').addEventListener('click',function(ev){if(ev.target===this)close()});
 $('mf').addEventListener('input',function(){list(this.value)});
 document.addEventListener('keydown',function(ev){if(ev.key==='Escape'&&$('modal').classList.contains('on'))close()});
 window.addEventListener('hashchange',function(){fromHash();render()});
-$('story').innerHTML=S.slice(0,6).map(function(x){return '<li>'+x.say+'</li>'}).join('');
+$('story').innerHTML=S.slice(0,7).map(function(x){return '<li>'+x.say+'</li>'}).join('');
 fromHash();render();
 </script>
 </body>
