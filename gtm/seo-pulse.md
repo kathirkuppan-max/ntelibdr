@@ -295,3 +295,10 @@ same four queries weekly; first citation is the milestone.
 - **/engine/nre-services and /engine/semiconductors: both indexed** (site: returns each).
 - site:nteli.io about 62 (was 81; site: counts swing); site:nteligroup.com about 44 (was 42), so the 308 is still not processed.
 - **Click fix deployed 11-10:** the three "channel revenue management" questions all land on /guides/channel-revenue-management-erp (142 impressions in 28 days at avg position 1.2, 0 clicks). The old title and description gave the full answer ("No —"), so searchers didn't need to click. New title "Does Channel Revenue Management Replace My ERP? What It Adds"; description teases the four checks. New section and FAQ schema entries answer "Is it an ERP?" and "Does it replace finance tools?". IndexNow 200; GSC indexing requested. Check CTR on this page at the 11-16 pulse.
+
+## 2026-11-10 late (Kathir asked "new SEO status")
+- GSC unchanged from this morning (latest data is still Nov 2–8): 475 impressions, 6 clicks, avg position 10.5. Nothing from today's site changes can show yet.
+- UL 508A: #1 panels, #2 CostBook, #3 guide (holding). "ship and debit software": not in the top 9.
+- /guides/quote-checked-before-priced and /guides/chatgpt-claude-quoting: not on Google yet (published today; IndexNow sent; GSC indexing requested 11-10 PM, both inspected as "URL is unknown to Google").
+- site:nteligroup.com about 59 (44 this morning; site: counts swing), so the 308 is still not processed.
+- Homepage repositioned to Quote-to-Order today; GSC indexing requested 11-10 PM. Watch for rank or impression shifts at the 11-16 pulse.
