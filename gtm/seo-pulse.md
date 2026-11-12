@@ -302,3 +302,10 @@ same four queries weekly; first citation is the milestone.
 - /guides/quote-checked-before-priced and /guides/chatgpt-claude-quoting: not on Google yet (published today; IndexNow sent; GSC indexing requested 11-10 PM, both inspected as "URL is unknown to Google").
 - site:nteligroup.com about 59 (44 this morning; site: counts swing), so the 308 is still not processed.
 - Homepage repositioned to Quote-to-Order today; GSC indexing requested 11-10 PM. Watch for rank or impression shifts at the 11-16 pulse.
+
+## 2026-11-11 (Kathir asked "SEO status")
+- GSC 7-day (Nov 3–9): 545 impressions (was 475, +15%), 5 clicks (was 6), CTR 0.9%, avg position 9.5 (was 10.5). Too early for the 11-10 changes (channel revenue title, homepage, panels pricing).
+- Indexed since yesterday's requests: /guides/quote-checked-before-priced and /guides/chatgpt-claude-quoting (site: returns each). Homepage now shows in Google as "Nteli — Quote-to-Order for Manufacturers, Direct and Through ..." (new title picked up).
+- "ul 508a quoting software": #1 /engine/panels, #2 CostBook, #3 TW Controls, #4 our guide (was #3).
+- Reminder from 11-10: /engine/panels had 10 impressions and 0 clicks in 28 days; the query has almost no volume.
+- G2 (11-11): seller "N-Teli", one services profile (Quote-to-Cash Consulting, Salesforce Consulting Services), 0 reviews, generic Salesforce description; no software product profile.
