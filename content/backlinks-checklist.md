@@ -59,3 +59,6 @@ Bonus whenever convenient: LinkedIn company About + Crunchbase to the same blurb
 - MCP directories: Glama already lists Nteli Quoting (from the MCP Registry); PulseMCP submissions paused; Smithery closed self-serve accounts on 10-31.
 - ERP partner follow-ups (Epicor, Acumatica, SYSPRO, Infor): queued with the Outreach session for 11-16.
 - Still need a contact from Kathir: Capital Factory portfolio page, Avalara partner directory. Microsoft Partner Center enrollment is Kathir's.
+- 11-13 later: G2 software product "Nteli Quoting" approved and published to G2, Capterra, GetApp and Software Advice (logo, description, 2 screenshots, $99/$199 tiers, 14-day trial). Category still "Unknown": G2 says wait one business day, then request **CPQ Software as the main category** (Kathir, 11-13: "CPQ could be a category"), plus quote management if it fits, at support.g2.com/s/contact-support-category-change. Public G2 page not live yet.
+- Google Business Profile: parked (Google offers only video verification; Kathir works from home).
+- Trade publications: researched 22 outlets (gtm/trade-publications.md) and drafted 4 pitches (gtm/article-pitches.md). Nothing sent.
