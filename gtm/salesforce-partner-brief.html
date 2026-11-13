@@ -55,6 +55,16 @@ table.t tr.price td{font-weight:700;color:var(--navy);font-size:10.4px;backgroun
 .ask .links div{margin-bottom:4px}.ask .links b{display:block;color:#C9DBF0;font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 .ask .links span{font-size:10.2px;font-weight:600}
 footer{margin-top:6px;padding-top:4px;border-top:1px solid var(--line);font-size:7.6px;color:var(--ink3)}
+.vert{margin-top:10px;border-radius:6px;overflow:hidden;border:1.5px solid var(--navy)}
+.vh{background:var(--navy);color:#fff;display:flex;align-items:center;gap:10px;padding:6px 12px}
+.vh .vn{font-size:30px;font-weight:700;line-height:1;color:#fff}
+.vh b{display:block;font-size:13px}.vh div span{font-size:8.8px;color:#C9DBF0}
+.vg{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:8px 10px;background:var(--tint)}
+.vc{display:flex;flex-direction:column;gap:4px}
+.vt{font-size:8.2px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--blue);padding-bottom:2px;margin-bottom:1px}
+.vc span{display:block;background:#fff;border:1px solid #B9CCE4;border-left:3px solid var(--blue);border-radius:3px;padding:3px 6px;font-size:9.2px;font-weight:600;color:var(--navy);line-height:1.25}
+.why{display:grid;grid-template-columns:repeat(4,auto) 1fr;gap:12px;align-items:center;margin-top:9px;border:1px solid var(--line);border-radius:5px;padding:6px 10px}
+.why p{font-size:8.6px;color:var(--ink2)}
 </style>
 </head>
 <body>
@@ -129,32 +139,17 @@ footer{margin-top:6px;padding-top:4px;border-top:1px solid var(--line);font-size
   </table>
 </div>
 
-<div class="row" style="grid-template-columns:1.6fr 1fr">
-  <div class="box">
-    <h2>23 product lines, pre-built and ready to demo</h2>
-    <div class="lines" style="grid-template-columns:repeat(3,1fr)">
-      <span>Control Panels &amp; Switchgear</span><span>Power Packages</span><span>Data Center Pods</span>
-      <span>Distribution Transformers</span><span>Hazardous-Area Electrical</span><span>Instrumentation &amp; Controls</span>
-      <span>Interconnect / Cable Assemblies</span><span>Electronic Components &amp; Assemblies</span><span>Semiconductors</span>
-      <span>NRE Services</span><span>Surgical Robotic Systems</span><span>Medical Gas &amp; Headwalls</span>
-      <span>Lab Furniture &amp; Fume Hoods</span><span>Commercial HVAC</span><span>Commercial Boilers</span>
-      <span>Cooling Towers</span><span>Pumps &amp; Packaged Skids</span><span>Water Treatment</span>
-      <span>Kitchen Ventilation</span><span>Safety &amp; Plumbing Equipment</span><span>Fire Doors &amp; Hardware</span>
-      <span>Cranes &amp; Hoists</span><span>Mobility Lifts</span>
-    </div>
-  </div>
-  <div class="box">
-    <h2>Why Nteli</h2>
-    <div class="stats">
-      <div class="stat"><b>Manufacturing</b>Salesforce Partner</div>
-      <div class="stat"><b>4.93★</b>10 AppExchange reviews</div>
-      <div class="stat"><b>58</b>Salesforce certifications</div>
-      <div class="stat"><b>2019</b>Founded in Austin</div>
-    </div>
-    <p style="margin-top:4px">Our team has built product configurators for Cisco, Dell and IBM. References on request, including Intricon, Quasar and Elite Pharmaceuticals.</p>
-  </div>
+<div class="vert">
+  <div class="vh"><span class="vn">23</span><div><b>product lines, pre-built and ready to demo</b><span>Rule pack, pricing and dashboards for each one, on Agentforce Revenue Management</span></div></div>
+  <div class="vg"><div class="vc"><div class="vt">Power and electrical</div><span>Control Panels &amp; Switchgear</span><span>Power Packages</span><span>Data Center Pods</span><span>Distribution Transformers</span><span>Hazardous-Area Electrical</span></div><div class="vc"><div class="vt">Controls and electronics</div><span>Instrumentation &amp; Controls</span><span>Interconnect / Cable Assemblies</span><span>Electronic Components &amp; Assemblies</span><span>Semiconductors</span></div><div class="vc"><div class="vt">Medical and lab</div><span>NRE Services</span><span>Surgical Robotic Systems</span><span>Medical Gas &amp; Headwalls</span><span>Lab Furniture &amp; Fume Hoods</span></div><div class="vc"><div class="vt">Building systems</div><span>Commercial HVAC</span><span>Commercial Boilers</span><span>Cooling Towers</span><span>Kitchen Ventilation</span><span>Fire Doors &amp; Hardware</span><span>Safety &amp; Plumbing Equipment</span></div><div class="vc"><div class="vt">Process and industrial</div><span>Pumps &amp; Packaged Skids</span><span>Water Treatment</span><span>Cranes &amp; Hoists</span><span>Mobility Lifts</span></div></div>
 </div>
-
+<div class="why">
+  <div class="stat"><b>Manufacturing</b>Salesforce Partner</div>
+  <div class="stat"><b>4.93★</b>10 AppExchange reviews</div>
+  <div class="stat"><b>58</b>Salesforce certifications</div>
+  <div class="stat"><b>2019</b>Founded in Austin</div>
+  <p>Our team has built product configurators for Cisco, Dell and IBM. References on request, including Intricon, Quasar and Elite Pharmaceuticals.</p>
+</div>
 </div>
 </body>
 </html>
