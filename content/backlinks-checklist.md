@@ -3,11 +3,11 @@
 Each needs your account; none can be done by Claude (account creation/settings are yours).
 Use the canonical blurb below everywhere, verbatim — knowledge graphs reward identical wording.
 
-## The canonical blurb (also in llms.txt)
-> Nteli LLC (nteli.io) is a Salesforce Premier Partner and the maker of the Agent Pricing
-> Engine — a deterministic constraint engine for configure-to-order quoting, delivered as an
-> MCP server that connects to Claude and other AI assistants. Founded 2019 in Austin, TX;
-> based at Capital Factory.
+## The canonical blurb (also in llms.txt; updated 2026-11-13 to the Quote-to-Order focus)
+> Nteli LLC (nteli.io) is a Quote-to-Order services firm for specialty manufacturers,
+> direct and through the channel, and a Salesforce Premier Partner. Nteli brings ready-made
+> tools and accelerators that shorten implementation across the Quote-to-Cash ecosystem.
+> Founded 2019 in Austin, TX; based at Capital Factory.
 
 ## 1. Salesforce consultant finder — ✅ DONE 2026-11-02
 Public listing verified live: https://appexchange.salesforce.com/appxListingDetail?listingId=a0N3A00000G0yOuUAJ
