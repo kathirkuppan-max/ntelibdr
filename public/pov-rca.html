@@ -611,7 +611,7 @@ function pad(n,w){return ('00000000'+n).slice(-(w||4))}
 function ico(k,s){var I=IC[k];return '<span class="ico'+(s?' s':'')+'" style="background:'+I[0]+'"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="'+I[1]+'"/></svg></span>'}
 function pName(w,l){var i=l.w.indexOf(w);return PT[l.id+'-'+i]||w.t}
 function qtyNum(q){var m=String(q).replace(/,/g,'').match(/[\d.]+/);return m?parseFloat(m[0]):1}
-function U(p){var loc=location.hostname==='localhost'||location.protocol==='file:';return loc?(p==='/pov/rca'?'/pov-rca.html':'/pov-rca-pricing.html'):p}
+function U(p){var loc=location.hostname==='localhost'||location.protocol==='file:';return loc?'/pov-rca.html':p}
 function M(n){return '<i class="mk1" aria-hidden="true">'+n+'</i>'}
 var STAMP='<span class="stamp">Concept mock-up</span>';
 
@@ -909,7 +909,7 @@ function render(){
   var x=all[st.s],i=st.s;
   $('pickname').textContent=l.n;
   $('beats').innerHTML=all.map(function(b,n){return '<button data-go="'+n+'" class="'+(n<i?'done':n===i?'cur':'')+'"'+(n===i?' aria-current="step"':'')+'><i>'+(n+1)+'</i>'+b.p+'</button>'}).join('');
-  var last=i===all.length-1,dis=x.k==='chk'&&!chosen(),lab=x.nx||(all[i+1]&&all[i+1].k==='clm'?'Check the claim':'See the dashboard'),pu=U('/pov/rca/pricing')+'#'+l.id;
+  var last=i===all.length-1,dis=x.k==='chk'&&!chosen(),lab=x.nx||(all[i+1]&&all[i+1].k==='clm'?'Check the claim':'See the dashboard');
   $('nextw').innerHTML=last?'<button class="nextb" data-pick="1">Same story, another product line</button> <a class="note" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=pov-rca" target="_blank" rel="noopener" style="margin-left:10px;color:#0176D3;font-weight:600">or talk through a prospect</a>':'<button class="nextb" data-go="'+(i+1)+'"'+(dis?' disabled title="Pick a way out to continue"':'')+'>'+lab+(dis?' (pick a way out first)':'')+'</button>';
   $('nav-story').href=U('/pov/rca')+'#'+l.id+'/'+x.k;
   $('beat').textContent=x.beat;
