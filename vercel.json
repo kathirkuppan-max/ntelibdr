@@ -16,6 +16,7 @@
     { "src": "/(?!\\.well-known/)(.*)", "has": [{ "type": "host", "value": "www.nteligroup.com" }], "status": 308, "headers": { "Location": "https://nteli.io/$1" } },
     { "src": "/\\.well-known/mcp-registry-auth", "headers": { "Content-Type": "text/plain; charset=utf-8" }, "dest": "/.well-known/mcp-registry-auth" },
     { "src": "/media/chatgpt-review-demo\\.mp4", "headers": { "X-Robots-Tag": "noindex" }, "dest": "/media/chatgpt-review-demo.mp4" },
+    { "src": "/media/nteli-battery-pov\\.mp4", "headers": { "X-Robots-Tag": "noindex" }, "dest": "/media/nteli-battery-pov.mp4" },
     { "src": "/media/readygrid-sizing-concept\\.mp4", "status": 301, "headers": { "Location": "/media/mobile-battery-sizing-concept.mp4", "X-Robots-Tag": "noindex" } },
     { "src": "/media/mobile-battery-sizing-concept\\.mp4", "headers": { "X-Robots-Tag": "noindex" }, "dest": "/media/mobile-battery-sizing-concept.mp4" },
     { "src": "/api/lead",     "dest": "/api/lead.js" },
