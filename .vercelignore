@@ -12,3 +12,4 @@ node_modules/
 *.log
 .env*
 .DS_Store
+gtm/brief-shots/node_modules
