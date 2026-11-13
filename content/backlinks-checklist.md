@@ -49,3 +49,13 @@ queries) + entity citation. Revisit Verified when Elite/Aduro reviews land.
 ## When done
 Tell Claude — it will re-run the entity-consistency check and note completion in the SEO plan.
 Bonus whenever convenient: LinkedIn company About + Crunchbase to the same blurb.
+
+## Status 2026-11-13 (backlinks and listings push)
+- LinkedIn company page: tagline and About updated to the Quote-to-Order wording (verified on the public About page).
+- Crunchbase: name NTeli -> Nteli, short and full description updated (edit submitted; Crunchbase says minutes to appear).
+- G2: seller and product renamed to Nteli (g2.com/sellers/nteli), descriptions, services, Quote-to-Cash Consulting main category, panels pricing, 3 screenshots.
+- Google Business Profile: exists under kathir@nteli.io ("Nteli LLC, 701 Brazos St"), verification required. Kathir clicks "Get verified".
+- Capterra / GetApp vendor sign-up: blocked at a Cloudflare "verify you are human" check; Kathir to tick it, then Claude fills the listing.
+- MCP directories: Glama already lists Nteli Quoting (from the MCP Registry); PulseMCP submissions paused; Smithery closed self-serve accounts on 10-31.
+- ERP partner follow-ups (Epicor, Acumatica, SYSPRO, Infor): queued with the Outreach session for 11-16.
+- Still need a contact from Kathir: Capital Factory portfolio page, Avalara partner directory. Microsoft Partner Center enrollment is Kathir's.
