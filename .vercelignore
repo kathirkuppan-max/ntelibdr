@@ -13,3 +13,4 @@ node_modules/
 .env*
 .DS_Store
 gtm/brief-shots/node_modules
+gtm/battery-video/node_modules

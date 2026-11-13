@@ -1,0 +1,98 @@
+[
+ {
+  "kind": "title",
+  "title": "Battery programs, quoted right and passport-ready, on Salesforce.",
+  "sub": "A point of view on Agentforce Manufacturing and Agentforce Revenue Management · For battery and e-mobility manufacturers",
+  "vo": [
+   "Battery programs, quoted right and passport-ready, on Salesforce."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "acc",
+  "n": 1,
+  "step": "Account",
+  "title": "Start with the OEM program",
+  "sub": "Sales Agreement and Account Forecast in Agentforce Manufacturing: what Nordbahn agreed to buy, what shipped, and what’s coming.",
+  "vo": [
+   "It starts with the O.E.M. program.",
+   "The Sales Agreement and Account Forecast show what Nordbahn agreed to buy, what shipped, and what's coming."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "rfq",
+  "n": 2,
+  "step": "RFQ",
+  "title": "The RFQ lands on the Opportunity",
+  "sub": "1,200 packs, 450 kWh each, delivered just-in-sequence, in the customer’s own words.",
+  "vo": [
+   "A new R.F.Q. lands on the Opportunity, in the customer's own words: twelve hundred battery packs, delivered just in sequence."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "chk",
+  "n": 3,
+  "step": "Check",
+  "title": "What can’t ship stops here",
+  "sub": "EU-bound packs need battery passport data from 18 February 2027. Agentforce explains and proposes the fix; the rep approves.",
+  "vo": [
+   "Before anything is priced, the check stops it.",
+   "E.U.-bound packs need battery passport data from February 2027. Agentforce explains, and proposes the fix."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "prc",
+  "n": 4,
+  "step": "Price",
+  "title": "Priced from cost to net",
+  "sub": "COGS-based price waterfall with margin shown against the floor.",
+  "vo": [
+   "Every option is priced from cost to net, with margin shown against the floor."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "qte",
+  "n": 5,
+  "step": "Quote",
+  "title": "A reason on every line",
+  "sub": "The quote document and approvals come from the same lines.",
+  "vo": [
+   "The quote goes out with a reason on every line."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "ord",
+  "n": 6,
+  "step": "Order",
+  "title": "The won quote becomes the order",
+  "sub": "Order, fulfillment plan and a battery passport record for every pack.",
+  "vo": [
+   "The won quote becomes the order, with a passport record for every pack."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "dsh",
+  "n": 7,
+  "step": "Dashboard",
+  "title": "One view for leadership",
+  "sub": "Forecast against plan, what the checks stopped and agreement attainment.",
+  "vo": [
+   "And leadership sees the forecast, what the checks stopped, and attainment, in one place."
+  ]
+ },
+ {
+  "kind": "end",
+  "title": "Rules, pricing and dashboards, pre-built.",
+  "sub": "A point of view from Nteli, a Salesforce Manufacturing Partner · nteli.io",
+  "vo": [
+   "A point of view from En-telly, a Salesforce Manufacturing Partner.",
+   "Rules, pricing and dashboards, pre-built."
+  ]
+ }
+]

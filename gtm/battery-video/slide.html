@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;font-family:'IBM Plex Sans',sans-serif;-webkit-font-smoothing:antialiased}
+body{background:linear-gradient(125deg,#021B3D 0%,#032D60 45%,#0B5CAB 100%);color:#fff;position:relative}
+body:after{content:'';position:absolute;right:-220px;top:-220px;width:760px;height:760px;border-radius:50%;background:rgba(255,255,255,.05)}
+.brand{position:absolute;left:80px;top:56px;font-size:40px;font-weight:700;letter-spacing:-.02em}.brand i{font-style:normal;color:#7FB8F0}
+.tag{position:absolute;right:80px;top:66px;font-size:22px;color:#C9DBF0;border:1px solid rgba(255,255,255,.3);border-radius:22px;padding:6px 20px}
+.foot{position:absolute;left:80px;bottom:44px;font-size:20px;color:#9CC7F2;letter-spacing:.02em}
+.center{position:absolute;left:160px;right:160px;top:0;bottom:0;display:flex;flex-direction:column;justify-content:center}
+.center h1{font-size:84px;line-height:1.08;letter-spacing:-.02em;font-weight:700}
+.center p{font-size:32px;color:#DCE8F6;margin-top:30px;line-height:1.35}
+.left{position:absolute;left:80px;top:180px;width:470px}
+.num{width:76px;height:76px;border-radius:50%;background:#fff;color:#032D60;font-size:40px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.step{font-size:24px;font-weight:700;color:#9CC7F2;text-transform:uppercase;letter-spacing:.12em;margin-top:28px}
+.left h2{font-size:52px;line-height:1.1;letter-spacing:-.015em;margin-top:10px}
+.left p{font-size:27px;line-height:1.38;color:#DCE8F6;margin-top:22px}
+.dots{display:flex;gap:10px;margin-top:40px}.dots i{width:42px;height:6px;border-radius:3px;background:rgba(255,255,255,.25)}.dots i.on{background:#fff}
+.frame{position:absolute;left:600px;top:170px;width:1240px;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45);border:2px solid rgba(255,255,255,.25);background:#B0C4DF}
+.frame img{display:block;width:100%}
+</style></head><body>
+<div class="brand">nteli<i>.io</i></div><div class="tag">For Salesforce manufacturing sellers</div>
+<div id="c"></div>
+<div class="foot">Concept: how this could look on Salesforce · Fictional customers · Illustrative figures</div>
+<script src="slides-data.js"></script>
+<script>
+const i=+new URLSearchParams(location.search).get('i'),d=window.SLIDES[i],n=window.SLIDES.filter(x=>x.kind==='shot').length;
+const c=document.getElementById('c');
+if(d.kind==='shot'){
+  c.innerHTML='<div class="left"><div class="num">'+d.n+'</div><div class="step">'+d.step+'</div><h2>'+d.title+'</h2><p>'+d.sub+'</p><div class="dots">'+Array.from({length:n},(_,k)=>'<i class="'+(k<d.n?'on':'')+'"></i>').join('')+'</div></div><div class="frame"><img src="shots/'+d.img+'.png"></div>';
+}else{
+  c.innerHTML='<div class="center"><h1>'+d.title+'</h1><p>'+d.sub+'</p></div>';
+}
+</script>
+</body></html>
