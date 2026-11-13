@@ -309,3 +309,10 @@ same four queries weekly; first citation is the milestone.
 - "ul 508a quoting software": #1 /engine/panels, #2 CostBook, #3 TW Controls, #4 our guide (was #3).
 - Reminder from 11-10: /engine/panels had 10 impressions and 0 clicks in 28 days; the query has almost no volume.
 - G2 (11-11): seller "N-Teli", one services profile (Quote-to-Cash Consulting, Salesforce Consulting Services), 0 reviews, generic Salesforce description; no software product profile.
+
+## 2026-11-13 (Kathir asked "SEO status")
+- GSC 7-day (Nov 4–10): 646 impressions (was 545, +19%), 4 clicks (was 5), CTR 0.6%, avg position 9.8 (was 9.5). 48 queries (was 37).
+- /guides/channel-revenue-management-erp: 352 impressions, 0 clicks. Data ends Nov 10, the day the new title shipped, so the fix isn't measurable yet.
+- /engine/panels: 19 impressions in 7 days (was 10 in the prior 28).
+- "ul 508a quoting software": #1 panels, #2 CostBook, #3 TW Controls, #4 our guide. "control panel quoting software" (the higher-volume phrasing): not in the top 9; Switchonomy, PanelQuotePro, Rutamsoft lead.
+- site:nteligroup.com about 56: the 308 still isn't processed.
