@@ -7,90 +7,92 @@
 <title>Partner Brief for Salesforce | Nteli</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-@page{size:letter;margin:.4in}
+@page{size:letter;margin:.35in}
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--navy:#032D60;--navy2:#014486;--blue:#0176D3;--line:#D8DDE6;--ink:#181818;--ink2:#3E3E3C;--ink3:#706E6B;--tint:#F3F6FA;--ok:#2E844A;--okbg:#EAF6EC}
+:root{--navy:#032D60;--navy2:#014486;--blue:#0176D3;--sky:#C9DBF0;--line:#D8DDE6;--ink:#181818;--ink2:#3E3E3C;--ink3:#706E6B;--tint:#F3F6FA;--ok:#2E844A;--okd:#1E6B37;--okbg:#EEF8F0}
 html{background:#E9ECEF}
-body{font-family:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;color:var(--ink);font-size:9.1px;line-height:1.36;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-.page{width:8.5in;min-height:11in;margin:20px auto;background:#fff;padding:.4in;box-shadow:0 2px 16px rgba(0,0,0,.12)}
+body{font-family:'IBM Plex Sans',-apple-system,'Segoe UI',sans-serif;color:var(--ink);font-size:8.9px;line-height:1.36;-webkit-font-smoothing:antialiased;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:8.5in;min-height:11in;margin:20px auto;background:#fff;padding:.35in;box-shadow:0 2px 16px rgba(0,0,0,.12)}
 @media print{html{background:#fff}.page{margin:0;padding:0;width:auto;min-height:0;box-shadow:none}}
-header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;border-bottom:2px solid var(--navy);padding-bottom:6px}
-.brand{font-size:17px;font-weight:700;letter-spacing:-.02em}.brand i{font-style:normal;color:var(--blue)}
-.tag{font-size:8.6px;color:var(--ink3);text-align:right;line-height:1.35}
-.eyebrow{font-size:8.4px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;margin-top:8px}
-h1{font-size:18px;line-height:1.17;letter-spacing:-.015em;margin-top:2px}
-.sub{font-size:9.9px;color:var(--ink2);margin-top:4px}
-h2{font-size:10.4px;color:var(--navy);margin-bottom:3px}
-.row{display:grid;gap:10px;margin-top:9px}
-.box{border:1px solid var(--line);border-radius:5px;padding:7px 9px}
-.box.tint{background:var(--tint);border-color:#C9DBF0}
-.box.rep{border:1.5px solid var(--navy);background:#fff}
-ul{padding-left:12px}li{margin-bottom:2px}
-.say{margin-top:5px;background:var(--navy);color:#fff;border-radius:4px;padding:5px 8px;font-size:9.2px}
-.say b{color:#C9DBF0;font-size:7.8px;text-transform:uppercase;letter-spacing:.06em;display:block}
-.roi{border:1.5px solid var(--ok);background:var(--okbg);border-radius:5px;padding:7px 9px}
-.roi h2{color:#1E6B37}
-.roi .as{font-size:8.2px;color:var(--ink2);margin-bottom:3px}
+h2{font-size:10.4px;color:var(--navy);margin-bottom:4px;letter-spacing:-.005em}
+.k{font-size:7.8px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px}
+.cover{background:linear-gradient(120deg,#032D60 0%,#014486 70%,#0B5CAB 100%);color:#fff;border-radius:8px;padding:10px 16px 11px;position:relative;overflow:hidden}
+.cover:after{content:'';position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)}
+.ctop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.brand{font-size:17px;font-weight:700;letter-spacing:-.02em}.brand i{font-style:normal;color:#7FB8F0}
+.badge{font-size:8.2px;font-weight:600;border:1px solid rgba(255,255,255,.35);border-radius:12px;padding:2px 9px;color:#E6EEF8}
+.cover .k{color:#9CC7F2;margin-top:9px}
+.cover h1{font-size:18px;line-height:1.15;letter-spacing:-.018em;max-width:7in}
+.cover p{font-size:9.8px;color:#DCE8F6;margin-top:5px;max-width:7.2in}
+.row{display:grid;gap:10px;margin-top:8px}
+.box{border:1px solid var(--line);border-radius:6px;padding:8px 10px}
+.rep{border-top:3px solid var(--navy)}
+ul{padding-left:11px}li{margin-bottom:2px}
+.say{margin-top:6px;border-left:3px solid var(--blue);background:var(--tint);padding:5px 8px;font-size:9.1px;color:var(--navy);font-weight:500}
+.say b{display:block;color:var(--blue);font-size:7.6px;text-transform:uppercase;letter-spacing:.07em}
+.roi{border:1px solid #BFE0C7;border-top:3px solid var(--ok);background:var(--okbg);border-radius:6px;padding:8px 10px}
+.roi h2{color:var(--okd)}
+.roi .as{font-size:8px;color:var(--ink2);margin-bottom:4px}
+.hero{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:3px 0 6px}
+.hero div{background:#fff;border:1px solid #CFE7D5;border-radius:5px;padding:4px 7px}
+.hero b{display:block;font-size:15px;color:var(--okd);line-height:1.15}
+.hero span{font-size:7.8px;color:var(--ink2)}
+.speed{display:grid;grid-template-columns:52px 1fr 52px;gap:2px 6px;align-items:center;margin:0 0 4px;font-size:8.2px}
+.bar{height:7px;border-radius:4px;display:block}
 .roi table{width:100%;border-collapse:collapse}
-.roi td{padding:2.2px 0;border-bottom:1px solid #CFE7D5;vertical-align:top}
-.roi td.n{text-align:right;font-weight:700;white-space:nowrap;padding-left:8px;color:#1E6B37}
-.roi tr.big td{font-size:10.2px;font-weight:700;border-bottom:0;padding-top:3px}
-.roi tr.big td.n{font-size:11.6px}
-.roi .ft{font-size:7.7px;color:var(--ink3);margin-top:2px}
-.speed{display:grid;grid-template-columns:auto 1fr auto;gap:2px 7px;align-items:center;margin:2px 0 4px;font-size:8.4px}
-.bar{height:8px;border-radius:2px;display:block}
-.lines{display:grid;grid-template-columns:repeat(5,1fr);gap:2px 10px;margin-top:2px;font-size:8.7px}
-.lines span:before{content:'✓ ';color:var(--ok);font-weight:700}
-table.t{width:100%;border-collapse:collapse;margin-top:2px}
-table.t th{background:var(--navy);color:#fff;text-align:left;padding:4px 6px;font-size:9.2px}
-table.t th span{display:block;font-weight:400;font-size:8px;color:#C9DBF0}
-table.t td{padding:2.6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
-table.t td:first-child{font-weight:600;color:var(--ink2);width:17%}
-table.t tr.price td{font-weight:700;color:var(--navy);font-size:10.4px;background:var(--tint)}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:5px 8px;margin-top:2px}
-.stat{border-left:3px solid var(--blue);padding:1px 0 1px 6px;font-size:8.4px}
+.roi td{padding:2px 0;border-bottom:1px solid #D7EBDC;vertical-align:top;font-size:8.5px}
+.roi td.n{text-align:right;font-weight:700;white-space:nowrap;padding-left:8px;color:var(--okd)}
+.roi .ft{font-size:7.4px;color:var(--ink3);margin-top:3px}
+.shots{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-top:4px}
+.shot figure{border-radius:6px;overflow:hidden;border:1px solid #B9C6D6;box-shadow:0 2px 8px rgba(3,45,96,.12);height:1.22in;background:#B0C4DF}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top left;display:block}
+.shot figcaption{font-size:8.2px;color:var(--ink2);margin-top:4px;line-height:1.3}
+.shot figcaption b{color:var(--navy);display:block;font-size:8.8px}
+.also{font-size:8.2px;color:var(--ink2);margin-top:5px}
+table.t{width:100%;border-collapse:separate;border-spacing:0;margin-top:2px;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+table.t th{background:var(--navy);color:#fff;text-align:left;padding:5px 7px;font-size:9.4px}
+table.t th span{display:block;font-weight:400;font-size:7.8px;color:var(--sky)}
+table.t th:first-child{background:#0B2547}
+table.t td{padding:2.4px 7px;border-top:1px solid var(--line);vertical-align:top}
+table.t td:first-child{font-weight:600;color:var(--ink2);width:15%;background:#FAFBFC}
+table.t tr.price td{font-weight:700;color:var(--navy);font-size:11px;background:var(--tint)}
+table.t tr.price td:first-child{font-size:8.9px;color:var(--ink2)}
+.vert{margin-top:8px;border-radius:7px;overflow:hidden;border:1px solid var(--navy)}
+.vh{background:var(--navy);color:#fff;display:flex;align-items:center;gap:10px;padding:4px 12px}
+.vh .vn{font-size:23px;font-weight:700;line-height:1}
+.vh b{display:block;font-size:12px}.vh div span{font-size:8.4px;color:var(--sky)}
+.vg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:6px 10px 7px;background:var(--tint)}
+.vc{display:flex;flex-direction:column;gap:2px}
+.vt{font-size:7.6px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.07em;border-bottom:2px solid var(--blue);padding-bottom:2px;margin-bottom:1px}
+.vc span{display:block;background:#fff;border:1px solid #C3D3E8;border-left:3px solid var(--blue);border-radius:3px;padding:1.6px 6px;font-size:8.4px;font-weight:600;color:var(--navy);line-height:1.2}
+.why{display:grid;grid-template-columns:repeat(4,auto) 1fr;gap:14px;align-items:center;margin-top:7px;padding:5px 12px;border-radius:6px;background:#FAFBFC;border:1px solid var(--line)}
+.stat{border-left:3px solid var(--blue);padding:1px 0 1px 7px;font-size:8.2px;color:var(--ink2)}
 .stat b{display:block;font-size:11.5px;color:var(--navy)}
-.ask{background:var(--navy);color:#fff;border-radius:5px;padding:7px 12px;margin-top:9px;display:grid;grid-template-columns:1.6fr 1fr;gap:14px}
-.ask h2{color:#fff}.ask li{color:#E6EEF8}
-.ask .links div{margin-bottom:4px}.ask .links b{display:block;color:#C9DBF0;font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-.ask .links span{font-size:10.2px;font-weight:600}
-footer{margin-top:6px;padding-top:4px;border-top:1px solid var(--line);font-size:7.6px;color:var(--ink3)}
-.vert{margin-top:10px;border-radius:6px;overflow:hidden;border:1.5px solid var(--navy)}
-.vh{background:var(--navy);color:#fff;display:flex;align-items:center;gap:10px;padding:6px 12px}
-.vh .vn{font-size:30px;font-weight:700;line-height:1;color:#fff}
-.vh b{display:block;font-size:13px}.vh div span{font-size:8.8px;color:#C9DBF0}
-.vg{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:8px 10px;background:var(--tint)}
-.vc{display:flex;flex-direction:column;gap:4px}
-.vt{font-size:8.2px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--blue);padding-bottom:2px;margin-bottom:1px}
-.vc span{display:block;background:#fff;border:1px solid #B9CCE4;border-left:3px solid var(--blue);border-radius:3px;padding:3px 6px;font-size:9.2px;font-weight:600;color:var(--navy);line-height:1.25}
-.why{display:grid;grid-template-columns:repeat(4,auto) 1fr;gap:12px;align-items:center;margin-top:9px;border:1px solid var(--line);border-radius:5px;padding:6px 10px}
-.why p{font-size:8.6px;color:var(--ink2)}
+.why p{font-size:8.4px;color:var(--ink2)}
 </style>
 </head>
 <body>
 <div class="page">
-<header>
-  <div class="brand">nteli<i>.io</i></div>
-  <div class="tag">For Salesforce manufacturing account executives<br>Salesforce Manufacturing Partner · Austin, TX</div>
-</header>
 
-<div class="eyebrow">Agentforce Manufacturing · Agentforce Revenue Management · Agentforce</div>
-<h1>Close specialty manufacturing deals faster. Nteli brings the entire rule pack, pricing and dashboards pre-built.</h1>
-<p class="sub">Your specialty manufacturing prospects build to order. Their quotes come from spreadsheets, and one or two people know which combinations can be built. Deals stall when the customer realizes someone has to write all those product rules down. With Nteli, they already exist, for 23 product lines.</p>
+<div class="cover">
+  <div class="ctop"><div class="brand">nteli<i>.io</i></div><div class="badge">For Salesforce manufacturing account executives · Salesforce Manufacturing Partner · Austin, TX</div></div>
+  <div class="k">Agentforce Manufacturing · Agentforce Revenue Management · Agentforce</div>
+  <h1>Close specialty manufacturing deals faster. Nteli brings the entire rule pack, pricing and dashboards pre-built.</h1>
+  <p>Your specialty manufacturing prospects build to order. Their quotes come from spreadsheets, and one or two people know which combinations can be built. Deals stall when the customer realizes someone has to write all those product rules down. With Nteli, they already exist, for 23 product lines.</p>
+</div>
 
-<div class="row" style="grid-template-columns:1fr 1fr">
+<div class="row" style="grid-template-columns:1fr 1.05fr">
   <div class="box rep">
     <h2>Why it helps your number</h2>
     <ul>
-      <li><b>Demo their product line in the first meeting.</b> No months of discovery before the prospect sees their own products quoted on Salesforce.</li>
-      <li><b>Fewer deals stall in technical validation.</b> The hard part, the product rules, is done before the deal starts.</li>
+      <li><b>Demo their product line in the first meeting,</b> quoted on Salesforce, with no months of discovery.</li>
+      <li><b>Fewer deals stall in technical validation.</b> The product rules are done before the deal starts.</li>
       <li><b>Every license stays your sale:</b> Agentforce Manufacturing, Agentforce Revenue Management, Agentforce and MuleSoft. Nteli’s fees are services only.</li>
-      <li><b>An easy yes on services.</b> A fixed $25K start sits comfortably beside the license deal.</li>
-      <li><b>Live in weeks, not quarters,</b> so the customer sees value well before renewal, with a clear path to expand.</li>
+      <li><b>An easy yes on services.</b> A fixed $25K start sits beside the license deal, and the customer is live in weeks, well before renewal.</li>
     </ul>
-    <h2 style="margin-top:5px">Spot the right account</h2>
+    <h2 style="margin-top:6px">Spot the right account</h2>
     <ul>
-      <li>Builds or configures products to order, direct or through dealers and distributors.</li>
+      <li>Builds or configures to order, direct or through dealers and distributors.</li>
       <li>Quotes from spreadsheets; one or two people know the rules.</li>
       <li>Wrong combinations get found after the PO.</li>
     </ul>
@@ -98,36 +100,38 @@ footer{margin-top:6px;padding-top:4px;border-top:1px solid var(--line);font-size
   </div>
   <div class="roi">
     <h2>The return your customer sees</h2>
-    <div class="as">Worked example: a specialty manufacturer with $40M revenue, 600 RFQs a year, a 30% win rate and 35% gross margin.</div>
+    <div class="as">Worked example: specialty manufacturer, $40M revenue, 600 RFQs a year, 30% win rate, 35% gross margin.</div>
+    <div class="hero">
+      <div><b>~$720K</b><span>benefit a year</span></div>
+      <div><b>~6 mo</b><span>sooner to value</span></div>
+      <div><b>&lt; 2 mo</b><span>payback, $100K rollout</span></div>
+    </div>
     <div class="speed">
       <span>Pre-built</span><span><span class="bar" style="width:31%;background:#2E844A"></span></span><b>12 weeks</b>
       <span>From scratch</span><span><span class="bar" style="width:100%;background:#B0ADAB"></span></span><b>~9 months</b>
     </div>
     <table>
-      <tr><td>Value starts sooner, because the rule pack, pricing and dashboards exist on day one</td><td class="n">~6 months</td></tr>
       <tr><td>Wrong orders caught before the PO (2% of orders, 15% rework or credit each)</td><td class="n">$120K / yr</td></tr>
       <tr><td>Estimator time back (3 hours on each of 600 RFQs, at $75 an hour)</td><td class="n">$135K / yr</td></tr>
       <tr><td>One more point of win rate on $133M quoted, at 35% gross margin</td><td class="n">$467K / yr</td></tr>
-      <tr class="big"><td>Total benefit</td><td class="n">~$720K / yr</td></tr>
       <tr><td>Opportunity cost of building from scratch (6 months of waiting)</td><td class="n">~$360K</td></tr>
-      <tr><td>Payback on a $100K Full Rollout</td><td class="n">&lt; 2 months</td></tr>
     </table>
     <div class="ft">Assumptions, not results. “From scratch” is Nteli’s estimate for building the same rules, pricing and dashboards new. We run this math on each prospect’s own numbers.</div>
   </div>
 </div>
 
-<div class="box tint" style="margin-top:9px">
-  <h2>What the customer gets, in every start</h2>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;font-size:8.7px">
-    <div><b>Checks before the price.</b> What can’t be built stops, with the reason and priced ways out.</div>
-    <div><b>COGS-based pricing.</b> Cost-to-net waterfall with margin guidelines and approvals.</div>
-    <div><b>Forecast from what ships.</b> Sales Agreements, order history and weighted opportunities.</div>
-    <div><b>Agentforce on every step.</b> Agentforce proposes; the rep approves. Dashboards pre-built.</div>
+<div style="margin-top:8px">
+  <div class="k">What your prospect sees on Salesforce</div>
+  <div class="shots">
+    <div class="shot"><figure><img src="brief-shots/forecast.png" alt="Account Forecast on a Sales Agreement in Agentforce Manufacturing"></figure><figcaption><b>Account Forecast</b>Actuals, run-rate and the new RFQ, six months ahead against plan.</figcaption></div>
+    <div class="shot"><figure><img src="brief-shots/check.png" alt="Product Configurator stopping a configuration, with Agentforce explaining"></figure><figcaption><b>Check, with Agentforce</b>What can’t be built stops with its reason and priced ways out. Agentforce proposes; the rep approves.</figcaption></div>
+    <div class="shot"><figure><img src="brief-shots/dashboard.png" alt="Quote-to-Order dashboard"></figure><figcaption><b>Dashboard</b>Quotes, win rate, forecast against plan and what the checks stopped.</figcaption></div>
   </div>
+  <div class="also">Also in every start: COGS-based pricing with a cost-to-net waterfall and margin guidelines, approvals only when a person is needed, and a reason on every quote line.</div>
 </div>
 
 <div style="margin-top:8px">
-  <h2>Three ways to start (Nteli services; every license stays your sale)</h2>
+  <h2>Three ways to start: Nteli services, every license stays your sale</h2>
   <table class="t">
     <thead><tr><th></th><th>Quick Start<span>Quoting right, fast</span></th><th>Migrate<span>Their history from day one</span></th><th>Full Rollout<span>End to end, with Agentforce</span></th></tr></thead>
     <tbody>
@@ -141,8 +145,15 @@ footer{margin-top:6px;padding-top:4px;border-top:1px solid var(--line);font-size
 
 <div class="vert">
   <div class="vh"><span class="vn">23</span><div><b>product lines, pre-built and ready to demo</b><span>Rule pack, pricing and dashboards for each one, on Agentforce Revenue Management</span></div></div>
-  <div class="vg"><div class="vc"><div class="vt">Power and electrical</div><span>Control Panels &amp; Switchgear</span><span>Power Packages</span><span>Data Center Pods</span><span>Distribution Transformers</span><span>Hazardous-Area Electrical</span></div><div class="vc"><div class="vt">Controls and electronics</div><span>Instrumentation &amp; Controls</span><span>Interconnect / Cable Assemblies</span><span>Electronic Components &amp; Assemblies</span><span>Semiconductors</span></div><div class="vc"><div class="vt">Medical and lab</div><span>NRE Services</span><span>Surgical Robotic Systems</span><span>Medical Gas &amp; Headwalls</span><span>Lab Furniture &amp; Fume Hoods</span></div><div class="vc"><div class="vt">Building systems</div><span>Commercial HVAC</span><span>Commercial Boilers</span><span>Cooling Towers</span><span>Kitchen Ventilation</span><span>Fire Doors &amp; Hardware</span><span>Safety &amp; Plumbing Equipment</span></div><div class="vc"><div class="vt">Process and industrial</div><span>Pumps &amp; Packaged Skids</span><span>Water Treatment</span><span>Cranes &amp; Hoists</span><span>Mobility Lifts</span></div></div>
+  <div class="vg">
+    <div class="vc"><div class="vt">Power and electrical</div><span>Control Panels &amp; Switchgear</span><span>Power Packages</span><span>Data Center Pods</span><span>Distribution Transformers</span><span>Hazardous-Area Electrical</span></div>
+    <div class="vc"><div class="vt">Controls and electronics</div><span>Instrumentation &amp; Controls</span><span>Interconnect / Cable Assemblies</span><span>Electronic Components &amp; Assemblies</span><span>Semiconductors</span></div>
+    <div class="vc"><div class="vt">Medical and lab</div><span>NRE Services</span><span>Surgical Robotic Systems</span><span>Medical Gas &amp; Headwalls</span><span>Lab Furniture &amp; Fume Hoods</span></div>
+    <div class="vc"><div class="vt">Building systems</div><span>Commercial HVAC</span><span>Commercial Boilers</span><span>Cooling Towers</span><span>Kitchen Ventilation</span><span>Fire Doors &amp; Hardware</span><span>Safety &amp; Plumbing Equipment</span></div>
+    <div class="vc"><div class="vt">Process and industrial</div><span>Pumps &amp; Packaged Skids</span><span>Water Treatment</span><span>Cranes &amp; Hoists</span><span>Mobility Lifts</span></div>
+  </div>
 </div>
+
 <div class="why">
   <div class="stat"><b>Manufacturing</b>Salesforce Partner</div>
   <div class="stat"><b>4.93★</b>10 AppExchange reviews</div>
@@ -150,6 +161,7 @@ footer{margin-top:6px;padding-top:4px;border-top:1px solid var(--line);font-size
   <div class="stat"><b>2019</b>Founded in Austin</div>
   <p>Our team has built product configurators for Cisco, Dell and IBM. References on request, including Intricon, Quasar and Elite Pharmaceuticals.</p>
 </div>
+
 </div>
 </body>
 </html>
