@@ -14,3 +14,4 @@ node_modules/
 .DS_Store
 gtm/brief-shots/node_modules
 gtm/battery-video/node_modules
+gtm/lab-video/node_modules
