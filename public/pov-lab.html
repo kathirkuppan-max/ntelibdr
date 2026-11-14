@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Point of View: Lab Equipment Sold Through Dealers, Built on Salesforce (Concept) | Nteli</title>
+<meta name="description" content="For Salesforce sellers: a concept of dealer-sold lab equipment Quote-to-Order on Agentforce Manufacturing and Agentforce Revenue Management. Find any product by what it is, configure custom builds, trace every dealer order to its quote.">
+<meta property="og:title" content="Point of view: lab equipment sold through dealers, built on Salesforce (concept)">
+<meta property="og:description" content="For Salesforce sellers working lab equipment manufacturers. A concept of how it would look.">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{color-scheme:light;--navy:#032D60;--navy2:#014486;--blue:#0176D3;--line:#DDDBDA;--line2:#E5E5E5;--ink:#181818;--ink2:#444;--ink3:#706E6B;--ok:#2E844A;--okbg:#E6F5E3;--err:#BA0517;--errbg:#FEF1EE;--amber:#FFD27A;--sans:'IBM Plex Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+html{-webkit-text-size-adjust:100%}
+body{background:#fff;font-family:var(--sans);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.concept{position:sticky;top:0;z-index:50;background:var(--amber);color:#3A2A00;padding:7px 16px;font-size:13px;text-align:center;font-weight:500}
+.concept b{font-weight:700}
+.wrap{max-width:1400px;margin:0 auto;padding:0 20px}
+.brand{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 0;font-size:13px;color:var(--ink3)}
+.brand b{font-size:20px;color:var(--ink);letter-spacing:-.02em}.brand b i{font-style:normal;color:var(--blue)}
+.intro{padding:14px 0 14px;display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:end}
+.eyebrow{font-size:12px;font-weight:600;color:var(--navy2);margin-bottom:6px}
+h1{font-size:32px;line-height:1.15;letter-spacing:-.02em;font-weight:700;max-width:820px}
+.intro p{font-size:16px;color:var(--ink2);margin-top:8px;max-width:820px}
+.pick label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.pickbtn{width:100%;min-height:46px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;border:1px solid #747474;border-radius:4px;padding:10px 14px;font-size:15px;font-weight:600;text-align:left}
+.pickbtn:hover{border-color:var(--blue)}.pickbtn svg{flex:none}
+
+/* Story stepper: Nteli, not product */
+.storybar{display:flex;align-items:center;gap:14px;padding:10px 0 12px;flex-wrap:wrap}
+.beats{display:flex;gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+.beats::-webkit-scrollbar{display:none}
+.beats button{flex:none;display:flex;align-items:center;gap:6px;padding:6px 12px 6px 7px;border-radius:18px;font-size:13px;font-weight:600;background:#F0F0F0;color:var(--ink2);white-space:nowrap}
+.beats button i{font-style:normal;width:21px;height:21px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px}
+.beats button.done{background:#DCE9F7;color:var(--navy2)}
+.beats button.cur{background:var(--navy);color:#fff}.beats button.cur i{color:var(--navy)}
+.nextb{min-height:38px;padding:7px 20px;border-radius:4px;background:var(--navy);color:#fff;font-weight:600;font-size:14px;white-space:nowrap}
+.nextb:hover{background:var(--navy2)}.nextb[disabled]{background:#C9C7C5;cursor:not-allowed}
+.beat{font-size:21px;font-weight:700;letter-spacing:-.01em;line-height:1.25;padding:0 0 10px}
+
+.stage{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:16px;align-items:start;padding-bottom:18px}
+
+/* ===== Lightning chrome ===== */
+.sf{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;border:1px solid #B9B7B5;border-radius:6px;overflow:hidden;background:#B0C4DF;box-shadow:0 2px 14px rgba(3,45,96,.15);min-width:0;font-size:13px}
+.gh{height:44px;background:#fff;display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid var(--line2)}
+.gh svg.cloud{width:38px;height:27px;flex:none}
+.gsearch{flex:1;max-width:440px;margin:0 auto;height:30px;border:1px solid #C9C7C5;border-radius:4px;display:flex;align-items:center;padding:0 12px;color:var(--ink3);font-size:13px;background:#fff;white-space:nowrap;overflow:hidden}
+.gicons{display:flex;gap:9px;align-items:center;color:var(--ink3);flex:none}
+.gicons span{width:21px;height:21px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.gicons .av{border-radius:50%;background:var(--navy2);color:#fff;font-size:10px;font-weight:700}
+.an{height:40px;background:#fff;display:flex;align-items:stretch;border-bottom:3px solid var(--blue);padding-left:12px;overflow-x:auto;scrollbar-width:none}
+.an::-webkit-scrollbar{display:none}
+.waffle{display:grid;grid-template-columns:repeat(3,3px);gap:2px;align-self:center;margin-right:12px;flex:none}
+.waffle i{width:3px;height:3px;border-radius:50%;background:var(--ink3)}
+.appname{align-self:center;font-size:16px;margin-right:16px;white-space:nowrap}
+.an span.t,.an button{padding:0 12px;font-size:13px;white-space:nowrap;border-top:3px solid transparent;display:flex;align-items:center}
+.an button:hover{background:#F3F3F3}
+.an .on{font-weight:600;border-top-color:var(--blue);background:#F2F8FE}
+.scr{padding:10px;display:flex;flex-direction:column;gap:10px;position:relative}
+.card{background:#fff;border:1px solid var(--line);border-radius:4px}
+/* Highlights */
+.hl{padding:10px 14px 10px}
+.hltop{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ico{width:32px;height:32px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex:none}
+.ico svg{width:20px;height:20px;fill:#fff}
+.ico.s{width:24px;height:24px}.ico.s svg{width:15px;height:15px}
+.hlo{font-size:12px;color:var(--ink2);line-height:1.2}
+.hlt{font-size:18px;font-weight:700;line-height:1.25}
+.acts{margin-left:auto;display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.stamp{font-size:11px;font-weight:700;background:var(--amber);color:#3A2A00;padding:3px 9px;border-radius:12px;white-space:nowrap;margin-right:10px}
+.sb{display:inline-block;padding:4px 12px;border:1px solid #C9C7C5;background:#fff;color:var(--blue);font-size:12px;line-height:18px;margin-left:-1px;white-space:nowrap}
+.sb:first-of-type{border-radius:4px 0 0 4px}.sb:last-of-type{border-radius:0 4px 4px 0}
+.flds{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:12px;margin-top:9px}
+.fl{font-size:11px;color:var(--ink3);line-height:1.3}
+.fv{font-size:13px;overflow-wrap:anywhere;line-height:1.35}.fv.a{color:var(--blue)}
+/* Status path */
+.sp{display:flex;align-items:center;gap:10px;padding:7px 10px}
+.spw{display:flex;flex:1;min-width:0;overflow:hidden;border-radius:15px}
+.spw div{flex:1 1 0;min-width:0;height:28px;line-height:28px;text-align:center;font-size:12px;background:#ECEBEA;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 12px;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,0 100%,8px 50%);margin-right:-5px}
+.spw div:first-child{clip-path:polygon(0 0,calc(100% - 8px) 0,100% 50%,calc(100% - 8px) 100%,0 100%)}
+.spw div.d{background:#2E844A;color:#fff}.spw div.c{background:var(--navy2);color:#fff;font-weight:600}
+.mk{flex:none;background:var(--blue);color:#fff;border-radius:4px;font-size:12px;padding:4px 12px;white-space:nowrap}
+.mk.off{background:#C9C7C5}
+/* Record tabs */
+.tabs{display:flex;border-bottom:1px solid var(--line);padding:0 12px;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs span,.tabs button{padding:9px 12px;font-size:13px;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs .on{font-weight:600;border-bottom-color:var(--blue)}
+.ch{display:flex;align-items:center;gap:8px;padding:9px 12px;font-size:14px;font-weight:700;flex-wrap:wrap}
+.ch .r{margin-left:auto;display:flex;align-items:center;gap:8px;font-weight:400;font-size:12px;flex-wrap:wrap}
+.tog{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--ink2)}
+.tog i{width:28px;height:15px;border-radius:8px;background:var(--blue);position:relative;display:inline-block}
+.tog i:after{content:'';position:absolute;width:11px;height:11px;border-radius:50%;background:#fff;top:2px;right:2px}
+.mini{border:1px solid #C9C7C5;border-radius:4px;padding:3px 10px;color:var(--blue);font-size:12px;background:#fff;white-space:nowrap}
+.findp{border:1px solid #C9C7C5;border-radius:4px;padding:3px 10px;color:var(--ink3);font-size:12px;min-width:120px;background:#fff}
+/* TLE grid */
+.gridw{overflow-x:auto}
+table{width:100%;border-collapse:collapse}
+.tle th{background:#F3F3F3;text-align:left;font-size:11.5px;font-weight:600;color:var(--ink2);padding:6px 9px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);white-space:nowrap}
+.tle td{padding:6px 9px;border-bottom:1px solid var(--line2);font-size:12.5px;white-space:nowrap}
+.tle td.w{white-space:normal;min-width:190px}
+.tle .n,.tle th.n{text-align:right;font-variant-numeric:tabular-nums}
+.tle a,.lk{color:var(--blue);cursor:default}
+.tle .kid td:nth-child(3){padding-left:26px}
+.tle tr.hi td{background:#F2F8FE}
+.tle tr.new td{background:#E6F5E3}
+.tle tr.total td{font-weight:700;background:#F3F3F3}
+.tle tr.badl td{background:var(--errbg)}
+.cbx{display:inline-block;width:13px;height:13px;border:1px solid #AEAEAE;border-radius:2px;vertical-align:-2px;background:#fff}
+.nup{color:var(--blue);border-bottom:1px dashed var(--blue);cursor:pointer;background:none;padding:0;font-size:12.5px;font-variant-numeric:tabular-nums}
+.nup.open{font-weight:700}
+.calc{margin:10px 12px 12px auto;width:min(380px,calc(100% - 24px));border:1px solid var(--line);border-radius:4px;box-shadow:0 2px 8px rgba(0,0,0,.16);background:#fff}
+.calc h4{padding:9px 12px 5px;font-size:13px}
+.calc table td,.calc table th{padding:5px 12px;font-size:12px;text-align:left}
+.calc table th{color:var(--ink2);font-weight:500;border-bottom:1px solid var(--line2)}
+.calc td.n,.calc th.n{text-align:right}
+.calc tr.b td{font-weight:700;border-top:1px solid var(--line2)}
+/* Configurator */
+.cfgh{display:flex;align-items:center;gap:12px;padding:10px 14px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.cfgh h3{font-size:16px;font-weight:400}
+.cfgh .r{margin-left:auto;display:flex;gap:14px}
+.cfgb{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:12px;padding:12px 14px}
+.cprod{display:flex;gap:10px;align-items:flex-start}
+.thumb{width:62px;height:48px;border-radius:3px;background:linear-gradient(135deg,#D8E6F5,#EEF3F9);border:1px solid var(--line2);flex:none;display:flex;align-items:center;justify-content:center}
+.thumb svg{width:26px;height:26px;fill:#8AA6C4}
+.cprod b{font-size:14px}.cprod p{font-size:12px;color:var(--ink2)}
+.cprice{margin-left:auto;text-align:right;font-weight:700;white-space:nowrap}.cprice small{display:block;font-weight:400;color:var(--ink3);font-size:11px}
+.fieldg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px;padding:12px 2px}
+.f label{display:block;font-size:12px;color:var(--ink2);margin-bottom:2px}
+.f label b{color:var(--err);font-weight:400}
+.cb2{border:1px solid #AEAEAE;border-radius:4px;padding:5px 26px 5px 10px;font-size:13px;position:relative;background:#fff;min-height:31px}
+.cb2:after{content:'';position:absolute;right:10px;top:12px;border:4px solid transparent;border-top-color:#706E6B}
+.f.err .cb2{border:1px solid var(--err);box-shadow:0 0 0 1px var(--err)}
+.f.err small{color:var(--err);font-size:12px}
+.f.good .cb2{border-color:var(--ok);box-shadow:0 0 0 1px var(--ok)}
+.opt{border:1px solid var(--blue);border-radius:4px;padding:9px 11px;display:grid;grid-template-columns:18px minmax(0,1fr) auto;gap:6px 8px;margin-bottom:8px}
+.opt .cbx.on{background:var(--blue);border-color:var(--blue)}
+.opt b{font-size:13px}.opt p{font-size:12px;color:var(--ink2);grid-column:2/4}
+.opt .m{font-size:12px;color:var(--ink3);grid-column:2/4}
+.sum{border:1px solid var(--line);border-radius:4px;align-self:start}
+.sum h4{font-size:15px;font-weight:400;padding:8px 12px;border-bottom:1px solid var(--line)}
+.sumb{padding:8px 12px}
+.smet{display:grid;grid-template-columns:1fr 1fr 1fr;background:#F3F3F3;padding:6px 8px;border-radius:3px;font-size:11px;color:var(--ink2);margin:4px 0 8px}
+.smet b{display:block;font-weight:600;color:var(--ink);font-size:12px}
+.smet div:last-child{text-align:right}
+.srow{display:flex;gap:6px;justify-content:space-between;font-size:12px;padding:3px 0;border-bottom:1px solid var(--line2)}
+.srow span:first-child b{font-weight:600}
+.stot{display:flex;justify-content:space-between;font-weight:700;font-size:13px;padding:9px 12px;border-top:1px solid var(--line)}
+.cfgf{display:flex;justify-content:flex-end;gap:6px;padding:8px 12px;background:#F3F3F3;border-top:1px solid var(--line)}
+.fb{padding:4px 12px;border:1px solid #C9C7C5;border-radius:4px;font-size:12px;background:#fff;color:var(--blue)}
+.fb.p{background:var(--blue);color:#fff;border-color:var(--blue)}.fb.off{background:#C9C7C5;border-color:#C9C7C5;color:#fff}
+.alert{display:flex;gap:10px;padding:10px 14px;color:#fff;background:var(--err);font-size:13px}
+.alert.ok{background:var(--ok)}
+.alert b{font-size:14px;display:block}
+.ways{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:4px}
+.way{text-align:left;border:1px solid #AEAEAE;border-radius:4px;padding:9px 11px;background:#fff;display:flex;flex-direction:column;gap:2px}
+.way:hover{border-color:var(--blue)}
+.way[aria-pressed=true]{border:2px solid var(--blue);background:#F2F8FE;padding:8px 10px}
+.way b{font-size:13px;line-height:1.3}.way span{font-size:12px;color:var(--ink2)}
+.way .p{margin-top:auto;padding-top:3px;font-size:14px;font-weight:700;color:var(--ink)}
+.h5{font-size:12px;font-weight:700;margin:8px 0 2px}
+.other{font-size:12px;color:var(--ink2);margin-top:7px}
+/* Two-column record */
+.col2{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:10px;align-items:start}
+.stack{display:flex;flex-direction:column;gap:10px;min-width:0}
+.pad{padding:0 12px 12px}
+.tl{list-style:none}
+.tl li{display:flex;gap:8px;padding:6px 0;font-size:12.5px}
+.tl i{width:18px;height:18px;border-radius:50%;background:var(--blue);flex:none;margin-top:1px}
+.tl i.g{background:#3BA755}.tl i.o{background:#FF5D2D}.tl i.p{background:#7F8DE1}
+.quote-email{background:#F3F3F3;border-radius:4px;padding:10px 12px;margin-top:5px;font-size:13px;line-height:1.5}
+.dgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px 16px;padding:2px 12px 12px}
+.pill{display:inline-block;font-size:11px;font-weight:600;padding:1px 7px;border-radius:10px;background:#F0F0F0;color:var(--ink2);white-space:nowrap}
+.pill.g{background:var(--okbg);color:var(--ok)}.pill.r{background:var(--errbg);color:var(--err)}.pill.b{background:#EAF5FE;color:var(--navy2)}
+.toast{align-self:center;background:var(--ok);color:#fff;font-size:13px;padding:7px 18px;border-radius:4px}
+.chart{padding:0 12px 10px}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--ink2);padding:0 12px 10px}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px}
+.fplan{display:flex;gap:0;overflow-x:auto;padding:4px 12px 12px}
+.fstep{flex:1 0 118px;position:relative;padding-right:14px}
+.fstep b{display:block;font-size:12px;line-height:1.25;margin-top:5px}
+.fstep small{font-size:11px;color:var(--ink3)}
+.fdot{width:15px;height:15px;border-radius:50%;background:#C9C7C5;position:relative;z-index:1}
+.fdot.d{background:var(--ok)}.fdot.c{background:var(--blue)}
+.fstep:after{content:'';position:absolute;left:15px;right:0;top:7px;height:2px;background:#C9C7C5}
+.fstep:last-child:after{display:none}
+.doc{margin:0 12px 12px;border:1px solid var(--line);border-radius:3px;padding:16px 18px;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.08)}
+.doc h4{font-size:16px}.doc p{font-size:12px;color:var(--ink2)}
+.doc table{margin-top:8px}.doc th{text-align:left;font-size:11px;padding:5px 6px;border-bottom:1.5px solid #444}
+.doc td{font-size:12px;padding:5px 6px;border-bottom:1px solid var(--line2);vertical-align:top}
+.doc td.n,.doc th.n{text-align:right;white-space:nowrap}
+.doc tr.t td{font-weight:700;border-bottom:0}
+.tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:2px 12px 12px}
+.tile .l{font-size:11px;color:var(--ink3)}.tile .v{font-size:21px;font-weight:700;font-variant-numeric:tabular-nums}
+.tile .v.r{color:var(--err)}.tile .v.g{color:var(--ok)}
+
+/* Rail + deeper */
+.rail{display:flex;flex-direction:column;gap:10px;position:sticky;top:46px}
+.rc{border:1px solid var(--line);border-radius:8px;padding:13px 15px;background:#fff}
+.rc h2{font-size:12px;font-weight:700;color:var(--ink3);margin-bottom:5px}
+.rc.say{background:var(--navy);border-color:var(--navy);color:#fff}
+.rc.say h2{color:#B9D3F0}
+.rc.say p{font-size:16px;line-height:1.4;font-weight:500}
+.rc p{font-size:13.5px}
+.deep{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding-bottom:18px}
+.deep ul{list-style:none;display:grid;gap:7px;font-size:14px}
+.deep li{padding-left:14px;position:relative}
+.deep li:before{content:'';position:absolute;left:1px;top:8px;width:6px;height:6px;border-radius:50%;background:var(--blue)}
+.deep .q{font-weight:600;font-size:14px}.deep .a{font-size:14px;color:var(--ink2);margin-top:3px}
+.lower{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;padding-bottom:24px}
+.lower h2{font-size:16px;color:var(--ink);margin-bottom:8px}
+.lower ol,.lower ul{padding-left:20px;font-size:14.5px;display:grid;gap:6px}
+.lower p{font-size:14.5px;color:var(--ink2);margin-top:9px}
+.cta{display:inline-block;margin-top:12px;background:var(--navy);color:#fff;padding:9px 18px;border-radius:4px;font-weight:600;text-decoration:none}
+.cta:hover{background:var(--navy2)}
+footer{border-top:1px solid var(--line);padding:14px 0 28px;font-size:12px;color:var(--ink3)}
+.modal{display:none;position:fixed;inset:0;background:rgba(8,7,7,.6);z-index:100;align-items:flex-start;justify-content:center;padding:60px 16px 16px}
+.modal.on{display:flex}
+.lc{background:#fff;border-radius:8px;width:100%;max-width:860px;max-height:calc(100vh - 76px);display:flex;flex-direction:column;overflow:hidden}
+.lh{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line2)}
+.lh h2{font-size:18px}
+.lc input{margin:12px 18px 2px;height:38px;border:1px solid #747474;border-radius:4px;padding:0 12px;font:inherit;font-size:16px}
+.lg{padding:12px 18px 18px;overflow:auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.li{display:block;text-align:left;border:1px solid var(--line);border-radius:4px;padding:10px 12px;font-size:14px;font-weight:600}
+.li:hover{border-color:var(--blue);background:#F2F8FE}
+.li.on{border:2px solid var(--blue);padding:9px 11px}
+.x{font-size:22px;line-height:1;padding:4px 8px;color:var(--ink3)}
+.note{font-size:12px;color:var(--ink3)}
+
+.mk1{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:#DD7A01;color:#fff;font-size:11px;font-weight:700;font-style:normal;flex:none;vertical-align:1px;margin:0 4px;box-shadow:0 0 0 2px #fff,0 0 0 3px #DD7A01;font-family:var(--sans)}
+.see{list-style:none;display:grid;gap:7px}.see li{display:flex;gap:8px;font-size:13.5px;align-items:flex-start}.see .mk1{margin:1px 0 0}
+.nav{display:flex;align-items:center;gap:18px;padding:14px 0;border-bottom:1px solid #ECEBEA;flex-wrap:wrap}.nav .logo{font-size:20px;font-weight:700;color:#181818;letter-spacing:-.02em;text-decoration:none}.nav .logo i{font-style:normal;color:#0176D3}.nav .links{display:flex;gap:4px}.nav .links a{padding:7px 14px;border-radius:18px;font-size:14px;font-weight:600;color:#014486;text-decoration:none}.nav .links a:hover{background:#EAF5FE}.nav .links a.on{background:#032D60;color:#fff}.nav .pp{margin-left:auto;font-size:13px;color:#706E6B}@media (max-width:620px){.nav .pp{display:none}.nav{gap:10px}.nav .links a{padding:6px 11px;font-size:13px}}
+.rc.tier{border-color:#C9DBF0;background:#F5F9FD}.rc.tier a{font-weight:600}
+.clk{cursor:pointer}.clk:hover{text-decoration:underline}.sb.clk:hover,.mini.clk:hover,.fb.clk:hover{background:#F3F3F3;text-decoration:none}.mk.clk:hover{background:var(--navy2);text-decoration:none}
+.tle a,.lk{cursor:pointer}
+.dm{display:none;position:fixed;inset:0;background:rgba(8,7,7,.55);z-index:120;align-items:flex-start;justify-content:center;padding:44px 14px 14px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;font-size:13px}
+.dm.on{display:flex}
+.dmc{background:#fff;border-radius:6px;width:100%;max-width:780px;max-height:calc(100vh - 60px);overflow:auto;box-shadow:0 10px 40px rgba(0,0,0,.35)}
+.dmh{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:1;flex-wrap:wrap}
+.dmh .x{margin-left:auto}
+.dmb{padding:4px 16px 16px}
+.dmb h4{font-size:14px;font-weight:700;margin:14px 0 6px;padding:6px 10px;background:#F3F3F3;border-radius:4px}
+.dmb .dgrid{padding:2px 10px 4px}
+.dmb .fv{border-bottom:1px solid var(--line2);padding-bottom:3px}
+.dmf{display:flex;justify-content:flex-end;gap:6px;padding:10px 16px;border-top:1px solid var(--line);background:#F3F3F3}
+.pv{background:#3E3E3C}
+.pvh{display:flex;align-items:center;gap:10px;color:#fff;padding:10px 16px;background:#2B2826;position:sticky;top:0;z-index:1;flex-wrap:wrap}
+.pvh b{font-size:14px}.pvh .x{color:#fff;margin-left:auto}
+.pvb{padding:18px}
+.pg{background:#fff;max-width:640px;margin:0 auto;padding:30px 34px;box-shadow:0 2px 12px rgba(0,0,0,.4);font-family:Georgia,'Times New Roman',serif;color:#222;font-size:12.5px;line-height:1.45}
+.pg h3{font-family:-apple-system,'Segoe UI',sans-serif;font-size:19px;letter-spacing:.02em}
+.pg .row{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pg .lbl{font-family:-apple-system,'Segoe UI',sans-serif;font-size:10.5px;color:#666;text-transform:uppercase;letter-spacing:.05em}
+.pg table{width:100%;border-collapse:collapse;margin:12px 0}
+.pg th{font-family:-apple-system,'Segoe UI',sans-serif;font-size:10.5px;text-align:left;border-bottom:1.5px solid #333;padding:5px 6px;text-transform:uppercase;letter-spacing:.04em}
+.pg td{border-bottom:1px solid #ddd;padding:5px 6px;vertical-align:top}
+.pg td.n,.pg th.n{text-align:right;white-space:nowrap}
+.pg tr.t td{font-weight:700;border-bottom:0}
+.pg hr{border:0;border-top:2px solid #032D60;margin:12px 0}
+.pg .sig{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:22px}.pg .sig div{border-top:1px solid #333;padding-top:4px;font-size:11px;color:#555}
+.pg .ft{margin-top:18px;font-size:10px;color:#888;font-family:-apple-system,'Segoe UI',sans-serif;text-align:center}
+.ftoast{position:fixed;left:50%;top:70px;transform:translateX(-50%);background:var(--ok);color:#fff;padding:8px 18px;border-radius:4px;z-index:130;font-size:13px;box-shadow:0 4px 14px rgba(0,0,0,.25);display:none}
+.ftoast.on{display:block}
+@media (max-width:620px){.pg{padding:20px 18px}.pvb{padding:10px}}
+.afb{display:inline-flex;align-items:center;gap:6px;border:1px solid #C9C7C5;border-radius:16px;padding:4px 12px 4px 9px;font-size:12.5px;font-weight:600;color:#032D60;background:linear-gradient(90deg,#F0F7FF,#F6F0FF);flex:none}
+.afb.on{background:#032D60;color:#fff;border-color:#032D60}
+.afb svg{width:14px;height:14px}
+.sfb{display:grid;grid-template-columns:minmax(0,1fr)}
+.sfb.af{grid-template-columns:minmax(0,1fr) 310px}
+.afp{background:#fff;border-left:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.afh{display:flex;align-items:center;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line);font-weight:700;font-size:14px;flex-wrap:wrap}
+.afh svg{width:18px;height:18px}
+.afh .x{margin-left:auto;font-size:18px}
+.afm{padding:12px;display:flex;flex-direction:column;gap:10px;font-size:13px}
+.bub{padding:9px 11px;border-radius:10px;line-height:1.45}
+.bub.me{align-self:flex-end;background:#0176D3;color:#fff;border-bottom-right-radius:3px;max-width:88%}
+.bub.ai{background:#F3F2F2;border-bottom-left-radius:3px}
+.bub.ai ul{padding-left:16px;margin-top:4px}.bub.ai li{margin:2px 0}
+.bub.ai .em{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin-top:6px;white-space:pre-wrap;font-size:12.5px}
+.act{border:1px solid #9050E9;border-radius:8px;padding:10px 11px;background:#FBF8FF}
+.act .lb{font-size:11px;font-weight:700;color:#7526E3;text-transform:uppercase;letter-spacing:.05em}
+.act b{display:block;margin:3px 0 2px;font-size:13.5px}
+.act .tr{font-size:11.5px;color:var(--ink3)}
+.act .bt{display:flex;gap:6px;margin-top:8px}
+.act .ok{color:var(--ok);font-weight:700;margin-top:6px;font-size:12.5px}
+.aff{margin-top:auto;padding:9px 12px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink3);background:#FAFAF9}
+.kpi{padding:10px 12px}
+.kpi .l{font-size:11.5px;color:var(--ink3)}.kpi .v{font-size:24px;font-weight:300;color:#032D60;line-height:1.2;font-variant-numeric:tabular-nums}.kpi .s{font-size:11px;color:var(--ink3)}
+.dgrid2{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+.comp{display:flex;flex-direction:column}
+.comp .cb{padding:4px 12px 6px;flex:1}
+.comp .vr{display:block;text-align:left;border-top:1px solid var(--line2);padding:6px 12px;font-size:12px;color:var(--blue);width:100%}
+.comp .vr:hover{text-decoration:underline}
+.dash3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.dash2{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:10px}
+.hb{display:grid;grid-template-columns:minmax(0,42%) minmax(0,1fr) auto;gap:6px;align-items:center;font-size:12px;margin:5px 0}
+.hb .bar{height:14px;border-radius:2px;background:#1B96FF}
+.hb .bar.alt{background:#9050E9}.hb .bar.ok{background:#2E844A}
+.hb .t{white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--ink2)}
+@media (max-width:1000px){.sfb.af{grid-template-columns:minmax(0,1fr)}.afp{border-left:0;border-top:1px solid var(--line)}.dgrid2{grid-template-columns:repeat(3,minmax(0,1fr))}.dash3,.dash2{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:620px){.dgrid2{grid-template-columns:repeat(2,minmax(0,1fr))}.afb span{display:none}}
+@media (max-width:1120px){.stage,.intro,.lower{grid-template-columns:minmax(0,1fr)}.rail{position:static}.deep{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:760px){.cfgb,.col2{grid-template-columns:minmax(0,1fr)}.flds{grid-auto-flow:row;grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){
+  .wrap{padding:0 16px}h1{font-size:26px}.intro p{font-size:15px}.concept{font-size:12px;padding:6px 12px}
+  .gsearch,.gicons,.acts .sb{display:none}.gh{height:40px}.brand span{display:none}.hide-sm{display:none}
+  .scr{padding:6px}.sp .mk{display:none}.spw div{flex:0 0 auto;display:none}.spw div.c{display:block;flex:1}.spw div.d:not(:has(+.d)){display:none}
+  .fieldg,.dgrid{grid-template-columns:minmax(0,1fr)}.tiles{grid-template-columns:minmax(0,1fr)}.lg{grid-template-columns:minmax(0,1fr)}
+  .nextb{width:100%}#nextw{width:100%}.beats{flex:1 1 100%}.acts{margin-left:0}.beat{font-size:18px}
+}
+@media (min-width:621px){.gh .ttl{display:none}}
+.gh .ttl{font-size:13px}
+</style>
+</head>
+<body>
+<div class="concept" role="note"><b>Point of view: built on Salesforce.</b> <span class="hide-sm">A concept of dealer-sold lab equipment Quote-to-Order on Agentforce Manufacturing and Agentforce Revenue Management.</span> <span class="hide-sm">Fictional companies, illustrative figures.</span></div>
+<div class="wrap">
+  <nav class="nav" aria-label="Point of view"><a class="logo" href="/">nteli<i>.io</i></a><div class="links"><a class="on" id="nav-story" aria-current="page">The story</a></div><span class="pp">Salesforce Manufacturing Partner · Austin, TX</span></nav>
+  <header class="intro">
+    <div>
+      <div class="eyebrow">Point of view: built on Salesforce · For Salesforce sellers of manufacturing products · Lab equipment</div>
+      <h1>Lab equipment sold through dealers, quoted right and traced to the order, on Salesforce.</h1>
+      <p>For lab equipment makers with thousands of products, custom builds and a few dealers carrying most of the revenue. Reps find any product by what it is, not by its product ID. Custom builds are configured, not built in Excel. Every dealer order is created from the quote it answers.</p>
+    </div>
+    <div class="pick">
+      <label id="picklabel">Product line</label>
+      <button class="pickbtn" id="pickbtn" aria-haspopup="dialog" aria-labelledby="picklabel pickname"><span id="pickname"></span><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 5l5 5 5-5" fill="none" stroke="#444" stroke-width="2"/></svg></button>
+    </div>
+  </header>
+  <div class="storybar"><nav class="beats" id="beats" aria-label="The story"></nav><span id="nextw"></span></div>
+  <h2 class="beat" id="beat"></h2>
+  <main class="stage">
+    <section class="sf" aria-label="Concept product screen" id="sf"></section>
+    <aside class="rail" id="rail" aria-label="The story for this beat"></aside>
+  </main>
+  <section class="deep" id="deep" aria-label="Go deeper on this beat"></section>
+  <section class="lower">
+    <div class="rc"><h2>The whole story, in the same words every time</h2><ol id="story"></ol></div>
+    <div class="rc">
+      <h2>What your prospect would get</h2>
+      <ul>
+        <li>A catalog reps search by what the product is: type, size, class. Nobody memorizes product IDs.</li>
+        <li>Custom builds configured with their limits, instead of built in Excel and added by hand.</li>
+        <li>Checks that stop what can’t be built or installed, before any price goes out to the dealer.</li>
+        <li>Every dealer order created from the quote it answers, so orders trace back to their quotes.</li>
+        <li>Sales Agreements and the Account Forecast for the dealers that carry most of the revenue.</li>
+        <li>The entire rule pack, pricing and dashboards pre-built. Agentforce proposes; the rep approves.</li>
+      </ul>
+      <p>Nteli is a Salesforce Manufacturing Partner. The screens here use fictional companies and illustrative figures.</p>
+      <a class="cta" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=pov-lab" target="_blank" rel="noopener">Talk through a prospect with Nteli</a>
+    </div>
+  </section>
+  <footer>Concept mock-up made by Nteli, a Salesforce Manufacturing Partner. It is not a Salesforce product or screen, and Salesforce has not reviewed or endorsed it. Salesforce, Agentforce, Agentforce Manufacturing and Agentforce Revenue Management are trademarks of Salesforce, Inc. All companies are fictional and all figures are illustrative.</footer>
+</div>
+<div class="dm" id="dm" role="dialog" aria-modal="true" aria-label="Record details"><div class="dmc" id="dmc"></div></div><div class="ftoast" id="ftoast" role="status"></div>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+  <div class="lc">
+    <div class="lh"><h2 id="mt">Choose a lab equipment product line</h2><button class="x" id="mx" aria-label="Close">×</button></div>
+    <input id="mf" placeholder="Search product lines" aria-label="Search product lines" autocomplete="off">
+    <div class="lg" id="lg"></div>
+  </div>
+</div>
+<script>
+/* Every product line fills the same slots: five configuration rows, one stop, a priced way out, five quote lines, three handoff items. */
+var D=[
+{id:'bsc',n:'Biosafety Cabinets',a:'Carrow Lab Systems',e:310,b:'Bayline Lab Supply',v:'Through dealers',o:'Westbrook University, BSL-2 teaching lab',po:'BLS-PO-58214',
+ sq:'biosafety cabinet 6 ft class II',sr:[['Class II biosafety cabinet, 6 ft','Biosafety Cabinets · Configurable: type, exhaust, stand'],['Class II biosafety cabinet, 4 ft','Biosafety Cabinets · Configurable'],['Exhaust connection kit','Accessories · Matched to cabinet type'],['Adjustable base stand, 6 ft','Accessories']],
+ r:'Bayline Lab Supply here, for our customer Westbrook University. Please quote six 6 ft Class II Type B2 biosafety cabinets for a new BSL-2 teaching lab, with canopy connections to the building’s existing exhaust, on adjustable stands, certified on install.',
+ c:[['End customer','Westbrook University'],['Cabinet','Class II, Type B2, 6 ft'],['Quantity','Six'],['Stands','Adjustable',1]],bad:['Exhaust connection','Canopy to existing exhaust'],
+ s:'A Type B2 cabinet can’t use a canopy connection',y:'Type B2 cabinets exhaust all their air and must be hard-ducted to a dedicated exhaust. A canopy connection is for Type A2.',
+ w:[{t:'Switch to Type A2 with canopy connections',d:'Keeps the existing building exhaust. Fits BSL-2 work without volatile chemicals.',p:96600},{t:'Keep Type B2, hard-ducted, with exhaust alarms',d:'For volatile chemical work. Needs a dedicated exhaust for each cabinet.',p:121800}],o2:'Or confirm the work with the end customer before choosing.',
+ l:[['Class II biosafety cabinet, 6 ft','6','From the dealer’s RFQ'],['Exhaust connection','6','Matched to the cabinet type'],['Adjustable base stand','6','From the RFQ'],['Field certification','6','On installation']],
+ k:['Dealer PO BLS-PO-58214, linked to this quote','Cabinet type and exhaust requirement for the installer','Certification on installation, per serial number']},
+{id:'hood',n:'Fume Hoods (Standard and Custom)',a:'Carrow Lab Systems',e:310,b:'Northstar Scientific Supply',v:'Through dealers',o:'Pinecrest Biopharma, QC lab refit',po:'NSS-4471-B',
+ sq:'fume hood 6 ft bench vav',sr:[['Benchtop fume hood, 6 ft','Fume Hoods · Configurable: sash, airflow, liner'],['Fume hood, custom width','Fume Hoods · Configurable within limits; outside them, engineering review'],['Variable-air-volume control kit','Accessories'],['Base cabinet, acid storage','Casework']],
+ r:'Northstar Scientific for Pinecrest Biopharma. Please quote seven 6 ft benchtop fume hoods and one custom hood at 7 ft 4 in to fit an existing bay, vertical sash, for a QC lab refit. Keep the existing room supply air.',
+ c:[['End customer','Pinecrest Biopharma'],['Hoods','Seven at 6 ft'],['Custom hood','One at 7 ft 4 in, existing bay'],['Sash','Vertical',1]],bad:['Room supply air','Existing, unchanged'],
+ s:'The room supply can’t hold hood face velocity',y:'Eight constant-volume hoods need more makeup air than the room supplies. Hood airflow and room air are checked together.',
+ w:[{t:'Variable-air-volume hoods',d:'Less air with the sash lowered, so the existing supply holds.',p:148400},{t:'Add supply air to the room',d:'Keeps constant-volume hoods. Adds a mechanical scope.',p:171200}],o2:'Or fewer hoods in this phase.',
+ l:[['Benchtop fume hood, 6 ft','7','From the dealer’s RFQ'],['Fume hood, custom width 7 ft 4 in','1','Configured to the existing bay'],['Airflow control','8','Matched to the airflow choice'],['Acid storage base cabinets','8','Under each hood']],
+ k:['Dealer PO NSS-4471-B, linked to this quote','Custom hood dimensions and drawing for the plant','Airflow requirement for the installer']},
+{id:'wash',n:'Glassware Washers & Water Purification',a:'Carrow Lab Systems',e:310,b:'Bayline Lab Supply',v:'Through dealers',o:'Harlow County Water Lab, washers',po:'BLS-PO-58390',
+ sq:'glassware washer undercounter purified rinse',sr:[['Glassware washer, undercounter','Glassware Washers · Configurable: racks, rinse, drying'],['Water purification system, RO/DI, point of use','Water Purification · Sized to the load'],['Glassware washer, freestanding','Glassware Washers'],['Rack set, pipettes and flasks','Accessories']],
+ r:'Bayline Lab Supply for Harlow County Water Lab. Please quote two undercounter glassware washers with purified-water final rinse and forced-air drying, plus racks for pipettes and flasks. Connect to the lab’s existing tap water.',
+ c:[['End customer','Harlow County Water Lab'],['Washers','Two, undercounter'],['Final rinse','Purified water'],['Drying','Forced air',1]],bad:['Water feed','Tap water only'],
+ s:'A purified-water final rinse needs a purified-water feed',y:'The lab has tap water only. The final rinse needs an RO or DI supply sized for both washers.',
+ w:[{t:'Add a point-of-use RO/DI system for both washers',d:'Sized to the two washers’ rinse volume. One system, one service plan.',p:47900},{t:'Washers with built-in DI cartridges',d:'No new system. Cartridges are changed more often.',p:41600}],o2:'Or tap-water rinse only, if the lab’s method allows it.',
+ l:[['Glassware washer, undercounter','2','From the dealer’s RFQ'],['Purified-water supply','1 set','Matched to the rinse choice'],['Rack set, pipettes and flasks','2','From the RFQ'],['Installation and start-up','1','Priced as a line']],
+ k:['Dealer PO BLS-PO-58390, linked to this quote','Water feed requirement for the installer','Service plan per serial number']}
+];
+var HP='Harbor Point Power',TI='Tallgrass Inverter',KD='Kestrel Drive Robotics';
+var CL=[[1,HP,'MR7120-QFN',11000,11000,''],[2,HP,'MR3305-SOT',6300,6300,''],[3,TI,'MR2210-DFN',3300,3300,''],
+[4,HP,'MR7120-QFN',9750,8250,'Claimed a $1.75 contract price. The agreement says $1.85.'],[5,HP,'MR7120-QFN',11000,0,'Duplicate of line 1 in this file.'],[6,KD,'MR8841-PQFN',5200,0,'Sold 07-14, after the agreement ended 06-30.'],
+[7,HP,'MR7120-QFN',6600,0,'No resale record for this invoice and part.'],[8,TI,'MR2210-DFN',2640,1650,'Claimed 8,000 units. POS shows 5,000 resold.'],[9,HP,'MR3305-SOT',5250,0,'POS shows a different end customer.'],[10,KD,'MR8841-PQFN',3900,0,'Claimed as sold 06-27. POS shows 07-08.'],
+[11,HP,'MR7120-QFN',16500,13750,'Only 25,000 of 30,000 units fit the stock held.'],[12,TI,'MR2210-DFN',1950,1650,'Credit doesn’t equal price difference times quantity.'],[13,HP,'MR3305-SOT',2100,2100,'Pays as claimed. Flagged: sold after the POS on file.'],
+[14,HP,'MR5500-LGA',7200,0,'Design registered to another distributor.'],[15,TI,'MR2640-QFN',2000,0,'Design registration expired before the sale.'],[16,TI,'MR4410-SOT',1000,0,'No design registration, and the agreement requires one.']];
+var CK=[['Agreement and price',4,18000],['POS resale',4,16740],['Stock held',1,2750],['Design registration, where the agreement requires one',3,10200]];
+
+/* Agentforce Manufacturing slot for each line: repeat product, unit, planned per quarter, and the agreement holder where it isn't the RFQ's customer. Fictional. */
+var MC={datacenter:['Standard rack PDUs','units',120],panels:['Standard pump panels','panels',24],power:['UPS battery cabinets','cabinets',10],ic:['Pressure transmitters','tags',60],interconnect:['M12 sensor cordsets','units',1800],electronics:['Sensor harnesses','units',4000],'nre-services':['Production sensors','units',6250],grid:['75 kVA pad-mounts','units',16],hazloc:['Junction boxes','boxes',40],hvac:['Rooftop units','units',6],pumps:['Process pumps','units',14],mobility:['Stairlifts','units',45,'Sunbelt Access Dealers'],medgas:['Headwalls','units',30],'surgical-robotics':['Instrument kits','kits',40],boilers:['Burner service kits','kits',20],cooling:['Fill and drift packs','packs',12],cranes:['Hoist service units','units',8],doors:['Door and frame sets','sets',150],kitchen:['Hood filter packs','packs',90],lab:['Casework runs','runs',25],safety:['Eyewash stations','stations',35],water:['Membrane sets','sets',18],semiconductors:['MR7120-QFN','units',30000,'Northgate Components']};
+
+/* Second and third repeat products on each account's Sales Agreement, plus unit prices. All fictional. [price1, name2, monthly2, price2, name3, monthly3, price3] */
+var M2={datacenter:[1850,'Busway tap boxes',22,640,'Rear-door units',4,9800],panels:[6400,'Duplex lift panels',5,9200,'Spare drive kits',12,1450],power:[5200,'Transfer switches, 225 A',3,7800,'Battery strings',6,3100],ic:[1250,'Temperature assemblies',14,890,'Magnetic flowmeters',6,3400],interconnect:[18,'Power cordsets',420,9,'RJ45 patch leads',900,6],electronics:[11,'Connector sub-assemblies',2200,4,'Cert packages',8,650],'nre-services':[42,'Charging cradles',1400,18,'Service kits',300,26],grid:[11800,'150 kVA pad-mounts',3,16400,'Bayonet fuse kits',16,420],hazloc:[780,'Conduit seal kits',60,95,'Purge kits',3,2600],hvac:[48000,'Energy-recovery modules',1,12600,'Filter sets',30,380],pumps:[8400,'Seal kits',18,620,'Jockey pumps',2,3900],mobility:[3100,'Platform lift kits',4,9800,'Vehicle carriers',22,1150],medgas:[3200,'Zone valve boxes',6,1450,'Area alarms',4,2100],'surgical-robotics':[2900,'Registration kits',6,8200,'Sterile drape packs',120,145],boilers:[1650,'Trim packages',3,4200,'Controls upgrades',2,6800],cooling:[8200,'Fan assemblies',1,18600,'Drift packs',3,2400],cranes:[7600,'Radio controls',2,3100,'End trucks',2,14800],doors:[640,'Hardware sets',50,410,'Hollow metal frames',48,285],kitchen:[320,'Exhaust fans',6,3400,'Suppression kits',4,5200],lab:[5400,'Fume hoods',3,14200,'Work surfaces',12,1650],safety:[1450,'Heat-trace kits',4,2200,'Scald valves',8,780],water:[6800,'Antiscalant packs',14,540,'Filter trains',1,38000],semiconductors:[1.85,'MR3305-SOT',6000,.92,'MR2210-DFN',4000,1.1]};
+/* Illustrative share of each configured quote line. Fictional. */
+var PX={datacenter:[34,14,36,16],panels:[42,20,24,14],power:[34,38,8,20],ic:[62,14,14,10],interconnect:[28,42,22,8],electronics:[44,26,22,8],'nre-services':[35,18,36,11],grid:[80,6,9,5],hazloc:[34,26,22,18],hvac:[58,26,10,6],pumps:[52,22,14,12],mobility:[34,14,38,14],medgas:[58,20,14,8],'surgical-robotics':[72,14,9,5],boilers:[66,18,10,6],cooling:[46,32,12,10],cranes:[52,26,16,6],doors:[42,26,28,4],kitchen:[52,18,22,8],lab:[58,28,8,6],safety:[62,20,8,10],water:[64,16,14,6],semiconductors:[90,4,3,3]};
+/* Quote product name where a way out isn't itself a product. */
+MC.bsc=['Class II biosafety cabinets, 4 ft','cabinets',36,'Bayline Lab Supply'];MC.hood=['Benchtop fume hoods, 6 ft','hoods',48,'Northstar Scientific Supply'];MC.wash=['Undercounter glassware washers','washers',30,'Bayline Lab Supply'];
+M2.bsc=[14200,'Base stands',10,1150,'Field certifications',14,480];M2.hood=[16800,'Acid storage base cabinets',14,1900,'Airflow monitors',12,640];M2.wash=[12600,'RO/DI systems, point of use',4,9200,'Rack sets',16,780];
+PX.bsc=[78,8,8,6];PX.hood=[70,14,9,7];PX.wash=[58,24,8,10];
+var PT={'panels-1':'Standard 5 kA starter kit','power-0':'Transfer switches, one per load class','ic-0':'HART electronics with SIL certificate','ic-1':'FOUNDATION Fieldbus electronics','interconnect-0':'X-coded M12 connectors','interconnect-1':'D-coded M12 connectors','electronics-0':'14 AWG wire','electronics-1':'24 AWG wire','nre-services-0':'Sterilization validation and pass-through costs','grid-1':'Indoor vault, mineral oil','hazloc-1':'4X stainless enclosure','hvac-0':'Outdoor-air section, no wheel','pumps-0':'Standard process pump, flooded suction','medgas-1':'Tie-in to existing area alarm','surgical-robotics-0':'2D fluoroscopy registration kit and CT merge licence','surgical-robotics-1':'Intraoperative 3D registration kit','cranes-0':'CMAA Class C bridge and hoist','cranes-1':'CMAA Class D bridge and hoist','lab-0':'Supply air addition','safety-1':'Indoor mounting kit','water-1':'Membrane array at 70% recovery','semiconductors-0':'Special price, agreement extended','semiconductors-1':'Distributor book price'};
+
+/* Change a product name here and it changes on every screen. */
+var MFG='Agentforce Manufacturing',REV='Agentforce Revenue Management',CHN='Channel Revenue Management';
+
+/* The story. These words never change between product lines. */
+var S=[
+{k:'acc',tier:'Every start sets up Sales Agreements and the Account Forecast. Migrate and Full Rollout load order history, so run-rate and forecast accuracy work from day one.',see:['Agreement Terms: planned against actual and forecast, by product and month.','The Account Forecast: actuals, run-rate and the new RFQ, six months ahead.','The new RFQ, sitting outside the agreement.'],p:'Account',tab:'Sales Agreements',app:MFG,beat:'Your rep starts with what the dealer agreed to buy.',say:'Your rep opens the dealer’s account and sees what the dealer agreed to buy, what it actually ordered, and what’s forecast. When a few dealers carry most of the revenue, this is where the rep starts.',n:'Nteli brings your prospect’s agreements and order history into '+MFG+', so the forecast starts from what really shipped.',nx:'Open the new RFQ',
+ ask:['How do you compare what each dealer committed to with what it actually ordered?','If your biggest dealer slowed down, how soon would you know?'],
+ q:'“We already have this in the ERP.”',a:'The ERP knows what shipped. The Sales Agreement puts plan, actuals and forecast next to the next deal, where sales can act on it.',
+ un:['Sales Agreements hold planned quantity and revenue by product and period.','Actuals can be calculated automatically from orders.','Account Forecast rolls agreements, orders and opportunities up by product and period.']},
+{k:'rfq',tier:'In every start: the RFQ lands on the Opportunity.',see:['The RFQ as the customer wrote it, on the record.','RFQ Details, filled from the RFQ.','Create Quote starts the quote right here.'],p:'RFQ',tab:'Opportunities',app:MFG,beat:'The dealer’s RFQ lands on the Opportunity, with the end customer.',say:'The dealer’s RFQ lands on the Opportunity in the dealer’s own words, with the end customer named. Nobody retypes it into a spreadsheet.',n:'Nteli sets up the intake for your prospect’s product line, so what the RFQ says fills in the fields.',nx:'Configure it',
+ ask:['How does an RFQ reach you today, and where does it sit until someone quotes it?','What happens to RFQs when your estimator is out?'],
+ q:'“Our RFQs are too messy for a system.”',a:'Keep them messy. The RFQ stays on the record in the customer’s words, and the fields are filled from it.',
+ un:['The Opportunity carries stage, amount and close date.','The RFQ stays on the record as an activity and a file.','Create Quote starts the Quote from the Opportunity.']},
+{k:'cfg',tier:'In every start. Quick Start loads the catalog from Nteli’s templates. Migrate and Full Rollout move it for the customer.',see:['Product Validation and Instant Pricing are on.','Only the questions that change the product.','The Summary shows the build as it changes.'],p:'Configure',tab:'Quotes',app:REV,beat:'Your rep finds the product by what it is, then answers only what changes it.',say:'Your rep searches the catalog by what the product is, not by a product ID, then answers only the questions that change it. Custom builds that live in Excel today are configured here too, within their limits.',n:'Nteli brings the entire rule pack and guided flow for this product line, pre-built in the Product Configurator, so your prospect doesn’t start from a blank catalog. Our team has built configurators for Cisco, Dell and IBM.',nx:'Validate it',
+ ask:['How do reps find the right product among thousands today?','Where do custom builds live, and who adds them to the quote?'],
+ q:'“Revenue Cloud is too fancy for us.”',a:'For the rep it’s simpler: search by what the product is, answer a few questions, done. The complexity stays with Nteli’s pre-built rules, not with the rep.',
+ un:['Product Catalog holds the products, their classifications and attributes.','Product Selling Model sets one-time or term pricing.','Bundles carry included products, and the Summary panel shows the build as it changes.']},
+{k:'chk',tier:'In every start: up to 10, 25 or 50 checks. Full Rollout also routes exceptions to engineering review.',see:['The stop, with its reason, before any price.','The selection that caused it.','Every way out, with its price.'],p:'Check',tab:'Quotes',app:REV,beat:'What can’t be built stops here, with the reason and the ways out.',say:'What can’t be built stops before it gets a price. Your rep sees why, and the ways out.',n:'This is where a standard rollout runs out of road. Nteli brings the checks for this product line pre-built, each with its source, so your prospect’s engineers review them instead of writing them.',nx:'Price it',
+ ask:['@','What did the last wrong order cost you in rework, expedite or credit?'],
+ q:'“Our engineers will still need to review.”',a:'Good. They review the exceptions, not every quote. Anything outside standard still goes to them, with the details gathered.',
+ un:['With Product Validation on, selections are checked as the rep makes them.','Each stop shows a message the rep can act on.','Nteli brings the checks for each of these product lines pre-built, ready to set up.']},
+{k:'prc',tier:'In every start: the customer’s price book and discount approval. Full Rollout adds multi-step approvals.',see:['The configured bundle in the Transaction Line Editor.','Calculation Details: how the net price was built.','Every way out, priced against this quote.'],p:'Price',tab:'Quotes',app:REV,beat:'Every way out already has a price.',say:'Every way out comes with its price from your price book, so your rep can offer the choice on the same call.',n:'Nteli brings pricing for this product line pre-built as pricing procedures, then loads your prospect’s own price book and discount limits. Figures here are illustrative.',nx:'Build the quote',
+ ask:['Where does a price come from today: a book, a spreadsheet, or someone’s memory?','Who can approve a discount, and how long does that take?'],
+ q:'“Our prices change too often.”',a:'A price book change lands once, and every new quote uses it. Click any Net Unit Price to see how the number was built.',
+ un:['Price Book Entries carry the list price.','A Pricing Procedure applies adjustments in a set order.','Calculation Details shows each step on the line.']},
+{k:'qte',tier:'In every start, with 1, 3 or 5 branded quote templates. In Full Rollout, Agentforce drafts the quote from the RFQ.',see:['The customer document says why each line is there.','Approvals ask a person only when needed.','The stop and the change stay on the record.'],p:'Quote',tab:'Quotes',app:REV,beat:'The quote goes out with a reason on every line.',say:'The quote goes out with a reason on every line, so it holds up when someone asks why.',n:'Nteli sets up the quote document and approvals. Each decision stays on the record, so the quote is auditable.',nx:'Turn it into an order',
+ ask:['Can you say why a line is on a quote from six months ago?','How long between a finished quote and one the customer can sign?'],
+ q:'“We send quotes from Excel and it works.”',a:'It works until the person who built it leaves. Here the quote, its reasons and its approvals stay on the record.',
+ un:['Quote Line Items live in the Transaction Line Editor.','Approvals route only what needs a person.','The customer document comes from the same lines.']},
+{k:'ord',tier:'In every start: the order in Salesforce, with a file export. Full Rollout sends it to the ERP and brings status back.',see:['Order Products, straight from the quote.','The Fulfillment Plan, step by step.','What flows back to '+MFG+'.'],p:'Order',tab:'Orders',app:REV,beat:'The dealer’s PO becomes an order, created from its quote.',say:'When the dealer’s PO arrives, the order is created from the quote it answers. Every order traces back to its quote, its price and its reasons, and '+MFG+' sees it in the forecast.',n:'Nteli connects Salesforce to your prospect’s ERP. CRM-to-ERP integration is part of Nteli’s Salesforce practice.',nx:'',
+ ask:['What share of orders can you match back to the quote today?','When a dealer’s PO doesn’t match the quote, who catches it?'],
+ q:'“Our dealers send POs their own way.”',a:'They can keep doing that. The PO is attached to the order created from the quote it answers, and any difference from the quote is flagged before the order is activated.',
+ un:['Create Order builds the Order and Order Products from the quote.','Activating an order can create Assets on the account.','Dynamic Revenue Orchestrator can run the fulfillment steps.']},
+{k:'dsh',tier:'In every start: the pre-built Quote-to-Order dashboards. Migrate adds agreement attainment from order history. Full Rollout adds dashboards on the customer’s own measures.',see:['Quotes, win rate and time to quote at a glance.','Forecast against plan for the next six months.','What the checks stopped, and how often.'],p:'Dashboard',tab:'Dashboards',app:REV,beat:'The owner sees the whole flow on one dashboard.',say:'You see quotes, win rate, what the checks stopped, how many orders trace back to a quote, and how each dealer runs against its agreement, in one place.',n:'Nteli brings these dashboards pre-built for each product line, then adds your prospect’s own measures, from the same records this story creates.',nx:'',
+ ask:['Which three numbers does the owner ask for every Monday?','How long does it take to put those numbers together today?'],
+ q:'“We already have reports in the ERP.”',a:'The ERP reports what shipped. This shows what was quoted, what was stopped and why, and how each account runs against its agreement, before anything ships.',
+ un:['Dashboards sit on standard reports over Opportunities, Quotes, Orders and Sales Agreements.','Each component opens its report.','Figures here are illustrative.']},
+{k:'clm',tier:'Distributor claim checking is a Full Rollout add-on.',see:['Every claim line, decided with its reason.','What each check caught, in dollars.','One credit memo for the ERP.'],p:'Claim',tab:'Claims',app:CHN,beat:'Sold through a distributor? The claim gets the same check.',say:'When a distributor claims its credit, each line gets the same check, with a reason, before the credit memo goes out.',n:'Nteli loads the agreements, POS and stock your prospect already has, and leave the ERP unchanged until the credit memo is approved.',nx:'',
+ ask:['How do you check a distributor’s debit today?','How much gets paid because nobody has time to check it?'],
+ q:'“Our distributors won’t change how they file.”',a:'They don’t have to. The debit, POS and stock come in as they are.',
+ un:['Ship and debit programs sit in '+CHN+' for Manufacturing.','Claims are checked against the special pricing terms.','Design registration is matched where the agreement requires one.']}
+];
+var TABS={};TABS[MFG]=['Accounts','Sales Agreements','Account Forecasts','Opportunities','Dashboards'];TABS[REV]=['Product Catalogs','Quotes','Orders','Assets','Dashboards'];TABS[CHN]=['Programs','Claims','Sales Agreements','Dashboards'];
+
+var IC={agr:['#00A1A7','M4 2h12v16H4zM7 6v1.5h6V6zm0 3.5V11h6V9.5zM7 13v1.5h4V13z'],opp:['#FF5D2D','M2 15V6l4.5 3L10 3l3.5 6L18 6v9z'],cfg:['#7F8DE1','M3 4h14v3H3zM3 9h9v3H3zM3 14h14v3H3z'],qte:['#3BA755','M5 2h7l4 4v12H5zM7 9h7v1.5H7zm0 3h7v1.5H7z'],lin:['#FF5D2D','M3 3h14v14H3zM5 6v1.5h4V6zm6 0v1.5h4V6zm-6 3.5V11h4V9.5zm6 0V11h4V9.5zM5 13v1.5h4V13zm6 0v1.5h4V13z'],ord:['#3296ED','M3 6l7-4 7 4v8l-7 4-7-4zM5 7l5 3 5-3-5-2.6z'],clm:['#9050E9','M3 4h14v12H3zM5 7v1.5h10V7zm0 3v1.5h6V10z']};
+var CLOUD='<svg class="cloud" viewBox="0 0 38 27" aria-hidden="true"><path fill="#0176D3" d="M15.6 4.2a7 7 0 0 1 5-2.1 7 7 0 0 1 6.1 3.6 8.3 8.3 0 0 1 3.4-.7c4.5 0 8.1 3.7 8.1 8.2s-3.6 8.2-8.1 8.2c-.6 0-1.1-.1-1.6-.2a6 6 0 0 1-5.300 3.100c-.9 0-1.800-.2-2.600-.6a6.900 6.900 0 0 1-12.800-.3c-.4.1-.8.1-1.300.1A6.400 6.400 0 0 1 3 10.100a6.800 6.800 0 0 1 3-9c4-1.600 7.400.1 9.600 3.100z"/></svg>';
+
+var st={i:1,s:0,ch:{},calc:null,tab:0,af:false,afd:{},fadj:{}};
+function $(x){return document.getElementById(x)}
+function e(x){return String(x).replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function usd(n){return '$'+Number(n).toLocaleString('en-US')}
+function usd2(n){return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function num(n){return Number(n).toLocaleString('en-US')}
+function L(){return D[st.i]}
+function steps(){var semi=L().id==='semiconductors';var a=S.filter(function(s){return s.k!=='dsh'&&(semi||s.k!=='clm')});a.push(S.find(function(s){return s.k==='dsh'}));return a}
+function cIdx(){return st.ch[L().id]}
+function chosen(){var c=cIdx();return c==null?null:L().w[c]}
+function way(){return chosen()||L().w[0]}
+function amt(w){return (w.q||'')+usd(w.p)}
+function pad(n,w){return ('00000000'+n).slice(-(w||4))}
+function ico(k,s){var I=IC[k];return '<span class="ico'+(s?' s':'')+'" style="background:'+I[0]+'"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="'+I[1]+'"/></svg></span>'}
+function pName(w,l){var i=l.w.indexOf(w);return PT[l.id+'-'+i]||w.t}
+function qtyNum(q){var m=String(q).replace(/,/g,'').match(/[\d.]+/);return m?parseFloat(m[0]):1}
+function U(p){var loc=location.hostname==='localhost'||location.protocol==='file:';return loc?'/pov-rca.html':p}
+function M(n){return '<i class="mk1" aria-hidden="true">'+n+'</i>'}
+var STAMP='<span class="stamp">Concept mock-up</span>';
+
+/* Quote lines: the way-out line plus four configured lines, summing exactly to the way-out price. */
+function lines(l,w){
+  var minP=Math.min.apply(null,l.w.map(function(x){return x.p})),share=l.share||(l.id==='nre-services'?.612:.8),base=Math.round(minP*share),px=PX[l.id],tot=px.reduce(function(a,b){return a+b},0),out=[],run=0;
+  l.l.forEach(function(r,i){var net=i===3?base-run:Math.round(base*px[i]/tot);run+=net;var disc=(i%2)?.05:0;var q=qtyNum(r[1]);var list=Math.round(net/(1-disc));out.push({n:r[0],qty:r[1],why:r[2],net:net,disc:disc,list:list,unitN:net/q,unitL:list/q,q:q})});
+  var wn=w.p-base;out.unshift({n:pName(w,l),qty:'1',why:'Chosen at the check',net:wn,disc:0,list:wn,unitN:wn,unitL:wn,q:1,fix:1});
+  return out;
+}
+function highlight(icon,obj,title,fields,btns){
+  return '<div class="card hl"><div class="hltop">'+ico(icon)+'<div><div class="hlo">'+obj+'</div><div class="hlt">'+e(title)+'</div></div><div class="acts">'+STAMP+(btns||[]).map(function(b){return '<span class="sb">'+b+'</span>'}).join('')+'</div></div><div class="flds">'+fields.map(function(f){return '<div><div class="fl">'+f[0]+'</div><div class="fv'+(f[2]?' a':'')+'">'+e(f[1])+'</div></div>'}).join('')+'</div></div>';
+}
+function statusPath(items,cur,mark){
+  return '<div class="sp" aria-hidden="true"><div class="spw">'+items.map(function(x,i){return '<div class="'+(i<cur?'d':i===cur?'c':'')+'">'+x+'</div>'}).join('')+'</div><span class="mk'+(mark===0?' off':'')+'">'+(mark||'Mark Status as Complete')+'</span></div>';
+}
+function tabs(arr,on){return '<div class="tabs" aria-hidden="true">'+arr.map(function(t){return '<span class="'+(t===on?'on':'')+'">'+t+'</span>'}).join('')+'</div>'}
+function tleHead(title){return '<div class="ch">'+ico('lin',1)+title+'<div class="r"><span class="tog">Instant Pricing <i></i></span><span class="mini hide-sm">Add Assets</span><span class="mini hide-sm">Add Group</span><span class="findp hide-sm">Add Product</span></div></div>'}
+var QPATH=['Draft','Needs Review','In Review','Approved','Rejected','Presented','Accepted','Denied'];
+function calcBox(r){var d=r.disc;return '<div class="calc"><h4>Calculation Details'+(B.__p?M(2):'')+'</h4><table><thead><tr><th>Price Detail</th><th class="n">Adjustment</th><th class="n">Amount</th></tr></thead><tbody><tr><td>Price Book Entries</td><td class="n">-</td><td class="n">'+usd2(r.unitL)+'</td></tr><tr><td>Percentage-Based (Line-Level)</td><td class="n">'+(d?Math.round(d*100)+'%':'-')+'</td><td class="n">'+(d?'-'+usd2(r.unitL-r.unitN):usd2(0))+'</td></tr><tr class="b"><td>Net Unit Price</td><td></td><td class="n">'+usd2(r.unitN)+'</td></tr><tr><td colspan="3" style="font-size:11px;color:#706E6B;padding-top:8px">Your team only</td></tr><tr><td>Unit cost (COGS)</td><td></td><td class="n">'+usd2(r.unitL*(1-mtgt()))+'</td></tr><tr><td>Unit margin</td><td class="n">'+Math.round((1-r.unitL*(1-mtgt())/r.unitN)*100)+'%</td><td class="n">'+usd2(r.unitN-r.unitL*(1-mtgt()))+'</td></tr></tbody></table></div>'}
+function tle(l,w,opts){
+  var R=lines(l,w),T=R.reduce(function(a,x){return a+x.net},0),LT=R.reduce(function(a,x){return a+x.list},0),o=st.calc==null?(opts.calc?2:null):st.calc;
+  var h=tleHead((opts.obj||'Quote Line Items')+' ('+(R.length+1)+')'+(opts.mk?M(opts.mk):''))+'<div class="gridw"><table class="tle"><thead><tr><th></th><th>#</th><th>Product ID</th><th class="n">Quantity</th><th class="n">List Price</th><th class="n">Discount</th><th class="n">Net Unit Price</th><th class="n">Net Total Price</th><th>Selling Model Type</th>'+(opts.why?'<th>Why it’s here</th>':'')+'</tr></thead><tbody>';
+  h+='<tr class="hi"><td><span class="cbx"></span></td><td>1</td><td><a>⌄ '+e(l.o)+'</a></td><td class="n">1.00</td><td class="n">'+usd2(LT)+'</td><td class="n"></td><td class="n">'+usd2(T)+'</td><td class="n">'+usd2(T)+'</td><td>OneTime</td>'+(opts.why?'<td class="w">Bundle, from the RFQ</td>':'')+'</tr>';
+  R.forEach(function(r,i){h+='<tr class="kid'+(r.fix?' new':'')+'"><td><span class="cbx"></span></td><td></td><td><a>'+e(r.n)+'</a></td><td class="n">'+e(r.qty)+'</td><td class="n">'+usd2(r.list)+'</td><td class="n">'+(r.disc?Math.round(r.disc*100)+'.00%':'')+'</td><td class="n"><button class="nup'+(o===i?' open':'')+'" data-calc="'+i+'">'+usd2(r.unitN)+'</button></td><td class="n">'+usd2(r.net)+'</td><td>OneTime</td>'+(opts.why?'<td class="w">'+e(r.why)+'</td>':'')+'</tr>'});
+  h+='</tbody></table></div>';
+  if(o!=null&&R[o])h+=calcBox(R[o]);
+  return {html:h,T:T,LT:LT};
+}
+function dbl(l){var w=chosen();return {w:w,val:w?pName(w,l):l.bad[1]}}
+
+var B={
+acc:function(l,x){
+  var m=MC[l.id],z=M2[l.id],holder=m[3]||l.b,sa='SA-'+pad(st.i+3120),P=[[m[0],Math.max(1,Math.round(m[2]/3)),z[0]],[z[1],z[2],z[3]],[z[4],z[5],z[6]]],fa=[1.04,.96,1.08,.92],ff=[1.1,1.15],MO=['Jul 2026','Aug 2026','Sep 2026','Oct 2026','Nov 2026','Dec 2026'];
+  var plan=0,act=0;
+  var rows=P.map(function(p,pi){var cells='',pSum=0,aSum=0;MO.forEach(function(_,i){var pq=Math.max(1,Math.round(p[1]*(1+.02*((i+pi)%3-1))));var q=i<4?Math.max(0,Math.round(pq*fa[(i+pi)%4]*bias(pi))):Math.round(pq*ff[i-4]*bias(pi));pSum+=pq;if(i<4)aSum+=q;plan+=pq*p[2];if(i<4)act+=q*p[2];cells+='<td class="n">'+num(pq)+'<br><span style="color:'+(i<4?'#2E844A':'#0176D3')+'">'+num(q)+'</span></td>'});return '<tr><td><span class="cbx"></span></td><td class="w"><a>'+e(p[0])+'</a><br><span class="note">Planned Quantity<br>'+(1?'Actual / Forecasted Quantity':'')+'</span></td><td class="n">'+usd2(p[2])+'</td>'+cells+'<td class="n"><b>'+num(pSum)+'</b><br>'+num(aSum)+'</td></tr>'}).join('');
+  var fmt=function(v){return '$'+Math.round(v).toLocaleString('en-US')};
+  var months=[62,58,66,54,70,74],hs=months.map(function(p,i){var a=i<4?p*fa[i]*.92:p*ff[i-4];var X=10+i*57;return '<rect x="'+X+'" y="'+(90-p)+'" width="20" height="'+p+'" fill="#B0C4DF"/><rect x="'+(X+22)+'" y="'+(90-a)+'" width="20" height="'+a+'" fill="'+(i<4?'#2E844A':'#0176D3')+'"/><text x="'+(X+21)+'" y="103" font-size="9" text-anchor="middle" fill="#706E6B">'+MO[i].slice(0,3)+'</text>'}).join('');
+  return highlight('agr','Sales Agreement',holder+', FY26 agreement',[['Account',holder,1],['Seller',l.a+' (fictional)'],['Status','Activated'],['Start Date','Jul 1, 2026'],['End Date','Dec 31, 2026'],['Schedule','Monthly'],['Planned Amount',fmt(plan)]],['Recalculate Actuals','Mass Update','Edit'])+
+  '<div class="card">'+statusPath(['Draft','Under Review','Approved','Activated','Expired'],3,0)+'</div>'+
+  '<div class="card">'+tabs(['Agreement Terms','Details','Related','Activity'],'Agreement Terms')+
+  '<div class="ch">'+ico('agr',1)+'Agreement Terms ('+P.length+')'+M(1)+'<div class="r"><span class="mini">Quantity ▾</span><span class="note">Actuals: from dealer orders</span></div></div><div class="gridw"><table class="tle"><thead><tr><th></th><th>Product</th><th class="n">Price</th>'+MO.map(function(m){return '<th class="n">'+m+'</th>'}).join('')+'<th class="n">Total</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
+  forecastCard(l,2)+
+  '<div class="col2"><div class="card"><div class="ch">Run-rate this agreement</div><div class="dgrid"><div><div class="fl">Actual Revenue to date</div><div class="fv">'+fmt(act)+'</div></div><div><div class="fl">Attainment to date</div><div class="fv">'+Math.round(act/plan*100)+'% of full-term plan</div></div></div></div>'+
+  '<div class="card"><div class="ch">'+ico('opp',1)+'Open Opportunities (1)'+M(3)+'</div><div class="pad"><a class="lk">'+e(l.o)+'</a> <span class="pill b">New RFQ</span><br><span class="note">Configured work outside this agreement. Their customer: '+e(l.b)+'</span></div></div></div>'
+},
+rfq:function(l){
+  var stg=['Prospecting','Qualification','Needs Analysis','Value Proposition','Proposal/Price Quote','Negotiation/Review','Closed'];
+  return highlight('opp','Opportunity',l.o,[['Account Name',l.a+' (fictional)',1],['Close Date','Dec 18, 2026'],['Amount','Not priced yet'],['Segment','Commercial'],['Employees',l.e],['Sold',l.v],['Opportunity Owner','S. Ellis']],['Create Quote','Edit','▾'])+
+  '<div class="card">'+statusPath(stg,2)+'</div><div class="col2"><div class="card">'+tabs(['Activity','Details','Related'],'Activity')+'<div class="pad" style="padding-top:8px"><ul class="tl"><li><i class="o"></i><div style="min-width:0;flex:1"><b>Email: RFQ from '+e(l.b)+'</b>'+M(1)+' <span class="note">Today, 8:42 AM</span><div class="quote-email">'+e(l.r)+'</div></div></li><li><i class="g"></i><div>Task: Quote this RFQ <span class="note">Due in 2 days · Owner S. Ellis</span></div></li></ul></div></div>'+
+  '<div class="stack"><div class="card"><div class="ch">RFQ Details'+M(2)+'<div class="r"><span class="pill b">From the RFQ</span></div></div><div class="dgrid">'+l.c.filter(function(c){return !c[2]}).concat([l.bad]).map(function(c){return '<div><div class="fl">'+e(c[0])+'</div><div class="fv">'+e(c[1])+'</div></div>'}).join('')+'</div></div><div class="card"><div class="ch">'+ico('lin',1)+'Files (1)</div><div class="pad"><a class="lk">RFQ_'+e(l.b.replace(/[^A-Za-z]+/g,'_'))+'.pdf</a></div></div><div class="card"><div class="ch">'+ico('qte',1)+'Quotes (0)'+M(3)+'</div></div></div></div>'
+},
+cfg:function(l,x){return searchCard(l)+configurator(l,false)},
+chk:function(l,x){return configurator(l,true)},
+prc:function(l){
+  B.__p=1;var w=way(),t=tle(l,w,{calc:true,mk:1}),q=pad(st.i+1041,8);
+  return quoteHead(l,w,q,0)+'<div class="card">'+statusPath(QPATH,0)+'</div><div class="card">'+tabs(['Lines','Details','Related','Approvals'],'Lines')+t.html+'</div>'+
+  waterfallCard(l,w)+'<div class="col2"><div class="card"><div class="ch">Every way out, priced'+M(3)+'</div><div class="gridw"><table class="tle"><thead><tr><th>Option</th><th class="n">Grand Total</th><th class="n">Against this quote</th></tr></thead><tbody>'+l.w.map(function(a){var dl=a.p-w.p;return '<tr class="'+(a===w?'new':'')+'"><td class="w">'+(a===w?'<b>':'')+e(a.t)+(a===w?'</b>':'')+'</td><td class="n">'+amt(a)+'</td><td class="n">'+(a===w?'Selected':(dl>0?'+':'-')+usd(Math.abs(dl)))+'</td></tr>'}).join('')+'</tbody></table></div></div>'+qSummary(t)+'</div>'
+},
+qte:function(l){
+  var w=way(),t=tle(l,w,{why:true}),q=pad(st.i+1041,8),approved=1,R=lines(l,w);
+  return quoteHead(l,w,q,1)+'<div class="card">'+statusPath(QPATH,5)+'</div><div class="card">'+tabs(['Lines','Details','Related','Approvals'],'Lines')+t.html+'</div>'+
+  '<div class="col2"><div class="card"><div class="ch">'+ico('qte',1)+'Quote Document'+M(1)+'<div class="r"><span class="mini">Generate Document</span></div></div><div class="doc"><h4>Quote '+q+'</h4><p>'+e(l.a)+' to '+e(l.b)+'. Valid 30 days. Illustrative prices.</p><table><thead><tr><th>Item</th><th>Why it’s here</th><th class="n">Amount</th></tr></thead><tbody>'+R.map(function(r){return '<tr><td>'+e(r.n)+'</td><td>'+e(r.why)+'</td><td class="n">'+usd(r.net)+'</td></tr>'}).join('')+'<tr class="t"><td colspan="2">Total</td><td class="n">'+amt(w)+'</td></tr></tbody></table></div></div>'+
+  '<div class="stack"><div class="card"><div class="ch">Approvals'+M(2)+'</div><div class="pad"><ul class="tl"><li><i class="g"></i><div><b>Discount</b> <span class="pill g">Approved</span><br><span class="note">5% on two lines, inside the rep’s limit. No person needed.</span></div></li><li><i class="g"></i><div><b>Margin</b> <span class="pill g">Approved</span><br><span class="note">'+money(l,w).mgp+'% gross margin, above the 30% floor.</span></div></li><li><i class="g"></i><div><b>Engineering</b> <span class="pill g">Not required</span><br><span class="note">The combination passed Product Validation.</span></div></li></ul></div></div>'+
+  '<div class="card"><div class="ch">Activity'+M(3)+'</div><div class="pad"><ul class="tl">'+[['o','RFQ attached from '+l.b],['p','Stopped: '+l.s],['p','Changed: '+w.t],['g','Priced from the price book'],['g','Quote '+q+' presented']].map(function(a){return '<li><i class="'+a[0]+'"></i><span>'+e(a[1])+'</span></li>'}).join('')+'</ul></div></div></div></div>'
+},
+ord:function(l){
+  var w=way(),o=pad(st.i+2207,8),R=lines(l,w);
+  var FP=['Order released','Engineering release','Procure long-lead items','Build and test','Ship','Invoice in ERP'];
+  return '<div class="toast" role="status">Status changed successfully.</div>'+highlight('ord','Order',o,[['Account Name',l.a+' (fictional)',1],['Bill To',l.b],['Quote',pad(st.i+1041,8)],['Dealer PO',l.po],['Status','Activated'],['Order Amount',amt(w)]],['Browse Catalogs','Edit','▾'])+
+  '<div class="card">'+statusPath(['Draft','Activated'],1,0)+'</div><div class="card">'+tabs(['Lines','Details','Related'],'Lines')+
+  '<div class="ch">'+ico('lin',1)+'Order Products ('+R.length+')'+M(1)+'<div class="r"><span class="tog">Instant Pricing <i></i></span></div></div><div class="gridw"><table class="tle"><thead><tr><th>#</th><th>Product ID</th><th class="n">Quantity</th><th class="n">Net Unit Price</th><th class="n">Discount</th><th class="n">Net Total Price</th></tr></thead><tbody>'+R.map(function(r,i){return '<tr'+(r.fix?' class="new"':'')+'><td>'+(i+1)+'</td><td><a>'+e(r.n)+'</a></td><td class="n">'+e(r.qty)+'</td><td class="n">'+usd2(r.unitN)+'</td><td class="n">'+(r.disc?Math.round(r.disc*100)+'.00%':'')+'</td><td class="n">'+usd2(r.net)+'</td></tr>'}).join('')+'</tbody></table></div></div>'+
+  '<div class="card"><div class="ch">Fulfillment Plan'+M(2)+'<div class="r"><span class="pill b">In progress</span></div></div><div class="fplan">'+FP.map(function(f,i){return '<div class="fstep"><div class="fdot '+(i<2?'d':i===2?'c':'')+'"></div><b>'+f+'</b><small>'+(i<2?'Completed':i===2?'In progress':'Not started')+'</small></div>'}).join('')+'</div></div>'+
+  '<div class="col2"><div class="card"><div class="ch">'+ico('lin',1)+'What travels with the order</div><div class="pad"><ul class="tl">'+l.k.map(function(t){return '<li><i class="g"></i><span>'+e(t)+'</span></li>'}).join('')+'</ul></div></div>'+
+  '<div class="card"><div class="ch">'+ico('agr',1)+'Back in '+MFG+M(3)+'</div><div class="dgrid"><div><div class="fl">Account Forecast</div><div class="fv">+'+kfmt(way().p)+' in Feb 2027, replacing the weighted RFQ</div></div><div><div class="fl">Repeat business</div><div class="fv">Can roll into the Sales Agreement</div></div><div><div class="fl">ERP Sync</div><div class="fv"><span class="pill g">Sent, nothing retyped</span></div></div><div><div class="fl">Assets</div><div class="fv">Created on activation</div></div></div></div></div>'
+},
+dsh:function(l){var d=dashData();
+  return '<div class="card hl"><div class="hltop">'+ico('lin')+'<div><div class="hlo">Dashboard</div><div class="hlt">'+e(l.n)+': Quote-to-Order</div></div><div class="acts">'+STAMP+'<span class="sb">Refresh</span><span class="sb">Subscribe</span><span class="sb">Edit</span></div></div><div class="note" style="margin-top:6px">As of today, 9:14 AM · This quarter · Illustrative figures</div></div>'+
+  '<div class="dgrid2">'+[['Open RFQs',d.open,'Waiting for a quote'],['Quotes sent',d.sent,'This quarter'],['Win rate',d.win+'%','Quotes won'],['Median time to quote',d.ttq+' days','RFQ to quote sent'],['Stopped by a check',d.stops,'Before a price went out'],['Orders traced to a quote','97%','Created from the quote, or matched to it']].map(function(k,n){return '<div class="card kpi"><div class="l">'+k[0]+(n===0?M(1):'')+'</div><div class="v">'+k[1]+'</div><div class="s">'+k[2]+'</div></div>'}).join('')+'</div>'+
+  '<div class="dash2">'+comp('Forecast against plan, next six months',fcChart(fc()),'fc',2)+comp('What the checks stopped',hbars(d.why,null,'alt'),'why',3)+'</div>'+
+  '<div class="dash3" style="grid-template-columns:repeat(2,minmax(0,1fr))">'+comp('Agreement attainment to date',hbars(d.att,function(v){return v+'%'},'ok'),'att')+comp('Orders by dealer, this quarter',hbars(d.dlr,function(v){return v+'%'}),'pipe')+'</div><div class="dash3" style="grid-template-columns:repeat(2,minmax(0,1fr))">'+comp('Quotes sent per week',cols(d.wk),'wk')+comp('Orders by status',donut(d.ord),'ord')+'</div>'
+},
+
+clm:function(l){
+  return highlight('clm','Claim','Debit NGC-DM-2026-10',[['Distributor','Northgate Components',1],['Manufacturer',l.a+' (fictional)'],['Program','Ship and Debit, Q3'],['Lines','16'],['Credit Memo','CM-CLM-0001']],['Approve Credit','Edit','▾'])+
+  '<div class="card">'+statusPath(['Submitted','In Validation','Reviewed','Credited'],2)+'</div>'+
+  '<div class="card"><div class="tiles" style="padding-top:12px"><div class="tile"><div class="l">Claimed</div><div class="v">$95,690</div></div><div class="tile"><div class="l">Pays</div><div class="v g">$48,000</div></div><div class="tile"><div class="l">Caught</div><div class="v r">$47,690</div></div></div></div>'+
+  '<div class="card">'+tabs(['Claim Lines','Details','Related'],'Claim Lines')+'<div class="ch">'+ico('clm',1)+'Claim Lines ('+CL.length+')'+M(1)+'</div><div class="gridw"><table class="tle"><thead><tr><th>#</th><th>End Customer</th><th>Part</th><th class="n">Claimed</th><th class="n">Pays</th><th>Reason</th></tr></thead><tbody>'+CL.map(function(c){var cut=c[3]!==c[4];return '<tr'+(cut?' class="badl"':'')+'><td>'+c[0]+'</td><td>'+e(c[1])+'</td><td>'+c[2]+'</td><td class="n">'+usd(c[3])+'</td><td class="n">'+usd(c[4])+'</td><td class="w">'+e(c[5]||'Pays as claimed')+'</td></tr>'}).join('')+'</tbody></table></div></div>'+
+  '<div class="col2"><div class="card"><div class="ch">What each check caught'+M(2)+'</div><div class="gridw"><table class="tle"><thead><tr><th>Check</th><th class="n">Lines</th><th class="n">Caught</th></tr></thead><tbody>'+CK.map(function(c){return '<tr><td class="w">'+e(c[0])+'</td><td class="n">'+c[1]+'</td><td class="n">'+usd(c[2])+'</td></tr>'}).join('')+'</tbody></table></div></div>'+
+  '<div class="card"><div class="ch">'+ico('clm',1)+'Credit Memo'+M(3)+'</div><div class="pad">Credit $48,000. Disputed against the debit $47,690. An auditable reason on every line, and one file per claim.</div></div></div>'
+}
+};
+function quoteHead(l,w,q,pres){return highlight('qte','Quote',q,[['Expiration Date','Jan 17, 2027'],['Syncing','Yes'],['Opportunity Name',l.o,1],['Account Name',l.a+' (fictional)',1],['Grand Total',amt(w)]],['Browse Catalogs','Create Order','▾'])}
+function qSummary(t){var d=t.LT-t.T;return '<div class="card"><div class="ch">Quote Summary</div><div class="dgrid"><div><div class="fl">Total Price</div><div class="fv">'+usd2(t.LT)+'</div></div><div><div class="fl">Discount</div><div class="fv">'+(d?'-'+usd2(d):usd2(0))+'</div></div><div><div class="fl">One Time Total</div><div class="fv">'+usd2(t.T)+'</div></div><div><div class="fl">Grand Total</div><div class="fv"><b>'+usd2(t.T)+'</b></div></div></div></div>'}
+function searchCard(l){return '<div class="card"><div class="ch">'+ico('cfg',1)+'Browse Catalogs: Lab Equipment<div class="r"><span class="pill b">Search by what it is</span></div></div><div class="pad"><div class="cb2" style="display:flex;align-items:center;gap:8px"><svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path fill="#706E6B" d="M8 2a6 6 0 0 1 4.8 9.6l4.8 4.8-1.4 1.4-4.8-4.8A6 6 0 1 1 8 2zm0 2a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"/></svg>'+e(l.sq)+'</div><div class="gridw" style="margin-top:8px"><table class="tle"><thead><tr><th>Product</th><th>Family and options</th></tr></thead><tbody>'+l.sr.map(function(r,i){return '<tr'+(i===0?' class="new"':'')+'><td class="w"><a>'+e(r[0])+'</a>'+(i===0?' <span class="pill g">Selected</span>':'')+'</td><td>'+e(r[1])+'</td></tr>'}).join('')+'</tbody></table></div><p class="note" style="margin-top:6px">Found by type, size and class. No product ID needed.</p></div></div>'}
+function configurator(l,isCheck){
+  var w=isCheck?chosen():chosen(),bad=!w,v=dbl(l).val,R=lines(l,way()),groups=['Requirements','Build','Included'],tab=isCheck?1:st.tab;
+  var f=l.c.map(function(c){return '<div class="f"><label><b>* </b>'+e(c[0])+'</label><div class="cb2">'+e(c[1])+'</div></div>'}).join('');
+  var bf='<div class="f '+(w?'good':(isCheck?'err':''))+'"><label><b>* </b>'+e(l.bad[0])+(isCheck?M(2):'')+'</label><div class="cb2">'+e(w?pName(w,l):l.bad[1])+'</div>'+(isCheck&&!w?'<small>'+e(l.s)+'</small>':'')+'</div>';
+  var body;
+  if(tab===0)body='<div class="fieldg">'+f+'</div>';
+  else if(tab===1){body='<div class="fieldg">'+bf+'</div>';if(isCheck)body+='<div class="h5">'+(l.w.length>1?'Ways out, each priced':'The way out, priced')+M(3)+'</div><div class="ways">'+l.w.map(function(a,i){return '<button class="way" data-way="'+i+'" aria-pressed="'+(chosen()===a)+'"><b>'+e(a.t)+'</b><span>'+e(a.d)+'</span><div class="p">'+amt(a)+'</div></button>'}).join('')+'</div>'+(l.o2?'<p class="other">'+e(l.o2)+'</p>':'');}
+  else body='<div style="padding-top:10px">'+R.slice(1).map(function(r){return '<div class="opt"><span class="cbx on"></span><b>'+e(r.n)+'</b><span class="n" style="text-align:right">'+e(r.qty)+'</span><p>'+e(r.why)+'</p><span class="m">Purchasing Option: One Time</span></div>'}).join('')+'</div>';
+  return '<div class="card" style="overflow:hidden">'+
+   '<div class="cfgh"><h3>Configure '+e(l.o)+'</h3>'+STAMP+'<div class="r">'+(isCheck?'':M(1))+'<span class="tog">Product Validation <i></i></span><span class="tog">Instant Pricing <i></i></span></div></div>'+
+   (isCheck?'<div class="alert'+(w?' ok':'')+'" role="status"><div><b>'+(w?'Validated: '+e(w.t):e(l.s))+M(1)+'</b>'+e(w?'Stopped first because: '+l.s+'.':l.y)+'</div></div>':'')+
+   '<div class="cfgb"><div style="min-width:0"><a class="lk" style="font-size:12px">Return to Quote</a><div class="cprod" style="margin-top:6px"><div class="thumb"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="'+IC.ord[1]+'"/></svg></div><div style="min-width:0"><b>'+e(l.n)+'</b><p>'+e(l.o)+', for '+e(l.b)+'</p></div><div class="cprice">'+(w?amt(w):'—')+'<small>One Time</small></div></div>'+
+   '<div class="tabs" style="padding:0;margin-top:10px;align-items:center">'+(isCheck?'':M(2))+groups.map(function(g,i){return isCheck?'<span class="'+(i===1?'on':'')+'">'+g+'</span>':'<button data-ct="'+i+'" class="'+(i===tab?'on':'')+'">'+g+'</button>'}).join('')+'</div>'+body+'</div>'+
+   '<div class="sum"><h4>Summary'+(isCheck?'':M(3))+'</h4><div class="sumb"><b style="font-size:13px">'+e(l.n)+'</b><div class="smet"><div>Quantity<b>1</b></div><div>Net Unit Price<b>'+(w?amt(w):'—')+'</b></div><div>Net Amount<b>'+(w?amt(w):'—')+'</b></div></div><b style="font-size:12px">Attributes</b>'+
+   l.c.map(function(c){return '<div class="srow"><span><b>'+e(c[0])+'</b> '+e(c[1])+'</span></div>'}).join('')+
+   '<div class="srow"><span style="color:'+(w?'#2E844A':'#BA0517')+'"><b>'+e(l.bad[0])+'</b> '+e(v)+'</span></div>'+
+   '<div class="h5">Included</div>'+R.slice(1).map(function(r){return '<div class="srow"><span>'+e(r.n)+'</span><span>'+e(r.qty)+'</span></div>'}).join('')+
+   '</div><div class="stot"><span>One Time Total</span><span>'+(w?amt(w):'—')+'</span></div></div></div>'+
+   '<div class="cfgf"><span class="fb">Cancel</span><span class="fb '+(w||!isCheck?'p':'off')+'">Save &amp; Exit</span></div></div>';
+}
+
+
+/* ===== Account Forecast: actuals, run-rate, weighted opportunity, six months ahead. Fictional. ===== */
+function bias(pi){return [1.0,.93,1.07][pi]*(1+(((st.i+pi)%3)-1)*.02)}
+function lowIdx(){var b=[0,1,2].map(bias);return b.indexOf(Math.min.apply(null,b))}
+var FMO=['Jul 2026','Aug 2026','Sep 2026','Oct 2026','Nov 2026','Dec 2026','Jan 2027','Feb 2027','Mar 2027','Apr 2027'],SEAS=[1,1,1,1,1.05,.91,.97,1.07,1.11,1.04];
+function fc(){var l=L(),k=curStep().k,P=agreementProducts(),fa=[1.04,.96,1.08,.92],adj=st.fadj[l.id],won=['ord','clm','dsh'].indexOf(k)>=0,prob=won?100:stageFor(k)[1],w=way();
+  var prod=P.map(function(p,pi){var pl=[],ac=[],fq=[];for(var m=0;m<10;m++){var pq=m<6?Math.max(1,Math.round(p[1]*(1+.02*((m+pi)%3-1)))):p[1];pl.push(pq);ac.push(m<4?Math.max(0,Math.round(pq*fa[(m+pi)%4]*bias(pi))):null)}
+    var rr=ac.slice(0,4).reduce(function(a,b){return a+b},0)/pl.slice(0,4).reduce(function(a,b){return a+b},0);
+    for(var m2=0;m2<10;m2++){fq.push(m2<4?ac[m2]:Math.round(pl[m2]*rr*SEAS[m2]*(adj&&pi===lowIdx()&&(m2===4||m2===5)?.96:1)))}
+    return {n:p[0],price:p[2],pl:pl,ac:ac,fq:fq,rr:rr}});
+  var plan=[],act=[],opp=[],ordr=[],fcs=[];
+  for(var m=0;m<10;m++){var pv=0,av=0,fv=0;prod.forEach(function(p){pv+=p.pl[m]*p.price;fv+=p.fq[m]*p.price;if(m<4)av+=p.ac[m]*p.price});
+    var o=m===7?w.p*prob/100:0;plan.push(pv);act.push(m<4?av:null);opp.push(won?0:o);ordr.push(won&&m===7?w.p:0);fcs.push(m<4?av:fv+o+(won&&m===7?w.p:0))}
+  var n6=fcs.slice(4).reduce(function(a,b){return a+b},0),p6=plan.slice(4).reduce(function(a,b){return a+b},0),rr=act.slice(0,4).reduce(function(a,b){return a+b},0)/plan.slice(0,4).reduce(function(a,b){return a+b},0);
+  return {prod:prod,plan:plan,act:act,opp:opp,ordr:ordr,fcs:fcs,n6:n6,p6:p6,vs:Math.round((n6/p6-1)*1000)/10,rr:Math.round(rr*100),runm:act.slice(0,4).reduce(function(a,b){return a+b},0)/4,acc:92+st.i%6,prob:prob,won:won,adj:adj,oppAmt:w.p*prob/100}}
+function kfmt(v){v=Math.round(v);return v>=1e6?'$'+(v/1e6).toFixed(2)+'M':v>=1e4?'$'+Math.round(v/1e3)+'K':'$'+v.toLocaleString('en-US')}
+function fcChart(f){var W=560,H=190,L0=46,T0=14,B0=26,mx=Math.max.apply(null,f.plan.concat(f.fcs))*1.1,mn=Math.min.apply(null,f.plan.concat(f.fcs))*.84,x=function(m){return L0+m*(W-L0-12)/9},y=function(v){return T0+(H-T0-B0)*(1-(v-mn)/(mx-mn))};
+  var path=function(arr,a,b){var d='';for(var m=a;m<=b;m++){d+=(m===a?'M':'L')+x(m).toFixed(1)+' '+y(arr[m]).toFixed(1)}return d};
+  var band='';for(var m=3;m<10;m++){var sp=m===3?0:.03+.012*(m-3);band+=(m===3?'M':'L')+x(m).toFixed(1)+' '+y(f.fcs[m]*(1+sp)).toFixed(1)}for(var m2=9;m2>=3;m2--){var sp2=m2===3?0:.03+.012*(m2-3);band+='L'+x(m2).toFixed(1)+' '+y(f.fcs[m2]*(1-sp2)).toFixed(1)}band+='Z';
+  var grid='';for(var g=0;g<=3;g++){var v=mn+(mx-mn)*g/3;grid+='<line x1="'+L0+'" x2="'+(W-8)+'" y1="'+y(v).toFixed(1)+'" y2="'+y(v).toFixed(1)+'" stroke="#ECEBEA"/><text x="'+(L0-6)+'" y="'+(y(v)+3).toFixed(1)+'" font-size="9" text-anchor="end" fill="#706E6B">'+kfmt(v)+'</text>'}
+  var lab=FMO.map(function(m,n){return '<text x="'+x(n).toFixed(1)+'" y="'+(H-8)+'" font-size="9" text-anchor="middle" fill="#706E6B">'+m.slice(0,3)+'</text>'}).join('');
+  var opx=f.opp[7]||f.ordr[7];
+  return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="Account forecast against plan">'+grid+lab+
+   '<rect x="'+((x(3)+x(4))/2).toFixed(1)+'" y="'+T0+'" width="'+(W-8-(x(3)+x(4))/2).toFixed(1)+'" height="'+(H-T0-B0)+'" fill="#F5F9FD"/>'+
+   '<path d="'+band+'" fill="#1B96FF" opacity=".16"/>'+
+   '<path d="'+path(f.plan,0,9)+'" fill="none" stroke="#8C8C8C" stroke-width="1.6" stroke-dasharray="5 4"/>'+
+   '<path d="'+path(f.fcs,3,9)+'" fill="none" stroke="#0176D3" stroke-width="2.4"/>'+
+   '<path d="'+path(f.fcs,0,3)+'" fill="none" stroke="#2E844A" stroke-width="2.6"/>'+
+   f.fcs.map(function(v,n){return '<circle cx="'+x(n).toFixed(1)+'" cy="'+y(v).toFixed(1)+'" r="'+(n===7&&opx?5:2.6)+'" fill="'+(n<4?'#2E844A':n===7&&opx?'#9050E9':'#0176D3')+'"/>'}).join('')+
+   (opx?'<text x="'+x(7).toFixed(1)+'" y="'+(y(f.fcs[7])-10).toFixed(1)+'" font-size="9.5" text-anchor="middle" fill="#7526E3" font-weight="700">'+(f.won?'New order':'New RFQ, weighted')+'</text>':'')+
+   '<line x1="'+((x(3)+x(4))/2).toFixed(1)+'" x2="'+((x(3)+x(4))/2).toFixed(1)+'" y1="'+T0+'" y2="'+(H-B0)+'" stroke="#706E6B" stroke-dasharray="2 3"/><text x="'+((x(3)+x(4))/2+4).toFixed(1)+'" y="'+(T0+9)+'" font-size="9" fill="#706E6B">Today</text></svg>'+
+   '<div class="legend" style="padding:2px 0 0"><span><i style="background:#2E844A"></i>Actual</span><span><i style="background:#0176D3"></i>Forecast</span><span><i style="background:#1B96FF;opacity:.3"></i>Range</span><span><i style="background:#8C8C8C"></i>Plan</span><span><i style="background:#9050E9"></i>'+(f.won?'Order':'Opportunity')+'</span></div>'}
+function fcKpis(f){return '<div class="dgrid2" style="grid-template-columns:repeat(4,minmax(0,1fr))">'+[['Forecast, next 6 months',kfmt(f.n6),(f.vs>=0?'+':'')+f.vs+'% vs plan'],['Run-rate',kfmt(f.runm)+'/mo',f.rr+'% of plan, Jul–Oct'],['Forecast accuracy',f.acc+'%','Last 3 months'],[f.won?'Won order':'New RFQ, weighted',kfmt(f.won?f.ordr[7]:f.oppAmt),f.won?'In Feb 2027':f.prob+'% of the estimate, Feb 2027']].map(function(k){return '<div class="card kpi"><div class="l">'+k[0]+'</div><div class="v">'+k[1]+'</div><div class="s">'+k[2]+'</div></div>'}).join('')+'</div>'}
+function fcGrid(f){var rows=[['Sales Agreement plan',f.plan],['Orders (actual)',f.act.map(function(v,n){return n<4?v:(f.ordr[n]||null)})],[f.won?'Won order':'Opportunities (weighted)',f.won?f.ordr:f.opp],['Forecast',f.fcs],['Variance to plan',f.fcs.map(function(v,n){return v-f.plan[n]})]];
+  return '<div class="gridw"><table class="tle"><thead><tr><th>Revenue</th>'+FMO.map(function(m,n){return '<th class="n"'+(n>3?' style="background:#EAF5FE"':'')+'>'+m+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r,ri){return '<tr'+(ri===3?' class="hi"':'')+'><td'+(ri===3?' style="font-weight:700"':'')+'>'+r[0]+'</td>'+r[1].map(function(v){return '<td class="n"'+(ri===4&&v<0?' style="color:#BA0517"':ri===4&&v>0?' style="color:#2E844A"':'')+'>'+(v==null||v===0&&ri!==4?'—':(ri===4&&v>0?'+':'')+kfmt(v).replace('$-','-$'))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>'}
+function fcQty(f){return '<div class="gridw"><table class="tle"><thead><tr><th>Forecasted Quantity</th>'+FMO.slice(4).map(function(m){return '<th class="n">'+m+'</th>'}).join('')+'<th class="n">Run-rate</th></tr></thead><tbody>'+f.prod.map(function(p,pi){return '<tr><td class="w"><a>'+e(p.n)+'</a></td>'+p.fq.slice(4).map(function(v,n){return '<td class="n"'+(f.adj&&pi===lowIdx()&&n<2?' style="color:#7526E3;font-weight:700"':'')+'>'+num(v)+'</td>'}).join('')+'<td class="n">'+Math.round(p.rr*100)+'%</td></tr>'}).join('')+'</tbody></table></div>'}
+function forecastCard(l,mk){var f=fc();return '<div class="card"><div class="ch">'+ico('agr',1)+'Account Forecast: '+e(holder())+(mk?M(mk):'')+'<div class="r">'+(f.adj?'<span class="pill" style="background:#F3EBFF;color:#7526E3">Adjusted by S. Ellis</span>':'')+'<span class="mini">Monthly ▾</span><span class="note">Sources: agreement, orders, opportunities</span></div></div><div class="pad">'+fcKpis(f)+'<div style="margin-top:10px">'+fcChart(f)+'</div></div>'+fcGrid(f)+'</div>'}
+
+/* ===== Manufacturer price waterfall and margin. Fictional cost data. ===== */
+function mtgt(){return (36+(st.i*3)%8)/100}
+function money(l,w){var R0=lines(l,w),LT=R0.reduce(function(a,x){return a+x.list},0),T=w.p,cogs=Math.round(LT*(1-mtgt())),mat=Math.round(cogs*.62),lab=Math.round(cogs*.23),ovh=cogs-mat-lab;return {LT:LT,T:T,D:LT-T,cogs:cogs,mat:mat,lab:lab,ovh:ovh,mL:LT-cogs,mg:T-cogs,mgp:Math.round((T-cogs)/T*1000)/10}}
+function waterfall(m){var it=[['Material',m.mat,'c'],['Labor',m.lab,'c'],['Overhead',m.ovh,'c'],['COGS',m.cogs,'t'],['Margin',m.mL,'g'],['List price',m.LT,'t'],['Discount',-m.D,'r'],['Net price',m.T,'t']];
+  var W=560,H=200,T0=18,B0=34,bw=(W-20)/it.length,mx=m.LT*1.08,y=function(v){return T0+(H-T0-B0)*(1-v/mx)},base=0,out='',C={c:'#FE9339',t:'#032D60',g:'#2E844A',r:'#BA0517'};
+  it.forEach(function(r,n){var v=r[1],y0,y1;if(r[2]==='t'){y0=y(0);y1=y(v);base=v}else{y0=y(base);base+=v;y1=y(base)}var top=Math.min(y0,y1),h=Math.max(1.5,Math.abs(y0-y1)),X=10+n*bw+6;
+    out+='<rect x="'+X.toFixed(1)+'" y="'+top.toFixed(1)+'" width="'+(bw-12).toFixed(1)+'" height="'+h.toFixed(1)+'" rx="2" fill="'+C[r[2]]+'"/><text x="'+(X+(bw-12)/2).toFixed(1)+'" y="'+(top-4).toFixed(1)+'" font-size="9.5" text-anchor="middle" fill="#181818">'+(v<0?'-':'')+kfmt(Math.abs(v))+'</text><text x="'+(X+(bw-12)/2).toFixed(1)+'" y="'+(H-B0+14)+'" font-size="9.5" text-anchor="middle" fill="#444">'+r[0]+'</text>'});
+  return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto" role="img" aria-label="Price waterfall from cost to net price">'+out+'</svg>'}
+function waterfallCard(l,w){var m=money(l,w),fl=30;return '<div class="card"><div class="ch">Price Waterfall and Margin<div class="r"><span class="pill b">Your team sees this. The customer doesn’t.</span></div></div><div class="pad"><div class="col2" style="align-items:center"><div>'+waterfall(m)+'</div><div><table class="tle"><tbody>'+
+  [['Material',usd(m.mat)],['Labor',usd(m.lab)],['Overhead',usd(m.ovh)],['Cost of goods sold',usd(m.cogs)],['Target margin on list',Math.round(mtgt()*100)+'%'],['List price',usd(m.LT)],['Discount','-'+usd(m.D)],['Net price',usd(m.T)],['Gross margin',usd(m.mg)+' ('+m.mgp+'%)'],['Margin floor',fl+'%: '+(m.mgp>=fl?'above, no approval':'below, needs approval')]].map(function(r,n){return '<tr'+(n===3||n===7?' class="total"':'')+(n===8?' class="new"':'')+'><td>'+r[0]+'</td><td class="n">'+r[1]+'</td></tr>'}).join('')+'</tbody></table></div></div></div></div>'}
+
+/* ===== Dashboard: illustrative figures, deterministic per product line ===== */
+function dashData(){var l=L(),i=st.i,w=way(),open=6+(i*3)%9,sent=28+(i*7)%40,win=31+(i*5)%18,ttq=(1.2+((i*7)%9)/10).toFixed(1),stops=5+(i*3)%11;
+  var wk=[0,1,2,3,4,5,6,7].map(function(n){return Math.max(1,Math.round(sent/8*(0.75+((i+n*3)%6)/10)))});
+  var st4=[['Needs Analysis',open+3],['Value Proposition',open],['Proposal/Price Quote',Math.max(2,open-2)],['Negotiation/Review',Math.max(1,Math.round(open/3))]];
+  var pipe=st4.reduce(function(a,x){return a+x[1]},0)*w.p*0.6;
+  var why=[[l.s,Math.max(2,Math.round(stops*.45))],['A site fact was missing',Math.max(1,Math.round(stops*.25))],['Discount over the rep’s limit',Math.max(1,Math.round(stops*.18))],['Custom size outside its limits',Math.max(1,Math.round(stops*.12))]];
+  var P=agreementProducts(),fa=[1.04,.96,1.08,.92],att=P.map(function(p,pi){var pl=0,ac=0;for(var m=0;m<4;m++){var pq=Math.max(1,Math.round(p[1]*(1+.02*((m+pi)%3-1))));pl+=pq;ac+=Math.max(0,Math.round(pq*fa[(m+pi)%4]*bias(pi)))}return [p[0],Math.round(ac/pl*100)]});
+  var ord=[['Sent to ERP',3+(i%4)],['In build',4+(i*2)%5],['Shipped',6+(i*3)%7]];
+  var dlr=[['Bayline Lab Supply',34],['Northstar Scientific Supply',26],['Other dealers',28],['Direct',12]];
+  return {open:open,sent:sent,win:win,ttq:ttq,stops:stops,wk:wk,st4:st4,pipe:pipe,why:why,att:att,ord:ord,dlr:dlr}}
+function hbars(rows,fmt,cls){var mx=Math.max.apply(null,rows.map(function(r){return r[1]}));return rows.map(function(r){return '<div class="hb"><span>'+e(r[0])+'</span><span><span class="bar '+(cls||'')+'" style="display:block;width:'+Math.max(4,Math.round(r[1]/mx*100))+'%"></span></span><span class="t">'+(fmt?fmt(r[1]):r[1])+'</span></div>'}).join('')}
+function cols(vals){var mx=Math.max.apply(null,vals),W=300,H=110,bw=W/vals.length;return '<svg viewBox="0 0 '+W+' '+(H+16)+'" style="width:100%;height:auto" role="img" aria-label="Quotes sent per week">'+vals.map(function(v,n){var h=Math.round(v/mx*(H-14));return '<rect x="'+(n*bw+6)+'" y="'+(H-h)+'" width="'+(bw-12)+'" height="'+h+'" rx="2" fill="'+(n===vals.length-1?'#032D60':'#1B96FF')+'"/><text x="'+(n*bw+bw/2)+'" y="'+(H-h-3)+'" font-size="10" text-anchor="middle" fill="#444">'+v+'</text><text x="'+(n*bw+bw/2)+'" y="'+(H+12)+'" font-size="9" text-anchor="middle" fill="#706E6B">W'+(n+38)+'</text>'}).join('')+'</svg>'}
+function donut(rows){var tot=rows.reduce(function(a,r){return a+r[1]},0),C=['#1B96FF','#9050E9','#2E844A'],a0=0,R0=42,cx=60,cy=55,seg='';rows.forEach(function(r,n){var a1=a0+r[1]/tot*Math.PI*2,x0=cx+R0*Math.sin(a0),y0=cy-R0*Math.cos(a0),x1=cx+R0*Math.sin(a1),y1=cy-R0*Math.cos(a1);seg+='<path d="M'+x0.toFixed(2)+' '+y0.toFixed(2)+' A'+R0+' '+R0+' 0 '+(a1-a0>Math.PI?1:0)+' 1 '+x1.toFixed(2)+' '+y1.toFixed(2)+'" stroke="'+C[n]+'" stroke-width="16" fill="none"/>';a0=a1});
+  return '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><svg viewBox="0 0 120 110" style="width:120px;flex:none" role="img" aria-label="Orders by status">'+seg+'<text x="60" y="61" font-size="18" text-anchor="middle" fill="#032D60">'+tot+'</text></svg><div>'+rows.map(function(r,n){return '<div style="font-size:12px;margin:3px 0"><i style="display:inline-block;width:9px;height:9px;border-radius:2px;background:'+C[n]+';margin-right:5px"></i>'+e(r[0])+': <b>'+r[1]+'</b></div>'}).join('')+'</div></div>'}
+function comp(title,body,rep,mk){return '<div class="card comp"><div class="ch">'+title+(mk?M(mk):'')+'</div><div class="cb">'+body+'</div><button class="vr" data-rep="'+rep+'">View Report</button></div>'}
+function openRep(k){if(k==='fc'){REC.forecast();return}var d=dashData(),l=L(),T={
+  pipe:['Orders by Dealer, This Quarter',['Dealer','Share of orders'],d.dlr.map(function(r){return [r[0],r[1]+'%']})],
+  wk:['Quotes Sent per Week',['Week','Quotes Sent'],d.wk.map(function(v,n){return ['Week '+(n+38),String(v)]})],
+  why:['What the Checks Stopped',['Reason','Quotes Stopped'],d.why.map(function(r){return [r[0],String(r[1])]})],
+  att:['Agreement Attainment to Date',['Product','Actual vs Plan'],d.att.map(function(r){return [r[0],r[1]+'%']})],
+  ord:['Orders by Status',['Status','Orders'],d.ord.map(function(r){return [r[0],String(r[1])]})]}[k];
+  openDM('lin','Report',T[0],[['Report',[['Product Line',l.n],['Range','This quarter'],['Source','Standard report'],['Figures','Illustrative']]]],'<h4>Results</h4>'+tbl(T[1],T[2],[1]))}
+
+/* ===== Agentforce: proposes one action per beat; the rep approves. ===== */
+function lc(t){return t.charAt(0).toLowerCase()+t.slice(1)}
+function AF(){var l=L(),k=curStep().k,w=way(),d=dashData(),P=agreementProducts(),R0=lines(l,w),LT=R0.reduce(function(a,x){return a+x.list},0),att=Math.round(d.att.reduce(function(a,x){return a+x[1]},0)/d.att.length);
+ var full='In Full Rollout',mig='In Migrate and Full Rollout';
+ return {
+ acc:{ask:'What’s driving the forecast for '+holder()+'?',rep:(function(){var f=fc();return '<ul><li>Run-rate is '+f.rr+'% of plan over the last four months.</li><li>'+e(P[lowIdx()][0])+' is running at '+Math.round(f.prod[lowIdx()].rr*100)+'% of plan. The forecast follows that run-rate.</li><li>The new RFQ adds about '+kfmt(f.oppAmt)+' in Feb 2027, weighted at '+f.prob+'%.</li><li>Next six months: '+kfmt(f.n6)+', '+(f.vs>=0?'+':'')+f.vs+'% against plan.</li></ul>'})(),t:'Lower the '+P[lowIdx()][0]+' forecast 4% for Nov and Dec to match its recent orders',tier:mig,adj:1,done:'Forecast adjusted. The change is on the record.'},
+ rfq:{ask:'Read this RFQ and fill in the details.',rep:'Found '+(l.c.length+1)+' requirements in the email:<ul>'+l.c.concat([l.bad]).map(function(c){return '<li>'+e(c[0])+': '+e(c[1])+'</li>'}).join('')+'</ul>Nothing is priced yet. The checks run at configuration.',t:'Fill RFQ Details on the Opportunity',tier:full,done:'RFQ Details filled.'},
+ cfg:{ask:'What’s still open on this configuration?',rep:'Everything that changes the product is answered:<ul>'+l.c.map(function(c){return '<li>'+e(c[0])+': '+e(c[1])+(c[2]?' (asked)':'')+'</li>'}).join('')+'</ul>Next: validate it.',t:'Run validation on this configuration',tier:full,go:'chk'},
+ chk:{ask:'Why did this stop, and what are my options?',rep:'<b>'+e(l.s)+'.</b> '+e(l.y)+'<ul>'+l.w.map(function(x){return '<li>'+e(x.t)+': '+amt(x)+'</li>'}).join('')+'</ul>The check decided this, not Agentforce.',t:'Apply the first way out: '+l.w[0].t,tier:full,apply:1,done:'Configuration validated.'},
+ prc:{ask:'Is this price inside my limits?',rep:'Net '+usd(w.p)+' against a list total of '+usd(LT)+'. The 5% on two lines is inside your 10% limit, so no approval is needed. Gross margin is '+money(l,w).mgp+'%, above your 30% floor.',t:l.w.length>1?'Show the customer both options on the quote':'Add this price summary to the Opportunity',tier:full,done:l.w.length>1?'Both options added to the quote.':'Summary added.'},
+ qte:{ask:'Draft the cover email for this quote.',rep:'Here’s a draft:<div class="em">Subject: Quote '+qno()+' for '+e(l.o)+'\n\nHello '+e(l.b)+' team,\n\nAttached is our quote for your RFQ. One item changed: '+e(lc(l.s))+', so we quoted '+e(lc(w.t))+'.\n\nTotal: '+amt(w)+'. Valid until Jan 17, 2027.\n\nS. Ellis, '+e(l.a)+'</div>',t:'Send the quote with this email',tier:full,done:'Quote and email sent to '+l.b+'.'},
+ ord:{ask:'Where is this order?',rep:'<ul><li>Engineering release is done.</li><li>Long-lead items are being procured.</li><li>Next: build and test.</li></ul>The ERP has the order. Nothing was retyped.',t:'Send '+l.b+' a status update',tier:full,done:'Status update sent.'},
+ clm:{ask:'Summarize this claim.',rep:'16 lines, $95,690 claimed. $48,000 pays and $47,690 is caught:<ul>'+CK.map(function(c){return '<li>'+e(c[0])+': '+usd(c[2])+'</li>'}).join('')+'</ul>',t:'Send Northgate the dispute notice for $47,690',tier:'Full Rollout add-on',done:'Dispute notice sent to Northgate.'},
+ dsh:{ask:'What changed this week?',rep:'<ul><li>'+d.wk[7]+' quotes sent, against '+d.wk[6]+' the week before.</li><li>Most common stop: '+e(lc(l.s))+'.</li><li>Agreement attainment about '+att+'% to date.</li></ul>',t:'Schedule the Monday forecast review',tier:full,done:'Review scheduled for Monday, 9:00 AM.'}
+ }[k];}
+var AFI='<svg viewBox="0 0 20 20" aria-hidden="true"><path fill="#9050E9" d="M10 1l2.2 5.3L17.5 8l-5.3 2.2L10 15.5 7.8 10.2 2.5 8l5.3-1.7z"/><path fill="#1B96FF" d="M16 12l.9 2.1 2.1.9-2.1.9L16 18l-.9-2.1-2.1-.9 2.1-.9z"/></svg>';
+function afPanel(){var a=AF(),key=L().id+'/'+curStep().k,done=st.afd[key]||(a.apply&&chosen());
+ return '<aside class="afp" aria-label="Agentforce"><div class="afh">'+AFI+'Agentforce'+STAMP+'<button class="x" data-af="1" aria-label="Close Agentforce">×</button></div><div class="afm"><div class="bub me">'+e(a.ask)+'</div><div class="bub ai">'+a.rep+'</div>'+
+ '<div class="act"><div class="lb">Proposed action</div><b>'+e(a.t)+'</b><div class="tr">'+e(a.tier)+'</div>'+(done?'<div class="ok">✓ Approved by S. Ellis'+(a.done?'. '+e(a.done):'')+'</div>':'<div class="bt"><button class="fb p" data-afok="1">Approve</button><button class="fb" data-afno="1">Dismiss</button></div>')+'</div></div>'+
+ '<div class="aff">Agentforce proposes. Your rep approves. Prices and checks come from the price book and the checks.</div></aside>'}
+
+/* ===== Clickable links: record details, file previews, actions. All data fictional. ===== */
+var CITIES=['Columbus, OH','Raleigh, NC','Madison, WI','Minneapolis, MN','Indianapolis, IN','Richmond, VA','Denver, CO'];
+function city(n){return CITIES[n%CITIES.length]}
+function pcode(name){var w=name.replace(/[^A-Za-z0-9 ]/g,' ').split(' ').filter(Boolean);var h=0;for(var i=0;i<name.length;i++)h=(h*31+name.charCodeAt(i))%9000;return w.map(function(x){return x[0]}).join('').slice(0,4).toUpperCase()+'-'+(1000+h)}
+function curStep(){return steps()[st.s]}
+function qno(){return pad(st.i+1041,8)}
+function holder(){var m=MC[L().id];return m[3]||L().b}
+function stageFor(k){return {acc:['Needs Analysis',20],rfq:['Needs Analysis',20],cfg:['Value Proposition',50],chk:['Value Proposition',50],prc:['Proposal/Price Quote',75],qte:['Proposal/Price Quote',75],ord:['Closed Won',100],clm:['Closed Won',100]}[k]}
+function agreementProducts(){var l=L(),m=MC[l.id],z=M2[l.id];return [[m[0],Math.max(1,Math.round(m[2]/3)),z[0]],[z[1],z[2],z[3]],[z[4],z[5],z[6]]]}
+function fld(a){return '<div class="dgrid">'+a.map(function(f){return '<div><div class="fl">'+e(f[0])+'</div><div class="fv">'+e(f[1])+'</div></div>'}).join('')+'</div>'}
+function openDM(icon,obj,title,sections,extra,foot){
+  $('dmc').className='dmc';
+  $('dmc').innerHTML='<div class="dmh">'+ico(icon)+'<div><div class="hlo">'+e(obj)+'</div><div class="hlt">'+e(title)+'</div></div>'+STAMP+'<button class="x" data-dmx="1" aria-label="Close">×</button></div><div class="dmb">'+sections.map(function(s){return '<h4>'+e(s[0])+'</h4>'+fld(s[1])}).join('')+(extra||'')+'</div><div class="dmf">'+(foot||'')+'<button class="fb p" data-dmx="1">Close</button></div>';
+  $('dm').classList.add('on');$('dmc').querySelector('.x').focus();
+}
+function openPV(name,page){
+  $('dmc').className='dmc pv';
+  $('dmc').innerHTML='<div class="pvh"><b>'+e(name)+'</b><span class="stamp">Concept mock-up</span><span style="font-size:12px;color:#C9C7C5">PDF · 1 page</span><button class="x" data-dmx="1" aria-label="Close">×</button></div><div class="pvb"><div class="pg">'+page+'</div></div>';
+  $('dm').classList.add('on');$('dmc').querySelector('.x').focus();
+}
+function closeDM(){$('dm').classList.remove('on')}
+function ftoast(m){var t=$('ftoast');t.textContent=m;t.classList.add('on');clearTimeout(ftoast.t);ftoast.t=setTimeout(function(){t.classList.remove('on')},2600)}
+function goK(k){var n=steps().findIndex(function(s){return s.k===k});if(n>=0){st.s=n;st.calc=null;st.tab=0;render()}}
+function tbl(head,rows,nums){return '<table class="tle" style="margin-top:6px"><thead><tr>'+head.map(function(h,i){return '<th'+(nums&&nums.indexOf(i)>=0?' class="n"':'')+'>'+e(h)+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(c,i){return '<td'+(nums&&nums.indexOf(i)>=0?' class="n"':' class="w"')+'>'+e(c)+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'}
+
+var REC={
+ accM:function(){var l=L();openDM('agr','Account',l.a+' (fictional)',[['Account Information',[['Account Name',l.a],['Type','Customer'],['Industry','Manufacturing'],['Product Line',l.n],['Segment','Commercial'],['Employees',l.e],['Sells',l.v],['Account Owner','S. Ellis']]],['Address Information',[['Billing Address','1200 Industrial Pkwy, '+city(st.i)],['Phone','(555) 010-'+pad(st.i+20,4)]]],['Related',[['Open Opportunities','1: '+l.o],['Sales Agreements','1 activated'],['Quotes',curStep().k==='acc'||curStep().k==='rfq'?'0':'1: Q-'+qno()],['Orders',['ord','clm'].indexOf(curStep().k)>=0?'1: O-'+pad(st.i+2207,8):'0']]]])},
+ accB:function(name){var l=L(),dist=name==='Northgate Components';openDM('agr','Account',name+' (fictional)',[['Account Information',[['Account Name',name],['Type',dist?'Distributor':'Customer of '+l.a],['Industry',dist?'Electronics distribution':'End user'],['Account Owner','S. Ellis']]],['Address Information',[['Shipping Address','400 Commerce Dr, '+city(st.i+5)],['Phone','(555) 014-'+pad(st.i+40,4)]]],['Buying with '+l.a,[['Sales Agreement',dist||name===holder()?'SA-'+pad(st.i+3120)+', activated':'None'],['Open RFQ',l.o]]]])},
+ opp:function(){var l=L(),k=curStep().k,sg=stageFor(k),w=chosen();openDM('opp','Opportunity',l.o,[['Opportunity Information',[['Opportunity Name',l.o],['Account Name',l.a],['Their Customer',l.b],['Stage',sg[0]],['Probability (%)',sg[1]],['Close Date','Dec 18, 2026'],['Amount',w||['prc','qte','ord','clm'].indexOf(k)>=0?amt(way()):'Not priced yet'],['Type','New Business'],['Lead Source','Email RFQ'],['Opportunity Owner','S. Ellis']]],['Quote',[['Primary Quote',['acc','rfq'].indexOf(k)>=0?'Not created yet':'Q-'+qno()],['Next Step',{acc:'Open the new RFQ',rfq:'Configure the product',cfg:'Run validation',chk:'Pick a way out',prc:'Send the quote',qte:'Customer accepts',ord:'Track fulfillment',clm:'Check the distributor claim'}[k]]]]])},
+ prod:function(name){var l=L(),Rw=lines(l,way()),r=Rw.find(function(x){return x.n===name});
+   if(!r){var ap=agreementProducts().find(function(x){return x[0]===name});if(ap){openDM('lin','Product',name,[['Product Information',[['Product Name',name],['Product Code',pcode(name)],['Product Family',l.n],['Unit Price',usd2(ap[2])],['Planned Quantity per Month',num(ap[1])],['Schedule','Monthly'],['Sales Agreement','SA-'+pad(st.i+3120)],['Actuals','From direct orders']]]]);return}
+     openDM('lin','Product',name,[['Product Information',[['Product Name',name],['Product Code',pcode(name)],['Product Family',l.n],['Selling Model','One Time'],['Type','Bundle'],['Components',Rw.length+' included lines']]]]);return}
+   var sec=[['Product Information',[['Product Name',r.n],['Product Code',pcode(r.n)],['Product Family',l.n],['Selling Model','One Time']]],['Pricing',[['Quantity',r.qty],['List Price',usd2(r.list)],['Discount',r.disc?Math.round(r.disc*100)+'%':'None'],['Net Unit Price',usd2(r.unitN)],['Net Total Price',usd2(r.net)],['Price Source','Price book (illustrative)']]],['Why it’s here',[['Reason',r.why],['Added',r.fix?'At the check, because: '+l.s:'From the configuration']]]];
+   openDM('lin','Quote Line Item',r.n,sec)},
+ agreement:function(){var l=L(),P=agreementProducts();openDM('agr','Sales Agreement',holder()+', FY26 agreement',[['Agreement Information',[['Name',holder()+', FY26 agreement'],['Account',holder()],['Seller',l.a],['Status','Activated'],['Start Date','Jul 1, 2026'],['End Date','Dec 31, 2026'],['Schedule Frequency','Monthly'],['Schedule Count','6'],['Pricing','Use price book'],['Actuals Calculation','From direct orders']]]],'<h4>Products</h4>'+tbl(['Product','Unit Price','Planned per Month'],P.map(function(x){return [x[0],usd2(x[2]),num(x[1])]}),[1,2]))},
+ quote:function(){var l=L(),w=way(),k=curStep().k,Rw=lines(l,w),LT=Rw.reduce(function(a,x){return a+x.list},0);openDM('qte','Quote',qno(),[['Quote Information',[['Quote Number',qno()],['Status',k==='qte'?'Presented':k==='ord'||k==='clm'?'Accepted':'Draft'],['Expiration Date','Jan 17, 2027'],['Opportunity Name',l.o],['Account Name',l.a],['Bill To',l.b]]],['Totals',[['Total Price',usd2(LT)],['Discount',usd2(LT-w.p)],['Grand Total',usd2(w.p)],['Price Book','Standard (illustrative)']]],['Terms',[['Payment Terms','Net 30'],['Shipping','FOB origin, freight prepaid and added'],['Valid For','30 days'],['Approvals','Discount approved, engineering not required']]]],'',' <button class="fb" data-act="pdfq">Preview Document</button>')},
+ order:function(){var l=L(),w=way();openDM('ord','Order',pad(st.i+2207,8),[['Order Information',[['Order Number',pad(st.i+2207,8)],['Status','Activated'],['Order Start Date','Dec 18, 2026'],['Account Name',l.a],['Bill To',l.b],['Order Amount',amt(w)],['PO Number','PO-'+(44120+st.i)],['Billing Frequency','One Time']]],['Fulfillment',[['Fulfillment Plan','In progress: procure long-lead items'],['ERP Sync','Sent, nothing retyped'],['Assets','Created on activation'],['Back in '+MFG,'Account Forecast updated']]]])},
+ claim:function(){var l=L();openDM('clm','Claim','Debit NGC-DM-2026-10',[['Claim Information',[['Distributor','Northgate Components'],['Manufacturer',l.a],['Program','Ship and Debit, Q3'],['Lines','16'],['Claimed','$95,690'],['Pays','$48,000'],['Caught','$47,690'],['Credit Memo','CM-CLM-0001']]],['Sources',[['POS resale','EDI 867, as filed'],['Stock held','Distributor inventory file'],['Agreements','3 special pricing agreements'],['Design registration','Matched where the agreement requires one']]]])},
+ catalog:function(){var l=L(),Rw=lines(l,way());openDM('cfg','Product Catalog',l.n,[['Catalog',[['Catalog',l.n],['Products',Rw.length+1],['Price Book','Standard (illustrative)'],['Selling Model','One Time']]]],'<h4>Products</h4>'+tbl(['Product','Product Code','List Price'],[[l.o+' (bundle)',pcode(l.o),usd2(Rw.reduce(function(a,x){return a+x.list},0))]].concat(Rw.map(function(r){return [r.n,pcode(r.n),usd2(r.list)]})),[2]))},
+ forecastOld:function(){var P=agreementProducts();openDM('agr','Account Forecast',holder()+', FY26',[['Forecast',[['Account',holder()],['Period','Monthly, rolling'],['Sources','Sales Agreements, Orders, Opportunities'],['Updated','Today']]]],'<h4>Forecasted Quantity</h4>'+tbl(['Product','Nov 2026','Dec 2026','Q4 Total'],P.map(function(x){var a=Math.round(x[1]*1.1),b=Math.round(x[1]*1.15);return [x[0],num(a),num(b),num(a+b+Math.round(x[1]*.92))]}),[1,2,3]))},
+ assets:function(){var l=L(),Rw=lines(l,way()),k=curStep().k,has=['ord','clm'].indexOf(k)>=0;openDM('ord','Assets',l.a+' customer assets',[['Assets',[['Account',l.b],['Count',has?Rw.length:0],['Created','On order activation']]]],has?'<h4>Assets</h4>'+tbl(['Asset','Quantity','Status'],Rw.map(function(r){return [r.n,r.qty,'Purchased']}),[1]):'<p class="note" style="padding:8px 10px">Assets are created when the order is activated.</p>')},
+ program:function(){var l=L();openDM('clm','Program','Ship and Debit, Q3',[['Program Information',[['Program','Ship and Debit, Q3'],['Manufacturer',l.a],['Distributor','Northgate Components'],['Special Pricing Agreements','3'],['Claims This Quarter','1 open'],['Design Registration','Where the agreement requires one']]]])},
+ approvals:function(){openDM('qte','Approvals','Quote '+qno(),[['Approvals',[['Discount','Approved: 5% on two lines, inside the rep’s limit'],['Engineering','Not required: passed Product Validation'],['Submitted By','S. Ellis'],['Routing','Only what needs a person']]]])},
+ related:function(){var l=L();openDM('agr','Related',l.o,[['Related Lists',[['Files','1: RFQ from '+l.b],['Quotes',['acc','rfq'].indexOf(curStep().k)>=0?'0':'1'],['Sales Agreements','1'],['Activity','RFQ email, quote task']]]])}
+};
+REC.forecast=function(){var f=fc();openDM('agr','Account Forecast',holder()+', rolling 10 months',[['Forecast',[['Account',holder()],['Sources','Sales Agreement, orders, opportunities (weighted by stage)'],['Period','Monthly, 4 months actual and 6 ahead'],['Figures','Illustrative']]]],'<h4>Next six months</h4><div style="padding:4px 10px">'+fcKpis(f)+'<div style="margin-top:10px">'+fcChart(f)+'</div></div><h4>Revenue</h4>'+fcGrid(f)+'<h4>By product</h4>'+fcQty(f))};
+function current(){return {dsh:REC.related,acc:REC.agreement,rfq:REC.opp,cfg:REC.quote,chk:REC.quote,prc:REC.quote,qte:REC.quote,ord:REC.order,clm:REC.claim}[curStep().k]}
+function pdfRFQ(){var l=L(),rows=l.c.concat([l.bad]);openPV('RFQ_'+l.b.replace(/[^A-Za-z]+/g,'_')+'.pdf',
+ '<div class="row"><div><h3>'+e(l.b)+'</h3><div>400 Commerce Dr<br>'+e(city(st.i+5))+'</div></div><div style="text-align:right"><h3>REQUEST FOR QUOTATION</h3><div><span class="lbl">RFQ No.</span> RFQ-2026-'+pad(st.i+311)+'<br><span class="lbl">Date</span> Nov 10, 2026<br><span class="lbl">Respond by</span> Nov 24, 2026</div></div></div><hr>'+
+ '<div class="row"><div><span class="lbl">To</span><br>'+e(l.a)+', Sales<br>1200 Industrial Pkwy, '+e(city(st.i))+'</div><div><span class="lbl">From</span><br>Purchasing, '+e(l.b)+'</div></div>'+
+ '<p style="margin-top:12px"><span class="lbl">Description</span><br>'+e(l.r)+'</p>'+
+ '<table><thead><tr><th>#</th><th>Requirement</th><th>Specification</th></tr></thead><tbody>'+rows.map(function(c,i){return '<tr><td>'+(i+1)+'</td><td>'+e(c[0])+'</td><td>'+e(c[1])+'</td></tr>'}).join('')+'</tbody></table>'+
+ '<div class="row"><div><span class="lbl">Ship to</span><br>'+e(l.b)+'<br>400 Commerce Dr, '+e(city(st.i+5))+'</div><div><span class="lbl">Required by</span><br>Feb 2027</div><div><span class="lbl">Terms</span><br>Net 30, FOB origin</div></div>'+
+ '<p style="margin-top:12px"><span class="lbl">Notes</span><br>Please quote with lead time and list any exceptions to the specification.</p><div class="ft">Fictional document for a Nteli concept demo.</div>')}
+function pdfQuote(){var l=L(),w=way(),Rw=lines(l,w),LT=Rw.reduce(function(a,x){return a+x.list},0);openPV('Quote_'+qno()+'.pdf',
+ '<div class="row"><div><h3>'+e(l.a)+'</h3><div>1200 Industrial Pkwy<br>'+e(city(st.i))+'</div></div><div style="text-align:right"><h3>QUOTE</h3><div><span class="lbl">Quote No.</span> '+qno()+'<br><span class="lbl">Date</span> Nov 12, 2026<br><span class="lbl">Valid until</span> Jan 17, 2027</div></div></div><hr>'+
+ '<div class="row"><div><span class="lbl">Prepared for</span><br>'+e(l.b)+'<br>400 Commerce Dr, '+e(city(st.i+5))+'</div><div><span class="lbl">Reference</span><br>RFQ-2026-'+pad(st.i+311)+'<br>'+e(l.o)+'</div></div>'+
+ '<table><thead><tr><th>Item</th><th>Why it’s here</th><th class="n">Qty</th><th class="n">Amount</th></tr></thead><tbody>'+Rw.map(function(r){return '<tr><td>'+e(r.n)+'</td><td>'+e(r.why)+'</td><td class="n">'+e(r.qty)+'</td><td class="n">'+usd(r.net)+'</td></tr>'}).join('')+
+ '<tr><td colspan="3">List total</td><td class="n">'+usd(LT)+'</td></tr><tr><td colspan="3">Discount</td><td class="n">-'+usd(LT-w.p)+'</td></tr><tr class="t"><td colspan="3">Total</td><td class="n">'+amt(w)+'</td></tr></tbody></table>'+
+ '<div class="row"><div><span class="lbl">Terms</span><br>Net 30. FOB origin, freight prepaid and added.</div><div><span class="lbl">Checked</span><br>'+e(l.s)+': resolved with '+e(w.t)+'.</div></div>'+
+ '<div class="sig"><div>Accepted by, '+e(l.b)+'</div><div>Date</div></div><div class="ft">Illustrative prices. Fictional companies. Nteli concept demo.</div>')}
+
+/* Which element does what. Returns a function, or null when an element stays inert. */
+function route(el){
+  var l=L(),k=curStep().k,t=el.textContent.replace(/^⌄\s*/,'').trim(),tn=t.replace(/ \(fictional\)$/,'');
+  if(/\.pdf$/.test(t))return pdfRFQ;
+  if(el.classList.contains('doc'))return pdfQuote;
+  if(el.classList.contains('sb')||el.classList.contains('mini')||el.classList.contains('fb')||el.classList.contains('mk')){
+    var A={'Create Quote':function(){goK('cfg')},'Create Order':function(){goK('ord')},'Browse Catalogs':REC.catalog,'Generate Document':pdfQuote,'Recalculate Actuals':function(){ftoast('Actuals recalculated from orders.')},'Mass Update':REC.agreement,'Approve Credit':function(){ftoast('Credit memo CM-CLM-0001 approved and sent to the ERP.')},'Edit':current(),'▾':current(),'Add Assets':REC.assets,'Monthly ▾':function(){ftoast('Showing monthly buckets. Quarterly is the other view.')},'Add Group':function(){ftoast('Lines grouped by Selling Model Type.')},'Quantity ▾':function(){ftoast('Showing the Quantity metric group. Revenue is the other one.')},'Refresh':function(){ftoast('Dashboard refreshed.')},'Subscribe':function(){ftoast('Subscribed: every Monday at 8:00 AM.')},'Mark Status as Complete':function(){if(st.s<steps().length-1){st.s++;render()}}};
+    if(t==='Cancel')return function(){goK('rfq')};
+    if(t==='Save & Exit'&&(k==='cfg'||chosen()))return function(){goK(k==='cfg'?'chk':'prc')};
+    return A[t]||null;
+  }
+  if(el.closest('.an')){return {'Accounts':REC.accM,'Account Forecasts':REC.forecast,'Product Catalogs':REC.catalog,'Assets':REC.assets,'Programs':REC.program}[t]||null}
+  if(el.closest('.tabs')&&k==='chk'&&(t==='Requirements'||t==='Included'))return function(){var tb=t==='Requirements'?0:2;goK('cfg');st.tab=tb;render()};
+  if(el.closest('.tabs')){return {'Details':current(),'Related':REC.related,'Activity':REC.opp,'Approvals':REC.approvals}[t]||null}
+  if(t==='Return to Quote')return function(){goK('prc')};
+  if(tn===l.a)return REC.accM;
+  if(tn===l.b||tn===holder()||tn==='Northgate Components')return function(){REC.accB(tn)};
+  if(tn===l.o)return el.closest('.tle')?function(){REC.prod(l.o)}:REC.opp;
+  var Rw=lines(l,way());if(Rw.some(function(r){return r.n===tn})||agreementProducts().some(function(x){return x[0]===tn}))return function(){REC.prod(tn)};
+  return null;
+}
+function markClk(){document.querySelectorAll('#sf .doc,#sf .fv.a,#sf .tle a,#sf .lk,#sf .sb,#sf .an span.t,#sf .tabs span:not(.on),#sf .mk:not(.off),#sf .mini,#sf .fb').forEach(function(el){if(route(el)){el.setAttribute('data-clk','1');el.tabIndex=0;el.setAttribute('role','button');el.classList.add('clk')}})}
+
+function render(){
+  var l=L(),all=steps();if(st.s>=all.length)st.s=all.length-1;
+  var x=all[st.s],i=st.s;
+  $('pickname').textContent=l.n;
+  $('beats').innerHTML=all.map(function(b,n){return '<button data-go="'+n+'" class="'+(n<i?'done':n===i?'cur':'')+'"'+(n===i?' aria-current="step"':'')+'><i>'+(n+1)+'</i>'+b.p+'</button>'}).join('');
+  var last=i===all.length-1,dis=x.k==='chk'&&!chosen(),lab=x.nx||(all[i+1]&&all[i+1].k==='clm'?'Check the claim':'See the dashboard');
+  $('nextw').innerHTML=last?'<button class="nextb" data-pick="1">Same story, another product line</button> <a class="note" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=pov-rca" target="_blank" rel="noopener" style="margin-left:10px;color:#0176D3;font-weight:600">or talk through a prospect</a>':'<button class="nextb" data-go="'+(i+1)+'"'+(dis?' disabled title="Pick a way out to continue"':'')+'>'+lab+(dis?' (pick a way out first)':'')+'</button>';
+  $('nav-story').href=U('/pov/rca')+'#'+l.id+'/'+x.k;
+  $('beat').textContent=x.beat;
+  var tabList=TABS[x.app],map={};all.forEach(function(s,n){if(map[s.tab]==null)map[s.tab]=n});
+  B.__p=0;$('sf').innerHTML='<div class="gh">'+CLOUD+'<span class="ttl">Salesforce-style concept</span><div class="gsearch" aria-hidden="true">Search...</div><button class="afb'+(st.af?' on':'')+'" data-af="1" aria-pressed="'+st.af+'">'+AFI+'<span>Agentforce</span></button><div class="gicons" aria-hidden="true"><span>★</span><span>+</span><span>?</span><span>⚙</span><span class="av">SE</span></div></div>'+
+   '<div class="an"><div class="waffle" aria-hidden="true">'+'<i></i>'.repeat(9)+'</div><span class="appname">'+x.app+'</span>'+tabList.map(function(t){var on=t===x.tab;return map[t]!=null?'<button data-go="'+map[t]+'" class="'+(on?'on':'')+'">'+t+'</button>':'<span class="t">'+t+'</span>'}).join('')+'</div>'+
+   '<div class="sfb'+(st.af?' af':'')+'"><div class="scr">'+B[x.k](l,x)+'</div>'+(st.af?afPanel():'')+'</div>';
+  $('rail').innerHTML='<div class="rc say"><h2>Tell your prospect</h2><p>'+x.say+'</p></div><div class="rc"><h2>What you’re looking at</h2><ol class="see">'+x.see.map(function(t,n){return '<li>'+M(n+1)+'<span>'+e(t)+'</span></li>'}).join('')+'</ol></div><div class="rc"><h2>Where Nteli comes in</h2><p>'+x.n+'</p></div><div class="rc"><h2>Agentforce on this screen</h2><p>“'+e(AF().ask)+'” <button class="lk" data-af="1" style="font-weight:600">'+(st.af?'Close Agentforce':'Open Agentforce')+'</button></p></div><div class="rc tier"><h2>In the three ways to start</h2><p>'+x.tier+'</p></div>';
+  var askList=x.ask.map(function(a){return a==='@'?'Who catches “'+l.s+'” today, and how late?':a});
+  $('deep').innerHTML='<div class="rc"><h2>Ask your prospect</h2><ul>'+askList.map(function(a){return '<li>'+e(a)+'</li>'}).join('')+'</ul></div><div class="rc"><h2>If they say</h2><div class="q">'+x.q+'</div><div class="a">'+x.a+'</div></div><div class="rc"><h2>What’s underneath on Salesforce</h2><ul>'+x.un.map(function(a){return '<li>'+e(a)+'</li>'}).join('')+'</ul></div>';
+  var bb=$('beats'),c=bb.querySelector('.cur');if(c)bb.scrollLeft=c.offsetLeft-bb.offsetLeft-(bb.clientWidth-c.offsetWidth)/2;
+  markClk();
+  try{history.replaceState(null,'','#'+l.id+'/'+x.k)}catch(_){}
+}
+function fromHash(){var h=location.hash.slice(1).split('/');var i=D.findIndex(function(x){return x.id===h[0]});if(i>=0){st.i=i;var j=steps().findIndex(function(x){return x.k===h[1]});st.s=j>=0?j:0}}
+function list(q){q=(q||'').toLowerCase();$('lg').innerHTML=D.map(function(x,i){return x.n.toLowerCase().indexOf(q)<0?'':'<button class="li'+(i===st.i?' on':'')+'" data-line="'+i+'">'+e(x.n)+'</button>'}).join('')||'<p class="note">No product line matches that search.</p>'}
+function open(){list('');$('mf').value='';$('modal').classList.add('on');$('mf').focus()}
+function close(){$('modal').classList.remove('on');$('pickbtn').focus()}
+document.addEventListener('click',function(ev){
+  var af=ev.target.closest('[data-af]');if(af){st.af=!st.af;render();return}
+  if(ev.target.closest('[data-afok]')){var A=AF();st.afd[L().id+'/'+curStep().k]=1;if(A.apply){st.ch[L().id]=0}if(A.adj){st.fadj[L().id]=1}if(A.go){goK(A.go);ftoast('Approved. Validation ran.');return}render();ftoast('Approved. '+(A.done||''));return}
+  if(ev.target.closest('[data-afno]')){st.af=false;render();return}
+  var rp=ev.target.closest('[data-rep]');if(rp){openRep(rp.dataset.rep);return}
+  var c=ev.target.closest('[data-clk]');if(c){var f=route(c);if(f)f();return}
+  if(ev.target.closest('[data-dmx]')||ev.target===$('dm')){closeDM();return}
+  var ac=ev.target.closest('[data-act]');if(ac){if(ac.dataset.act==='pdfq')pdfQuote();return}
+  var b=ev.target.closest('button');if(!b)return;
+  if(b.dataset.go!=null&&!b.disabled){st.s=+b.dataset.go;st.calc=null;st.tab=0;render();var y=$('beats').getBoundingClientRect().top;if(y<40)window.scrollBy(0,y-44)}
+  else if(b.dataset.way!=null){st.ch[L().id]=+b.dataset.way;render()}
+  else if(b.dataset.calc!=null){var n=+b.dataset.calc;st.calc=st.calc===n?-1:n;render()}
+  else if(b.dataset.ct!=null){st.tab=+b.dataset.ct;render()}
+  else if(b.dataset.pick){open()}
+  else if(b.dataset.line!=null){st.i=+b.dataset.line;st.s=0;st.calc=null;st.tab=0;render();close()}
+});
+$('pickbtn').addEventListener('click',open);$('mx').addEventListener('click',close);
+$('modal').addEventListener('click',function(ev){if(ev.target===this)close()});
+$('mf').addEventListener('input',function(){list(this.value)});
+document.addEventListener('keydown',function(ev){if(ev.key==='Escape'){if($('dm').classList.contains('on'))closeDM();else if($('modal').classList.contains('on'))close()}var c=ev.target.closest&&ev.target.closest('[data-clk]');if(c&&(ev.key==='Enter'||ev.key===' ')){ev.preventDefault();var f=route(c);if(f)f()}});
+window.addEventListener('hashchange',function(){fromHash();render()});
+$('story').innerHTML=S.filter(function(s){return s.k!=='clm'&&s.k!=='dsh'}).concat([S.find(function(s){return s.k==='dsh'})]).map(function(x){return '<li>'+x.say+'</li>'}).join('');
+fromHash();render();
+</script>
+</body>
+</html>
