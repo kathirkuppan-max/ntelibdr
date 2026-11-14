@@ -349,11 +349,11 @@ footer{border-top:1px solid var(--line);padding:14px 0 28px;font-size:12px;color
         <li><b>Custom builds live in Excel.</b> They’re configured on the quote, within their limits.</li>
         <li><b>Few orders match back to their quote.</b> Every dealer order is created from the quote it answers.</li>
       </ol>
-      <h2 style="margin-top:14px">Solved in a Quick Start or a Migrate</h2>
+      <h2 style="margin-top:14px">Start with an assessment</h2>
       <ul>
-        <li><b>Quick Start.</b> Catalog, configuration and quoting live on Revenue Cloud in about a week, from Nteli’s templates.</li>
-        <li><b>Migrate.</b> Nteli moves the catalog, custom builds and quote history off CPQ for them.</li>
-        <li><b>Either way.</b> The rule pack, pricing and dashboards come pre-built, dealer orders trace to their quotes, and new products go on sale sooner. Agentforce proposes; the rep approves.</li>
+        <li>Nteli reads the rules already in CPQ and in the Excel builders, and shows the Revenue Cloud rule pack it would create from them, before anyone commits.</li>
+        <li>The migration itself builds the rule pack, so moving off CPQ adds value instead of copying problems across.</li>
+        <li>New products go on sale sooner: add them to the catalog and their rules, and they quote.</li>
       </ul>
       <p>Nteli is a Salesforce Manufacturing Partner. The screens here use fictional companies and illustrative figures.</p>
       <a class="cta" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&utm_medium=website&utm_content=pov-lab" target="_blank" rel="noopener">Talk through a prospect with Nteli</a>
@@ -423,6 +423,10 @@ var MFG='Agentforce Manufacturing',REV='Agentforce Revenue Management',CHN='Chan
 
 /* The story. These words never change between product lines. */
 var S=[
+{k:'mig',tier:'',see:['What was read: CPQ products, product rules, price rules and the Excel builders.','What was created in Revenue Cloud, with counts.','What goes to engineering review before go-live.'],p:'Migrate',tab:'Product Catalogs',app:REV,beat:'Before go-live, the CPQ rules and Excel builders become the Revenue Cloud rule pack.',say:'Nteli reads the rules already in CPQ and in the Excel builders, and creates the Revenue Cloud rule pack from them. Your prospect’s engineers review it. Nobody rewrites it by hand.',n:'The migration builds the rule pack: products, attributes, configuration rules and pricing in Agentforce Revenue Management, from what the team already has. Anything unclear or in conflict goes to engineering review instead of being copied across.',nx:'Open the dealer account',
+ ask:['Where do your product rules live today: CPQ, Excel, or someone’s head?','How long does it take to put a new product on sale?'],
+ q:'“Our rules are a mess. We’d have to clean them up first.”',a:'That’s what the migration is for. Each rule is read where it lives, and anything unclear or in conflict goes to engineering review, not into the new system.',
+ un:['Product Catalog Management holds products, classifications and attributes.','Configuration rules run in the Product Configurator.','Pricing Procedures apply price rules in a set order.']},
 {k:'acc',tier:'Every start sets up Sales Agreements and the Account Forecast. Migrate and Full Rollout load order history, so run-rate and forecast accuracy work from day one.',see:['Agreement Terms: planned against actual and forecast, by product and month.','The Account Forecast: actuals, run-rate and the new RFQ, six months ahead.','The new RFQ, sitting outside the agreement.'],p:'Account',tab:'Sales Agreements',app:MFG,beat:'Your rep starts with what the dealer agreed to buy.',say:'Your rep opens the dealer’s account and sees what the dealer agreed to buy, what it actually ordered, and what’s forecast. When a few dealers carry most of the revenue, this is where the rep starts.',n:'Nteli brings your prospect’s agreements and order history into '+MFG+', so the forecast starts from what really shipped.',nx:'Open the new RFQ',
  ask:['How do you compare what each dealer committed to with what it actually ordered?','If your biggest dealer slowed down, how soon would you know?'],
  q:'“We already have this in the ERP.”',a:'The ERP knows what shipped. The Sales Agreement puts plan, actuals and forecast next to the next deal, where sales can act on it.',
@@ -514,6 +518,15 @@ function tle(l,w,opts){
 function dbl(l){var w=chosen();return {w:w,val:w?pName(w,l):l.bad[1]}}
 
 var B={
+mig:function(l){
+  var rows=[['CPQ products and bundles','2,840','Products in 5 catalogs, 46 classifications with attributes','2,840','0'],['CPQ product rules','312','Configuration rules','288','24'],['CPQ price rules and discount schedules','64','Pricing Procedure steps','58','6'],['Excel custom builders','6 workbooks','Configurable custom products, size limits as attributes','6','0']];
+  var rv=[['Two product rules disagree on sash options for 8 ft hoods','Fume Hoods'],['An Excel builder allows custom widths past the frame limit','Fume Hoods'],['A discount schedule overlaps a dealer’s agreement price','Pricing'],['A cabinet rule references a retired exhaust kit','Biosafety Cabinets']];
+  return highlight('cfg','Rule Pack Import','CPQ and Excel to Agentforce Revenue Management',[['Sources','Salesforce CPQ, 6 Excel builders',1],['Seller',l.a+' (fictional)'],['Status','Ready for engineering review'],['Created','3,192 records'],['To review','30']],['Review Items','Publish','▾'])+
+  '<div class="card">'+statusPath(['Read','Created','Engineering Review','Published'],2)+'</div>'+
+  '<div class="card"><div class="ch">'+ico('cfg',1)+'What was read, and what was created'+M(1)+'<div class="r"><span class="pill b">Rule pack, created automatically</span></div></div><div class="gridw"><table class="tle"><thead><tr><th>Read from</th><th class="n">Count</th><th>Created in Revenue Cloud'+M(2)+'</th><th class="n">Created</th><th class="n">To review</th></tr></thead><tbody>'+rows.map(function(r){return '<tr><td class="w">'+e(r[0])+'</td><td class="n">'+e(r[1])+'</td><td>'+e(r[2])+'</td><td class="n">'+e(r[3])+'</td><td class="n">'+(r[4]==='0'?'0':'<b style="color:#BA0517">'+e(r[4])+'</b>')+'</td></tr>'}).join('')+'</tbody></table></div></div>'+
+  '<div class="col2"><div class="card"><div class="ch">Engineering review (30)'+M(3)+'</div><div class="pad"><ul class="tl">'+rv.map(function(r){return '<li><i class="p"></i><div>'+e(r[0])+' <span class="note">'+e(r[1])+'</span></div></li>'}).join('')+'<li><i class="o"></i><span class="note">And 26 more</span></li></ul></div></div>'+
+  '<div class="card"><div class="ch">'+ico('lin',1)+'Ready to quote</div><div class="dgrid"><div><div class="fl">Products searchable</div><div class="fv">2,840, by type, size and class</div></div><div><div class="fl">Custom builds</div><div class="fv">Configured, no longer in Excel</div></div><div><div class="fl">New products</div><div class="fv">Quote once added to the catalog</div></div><div><div class="fl">Go-live</div><div class="fv">After engineering signs off</div></div></div></div></div>'
+},
 acc:function(l,x){
   var m=MC[l.id],z=M2[l.id],holder=m[3]||l.b,sa='SA-'+pad(st.i+3120),P=[[m[0],Math.max(1,Math.round(m[2]/3)),z[0]],[z[1],z[2],z[3]],[z[4],z[5],z[6]]],fa=[1.04,.96,1.08,.92],ff=[1.1,1.15],MO=['Jul 2026','Aug 2026','Sep 2026','Oct 2026','Nov 2026','Dec 2026'];
   var plan=0,act=0;
@@ -673,8 +686,9 @@ function openRep(k){if(k==='fc'){REC.forecast();return}var d=dashData(),l=L(),T=
 /* ===== Agentforce: proposes one action per beat; the rep approves. ===== */
 function lc(t){return t.charAt(0).toLowerCase()+t.slice(1)}
 function AF(){var l=L(),k=curStep().k,w=way(),d=dashData(),P=agreementProducts(),R0=lines(l,w),LT=R0.reduce(function(a,x){return a+x.list},0),att=Math.round(d.att.reduce(function(a,x){return a+x[1]},0)/d.att.length);
- var full='In Full Rollout',mig='In Migrate and Full Rollout';
+ var full='',mig='';
  return {
+ mig:{ask:'What still needs review before go-live?',rep:'30 items need a person:<ul><li>24 product rules that conflict or are unclear</li><li>6 price rules that overlap a dealer agreement</li></ul>Everything else was created as read. Nothing goes live until engineering signs off.',t:'Send the 30 open items to engineering review',tier:'',done:'Sent to engineering review.'},
  acc:{ask:'What’s driving the forecast for '+holder()+'?',rep:(function(){var f=fc();return '<ul><li>Run-rate is '+f.rr+'% of plan over the last four months.</li><li>'+e(P[lowIdx()][0])+' is running at '+Math.round(f.prod[lowIdx()].rr*100)+'% of plan. The forecast follows that run-rate.</li><li>The new RFQ adds about '+kfmt(f.oppAmt)+' in Feb 2027, weighted at '+f.prob+'%.</li><li>Next six months: '+kfmt(f.n6)+', '+(f.vs>=0?'+':'')+f.vs+'% against plan.</li></ul>'})(),t:'Lower the '+P[lowIdx()][0]+' forecast 4% for Nov and Dec to match its recent orders',tier:mig,adj:1,done:'Forecast adjusted. The change is on the record.'},
  rfq:{ask:'Read this RFQ and fill in the details.',rep:'Found '+(l.c.length+1)+' requirements in the email:<ul>'+l.c.concat([l.bad]).map(function(c){return '<li>'+e(c[0])+': '+e(c[1])+'</li>'}).join('')+'</ul>Nothing is priced yet. The checks run at configuration.',t:'Fill RFQ Details on the Opportunity',tier:full,done:'RFQ Details filled.'},
  cfg:{ask:'What’s still open on this configuration?',rep:'Everything that changes the product is answered:<ul>'+l.c.map(function(c){return '<li>'+e(c[0])+': '+e(c[1])+(c[2]?' (asked)':'')+'</li>'}).join('')+'</ul>Next: validate it.',t:'Run validation on this configuration',tier:full,go:'chk'},
@@ -688,7 +702,7 @@ function AF(){var l=L(),k=curStep().k,w=way(),d=dashData(),P=agreementProducts()
 var AFI='<svg viewBox="0 0 20 20" aria-hidden="true"><path fill="#9050E9" d="M10 1l2.2 5.3L17.5 8l-5.3 2.2L10 15.5 7.8 10.2 2.5 8l5.3-1.7z"/><path fill="#1B96FF" d="M16 12l.9 2.1 2.1.9-2.1.9L16 18l-.9-2.1-2.1-.9 2.1-.9z"/></svg>';
 function afPanel(){var a=AF(),key=L().id+'/'+curStep().k,done=st.afd[key]||(a.apply&&chosen());
  return '<aside class="afp" aria-label="Agentforce"><div class="afh">'+AFI+'Agentforce'+STAMP+'<button class="x" data-af="1" aria-label="Close Agentforce">×</button></div><div class="afm"><div class="bub me">'+e(a.ask)+'</div><div class="bub ai">'+a.rep+'</div>'+
- '<div class="act"><div class="lb">Proposed action</div><b>'+e(a.t)+'</b><div class="tr">'+e(a.tier)+'</div>'+(done?'<div class="ok">✓ Approved by S. Ellis'+(a.done?'. '+e(a.done):'')+'</div>':'<div class="bt"><button class="fb p" data-afok="1">Approve</button><button class="fb" data-afno="1">Dismiss</button></div>')+'</div></div>'+
+ '<div class="act"><div class="lb">Proposed action</div><b>'+e(a.t)+'</b>'+(a.tier?'<div class="tr">'+e(a.tier)+'</div>':'')+''+(done?'<div class="ok">✓ Approved by S. Ellis'+(a.done?'. '+e(a.done):'')+'</div>':'<div class="bt"><button class="fb p" data-afok="1">Approve</button><button class="fb" data-afno="1">Dismiss</button></div>')+'</div></div>'+
  '<div class="aff">Agentforce proposes. Your rep approves. Prices and checks come from the price book and the checks.</div></aside>'}
 
 /* ===== Clickable links: record details, file previews, actions. All data fictional. ===== */
@@ -698,7 +712,7 @@ function pcode(name){var w=name.replace(/[^A-Za-z0-9 ]/g,' ').split(' ').filter(
 function curStep(){return steps()[st.s]}
 function qno(){return pad(st.i+1041,8)}
 function holder(){var m=MC[L().id];return m[3]||L().b}
-function stageFor(k){return {acc:['Needs Analysis',20],rfq:['Needs Analysis',20],cfg:['Value Proposition',50],chk:['Value Proposition',50],prc:['Proposal/Price Quote',75],qte:['Proposal/Price Quote',75],ord:['Closed Won',100],clm:['Closed Won',100]}[k]}
+function stageFor(k){return {mig:['Needs Analysis',20],acc:['Needs Analysis',20],rfq:['Needs Analysis',20],cfg:['Value Proposition',50],chk:['Value Proposition',50],prc:['Proposal/Price Quote',75],qte:['Proposal/Price Quote',75],ord:['Closed Won',100],clm:['Closed Won',100]}[k]}
 function agreementProducts(){var l=L(),m=MC[l.id],z=M2[l.id];return [[m[0],Math.max(1,Math.round(m[2]/3)),z[0]],[z[1],z[2],z[3]],[z[4],z[5],z[6]]]}
 function fld(a){return '<div class="dgrid">'+a.map(function(f){return '<div><div class="fl">'+e(f[0])+'</div><div class="fv">'+e(f[1])+'</div></div>'}).join('')+'</div>'}
 function openDM(icon,obj,title,sections,extra,foot){
@@ -789,7 +803,7 @@ function render(){
   B.__p=0;$('sf').innerHTML='<div class="gh">'+CLOUD+'<span class="ttl">Salesforce-style concept</span><div class="gsearch" aria-hidden="true">Search...</div><button class="afb'+(st.af?' on':'')+'" data-af="1" aria-pressed="'+st.af+'">'+AFI+'<span>Agentforce</span></button><div class="gicons" aria-hidden="true"><span>★</span><span>+</span><span>?</span><span>⚙</span><span class="av">SE</span></div></div>'+
    '<div class="an"><div class="waffle" aria-hidden="true">'+'<i></i>'.repeat(9)+'</div><span class="appname">'+x.app+'</span>'+tabList.map(function(t){var on=t===x.tab;return map[t]!=null?'<button data-go="'+map[t]+'" class="'+(on?'on':'')+'">'+t+'</button>':'<span class="t">'+t+'</span>'}).join('')+'</div>'+
    '<div class="sfb'+(st.af?' af':'')+'"><div class="scr">'+B[x.k](l,x)+'</div>'+(st.af?afPanel():'')+'</div>';
-  $('rail').innerHTML='<div class="rc say"><h2>Tell your prospect</h2><p>'+x.say+'</p></div><div class="rc"><h2>What you’re looking at</h2><ol class="see">'+x.see.map(function(t,n){return '<li>'+M(n+1)+'<span>'+e(t)+'</span></li>'}).join('')+'</ol></div><div class="rc"><h2>Where Nteli comes in</h2><p>'+x.n+'</p></div><div class="rc"><h2>Agentforce on this screen</h2><p>“'+e(AF().ask)+'” <button class="lk" data-af="1" style="font-weight:600">'+(st.af?'Close Agentforce':'Open Agentforce')+'</button></p></div><div class="rc tier"><h2>In the three ways to start</h2><p>'+x.tier+'</p></div>';
+  $('rail').innerHTML='<div class="rc say"><h2>Tell your prospect</h2><p>'+x.say+'</p></div><div class="rc"><h2>What you’re looking at</h2><ol class="see">'+x.see.map(function(t,n){return '<li>'+M(n+1)+'<span>'+e(t)+'</span></li>'}).join('')+'</ol></div><div class="rc"><h2>Where Nteli comes in</h2><p>'+x.n+'</p></div><div class="rc"><h2>Agentforce on this screen</h2><p>“'+e(AF().ask)+'” <button class="lk" data-af="1" style="font-weight:600">'+(st.af?'Close Agentforce':'Open Agentforce')+'</button></p></div>';
   var askList=x.ask.map(function(a){return a==='@'?'Who catches “'+l.s+'” today, and how late?':a});
   $('deep').innerHTML='<div class="rc"><h2>Ask your prospect</h2><ul>'+askList.map(function(a){return '<li>'+e(a)+'</li>'}).join('')+'</ul></div><div class="rc"><h2>If they say</h2><div class="q">'+x.q+'</div><div class="a">'+x.a+'</div></div><div class="rc"><h2>What’s underneath on Salesforce</h2><ul>'+x.un.map(function(a){return '<li>'+e(a)+'</li>'}).join('')+'</ul></div>';
   var bb=$('beats'),c=bb.querySelector('.cur');if(c)bb.scrollLeft=c.offsetLeft-bb.offsetLeft-(bb.clientWidth-c.offsetWidth)/2;
