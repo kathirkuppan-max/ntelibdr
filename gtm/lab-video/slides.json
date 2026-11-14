@@ -1,0 +1,118 @@
+[
+ {
+  "kind": "title",
+  "title": "Lab equipment sold through dealers, quoted right and traced to the order, on Salesforce.",
+  "sub": "On Agentforce Manufacturing and Agentforce Revenue Management · For lab equipment manufacturers",
+  "vo": [
+   "Lab equipment sold through dealers, quoted right and traced to the order, on Salesforce."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "mig",
+  "step": "Migrate",
+  "title": "CPQ and Excel rules become the rule pack",
+  "sub": "Nteli reads the rules in CPQ and the Excel builders and creates the Revenue Cloud rule pack. Engineers review only what’s unclear.",
+  "vo": [
+   "First, the migration. Nteli reads the rules in C.P.Q. and the Excel builders, and creates the Revenue Cloud rule pack.",
+   "Engineers review only what's unclear."
+  ],
+  "n": 1
+ },
+ {
+  "kind": "shot",
+  "img": "acc",
+  "n": 2,
+  "step": "Account",
+  "title": "Start with the dealer",
+  "sub": "Sales Agreement and Account Forecast in Agentforce Manufacturing: what the dealer agreed to buy across every product line, what it ordered, and what’s coming.",
+  "vo": [
+   "Then the rep starts with the dealer: what it agreed to buy, and what's coming."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "rfq",
+  "n": 3,
+  "step": "RFQ",
+  "title": "The dealer’s RFQ lands on the Opportunity",
+  "sub": "Seven standard fume hoods and one custom hood, with the end customer named.",
+  "vo": [
+   "The dealer's R.F.Q. lands on the Opportunity: seven fume hoods, and one custom."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "cfg",
+  "n": 4,
+  "step": "Configure",
+  "title": "Find it by what it is, not by its product ID",
+  "sub": "Catalog search by type, size and class. The custom hood is configured within its limits, not built in Excel.",
+  "vo": [
+   "Reps find products by what they are, not by I.D. And the custom hood is configured, not built in a spreadsheet."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "chk-bsc",
+  "step": "Check · Biosafety cabinets",
+  "title": "A Type B2 can’t use a canopy",
+  "sub": "Type B2 cabinets must be hard-ducted. Two ways out, each priced; the rep picks with the dealer.",
+  "vo": [
+   "Every line is checked before it's priced. A Type B2 cabinet can't use a canopy connection."
+  ],
+  "n": 5
+ },
+ {
+  "kind": "shot",
+  "img": "chk-hood",
+  "step": "Check · Fume hoods",
+  "title": "The room can’t hold hood airflow",
+  "sub": "Eight hoods need more makeup air than the room supplies. Agentforce explains and proposes the fix; the rep approves.",
+  "vo": [
+   "The room can't hold the hood airflow, so Agentforce proposes variable-air-volume hoods."
+  ],
+  "n": 6
+ },
+ {
+  "kind": "shot",
+  "img": "chk-wash",
+  "step": "Check · Washers and water",
+  "title": "A purified rinse needs purified water",
+  "sub": "The lab has tap water only, so the quote adds a point-of-use RO/DI system: the cross-sell, caught at quote time.",
+  "vo": [
+   "A purified rinse needs purified water, so the quote adds the water system."
+  ],
+  "n": 7
+ },
+ {
+  "kind": "shot",
+  "img": "ord",
+  "n": 8,
+  "step": "Order",
+  "title": "Every dealer order traces to its quote",
+  "sub": "The dealer’s PO becomes an order created from the quote it answers.",
+  "vo": [
+   "The dealer's P.O. becomes an order created from its quote, so every order traces back."
+  ]
+ },
+ {
+  "kind": "shot",
+  "img": "dsh",
+  "n": 9,
+  "step": "Dashboard",
+  "title": "One view for leadership",
+  "sub": "Orders traced to a quote, orders by dealer, and what the checks stopped, across every product line.",
+  "vo": [
+   "Leadership sees orders traced to quotes, and each dealer against plan."
+  ]
+ },
+ {
+  "kind": "end",
+  "title": "Rules, pricing and dashboards, pre-built.",
+  "sub": "Nteli, a Salesforce Manufacturing Partner · nteli.io",
+  "vo": [
+   "Rules, pricing and dashboards, pre-built, by En-telly, a Salesforce Manufacturing Partner."
+  ]
+ }
+]
