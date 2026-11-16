@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salesforce SAP Integration for Manufacturers: Quote to Sales Order | Nteli</title>
+<meta name="description" content="How to integrate Salesforce with SAP S/4HANA or ECC for manufacturing: customers and partner functions, materials and pricing conditions, Revenue Cloud or CPQ quotes to SAP sales orders, order status and invoices back. Options, pitfalls and FAQ from a Salesforce Premier Partner.">
+<link rel="canonical" href="https://nteli.io/salesforce-sap-integration">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Salesforce SAP Integration for Manufacturers: Quote to Sales Order">
+<meta property="og:description" content="How to integrate Salesforce with SAP S/4HANA or ECC for manufacturing: customers and partner functions, materials and pricing conditions, Revenue Cloud or CPQ quotes to SAP sales orders, order status and invoices back. Options, pitfalls and FAQ from a Salesforce Premier Partner.">
+<meta property="og:url" content="https://nteli.io/salesforce-sap-integration">
+<meta property="og:image" content="https://nteli.io/img/ledger-not-dashboard.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:960px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:820px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1.18;margin-bottom:10px;color:var(--text);}
+.meta{font-family:var(--mono);font-size:12.5px;color:var(--text3);margin-bottom:24px;}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:42px 0 12px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul,ol{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+ol{counter-reset:step;}
+ol li::before{counter-increment:step;content:counter(step) '.';color:var(--gold);opacity:1;}
+li b{color:var(--text);}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 8px;}
+@media(max-width:700px){.split{grid-template-columns:1fr;}}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+.box h3{font-size:16px;font-weight:700;margin-bottom:10px;}
+.box.now h3{color:var(--green);}
+.box.wait h3{color:var(--gold);}
+.box li{font-size:14.5px;}
+.tbl{overflow-x:auto;margin:14px 0 8px;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px;}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border2);}
+td{padding:11px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;line-height:1.55;}
+td:first-child{color:var(--text);font-weight:600;}
+.pull{border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:28px;}}
+.note{font-size:14px;color:var(--text3);border:1px dashed var(--border2);border-radius:8px;padding:12px 16px;margin:0 0 24px;}
+.note b{color:var(--text2);}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+.faq summary{cursor:pointer;font-weight:700;color:var(--text);font-size:15.5px;}
+.faq details p{margin:10px 0 0;font-size:15px;}
+.toc{font-size:14px;margin:0 0 8px;}
+.toc a{margin-right:14px;white-space:nowrap;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0 8px;}
+.card{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;color:var(--text2);}
+a.card:hover{border-color:var(--blue2);text-decoration:none;}
+.card h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.card p{font-size:14.5px;margin:0;}
+.card .tag{font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:6px;}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Article", "headline": "Salesforce SAP Integration for Manufacturers: Quote to Sales Order", "description": "How to integrate Salesforce with SAP S/4HANA or ECC for manufacturing: customers and partner functions, materials and pricing conditions, Revenue Cloud or CPQ quotes to SAP sales orders, order status and invoices back. Options, pitfalls and FAQ from a Salesforce Premier Partner.", "datePublished": "2026-11-16", "dateModified": "2026-11-16", "author": {"@type": "Person", "name": "Kathiravan Kuppan", "url": "https://nteli.io/kathir"}, "publisher": {"@type": "Organization", "name": "Nteli", "url": "https://nteli.io"}, "mainEntityOfPage": "https://nteli.io/salesforce-sap-integration"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does Salesforce have a native SAP integration?", "acceptedAnswer": {"@type": "Answer", "text": "Not out of the box in Sales Cloud. Salesforce owns MuleSoft, which has prebuilt SAP connectors, and SAP offers its own Integration Suite. Most manufacturers use one of the two rather than point-to-point code."}}, {"@type": "Question", "name": "Should quotes live in Salesforce or SAP?", "acceptedAnswer": {"@type": "Answer", "text": "Quotes should live in Salesforce, where reps configure and price, and become SAP sales orders on acceptance. Keeping a second quote in SAP doubles the work and splits the history."}}, {"@type": "Question", "name": "Which system should own pricing?", "acceptedAnswer": {"@type": "Answer", "text": "Pick one. Either SAP condition records stay the source and Salesforce calls SAP at quote time, or pricing moves to Revenue Cloud and SAP receives the final price on the order. Running both is the most common source of quote-to-order price mismatches."}}, {"@type": "Question", "name": "How long does a Salesforce SAP integration take?", "acceptedAnswer": {"@type": "Answer", "text": "Core flows (customers, materials, quote to order, status back) can go live in weeks. Variant configuration, multiple sales areas and pricing ownership add time, so they're scoped up front."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=salesforce-sap-integration">Book a call →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Salesforce ERP integration · Manufacturing</div>
+<h1>Salesforce SAP integration for manufacturers</h1>
+<div class="meta">By Kathiravan Kuppan, Salesforce Premier Partner · Updated November 16, 2026</div>
+
+<div class="answer"><b>The short answer:</b> A Salesforce SAP integration for a manufacturer should do one job well: turn an accepted Salesforce quote into a correct SAP sales order with nothing retyped, and bring order status, deliveries and invoices back to the rep. SAP stays the system of record for materials, pricing conditions and credit. The usual routes are MuleSoft, which Salesforce owns and which has SAP connectors, or SAP Integration Suite, calling S/4HANA OData APIs or ECC BAPIs and IDocs.</div>
+
+<h2>What should sync between Salesforce and SAP</h2>
+<div class="tbl"><table>
+<tr><th style="width:18%">Salesforce</th><th style="width:27%">SAP</th><th style="width:17%">Direction</th><th style="width:38%">Why it matters</th></tr>
+<tr><td>Accounts</td><td>Customers and partner functions (sold-to, ship-to, bill-to, payer)</td><td>SAP → Salesforce</td><td>SAP owns credit, terms and partner functions; Salesforce needs to know which ship-to and bill-to to put on the order.</td></tr>
+<tr><td>Products and price books</td><td>Material master and pricing condition records</td><td>SAP → Salesforce</td><td>Decide which system prices. Sales area (sales org, distribution channel, division) decides which materials are sellable and at what price.</td></tr>
+<tr><td>Accepted quote</td><td>Sales order</td><td>Salesforce → SAP</td><td>Configured options, quantities, prices and requested dates carried across, with the quote number on the order.</td></tr>
+<tr><td>Order status</td><td>Sales order status, deliveries, shipments</td><td>SAP → Salesforce</td><td>Reps answer "where's my order" without asking customer service.</td></tr>
+<tr><td>Invoices and credit</td><td>Billing documents, open items, credit blocks</td><td>SAP → Salesforce</td><td>Read-only in Salesforce, so reps see a credit block before they promise a ship date.</td></tr>
+<tr><td>Availability</td><td>ATP / stock</td><td>SAP → Salesforce, on demand</td><td>Called at quote time rather than copied in bulk.</td></tr>
+</table></div>
+<p>Start with the quote-to-order flow. That's where manufacturers lose the most: orders retyped into the ERP at a different price, the wrong ship-to, or options left off. Everything else can follow.</p>
+
+<h2>Ways to connect Salesforce and SAP</h2>
+<div class="split" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))"><div class="box"><h3>MuleSoft</h3><p style="margin:0;font-size:14.5px">Salesforce-owned, with SAP connectors for S/4HANA and ECC. The usual choice when Salesforce is the hub and other systems join later.</p></div><div class="box"><h3>SAP Integration Suite</h3><p style="margin:0;font-size:14.5px">SAP's own integration platform (BTP). A good fit when the SAP team runs integrations and wants them in SAP's tooling.</p></div><div class="box"><h3>Direct APIs</h3><p style="margin:0;font-size:14.5px">S/4HANA OData APIs, or BAPIs and IDocs on ECC. Fine for a single flow; harder to monitor and change as flows grow.</p></div></div>
+<p>We're tool-agnostic. The right choice depends on what your IT team already runs and how many systems will join later. MuleSoft is the common choice when Salesforce is the hub.</p>
+
+<h2>Where Salesforce SAP integrations go wrong</h2>
+<ul>
+<li><b>Partner functions.</b> One Salesforce account rarely equals one SAP customer. Map sold-to, ship-to, bill-to and payer explicitly, usually with an account hierarchy or address records in Salesforce.</li>
+<li><b>Who prices.</b> If SAP condition records stay the price source, Salesforce must either call SAP for pricing or replicate the conditions. Doing both is how quotes and orders drift apart.</li>
+<li><b>Sales area.</b> Sales org, distribution channel and division change what a customer can buy and the price they get. Carry them on the account and the quote.</li>
+<li><b>Configurable materials.</b> If you use SAP variant configuration, the characteristic values on the order must match what the Salesforce quote configured, or production builds something different from what was sold.</li>
+<li><b>Credit blocks.</b> Show SAP credit status on the account before quoting, not after the order fails.</li>
+</ul>
+
+<h2>Quote to order: the flow that pays for the integration</h2>
+<p>For a manufacturer, the integration isn't about syncing records; it's about the quote the customer accepted becoming the order you build and bill. With Revenue Cloud or CPQ in Salesforce, the accepted quote creates the SAP order with the same configuration and price, and the order and invoice come back linked to it. That's what lets you check, deal by deal, that what was quoted is what was ordered and billed. We call that check a <a href="/workshop">Leak Ledger</a>.</p>
+<p><b>Our experience.</b> We've connected Salesforce to SAP, NetSuite, Microsoft Dynamics, Epicor and Infor in delivered projects.</p>
+<p>Moving off Salesforce CPQ at the same time? Design the ERP handoff into the Revenue Cloud build, not after it. See <a href="/salesforce-cpq-end-of-sale">Salesforce CPQ end of sale</a>.</p>
+
+<h2>Other ERP integrations</h2>
+<div class="grid"><a class="card" href="/salesforce-netsuite-integration"><span class="tag">ERP</span><h3>Salesforce + NetSuite</h3><p>Quote to order, status and invoices back.</p></a><a class="card" href="/salesforce-dynamics-365-integration"><span class="tag">ERP</span><h3>Salesforce + Microsoft Dynamics 365</h3><p>Quote to order, status and invoices back.</p></a><a class="card" href="/salesforce-epicor-integration"><span class="tag">ERP</span><h3>Salesforce + Epicor</h3><p>Quote to order, status and invoices back.</p></a><a class="card" href="/salesforce-infor-syteline-integration"><span class="tag">ERP</span><h3>Salesforce + Infor SyteLine</h3><p>Quote to order, status and invoices back.</p></a><a class="card" href="/salesforce-syspro-integration"><span class="tag">ERP</span><h3>Salesforce + SYSPRO</h3><p>Quote to order, status and invoices back.</p></a><a class="card" href="/salesforce-acumatica-integration"><span class="tag">ERP</span><h3>Salesforce + Acumatica</h3><p>Quote to order, status and invoices back.</p></a></div>
+<p>All of this sits within our <a href="/salesforce-manufacturing">Salesforce practice for manufacturers</a> and our <a href="/erp">CRM-to-ERP integration work</a>.</p>
+
+<h2>Who we are</h2><p>Nteli is a Salesforce Premier Partner headquartered at Capital Factory in Austin, specializing in Quote-to-Order for specialty manufacturers, sold direct and through dealers. We implement Manufacturing Cloud, Revenue Cloud and CPQ, Experience Cloud dealer portals and MuleSoft, with 58 certifications across the team and a 4.93-star average across 10 <a href="https://appexchange.salesforce.com/appxListingDetail?listingId=a0N3A00000G0yOuUAJ">AppExchange reviews</a>. Before Nteli, our team built product configurators and pricing systems at Cisco, Dell and IBM.</p>
+
+<div class="cta-band">
+  <h2>Map your Salesforce SAP handoff.</h2>
+  <p>A 30-minute call: what should sync, which system owns pricing, and where your quotes and orders drift today.</p>
+  <div class="cta-row"><a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=salesforce-sap-integration">Book an integration call →</a></div>
+</div>
+<h2 id="faq">FAQ</h2>
+<div class="faq">
+<details><summary>Does Salesforce have a native SAP integration?</summary><p>Not out of the box in Sales Cloud. Salesforce owns MuleSoft, which has prebuilt SAP connectors, and SAP offers its own Integration Suite. Most manufacturers use one of the two rather than point-to-point code.</p></details>
+<details><summary>Should quotes live in Salesforce or SAP?</summary><p>Quotes should live in Salesforce, where reps configure and price, and become SAP sales orders on acceptance. Keeping a second quote in SAP doubles the work and splits the history.</p></details>
+<details><summary>Which system should own pricing?</summary><p>Pick one. Either SAP condition records stay the source and Salesforce calls SAP at quote time, or pricing moves to Revenue Cloud and SAP receives the final price on the order. Running both is the most common source of quote-to-order price mismatches.</p></details>
+<details><summary>How long does a Salesforce SAP integration take?</summary><p>Core flows (customers, materials, quote to order, status back) can go live in weeks. Variant configuration, multiple sales areas and pricing ownership add time, so they're scoped up front.</p></details>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/salesforce-manufacturing">Salesforce for manufacturers</a> · <a href="/erp">ERP integration</a> · <a href="/cpq">Revenue Cloud &amp; CPQ</a> · <a href="/salesforce-cpq-end-of-sale">CPQ end of sale</a> · <a href="/prm">Dealer portals</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
