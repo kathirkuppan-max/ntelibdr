@@ -1,7 +1,7 @@
 # ChatGPT listing copy, v1.1 draft (2026-11-17)
 
-**Status: SUBMITTED 2026-11-17 as v1.1.0; in OpenAI review (estimated Nov 18). v1.0.0 stays live meanwhile.**
-Source of the live listing: `~/Claude/nteli-quoting/chatgpt-plugin/nteli-quoting/plugin.json` (v1.0.0, published 2026-11-05).
+**Status: LIVE. v1.1.0 approved by OpenAI and published 2026-11-17 (replaced v1.0.0). Source plugin.json synced to 1.1.0; v1.0.0 kept as chatgpt-plugin/plugin-1.0.0.json.bak.**
+Source of the live listing: `~/Claude/nteli-quoting/chatgpt-plugin/nteli-quoting/plugin.json` (v1.1.0, published 2026-11-17; v1.0.0 was published 2026-11-05).
 
 ## What changes, and what doesn't
 
