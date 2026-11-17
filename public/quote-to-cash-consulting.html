@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quote-to-Cash Consulting for Manufacturers | Salesforce Q2C Partner | Nteli</title>
+<meta name="description" content="Quote-to-cash consulting for specialty manufacturers: configure, price and quote in Salesforce, contracts, the ERP order and invoicing, connected end to end. Salesforce Premier Partner in Austin.">
+<link rel="canonical" href="https://nteli.io/quote-to-cash-consulting">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Quote-to-Cash Consulting for Manufacturers | Salesforce Q2C Partner">
+<meta property="og:description" content="Quote-to-cash consulting for specialty manufacturers: configure, price and quote in Salesforce, contracts, the ERP order and invoicing, connected end to end. Salesforce Premier Partner in Austin.">
+<meta property="og:url" content="https://nteli.io/quote-to-cash-consulting">
+<meta property="og:image" content="https://nteli.io/img/ledger-not-dashboard.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:960px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:820px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1.18;margin-bottom:10px;color:var(--text);}
+.meta{font-family:var(--mono);font-size:12.5px;color:var(--text3);margin-bottom:24px;}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:42px 0 12px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul,ol{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+ol{counter-reset:step;}
+ol li::before{counter-increment:step;content:counter(step) '.';color:var(--gold);opacity:1;}
+li b{color:var(--text);}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 8px;}
+@media(max-width:700px){.split{grid-template-columns:1fr;}}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+.box h3{font-size:16px;font-weight:700;margin-bottom:10px;}
+.box.now h3{color:var(--green);}
+.box.wait h3{color:var(--gold);}
+.box li{font-size:14.5px;}
+.tbl{overflow-x:auto;margin:14px 0 8px;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px;}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border2);}
+td{padding:11px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;line-height:1.55;}
+td:first-child{color:var(--text);font-weight:600;}
+.pull{border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:28px;}}
+.note{font-size:14px;color:var(--text3);border:1px dashed var(--border2);border-radius:8px;padding:12px 16px;margin:0 0 24px;}
+.note b{color:var(--text2);}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+.faq summary{cursor:pointer;font-weight:700;color:var(--text);font-size:15.5px;}
+.faq details p{margin:10px 0 0;font-size:15px;}
+.toc{font-size:14px;margin:0 0 8px;}
+.toc a{margin-right:14px;white-space:nowrap;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0 8px;}
+.card{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;color:var(--text2);}
+a.card:hover{border-color:var(--blue2);text-decoration:none;}
+.card h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.card p{font-size:14.5px;margin:0;}
+.card .tag{font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:6px;}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Article", "headline": "Quote-to-cash consulting for manufacturers", "description": "Quote-to-cash consulting for specialty manufacturers: configure, price and quote in Salesforce, contracts, the ERP order and invoicing, connected end to end. Salesforce Premier Partner in Austin.", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Kathiravan Kuppan", "url": "https://nteli.io/kathir"}, "publisher": {"@type": "Organization", "name": "Nteli", "url": "https://nteli.io"}, "mainEntityOfPage": "https://nteli.io/quote-to-cash-consulting"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is quote-to-cash?", "acceptedAnswer": {"@type": "Answer", "text": "Quote-to-cash (Q2C) is the path from a customer&rsquo;s request to cash in the bank: configure the product, price it, quote it, agree the contract, take the order, invoice and recognize the revenue. In a manufacturer it usually spans Salesforce and the ERP."}}, {"@type": "Question", "name": "How is quote-to-cash different from CPQ?", "acceptedAnswer": {"@type": "Answer", "text": "CPQ (configure, price, quote) is the front of quote-to-cash. Q2C also covers what happens after the quote is accepted: contracts and agreements, the ERP order, invoicing and revenue. Most leakage happens at the handoffs between those steps."}}, {"@type": "Question", "name": "Do we need Salesforce Revenue Cloud for quote-to-cash?", "acceptedAnswer": {"@type": "Answer", "text": "Not always. Revenue Cloud is Salesforce&rsquo;s quote-to-cash product and the successor to Salesforce CPQ. Some manufacturers quote in Salesforce and bill in the ERP; others run billing in Revenue Cloud too. We design around which system should own each step."}}, {"@type": "Question", "name": "How long does a quote-to-cash project take?", "acceptedAnswer": {"@type": "Answer", "text": "The first quote-to-order flow can go live in weeks. A full rollout across product lines, channels and the ERP takes longer and is phased. Scope depends on how configurable your products are, how pricing works and which ERP you run."}}, {"@type": "Question", "name": "Which ERPs do you connect to?", "acceptedAnswer": {"@type": "Answer", "text": "We&rsquo;ve connected Salesforce to SAP, NetSuite, Microsoft Dynamics, Epicor and Infor in delivered projects. See our ERP integration guides."}}, {"@type": "Question", "name": "Do you handle quoting through dealers and distributors?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Many of our manufacturing customers sell through dealers. Partner portals on Experience Cloud let dealers quote within your rules and place orders you can trace back to the quote."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=quote-to-cash-consulting">Book a call →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Quote-to-cash consulting · Manufacturing</div>
+<h1>Quote-to-cash consulting for manufacturers</h1>
+<div class="meta">By Kathiravan Kuppan, Salesforce Premier Partner · Updated November 17, 2026</div>
+
+<div class="answer"><b>In short:</b> Nteli is a Salesforce Premier Partner that designs and implements quote-to-cash for specialty manufacturers: configure, price and quote in Salesforce, contracts and agreements, the order in your ERP, and invoicing, so every order and invoice traces back to the quote the customer accepted.</div>
+
+<h2>What quote-to-cash covers in a manufacturer</h2>
+<div class="tbl"><table>
+<tr><th style="width:18%">Step</th><th style="width:30%">Where it usually lives</th><th style="width:52%">What goes wrong</th></tr>
+<tr><td>Configure</td><td>Salesforce (Revenue Cloud or CPQ)</td><td>Options that can&rsquo;t be built together get quoted; engineering finds out after the order.</td></tr>
+<tr><td>Price</td><td>Salesforce or the ERP</td><td>Contract, dealer and volume prices kept in spreadsheets drift from the price book.</td></tr>
+<tr><td>Quote</td><td>Salesforce</td><td>Quotes leave without the right terms, lead times or approvals.</td></tr>
+<tr><td>Contract and agreements</td><td>Salesforce (Manufacturing Cloud, CLM)</td><td>Agreed volumes and prices aren&rsquo;t applied to the next order.</td></tr>
+<tr><td>Order</td><td>ERP</td><td>The accepted quote is retyped into the ERP at a different price or configuration.</td></tr>
+<tr><td>Invoice and revenue</td><td>ERP or Revenue Cloud Billing</td><td>Invoices don&rsquo;t match what was quoted; credits and rebates are paid by hand.</td></tr>
+</table></div>
+<p>Quote-to-cash projects pay back at the handoffs. When the accepted quote becomes the ERP order automatically, and the invoice comes back linked to it, you can check deal by deal that what was quoted is what was ordered and billed.</p>
+
+<h2>How we run a quote-to-cash engagement</h2>
+<ol>
+<li><b>Assess.</b> Walk one real deal from request to invoice and mark where it&rsquo;s retyped, re-priced or approved by email.</li>
+<li><b>Design.</b> Decide which system owns each step: catalog, pricing, quote, agreement, order, invoice.</li>
+<li><b>Build in Salesforce.</b> Revenue Cloud or CPQ for configured products, Manufacturing Cloud for agreements and forecasts, quote documents in your format.</li>
+<li><b>Connect the ERP.</b> Accepted quote to ERP order, with order status and invoices coming back.</li>
+<li><b>Go live in phases.</b> One product line or channel first, then the rest.</li>
+<li><b>Stay on.</b> Managed-services hours each month for changes, new products and new price lists.</li>
+</ol>
+
+<h2>Quote-to-cash work we&rsquo;ve delivered</h2>
+<div class="grid"><div class="card"><span class="tag">Medical devices</span><h3>Quasar</h3><p>Sales Cloud off HubSpot, three opportunity types and a phase-gated NRE quote catalog for design and development work.</p></div><div class="card"><span class="tag">Medical microelectronics</span><h3>Intricon</h3><p>Salesforce quote-to-cash, including NRE quoting for engineering work before production.</p></div><div class="card"><span class="tag">Pharma</span><h3>Elite Pharmaceuticals</h3><p>Contracts, sales agreements and quote-to-cash across Salesforce, Manufacturing Cloud and SAP Business One.</p></div></div>
+
+<h2>Related services</h2><div class="grid"><a class="card" href="/salesforce-cpq-consulting"><span class="tag">CPQ</span><h3>Salesforce CPQ consulting and implementation</h3></a><a class="card" href="/salesforce-manufacturing-cloud"><span class="tag">Manufacturing Cloud</span><h3>Manufacturing Cloud consulting</h3></a><a class="card" href="/salesforce-health-cloud"><span class="tag">Health Cloud</span><h3>Health Cloud consulting and EHR integration</h3></a><a class="card" href="/salesforce-consulting-austin"><span class="tag">Austin</span><h3>Salesforce consulting in Austin</h3></a><a class="card" href="/salesforce-manufacturing"><span class="tag">Manufacturers</span><h3>Salesforce for manufacturers</h3></a><a class="card" href="/erp"><span class="tag">ERP</span><h3>Salesforce to ERP integration</h3></a></div>
+<h2>Who we are</h2><p>Nteli is a Salesforce Premier Partner headquartered at Capital Factory in Austin, Texas. We specialize in quote-to-cash for specialty manufacturers and in Salesforce for healthcare and life sciences, with 58 Salesforce certifications across the team and a 4.93-star average across 10 <a href="https://appexchange.salesforce.com/appxListingDetail?listingId=a0N3A00000G0yOuUAJ">AppExchange reviews</a>. Before Nteli, our team built product configurators and pricing systems at Cisco, Dell and IBM. Customers include Elite Pharmaceuticals, Quasar, Intricon, Children&rsquo;s Mercy Kansas City and Hoag.</p>
+
+<div class="cta-band">
+  <h2>Walk one deal from quote to cash.</h2>
+  <p>A 30-minute call: we trace one of your recent deals and show where it was retyped, re-priced or held up.</p>
+  <div class="cta-row"><a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=quote-to-cash-consulting">Book a quote-to-cash call →</a></div>
+</div>
+
+<h2 id="faq">FAQ</h2>
+<div class="faq">
+<details><summary>What is quote-to-cash?</summary><p>Quote-to-cash (Q2C) is the path from a customer&rsquo;s request to cash in the bank: configure the product, price it, quote it, agree the contract, take the order, invoice and recognize the revenue. In a manufacturer it usually spans Salesforce and the ERP.</p></details>
+<details><summary>How is quote-to-cash different from CPQ?</summary><p>CPQ (configure, price, quote) is the front of quote-to-cash. Q2C also covers what happens after the quote is accepted: contracts and agreements, the ERP order, invoicing and revenue. Most leakage happens at the handoffs between those steps.</p></details>
+<details><summary>Do we need Salesforce Revenue Cloud for quote-to-cash?</summary><p>Not always. Revenue Cloud is Salesforce&rsquo;s quote-to-cash product and the successor to Salesforce CPQ. Some manufacturers quote in Salesforce and bill in the ERP; others run billing in Revenue Cloud too. We design around which system should own each step.</p></details>
+<details><summary>How long does a quote-to-cash project take?</summary><p>The first quote-to-order flow can go live in weeks. A full rollout across product lines, channels and the ERP takes longer and is phased. Scope depends on how configurable your products are, how pricing works and which ERP you run.</p></details>
+<details><summary>Which ERPs do you connect to?</summary><p>We&rsquo;ve connected Salesforce to SAP, NetSuite, Microsoft Dynamics, Epicor and Infor in delivered projects. See our <a href='/erp'>ERP integration guides</a>.</p></details>
+<details><summary>Do you handle quoting through dealers and distributors?</summary><p>Yes. Many of our manufacturing customers sell through dealers. Partner portals on Experience Cloud let dealers quote within your rules and place orders you can trace back to the quote.</p></details>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/quote-to-cash-consulting">Quote-to-cash consulting</a> · <a href="/salesforce-cpq-consulting">CPQ consulting</a> · <a href="/salesforce-manufacturing-cloud">Manufacturing Cloud</a> · <a href="/salesforce-health-cloud">Health Cloud</a> · <a href="/salesforce-consulting-austin">Austin</a> · <a href="/salesforce-manufacturing">Salesforce for manufacturers</a> · <a href="/erp">ERP integration</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>

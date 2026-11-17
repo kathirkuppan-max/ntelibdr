@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salesforce Manufacturing Cloud Consulting &amp; Implementation | Nteli</title>
+<meta name="description" content="Salesforce Manufacturing Cloud consulting and implementation: sales agreements, account-based forecasting and rebate management, connected to SAP, NetSuite, Dynamics, Epicor or Infor. Austin-based Salesforce Premier Partner.">
+<link rel="canonical" href="https://nteli.io/salesforce-manufacturing-cloud">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Salesforce Manufacturing Cloud Consulting &amp; Implementation">
+<meta property="og:description" content="Salesforce Manufacturing Cloud consulting and implementation: sales agreements, account-based forecasting and rebate management, connected to SAP, NetSuite, Dynamics, Epicor or Infor. Austin-based Salesforce Premier Partner.">
+<meta property="og:url" content="https://nteli.io/salesforce-manufacturing-cloud">
+<meta property="og:image" content="https://nteli.io/img/ledger-not-dashboard.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:960px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:820px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:36px;font-weight:800;letter-spacing:-1px;line-height:1.18;margin-bottom:10px;color:var(--text);}
+.meta{font-family:var(--mono);font-size:12.5px;color:var(--text3);margin-bottom:24px;}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:42px 0 12px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul,ol{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+ol{counter-reset:step;}
+ol li::before{counter-increment:step;content:counter(step) '.';color:var(--gold);opacity:1;}
+li b{color:var(--text);}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 8px;}
+@media(max-width:700px){.split{grid-template-columns:1fr;}}
+.box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px 22px;}
+.box h3{font-size:16px;font-weight:700;margin-bottom:10px;}
+.box.now h3{color:var(--green);}
+.box.wait h3{color:var(--gold);}
+.box li{font-size:14.5px;}
+.tbl{overflow-x:auto;margin:14px 0 8px;}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px;}
+th{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);text-align:left;padding:10px 12px;border-bottom:1px solid var(--border2);}
+td{padding:11px 12px;border-bottom:1px solid var(--border);color:var(--text2);vertical-align:top;line-height:1.55;}
+td:first-child{color:var(--text);font-weight:600;}
+.pull{border-left:3px solid var(--gold);padding:4px 0 4px 20px;margin:26px 0;font-size:18px;color:var(--text);font-weight:500;line-height:1.6;}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:28px;}}
+.note{font-size:14px;color:var(--text3);border:1px dashed var(--border2);border-radius:8px;padding:12px 16px;margin:0 0 24px;}
+.note b{color:var(--text2);}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 18px;margin-bottom:10px;}
+.faq summary{cursor:pointer;font-weight:700;color:var(--text);font-size:15.5px;}
+.faq details p{margin:10px 0 0;font-size:15px;}
+.toc{font-size:14px;margin:0 0 8px;}
+.toc a{margin-right:14px;white-space:nowrap;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin:16px 0 8px;}
+.card{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px;color:var(--text2);}
+a.card:hover{border-color:var(--blue2);text-decoration:none;}
+.card h3{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px;}
+.card p{font-size:14.5px;margin:0;}
+.card .tag{font-family:var(--mono);font-size:11px;color:var(--teal);letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:6px;}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "Article", "headline": "Salesforce Manufacturing Cloud consulting and implementation", "description": "Salesforce Manufacturing Cloud consulting and implementation: sales agreements, account-based forecasting and rebate management, connected to SAP, NetSuite, Dynamics, Epicor or Infor. Austin-based Salesforce Premier Partner.", "datePublished": "2026-11-17", "dateModified": "2026-11-17", "author": {"@type": "Person", "name": "Kathiravan Kuppan", "url": "https://nteli.io/kathir"}, "publisher": {"@type": "Organization", "name": "Nteli", "url": "https://nteli.io"}, "mainEntityOfPage": "https://nteli.io/salesforce-manufacturing-cloud"}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is Salesforce Manufacturing Cloud?", "acceptedAnswer": {"@type": "Answer", "text": "Salesforce&rsquo;s product for manufacturers&rsquo; run-rate business: sales agreements with planned volumes and prices, account-based forecasting, and rebate management, on top of Sales Cloud."}}, {"@type": "Question", "name": "Do we need Manufacturing Cloud if we already have Sales Cloud?", "acceptedAnswer": {"@type": "Answer", "text": "If much of your revenue comes from recurring orders under agreements, forecasts by account and product, or rebate programs, yes. If you mostly sell one-off configured projects, Revenue Cloud or CPQ may matter more. Many manufacturers use both."}}, {"@type": "Question", "name": "What&rsquo;s the difference between Manufacturing Cloud and Revenue Cloud?", "acceptedAnswer": {"@type": "Answer", "text": "Manufacturing Cloud manages agreements, forecasts and rebates. Revenue Cloud handles the transaction: configuring, pricing, quoting, ordering and billing. Our Salesforce for manufacturers page compares them."}}, {"@type": "Question", "name": "Where does the actuals data come from?", "acceptedAnswer": {"@type": "Answer", "text": "From your ERP. Orders and shipments flow into Salesforce so agreements show planned versus actual and forecasts start from real history. We&rsquo;ve connected Salesforce to SAP, NetSuite, Microsoft Dynamics, Epicor and Infor."}}, {"@type": "Question", "name": "How long does a Manufacturing Cloud implementation take?", "acceptedAnswer": {"@type": "Answer", "text": "A first phase, sales agreements and account-based forecasting for one business unit with ERP actuals, can go live in weeks to a few months. Rebates, partner visibility and more business units follow."}}, {"@type": "Question", "name": "Who sells the Manufacturing Cloud licenses?", "acceptedAnswer": {"@type": "Answer", "text": "Salesforce. We implement, and we work alongside your Salesforce account executive so licensing and services line up."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=salesforce-manufacturing-cloud">Book a call →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Manufacturing Cloud consulting</div>
+<h1>Salesforce Manufacturing Cloud consulting and implementation</h1>
+<div class="meta">By Kathiravan Kuppan, Salesforce Premier Partner · Updated November 17, 2026</div>
+
+<div class="answer"><b>In short:</b> Nteli implements Salesforce Manufacturing Cloud for specialty manufacturers: sales agreements, account-based forecasting and rebate management, connected to your ERP for actuals. We&rsquo;ve delivered Manufacturing Cloud with SAP Business One at Elite Pharmaceuticals, orchestrating contracts, sales agreements and quote-to-cash across the stack.</div>
+
+<h2>What we implement</h2>
+<div class="grid"><div class="card"><span class="tag">Sales agreements</span><h3>Planned volumes and prices</h3><p>Agreements by account and product, with planned versus actual from ERP orders.</p></div><div class="card"><span class="tag">Forecasting</span><h3>Account-based forecasts</h3><p>Forecasts by account, product and period that start from shipment history, not a blank sheet.</p></div><div class="card"><span class="tag">Rebates</span><h3>Rebate management</h3><p>Rebate programs, tiers and payouts calculated from real orders, not spreadsheets.</p></div><div class="card"><span class="tag">Channel</span><h3>Partner visibility</h3><p>Dealers and distributors see agreements and forecasts in an Experience Cloud portal.</p></div><div class="card"><span class="tag">Quoting</span><h3>Revenue Cloud or CPQ</h3><p>Configured and engineered products quoted within your rules, on the same accounts.</p></div><div class="card"><span class="tag">ERP</span><h3>Actuals and orders</h3><p>Orders, shipments and invoices from SAP, NetSuite, Dynamics, Epicor or Infor.</p></div></div>
+
+<h2>A typical Manufacturing Cloud rollout</h2>
+<div class="tbl"><table>
+<tr><th style="width:16%">Phase</th><th style="width:54%">What happens</th><th style="width:30%">Outcome</th></tr>
+<tr><td>Discovery</td><td>Map agreements, forecast process and rebate programs; pick the first business unit</td><td>A scope you can sign</td></tr>
+<tr><td>Data</td><td>Load accounts, products and two to three years of order history from the ERP</td><td>Forecasts that start from reality</td></tr>
+<tr><td>Build</td><td>Sales agreements, forecast sets, rebate programs, dashboards</td><td>Sales and finance on one set of numbers</td></tr>
+<tr><td>Integrate</td><td>Recurring ERP feed for orders and shipments</td><td>Planned versus actual, automatically</td></tr>
+<tr><td>Expand</td><td>More business units, partner portal, quoting</td><td>One Salesforce for the run-rate and project business</td></tr>
+</table></div>
+<p>Selling configured products as well as run-rate volume? Add <a href="/salesforce-cpq-consulting">Revenue Cloud or CPQ</a> on the same accounts, and see <a href="/quote-to-cash-consulting">quote-to-cash consulting</a> for how the quote becomes the ERP order.</p>
+
+<h2>Related services</h2><div class="grid"><a class="card" href="/quote-to-cash-consulting"><span class="tag">Quote-to-cash</span><h3>Quote-to-cash consulting for manufacturers</h3></a><a class="card" href="/salesforce-cpq-consulting"><span class="tag">CPQ</span><h3>Salesforce CPQ consulting and implementation</h3></a><a class="card" href="/salesforce-health-cloud"><span class="tag">Health Cloud</span><h3>Health Cloud consulting and EHR integration</h3></a><a class="card" href="/salesforce-consulting-austin"><span class="tag">Austin</span><h3>Salesforce consulting in Austin</h3></a><a class="card" href="/salesforce-manufacturing"><span class="tag">Manufacturers</span><h3>Salesforce for manufacturers</h3></a><a class="card" href="/erp"><span class="tag">ERP</span><h3>Salesforce to ERP integration</h3></a></div>
+<h2>Who we are</h2><p>Nteli is a Salesforce Premier Partner headquartered at Capital Factory in Austin, Texas. We specialize in quote-to-cash for specialty manufacturers and in Salesforce for healthcare and life sciences, with 58 Salesforce certifications across the team and a 4.93-star average across 10 <a href="https://appexchange.salesforce.com/appxListingDetail?listingId=a0N3A00000G0yOuUAJ">AppExchange reviews</a>. Before Nteli, our team built product configurators and pricing systems at Cisco, Dell and IBM. Customers include Elite Pharmaceuticals, Quasar, Intricon, Children&rsquo;s Mercy Kansas City and Hoag.</p>
+
+<div class="cta-band">
+  <h2>Plan your Manufacturing Cloud rollout.</h2>
+  <p>A 30-minute call: your agreements, forecasts and rebates, and what a first phase would cover.</p>
+  <div class="cta-row"><a class="btn btn-primary" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=salesforce-manufacturing-cloud">Book a Manufacturing Cloud call →</a></div>
+</div>
+
+<h2 id="faq">FAQ</h2>
+<div class="faq">
+<details><summary>What is Salesforce Manufacturing Cloud?</summary><p>Salesforce&rsquo;s product for manufacturers&rsquo; run-rate business: sales agreements with planned volumes and prices, account-based forecasting, and rebate management, on top of Sales Cloud.</p></details>
+<details><summary>Do we need Manufacturing Cloud if we already have Sales Cloud?</summary><p>If much of your revenue comes from recurring orders under agreements, forecasts by account and product, or rebate programs, yes. If you mostly sell one-off configured projects, Revenue Cloud or CPQ may matter more. Many manufacturers use both.</p></details>
+<details><summary>What&amp;rsquo;s the difference between Manufacturing Cloud and Revenue Cloud?</summary><p>Manufacturing Cloud manages agreements, forecasts and rebates. Revenue Cloud handles the transaction: configuring, pricing, quoting, ordering and billing. Our <a href='/salesforce-manufacturing'>Salesforce for manufacturers</a> page compares them.</p></details>
+<details><summary>Where does the actuals data come from?</summary><p>From your ERP. Orders and shipments flow into Salesforce so agreements show planned versus actual and forecasts start from real history. We&rsquo;ve connected Salesforce to SAP, NetSuite, Microsoft Dynamics, Epicor and Infor.</p></details>
+<details><summary>How long does a Manufacturing Cloud implementation take?</summary><p>A first phase, sales agreements and account-based forecasting for one business unit with ERP actuals, can go live in weeks to a few months. Rebates, partner visibility and more business units follow.</p></details>
+<details><summary>Who sells the Manufacturing Cloud licenses?</summary><p>Salesforce. We implement, and we work alongside your Salesforce account executive so licensing and services line up.</p></details>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/quote-to-cash-consulting">Quote-to-cash consulting</a> · <a href="/salesforce-cpq-consulting">CPQ consulting</a> · <a href="/salesforce-manufacturing-cloud">Manufacturing Cloud</a> · <a href="/salesforce-health-cloud">Health Cloud</a> · <a href="/salesforce-consulting-austin">Austin</a> · <a href="/salesforce-manufacturing">Salesforce for manufacturers</a> · <a href="/erp">ERP integration</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
