@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Switchgear &amp; Switchboard Quoting Software: UL 891 / UL 1558 Guide</title>
+<meta name="description" content="How switchboard and switchgear builders quote engineered orders without rework: what a quote must check (UL 891 vs UL 1558, bus and short-circuit ratings vs available fault current, NEC 408 and service entrance rules, enclosure type), estimation vs quotation, and spreadsheets vs CPQ vs a checked-quote engine.">
+<link rel="canonical" href="https://nteli.io/guides/switchgear-quoting">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Switchgear and switchboard quoting software: what a UL 891 / UL 1558 quote must check">
+<meta property="og:description" content="Bus rating, short-circuit rating against available fault current, the right listing standard, service entrance rules and enclosure type, checked before the price goes out.">
+<meta property="og:url" content="https://nteli.io/guides/switchgear-quoting">
+<meta property="og:image" content="https://nteli.io/media/og-power.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nteli.io/media/og-power.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:760px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px;color:var(--text);}
+.meta{font-family:var(--mono);font-size:12.5px;color:var(--text3);margin-bottom:24px;}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:40px 0 12px;color:var(--text);}
+h3{font-size:17px;font-weight:700;margin:24px 0 8px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+li b{color:var(--text);}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.related{font-size:14px;color:var(--text3);margin-top:28px;text-align:center;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:29px;}.doc{padding:40px 16px 64px;}.nav-inner{padding:14px 16px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Switchgear and switchboard quoting software: what a UL 891 / UL 1558 quote must check","description":"What a switchgear or switchboard quote must check before it is priced: the listing standard (UL 891, UL 1558 / IEEE C37.20.1, UL 67), bus rating, short-circuit rating against available fault current, NEC 408 and service entrance requirements, and enclosure type; estimation vs quotation; spreadsheets vs CPQ vs a checked-quote engine.","datePublished":"2026-11-16","dateModified":"2026-11-16","author":{"@type":"Person","name":"Kathiravan Kuppan","url":"https://nteli.io/kathir"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"image":"https://nteli.io/media/og-power.jpg","mainEntityOfPage":"https://nteli.io/guides/switchgear-quoting"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What should switchgear and switchboard quoting software check?","acceptedAnswer":{"@type":"Answer","text":"Before a price goes out: the listing standard the order is built to (UL 891 switchboard, UL 1558 / IEEE C37.20.1 low-voltage switchgear, or UL 67 panelboard), the main bus rating against the load, the short-circuit rating against the available fault current at the line terminals (NEC 110.9, 110.10 and 408.6), that every breaker fits the section and the rating it is applied in, service entrance requirements when the equipment is service equipment (NEC 230.66, 230.95 ground-fault protection, 240.87 arc energy reduction), and the enclosure type for the location. Each answer should cite its source."}},
+{"@type":"Question","name":"What is the difference between UL 891 switchboards and UL 1558 switchgear when quoting?","acceptedAnswer":{"@type":"Answer","text":"UL 891 covers dead-front switchboards, which typically use molded-case or insulated-case breakers (UL 489) and fusible switches, with short-circuit ratings typically based on a 3-cycle test. UL 1558 covers metal-enclosed low-voltage power circuit breaker switchgear built to IEEE C37.20.1, using power circuit breakers to UL 1066 / IEEE C37.13, with a 30-cycle short-time rating that supports selective coordination. A specification that calls for one cannot be quoted as the other, so the quote has to confirm which standard applies before anything is priced."}},
+{"@type":"Question","name":"Why is the short-circuit rating the most important check on a switchboard quote?","acceptedAnswer":{"@type":"Answer","text":"Because equipment must be rated for the fault current available where it is installed. NEC 110.9 requires interrupting ratings at least equal to the available current at the line terminals, NEC 110.10 covers component short-circuit ratings, and NEC 408.6 requires switchboards, switchgear and panelboards to have a short-circuit current rating not less than the available fault current. A quote priced at a lower rating than the site needs has to be re-engineered after the order, usually at the builder's cost."}},
+{"@type":"Question","name":"What is the difference between switchgear estimation and quotation?","acceptedAnswer":{"@type":"Answer","text":"Estimation works out what the line-up will cost to build: sections, bus, breakers, metering, enclosure, labor and freight, priced from your own price book. The quotation is what the customer sees: the price, the scope, the ratings, the exclusions and the drawings they approve. An estimate built on a configuration that fails a rating check is a confident number for equipment that cannot ship as quoted."}},
+{"@type":"Question","name":"Does quoting software certify switchgear or replace the listing body?","acceptedAnswer":{"@type":"Answer","text":"No. Quoting software checks the configuration against the rules your team approves; it does not certify equipment or replace the listing body. The UL 891, UL 1558 or UL 67 listing still comes from your factory's listing program, tested designs and follow-up inspections."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/engine/power">See the power demo →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Guide · Switchgear &amp; switchboards</div>
+<h1>Switchgear and switchboard quoting software: what a UL 891 / UL 1558 quote must check.</h1>
+<div class="meta">By <a href="/kathir" style="color:var(--text3);text-decoration:underline;">Kathiravan Kuppan</a> · Published November 16, 2026</div>
+
+<div class="answer"><b>The short answer:</b> quoting software for switchboard and switchgear builders is only useful if it checks the engineering before it prices: the listing standard (UL 891, UL 1558 / IEEE C37.20.1 or UL 67), the bus rating, the short-circuit rating against the available fault current, breaker and section fit, service entrance rules and enclosure type. If a tool can&rsquo;t say why a line-up is rated the way it is, it&rsquo;s a price calculator, not a quoting tool.</div>
+
+<p>This guide is for specialty manufacturers and packagers of power distribution equipment: switchboard shops, low-voltage switchgear builders, e-house and power-skid integrators, and panelboard assemblers who quote engineered orders against a customer&rsquo;s spec. It is not about the big manufacturers&rsquo; product selectors, which are built to sell one maker&rsquo;s catalog.</p>
+
+<h2>Why switchgear and switchboard quotes go wrong</h2>
+<p>A power distribution RFQ rarely arrives clean. It&rsquo;s a one-line diagram, a spec section (often 26&nbsp;24&nbsp;13 for switchboards or 26&nbsp;23&nbsp;00 for low-voltage switchgear), a breaker schedule and a utility letter, with the available fault current stated somewhere or nowhere. The estimator re-keys sections, bus, breakers and metering into a spreadsheet, and the checks that make the line-up buildable live in their head.</p>
+<p>The failure modes repeat, and each one comes out of margin after the order:</p>
+<ul>
+  <li><b>The wrong standard was quoted.</b> The spec calls for UL 1558 switchgear and the quote is a UL 891 switchboard, or the reverse. They are different constructions with different breakers and different short-circuit testing.</li>
+  <li><b>The short-circuit rating is below the available fault current.</b> The site has more fault current than the quoted rating, so the line-up has to be re-engineered with higher-rated bus and devices.</li>
+  <li><b>A breaker is applied outside its rating</b>: an interrupting rating taken at the wrong voltage, a series rating assumed without a tested combination, or a standard-rated breaker priced as if it could carry 100% of its rating continuously.</li>
+  <li><b>Service entrance requirements were missed</b>: ground-fault protection, arc energy reduction or a utility metering section that the spec and the serving utility require.</li>
+  <li><b>The enclosure doesn&rsquo;t match the location</b>: an indoor NEMA Type 1 line-up quoted for an outdoor pad that needs Type 3R.</li>
+  <li><b>The quote and the submittal disagree</b>, because they were built twice by different people.</li>
+</ul>
+
+<h2>What a switchgear or switchboard quote must check</h2>
+<p>None of this is proprietary. It is public standards knowledge that every experienced estimator carries. The problem is that it lives in people, not in the quote.</p>
+
+<h3>1. The listing standard</h3>
+<ul>
+  <li><b>UL 891 switchboards</b>: dead-front switchboards rated 1,000&nbsp;V or less, typically built with molded-case or insulated-case breakers (UL 489) and fusible switches. Short-circuit ratings are typically based on a 3-cycle test.</li>
+  <li><b>UL 1558 low-voltage switchgear</b>: metal-enclosed power circuit breaker switchgear built to IEEE C37.20.1, using low-voltage power circuit breakers to UL 1066 / IEEE C37.13. It carries a 30-cycle short-time rating, which is what lets breakers hold through a downstream fault for selective coordination.</li>
+  <li><b>UL 67 panelboards</b>, with NEC 408.36 requiring each panelboard to be protected by an overcurrent device rated no higher than the panelboard.</li>
+  <li><b>Medium voltage</b> is its own family: metal-clad switchgear to IEEE C37.20.2 and metal-enclosed interrupter switchgear to IEEE C37.20.3.</li>
+</ul>
+<p>NEC Article 408 (Switchboards, Switchgear, and Panelboards) governs installation of all three, but the construction standard decides what you can build and how it is tested.</p>
+
+<h3>2. Bus rating and continuous current</h3>
+<ul>
+  <li><b>Main bus ampacity</b> sized to the service or feeder it carries, with the neutral and ground bus specified (some specs call for an oversized neutral where harmonic loads are expected).</li>
+  <li><b>Continuous loads</b>: under NEC 215.3 and 230.42, overcurrent devices for continuous loads are sized at 125% unless the assembly, including the device, is listed for operation at 100% of its rating. A quote that assumes 100%-rated breakers has to price them.</li>
+</ul>
+
+<h3>3. Short-circuit rating vs. available fault current</h3>
+<ul>
+  <li><b>NEC 110.9</b>: equipment that interrupts fault current needs an interrupting rating at nominal voltage at least equal to the current available at its line terminals.</li>
+  <li><b>NEC 110.10 and 408.6</b>: the switchboard, switchgear or panelboard short-circuit current rating must be not less than the available fault current.</li>
+  <li><b>NEC 110.24</b>: service equipment in other than dwelling units must be field-marked with the available fault current and the date it was calculated. If the RFQ doesn&rsquo;t state it, the quote should ask, not assume.</li>
+  <li><b>Series ratings</b> (NEC 240.86) are allowed only as tested combinations, marked on the equipment per NEC 110.22(C).</li>
+</ul>
+
+<h3>4. Breaker and section fit</h3>
+<ul>
+  <li>Every device is <b>listed for the construction it sits in</b>, fits the section width and depth, and is applied at the voltage its interrupting rating was published for.</li>
+  <li>Section count, through-bus and transitions add up to a <b>line-up that physically fits</b> the room or the e-house, with the required working space in front (NEC 110.26).</li>
+</ul>
+
+<h3>5. Service entrance requirements</h3>
+<ul>
+  <li><b>NEC 230.66</b>: service equipment must be marked suitable for use as service equipment.</li>
+  <li><b>NEC 230.95</b>: ground-fault protection of equipment on solidly grounded wye services of more than 150&nbsp;V to ground, not exceeding 1,000&nbsp;V phase-to-phase, for each service disconnect rated 1,000&nbsp;A or more.</li>
+  <li><b>NEC 240.87</b>: an arc energy reduction method where a breaker is rated, or can be adjusted, to 1,200&nbsp;A or higher.</li>
+  <li><b>Utility metering</b>: the metering section built to the serving utility&rsquo;s requirements (EUSERC sections for many western US utilities).</li>
+</ul>
+
+<h3>6. Enclosure type and arc resistance</h3>
+<ul>
+  <li><b>Enclosure type</b> for the location, per NEMA 250 / UL 50E: Type 1 for indoor, Type 3R for outdoor, and the spec&rsquo;s requirements for anything harsher.</li>
+  <li><b>Arc-resistant construction</b> when the spec calls for it, tested to IEEE C37.20.7, with the accessibility type stated: Type 1 (front only) or Type 2 (front, sides and rear).</li>
+</ul>
+<p>One honest boundary: software checks the configuration; it does not certify equipment or replace the listing body. The UL label still comes from your factory&rsquo;s listing program and tested designs.</p>
+
+<h2>Switchgear estimation vs. quotation</h2>
+<p>Builders use the words loosely, but they are two steps. <b>Estimation</b> works out what the line-up will cost you to build: sections, bus, breakers, metering, enclosure, labor and freight, each priced from your own price book and vendor quotes. The <b>quotation</b> is what the customer sees: the price, the scope, the ratings, the exclusions and the drawings they approve before the PO. Estimating software that skips the rating checks produces a confident estimate for a line-up that can&rsquo;t ship as quoted. The useful kind does both steps from one request, with the checks in between.</p>
+
+<h2>Spreadsheets vs. CPQ vs. a checked-quote engine</h2>
+<p><b>Spreadsheets</b> are where most specialty builders are: free, familiar, and dependent on the senior estimator who knows which spec sections bite. They price what was typed. They don&rsquo;t know that the available fault current never got answered.</p>
+<p><b>Manufacturer configurators</b> are excellent at one maker&rsquo;s line-up and one maker&rsquo;s catalog. A packager quoting a whole order (switchboard, transfer switches, transformers, metering and the enclosure around them) still ends up back in a spreadsheet.</p>
+<p><b>Traditional CPQ</b> can enforce rules, but it assumes a dedicated team to author and maintain them and a seller clicking through a configurator. That&rsquo;s an enterprise program, not a specialty manufacturer&rsquo;s tool.</p>
+<p><b>A checked-quote engine</b> inverts the interface: paste the RFQ, the spec section or the customer email, and the engine checks the configuration against cited rules before it prices anything. When a fact is missing, it asks. When a rating doesn&rsquo;t hold, it refuses to call the quote ready and shows why. Every size, price and refusal shows its source. That is the idea behind <a href="/guides/quote-checked-before-priced">a quote checked before it&rsquo;s priced</a>.</p>
+<p>That&rsquo;s what <a href="/engine/power">Nteli&rsquo;s engine for power packages</a> does: it sizes switchgear, transfer switches, UPS, generators and storage from the loads and checks every capacity before pricing. It ships with a starter rule pack that your team overrides with its own rules, governed and audited. If you also build control panels, the companion guide covers <a href="/guides/ul-508a-quoting">UL 508A panel quoting</a>, and <a href="/engine">the full engine</a> lists every product line it quotes.</p>
+
+<h2>FAQ</h2>
+<h3>What should switchgear and switchboard quoting software check?</h3>
+<p>Before a price goes out: the listing standard the order is built to (UL 891 switchboard, UL 1558 / IEEE C37.20.1 low-voltage switchgear, or UL 67 panelboard), the main bus rating against the load, the short-circuit rating against the available fault current at the line terminals (NEC 110.9, 110.10 and 408.6), that every breaker fits the section and the rating it is applied in, service entrance requirements when the equipment is service equipment (NEC 230.66, 230.95 ground-fault protection, 240.87 arc energy reduction), and the enclosure type for the location. Each answer should cite its source.</p>
+<h3>What is the difference between UL 891 switchboards and UL 1558 switchgear when quoting?</h3>
+<p>UL 891 covers dead-front switchboards, which typically use molded-case or insulated-case breakers (UL 489) and fusible switches, with short-circuit ratings typically based on a 3-cycle test. UL 1558 covers metal-enclosed low-voltage power circuit breaker switchgear built to IEEE C37.20.1, using power circuit breakers to UL 1066 / IEEE C37.13, with a 30-cycle short-time rating that supports selective coordination. A specification that calls for one cannot be quoted as the other, so the quote has to confirm which standard applies before anything is priced.</p>
+<h3>Why is the short-circuit rating the most important check on a switchboard quote?</h3>
+<p>Because equipment must be rated for the fault current available where it is installed. NEC 110.9 requires interrupting ratings at least equal to the available current at the line terminals, NEC 110.10 covers component short-circuit ratings, and NEC 408.6 requires switchboards, switchgear and panelboards to have a short-circuit current rating not less than the available fault current. A quote priced at a lower rating than the site needs has to be re-engineered after the order, usually at the builder's cost.</p>
+<h3>What is the difference between switchgear estimation and quotation?</h3>
+<p>Estimation works out what the line-up will cost to build: sections, bus, breakers, metering, enclosure, labor and freight, priced from your own price book. The quotation is what the customer sees: the price, the scope, the ratings, the exclusions and the drawings they approve. An estimate built on a configuration that fails a rating check is a confident number for equipment that cannot ship as quoted.</p>
+<h3>Does quoting software certify switchgear or replace the listing body?</h3>
+<p>No. Quoting software checks the configuration against the rules your team approves; it does not certify equipment or replace the listing body. The UL 891, UL 1558 or UL 67 listing still comes from your factory's listing program, tested designs and follow-up inspections.</p>
+
+<div class="cta-band">
+  <h2>See it on a power package.</h2>
+  <p>Watch the engine size and check a power package from the loads, or book a call and bring an RFQ you quoted recently, names removed.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="/engine/power">See the power demo →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=guide-switchgear">Book a call</a>
+  </div>
+</div>
+
+<p class="related">Related: <a href="/guides/ul-508a-quoting">UL 508A control panel quoting</a> · <a href="/guides/quote-checked-before-priced">Quotes checked before they&rsquo;re priced</a> · <a href="/engine">All engine demos</a></p>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/engine/power">Switchgear &amp; switchboard quoting</a> · <a href="/guides/ul-508a-quoting">UL 508A quoting guide</a> · <a href="/engine">All demos</a> · <a href="/claude">Use in Claude or ChatGPT</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>

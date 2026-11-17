@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Gas Estimating Software: What an NFPA 99 Quote Must Check</title>
+<meta name="description" content="Medical gas estimating and quoting for manifolds, zone valve boxes, alarms, outlets, headwalls and source equipment: what an NFPA 99 quote must check, estimation vs. quotation, and spreadsheets vs. CPQ vs. a checked-quote engine.">
+<link rel="canonical" href="https://nteli.io/guides/medical-gas-quoting">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Medical gas estimating software: what an NFPA 99 quote must check">
+<meta property="og:description" content="From manifold to headwall: the standards a medical gas quote has to respect before anyone prices it.">
+<meta property="og:url" content="https://nteli.io/guides/medical-gas-quoting">
+<meta property="og:image" content="https://nteli.io/media/og-medgas.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nteli.io/media/og-medgas.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:760px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:16px;color:var(--text);}
+.byline{font-size:13px;color:var(--text3);font-family:var(--mono);margin-bottom:22px;}
+.byline a{color:var(--text2);}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:40px 0 12px;color:var(--text);}
+h3{font-size:17px;font-weight:700;margin:24px 0 8px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+li b{color:var(--text);}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:29px;}.doc{padding:40px 16px 64px;}.nav-inner{padding:12px 16px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Medical gas estimating software: what an NFPA 99 quote must check","description":"What a medical gas quote for manifolds, zone valve boxes, alarms, outlets, headwalls and source equipment must check: NFPA 99 risk and system categories, gas-specific outlets, zone valve and alarm placement, source equipment sizing inputs, ASSE 6000-series qualifications and FGI Guidelines.","datePublished":"2026-11-16","dateModified":"2026-11-16","image":"https://nteli.io/media/og-medgas.jpg","author":{"@type":"Person","name":"Kathiravan Kuppan","url":"https://nteli.io/kathir"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"mainEntityOfPage":"https://nteli.io/guides/medical-gas-quoting"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What should medical gas estimating software check?","acceptedAnswer":{"@type":"Answer","text":"At minimum: the NFPA 99 risk category of each space and the gas and vacuum system category that follows from it; the gas list and that every outlet is gas-specific and matches the connector style the facility already uses; that zone valves and area, master and local alarms are included where the design calls for them; the inputs behind source equipment sizing, including demand, supply mode, reserve and redundancy; and that installation, inspection and verification are scoped to ASSE 6000-series qualified people. Each check should say which standard it comes from."}},
+{"@type":"Question","name":"Do NFPA 99 risk categories change what goes in a medical gas quote?","acceptedAnswer":{"@type":"Answer","text":"Yes. NFPA 99 sorts spaces into Categories 1 to 4 by how badly patients or staff would be hurt if a system failed, and its gas and vacuum chapter has separate requirements for Category 1, 2 and 3 systems. Requirements step down by category, so the category drives the source equipment, alarms and redundancy a quote has to include. Category 3 systems, for example, are not used where general anesthesia or deep sedation is given."}},
+{"@type":"Question","name":"Does medical gas quoting software replace system verification?","acceptedAnswer":{"@type":"Answer","text":"No. A quoting engine checks the configuration before it is priced. It does not certify the system or replace verification by a qualified medical gas verifier (ASSE 6030), which happens after installation and after the installer's own testing. The adopted edition of NFPA 99 and the authority having jurisdiction still govern."}},
+{"@type":"Question","name":"What is the difference between medical gas estimating and quoting?","acceptedAnswer":{"@type":"Answer","text":"Estimating works out what the job will cost you: the manifolds, zone valve boxes, alarms, outlets, headwalls, source equipment and labor, priced from your own price book. Quoting is what the customer sees: price, scope, exclusions, lead times and the submittal. A good tool does both from one set of facts, with the standards checks in between, so the quote and the submittal agree."}},
+{"@type":"Question","name":"Why is medical gas manifold pricing rarely published?","acceptedAnswer":{"@type":"Answer","text":"Because the price depends on the job: which gas, the demand, cylinder or liquid supply, the changeover type, the reserve supply, the alarm connections and the pressure the pipeline needs. Manufacturers and distributors quote manifolds from the project specification rather than a list price, which is why a quote that captures those facts up front comes back faster and holds."}},
+{"@type":"Question","name":"How does a headwall quote connect to the medical gas system?","acceptedAnswer":{"@type":"Answer","text":"Headwalls and booms carry the gas outlets at each bed, so their outlet count and gas mix must match the room program in the FGI Guidelines and the owner's requirements, their connectors must match the facility's style, and their zone valve and alarm coverage must come from the same system design. The electrical side follows NFPA 99 and NEC Article 517. Quoting the headwall apart from the gas system is where mismatches start."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/engine/medgas">Watch the medical gas demo →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Guide · Medical gas &amp; headwalls</div>
+<h1>Medical gas estimating software: what an NFPA 99 quote must check, from manifold to headwall.</h1>
+<p class="byline">By <a href="/kathir">Kathiravan Kuppan</a> · November 16, 2026</p>
+
+<div class="answer"><b>The short answer:</b> a medical gas quote is only as good as the checks behind it. Before anyone prices manifolds, zone valve boxes, alarms, outlets, headwalls or source equipment, the quote should confirm the NFPA 99 risk and system category, the gas list and outlet compatibility, where zone valves and alarms go, the inputs behind source sizing, and who is qualified to install and verify. If a tool can&rsquo;t say which standard a line came from, it&rsquo;s a calculator, not an estimator.</div>
+
+<h2>Who this guide is for</h2>
+<p>Specialty manufacturers of medical gas equipment (manifolds, zone valve boxes, alarm panels, station outlets, headwalls and booms, medical air and vacuum source equipment) and the distributors and installers who quote them into hospital and outpatient projects. On a typical job the request arrives as a Division 22 specification section (MasterFormat 22 60 00, gas and vacuum systems for healthcare facilities), a headwall schedule under 10 25 13 (patient bed service walls), a set of drawings and an email that says &ldquo;please quote by Friday.&rdquo;</p>
+
+<h2>Why medical gas quotes go wrong</h2>
+<p>The products are standard. What goes wrong is how they fit together on one project, and each miss gets found at submittal review, at install, or at verification, where the fix comes out of margin:</p>
+<ul>
+  <li><b>A gas is missing from the count.</b> The drawings show oxygen, vacuum and medical air, but the operating rooms also need nitrogen, nitrous oxide or waste anesthetic gas disposal (WAGD), and the quote only covers three of five.</li>
+  <li><b>The outlets don&rsquo;t fit the hospital&rsquo;s equipment.</b> The quote picks one connector style for a renovation in a facility that already uses another, so every flowmeter and regulator on the floor needs adapters or replacement.</li>
+  <li><b>Headwalls and the gas system are quoted separately</b>, by different people, and the outlet count per bed in one doesn&rsquo;t match the other.</li>
+  <li><b>Zone valves and alarms are counted from the drawings, not the design rules</b>, so an area alarm, a sensor or a master alarm tie-in goes unquoted.</li>
+  <li><b>Source equipment is sized from outlet count alone</b>, without the demand assumptions, reserve supply or redundancy the system category calls for.</li>
+  <li><b>Qualified labor and verification aren&rsquo;t scoped</b>, so it&rsquo;s unclear whose credentials, testing and third-party verification the price includes.</li>
+  <li><b>The quote and the submittal disagree</b>, because they were built twice from different revisions.</li>
+</ul>
+
+<h2>What a medical gas quote must check</h2>
+<p>These are public standards, not secret sauce. The skill is in applying them to every line of every quote, consistently, under deadline. One caution up front: requirements differ between editions of NFPA 99, and the edition that applies is the one your authority having jurisdiction has adopted, which is often not the newest.</p>
+
+<h3>1. Risk category and system category (NFPA 99)</h3>
+<p>NFPA 99, the Health Care Facilities Code, sorts spaces into four risk categories by what a system failure would do: Category 1, likely to cause major injury or death; Category 2, likely to cause minor injury; Category 3, not likely to cause injury but may cause discomfort; Category 4, no impact on patient care. The facility&rsquo;s risk assessment assigns them. NFPA 99&rsquo;s gas and vacuum chapter then has separate requirements for Category 1, 2 and 3 piped systems, stepping down from one to the next; there is no Category 4 gas system. Category 3 systems are not used where general anesthesia or deep sedation is given. The category is the first fact a quote needs, because it shapes the source equipment, the alarms and the redundancy.</p>
+
+<h3>2. Gas types and outlet compatibility</h3>
+<p>A hospital project can involve oxygen, medical air, nitrous oxide, nitrogen, carbon dioxide, medical-surgical vacuum, WAGD and instrument air, each with its own color and label. NFPA 99 requires station outlets to be gas-specific, so equipment for one gas cannot connect to another. Within that, facilities standardize on a connector style, either DISS (the Diameter Index Safety System, CGA V-5) or one of several manufacturers&rsquo; quick-connect families. On new work the style is a spec decision. On renovations it has to match what is already on the walls and in the equipment room.</p>
+
+<h3>3. Zone valves and alarms</h3>
+<ul>
+  <li><b>Zone valves</b> let staff shut off gas to one area in an emergency without shutting down the building, so they are placed where they can be reached quickly, in boxes with a removable cover or window, and labeled with the gas and the area served. Operating suites, critical care units and inpatient wings each get their own.</li>
+  <li><b>Area alarms</b> watch line pressure and vacuum for critical care areas and anesthetizing locations, typically at the nurse station that serves them.</li>
+  <li><b>Master alarms</b> watch the source equipment and main lines. NFPA 99 calls for at least two master alarm panels in separate locations, one of them where it is continuously observed.</li>
+  <li><b>Local alarms</b> sit at the source equipment and report to the master alarms.</li>
+</ul>
+<p>For a quote, this means zone valve boxes, alarm panels, sensors and the tie-ins between them are counted from where the design rules put them, and each device&rsquo;s gas list matches the gases it serves.</p>
+
+<h3>4. Source equipment sizing inputs</h3>
+<p>Manifolds, bulk systems, medical air compressors and vacuum pumps are sized by engineering calculation, not by catalog page. The inputs a quote has to capture are the outlets and their room types, the simultaneous-use (diversity) assumptions, peak demand, the required delivery pressure or vacuum level, the supply mode (cylinder manifold, bulk liquid or on-site generation), reserve supply, and expansion allowance. NFPA 99 requires medical air and vacuum sources to meet peak calculated demand with the largest unit out of service, and manifolds to switch from a primary to a secondary supply. Bulk oxygen storage also falls under NFPA 55. If the request doesn&rsquo;t state these facts, the right move is to ask for them, not to assume them.</p>
+
+<h3>5. Qualified people: the ASSE 6000 series</h3>
+<p>The ASSE/IAPMO/ANSI Series 6000 (current edition 2024) sets the professional qualifications NFPA 99 relies on for medical gas work: <b>6010</b> installers, <b>6020</b> inspectors, <b>6030</b> verifiers, <b>6040</b> maintenance personnel, <b>6060</b> designers, plus 6015 and 6035 for cryogenic central supply installers and verifiers. For a quote, that means stating who installs, who performs the installer&rsquo;s own testing, and whether the third-party verification by an ASSE 6030 verifier is included or excluded. It is a scope line, and leaving it vague is how disputes start.</p>
+
+<h3>6. Room programs and the FGI Guidelines</h3>
+<p>The Facility Guidelines Institute&rsquo;s <i>Guidelines for Design and Construction</i> set minimum oxygen, vacuum and medical air outlets by room type, and many states adopt them, sometimes with their own additions. Owners often ask for more than the minimum. Headwall and boom quotes depend on getting this right per bed, and the electrical side of the same headwall follows NFPA 99 and NEC Article 517.</p>
+
+<p>One honest boundary: a quoting tool checks the configuration; it does not certify the system or replace verification by a qualified medical gas verifier. The adopted code, the engineer of record and the authority having jurisdiction still decide.</p>
+
+<h2>Medical gas estimation vs. quotation</h2>
+<p>People use the words loosely, but they are two steps. <b>Estimation</b> works out what the job costs you: manifolds, zone valve boxes, alarms, outlets, headwalls, source equipment, pipe, labor and verification, each priced from your own price book. The <b>quotation</b> is what the customer sees: price, scope, exclusions, lead times and the submittal package. Medical gas estimating software that skips the standards checks produces a confident estimate for a system that fails submittal review or verification. The useful kind does both steps from one set of facts, with the checks in between, so the quote and the submittal can&rsquo;t drift apart.</p>
+
+<h2>Spreadsheets vs. CPQ vs. a checked-quote engine</h2>
+<p><b>Spreadsheets</b> are where most medical gas quoting lives: free, familiar, and dependent on the one senior estimator who knows which gases each room needs and which connector style each hospital uses. The checks live in that person&rsquo;s head.</p>
+<p><b>Traditional CPQ</b>, the kind large manufacturers run, can encode option rules, but it assumes a dedicated team to author and maintain them and a seller clicking through a configurator. Most CPQ checks that a quote is <i>complete</i> (every option picked, every combination allowed), not that it is <i>correct</i> for the space it serves. Our guide on <a href="/guides/quote-checked-before-priced">which quoting tools check engineering before pricing</a> covers that difference.</p>
+<p><b>A checked-quote engine</b> takes the request as it arrives (spec section, schedule or email), asks for the facts that are missing, checks the configuration against rules your team has approved, then prices from your price book. Every check and every number traces to a source, so an engineer can trust it or challenge it without re-deriving it.</p>
+<p>That&rsquo;s what <a href="/engine/medgas">Nteli&rsquo;s medical gas quoting software</a> does: manifolds, alarms, outlets and headwalls, with pipeline sizing, quoted as one system by conversation. It checks the configuration; it does not certify the system or replace verification by a qualified medical gas verifier. The same engine quotes other engineered products; see <a href="/engine">all the demos</a>.</p>
+
+<div class="cta-band">
+  <h2>See a medical gas system quoted end to end.</h2>
+  <p>Watch the engine quote manifolds to headwalls as one system, or book a call and bring a recent project request, names removed.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="/engine/medgas">Watch the medical gas demo →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=guide-medgas" target="_blank" rel="noopener">Book a call</a>
+  </div>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/engine/medgas">Medical gas quoting software</a> · <a href="/guides/quote-checked-before-priced">Checked before priced</a> · <a href="/engine">All demos</a> · <a href="/claude">Use in Claude or ChatGPT</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>

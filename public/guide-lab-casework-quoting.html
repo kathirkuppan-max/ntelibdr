@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lab Casework &amp; Fume Hood Quoting Software: SEFA 8, SEFA 1 Guide</title>
+<meta name="description" content="What lab casework and fume hood quoting software must check, room by room: SEFA 8 casework, SEFA 3 tops, SEFA 1 hoods and ASHRAE 110, NFPA 45 and ADA heights.">
+<link rel="canonical" href="https://nteli.io/guides/lab-casework-quoting">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Nteli">
+<meta property="og:title" content="Lab casework and fume hood quoting software: what a quote must check">
+<meta property="og:description" content="SEFA 8 casework, SEFA 3 work surfaces, SEFA 1 fume hoods, ASHRAE 110, NFPA 45 and ADA heights: what laboratory casework quoting has to get right, room by room.">
+<meta property="og:url" content="https://nteli.io/guides/lab-casework-quoting">
+<meta property="og:image" content="https://nteli.io/media/og-lab.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://nteli.io/media/og-lab.jpg">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#0D1117;--surface:#161B22;--surface2:#1C2333;--border:#2A3446;--border2:#374458;
+--text:#F0F6FC;--text2:#9BA8B4;--text3:#6E7B88;--blue:#58A6FF;--blue2:#388BFD;--gold:#D4A843;
+--purple:#BC8CFF;--purple-bg:#1A0E2E;--teal:#2DD4BF;--green:#3FB950;
+--sans:'IBM Plex Sans',-apple-system,sans-serif;--mono:'IBM Plex Mono',monospace;}
+html,body{background:var(--bg);font-family:var(--sans);color:var(--text);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--blue);text-decoration:none;}
+a:hover{text-decoration:underline;}
+.nav{position:sticky;top:0;z-index:50;background:rgba(13,17,23,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:880px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;}
+.brand{font-size:18px;font-weight:800;color:var(--text);}
+.brand em{color:var(--blue);font-style:normal;font-weight:400;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;font-size:14px;font-weight:600;border:1.5px solid;border-radius:6px;text-decoration:none;}
+.btn:hover{text-decoration:none;}
+.btn-primary{background:var(--blue2);color:#0D1117;border-color:var(--blue2);}
+.btn-primary:hover{background:var(--blue);}
+.doc{max-width:760px;margin:0 auto;padding:56px 28px 80px;}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:12px;}
+h1{font-size:38px;font-weight:800;letter-spacing:-1px;line-height:1.15;margin-bottom:12px;color:var(--text);}
+.byline{font-size:13px;color:var(--text3);font-family:var(--mono);margin-bottom:20px;}
+.byline a{color:var(--text2);}
+.answer{background:var(--surface);border:1.5px solid var(--border);border-left:3px solid var(--teal);border-radius:10px;padding:18px 22px;margin:8px 0 28px;font-size:16.5px;color:var(--text);}
+h2{font-size:23px;font-weight:800;letter-spacing:-.5px;margin:40px 0 12px;color:var(--text);}
+h3{font-size:17px;font-weight:700;margin:24px 0 8px;color:var(--text);}
+p{font-size:16px;color:var(--text2);margin-bottom:16px;}
+p b,p strong{color:var(--text);}
+ul{list-style:none;margin:0 0 16px;}
+li{font-size:15.5px;color:var(--text2);padding-left:20px;position:relative;margin-bottom:9px;line-height:1.65;}
+li::before{content:'→';position:absolute;left:0;color:var(--purple);font-family:var(--mono);opacity:.75;}
+li b{color:var(--text);}
+.cta-band{background:var(--surface);border:1.5px solid var(--border);border-radius:14px;padding:28px 30px;margin-top:44px;text-align:center;}
+.cta-band h2{margin:0 0 8px;}
+.cta-band p{margin-bottom:18px;}
+.cta-row{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+footer{border-top:1px solid var(--border);padding:32px 28px;text-align:center;font-size:12px;color:var(--text3);font-family:var(--mono);}
+footer a{color:var(--text3);}
+@media(max-width:640px){h1{font-size:29px;}.doc{padding:40px 16px 64px;}.nav-inner{padding:12px 16px;}.cta-band{padding:24px 18px;}}
+</style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"Lab casework and fume hood quoting software: what a quote must check","description":"What laboratory casework and fume hood quoting and estimating software must check — SEFA 8 casework by material, SEFA 3 work surfaces, SEFA 1 fume hoods tested to ANSI/ASHRAE 110, NFPA 45 and ADA work surface heights — and how manufacturers and dealers quote room by room without rework.","datePublished":"2026-11-16","dateModified":"2026-11-16","author":{"@type":"Person","name":"Kathiravan Kuppan","url":"https://nteli.io/kathir"},"publisher":{"@type":"Organization","name":"Nteli","url":"https://nteli.io"},"image":"https://nteli.io/media/og-lab.jpg","mainEntityOfPage":"https://nteli.io/guides/lab-casework-quoting"}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"What should lab casework quoting software check?","acceptedAnswer":{"@type":"Answer","text":"That every room on the plan is complete and consistent: casework material matched to the right SEFA 8 standard (8-M metal, 8-W wood, 8-PH phenolic, 8-PL plastic laminate, 8-P polypropylene), work surfaces per SEFA 3 matched to the chemistry, fume hoods per SEFA 1 with the ANSI/ASHRAE 110 test condition the specification calls for, the base cabinets under each hood (flammable storage cabinets fall under NFPA 30), fixtures per SEFA 7, accessible work surfaces and sinks per the 2010 ADA Standards, and installation scope per SEFA 2. It should also show which specification line drove each choice."}},
+{"@type":"Question","name":"What is the difference between lab casework estimating and quoting?","acceptedAnswer":{"@type":"Answer","text":"Estimating works out what the job will cost to make and install: the takeoff of base, wall and tall cabinets, tops, hoods, fixtures, freight and installation, priced from the price book. The quote is what the customer or general contractor receives: the price, scope, alternates, exclusions and the submittal. Estimating software that skips the checks between the two produces a confident number for a room that will not pass review."}},
+{"@type":"Question","name":"Does fume hood quoting software certify a hood to ASHRAE 110?","acceptedAnswer":{"@type":"Answer","text":"No. ANSI/ASHRAE 110 is a test method, and testing happens on the hood: as manufactured at the factory, as installed in the building, or as used. Quoting software can check that the hood configured matches what the specification asks for and that the test requirement is carried into the quote. It checks the configuration; it does not certify it."}},
+{"@type":"Question","name":"What face velocity should a fume hood quote assume?","acceptedAnswer":{"@type":"Answer","text":"The one in the owner's specification. ASHRAE 110 defines how hoods are tested, not a required face velocity; the target comes from the owner's safety program and the codes and standards it adopts, such as NFPA 45 and ANSI/AIHA Z9.5. A quote should state the face velocity and sash opening it assumed, because together they set the exhaust volume the building must supply."}},
+{"@type":"Question","name":"How should dealers quote lab casework for a manufacturer?","acceptedAnswer":{"@type":"Answer","text":"On the manufacturer's current rules and price book, not a copy of it. The dealer works room by room from the lab plans, adds their own markup, freight and installation, and sends the quote; the manufacturer sees the same configuration when the order arrives, so nothing is re-keyed or re-checked at order entry."}}]}
+</script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner">
+  <a href="/" class="brand">nteli<em>.io</em></a>
+  <a class="btn btn-primary" href="/engine/lab">Watch the lab demo →</a>
+</div></nav>
+
+<main class="doc">
+<div class="eyebrow">Guide · Lab casework &amp; fume hoods</div>
+<h1>Lab casework and fume hood quoting software: what a quote must check.</h1>
+<div class="byline">By <a href="/kathir">Kathiravan Kuppan</a> · November 16, 2026</div>
+
+<div class="answer"><b>The short answer:</b> lab casework quoting software is only as good as what it checks, room by room: casework material against the right SEFA 8 standard, tops against SEFA 3 and the chemistry, fume hoods against SEFA 1 and the ANSI/ASHRAE 110 test the specification calls for, storage under each hood, and accessible heights under the 2010 ADA Standards. If the tool can&rsquo;t show which spec line drove each choice, it&rsquo;s a price list, not an estimator.</div>
+
+<h2>Why lab casework and fume hood quotes go wrong</h2>
+<p>A laboratory casework job rarely arrives as a clean order. It arrives as a set of lab plans and elevations, a Division 12 casework section and a Division 11 fume hood section, an equipment schedule, and a general contractor who wants a number by Friday. The estimator does a takeoff room by room: base cabinets, wall cabinets, tall storage, tops, sinks, hoods, service fixtures, shelving. Then the architect issues a revision and half of it starts again.</p>
+<p>Specialty manufacturers and their dealers see the same failure modes, and each one comes out of margin at submittal, at installation or at punch list:</p>
+<ul>
+  <li><b>The takeoff misses a room or double-counts one</b>, because the plan set changed between addenda and the spreadsheet didn&rsquo;t.</li>
+  <li><b>Materials get mixed up.</b> Painted steel, wood, phenolic, plastic laminate and polypropylene casework each have their own SEFA 8 standard, and epoxy resin, phenolic resin, stainless steel and laminate tops perform differently against the same chemicals. A room quoted in the wrong one gets rejected at submittal.</li>
+  <li><b>The hood and what sits under it don&rsquo;t agree.</b> A hood is quoted at one width and depth, the base cabinets and top beneath it at another, or a standard base cabinet goes where the specification calls for flammable or acid storage.</li>
+  <li><b>The exhaust basis is never stated.</b> Sash type and opening, together with the owner&rsquo;s face velocity target, set how much air the hood exhausts. Leave it out and the mechanical engineer and the hood quote disagree.</li>
+  <li><b>Accessible stations are forgotten</b> until review, then added at a different height with different knee clearance and a different sink.</li>
+  <li><b>Dealer and manufacturer numbers drift apart.</b> The dealer quotes from last year&rsquo;s price book and their own spreadsheet; the order arrives at the factory and has to be re-keyed and re-checked.</li>
+</ul>
+
+<h2>The checklist: what a lab casework quote must verify</h2>
+<p>These are public standards every lab furniture estimator works with. A quote doesn&rsquo;t need to restate them; it needs to be consistent with them and with the project specification.</p>
+<h3>Casework</h3>
+<ul>
+  <li><b>Material matched to its SEFA 8 standard:</b> SEFA 8-M (metal), 8-W (wood), 8-PH (phenolic), 8-PL (plastic laminate) or 8-P (polypropylene). Mixed-material jobs are common, so the check is per room and per elevation, not per job.</li>
+  <li><b>Work surfaces per SEFA 3</b>, with the top material matched to the chemistry in that room and to the casework and hood it sits on.</li>
+  <li><b>Service fixtures per SEFA 7</b>: faucets, gas and vacuum valves, and electrical fittings counted from the plans, not estimated as an allowance.</li>
+  <li><b>Adaptable systems</b> (mobile tables, overhead service carriers) per SEFA 10 where the plan calls for them.</li>
+  <li><b>Installation scope per SEFA 2</b>, plus SEFA 5 scope-of-work boundaries, so it&rsquo;s clear who sets, levels, anchors and connects.</li>
+</ul>
+<h3>Fume hoods</h3>
+<ul>
+  <li><b>Hood design and construction per SEFA 1</b>, with the hood type (bench-top, distillation, floor-mounted) and sash type (vertical, horizontal or combination) the specification calls for. Ductless enclosures fall under SEFA 9.</li>
+  <li><b>The ANSI/ASHRAE 110 test requirement</b> carried into the quote, including whether the specification wants results as manufactured, as installed or as used. ASHRAE 110 is a test method; it does not set a face velocity.</li>
+  <li><b>The face velocity and sash opening assumed</b>, taken from the owner&rsquo;s specification. Those targets come from the owner&rsquo;s safety program and the standards it adopts, such as NFPA 45 and ANSI/AIHA Z9.5.</li>
+  <li><b>Special-purpose hoods</b> flagged for engineering rather than priced like a standard hood. Perchloric acid work, for example, needs a purpose-built hood with a washdown system; NFPA 45 addresses it.</li>
+  <li><b>Storage under the hood</b>: flammable-liquid storage cabinets are governed by NFPA 30 (and, in the workplace, OSHA 29 CFR 1910.106); SEFA 11 covers liquid chemical storage.</li>
+</ul>
+<h3>Room and accessibility</h3>
+<ul>
+  <li><b>Accessible work surfaces</b> under the 2010 ADA Standards: where work surfaces are provided for use by other than employees, at least 5 percent must comply with section 902 (226.1), which puts the top between 28 and 34 inches above the floor (902.3) with knee and toe clearance for a forward approach (902.2). Teaching labs are the usual case.</li>
+  <li><b>Accessible sinks</b> with the rim or counter no higher than 34 inches (ADA 606.3).</li>
+  <li><b>Emergency eyewash and shower</b> fixtures shown on the plan and placed per ANSI/ISEA Z358.1, which calls for them to be reachable within 10 seconds.</li>
+  <li><b>A source for every answer</b>: the specification section or standard behind each choice, so a project manager can trust a line or a refusal without re-deriving it.</li>
+</ul>
+<p>One honest boundary: software checks the configuration against the specification and the standards it cites. It is not a testing lab or a code official. Hood performance is verified by ASHRAE 110 testing, and code compliance is the design team&rsquo;s and the authority having jurisdiction&rsquo;s call.</p>
+
+<h2>Lab casework estimating vs. quoting</h2>
+<p>The words get used loosely, but they are two steps. <b>Estimating</b> works out what the job will cost you to make and install: the takeoff of every cabinet, top, hood and fixture, priced from your price book, plus freight, installation and any field work. The <b>quote</b> is what the general contractor, dealer or owner receives: the price, the scope, alternates, exclusions and the submittal that follows. Laboratory casework estimating software that skips the checks between those steps produces a confident number for a room that won&rsquo;t survive submittal review. The useful kind does both from one set of room data, with the checks in between, so the quote, the submittal and the order all describe the same casework.</p>
+
+<h2>Spreadsheets vs. CPQ vs. a checked-quote engine</h2>
+<p><b>Spreadsheets</b> are where most lab furniture estimating still lives: flexible, familiar, and dependent on a senior estimator who knows which top goes with which chemistry and which base cabinet goes under which hood. Every revision means re-working the takeoff by hand, and the checks live in that person&rsquo;s head.</p>
+<p><b>Traditional CPQ</b> (configure, price, quote) software solves the checking problem for products sold one at a time, but it assumes a team to author and maintain rules and a seller clicking through a configurator, one item at a time. Lab jobs are quoted by the room and the floor, from drawings, with revisions, which is a poor fit for a one-item-at-a-time configurator.</p>
+<p><b>A checked-quote engine</b> starts from the job as it arrives: the casework schedule, the specification section or the dealer&rsquo;s email. The engine builds the quote room by room, checks each room against your rules and the standards your specification cites, asks for what&rsquo;s missing instead of guessing, and prices from your price book. A revised room is re-checked and re-priced from the same rules, not re-keyed. That is the approach behind <a href="/guides/quote-checked-before-priced">checking a quote before it is priced</a>, and it is what <a href="/engine/lab">Nteli&rsquo;s lab casework and fume hood quoting engine</a> does. You can see every product the engine quotes on the <a href="/engine">engine page</a>.</p>
+
+<h2>Dealer quoting: one set of rules, many sellers</h2>
+<p>Many lab casework and fume hood manufacturers sell through dealers, and that is where quotes drift. A dealer working from an old price book or a home-built spreadsheet can quote a configuration the factory won&rsquo;t build, and the order desk finds out after the purchase order.</p>
+<ul>
+  <li><b>Dealers quote on the manufacturer&rsquo;s current rules and price book</b>, not a copy of it, so a revision at the factory reaches every dealer at once.</li>
+  <li><b>The dealer keeps control of the commercial layer</b>: their markup, freight, installation and alternates, without changing the engineering underneath.</li>
+  <li><b>The order arrives already checked.</b> The configuration the dealer quoted is the configuration the factory receives, so nothing is re-keyed at order entry.</li>
+  <li><b>Every quote carries its basis</b>: which specification sections and standards it was checked against, which helps when the architect&rsquo;s reviewer asks.</li>
+</ul>
+<p>If your team already runs Salesforce, the same checked quotes can live alongside your opportunities; see <a href="/salesforce-manufacturing">Salesforce for manufacturers</a>.</p>
+
+<h2>FAQ</h2>
+<h3>What should lab casework quoting software check?</h3>
+<p>That every room on the plan is complete and consistent: casework material matched to the right SEFA 8 standard (8-M metal, 8-W wood, 8-PH phenolic, 8-PL plastic laminate, 8-P polypropylene), work surfaces per SEFA 3 matched to the chemistry, fume hoods per SEFA 1 with the ANSI/ASHRAE 110 test condition the specification calls for, the base cabinets under each hood (flammable storage cabinets fall under NFPA 30), fixtures per SEFA 7, accessible work surfaces and sinks per the 2010 ADA Standards, and installation scope per SEFA 2. It should also show which specification line drove each choice.</p>
+<h3>What is the difference between lab casework estimating and quoting?</h3>
+<p>Estimating works out what the job will cost to make and install: the takeoff of base, wall and tall cabinets, tops, hoods, fixtures, freight and installation, priced from the price book. The quote is what the customer or general contractor receives: the price, scope, alternates, exclusions and the submittal. Estimating software that skips the checks between the two produces a confident number for a room that will not pass review.</p>
+<h3>Does fume hood quoting software certify a hood to ASHRAE 110?</h3>
+<p>No. ANSI/ASHRAE 110 is a test method, and testing happens on the hood: as manufactured at the factory, as installed in the building, or as used. Quoting software can check that the hood configured matches what the specification asks for and that the test requirement is carried into the quote. It checks the configuration; it does not certify it.</p>
+<h3>What face velocity should a fume hood quote assume?</h3>
+<p>The one in the owner&rsquo;s specification. ASHRAE 110 defines how hoods are tested, not a required face velocity; the target comes from the owner&rsquo;s safety program and the codes and standards it adopts, such as NFPA 45 and ANSI/AIHA Z9.5. A quote should state the face velocity and sash opening it assumed, because together they set the exhaust volume the building must supply.</p>
+<h3>How should dealers quote lab casework for a manufacturer?</h3>
+<p>On the manufacturer&rsquo;s current rules and price book, not a copy of it. The dealer works room by room from the lab plans, adds their own markup, freight and installation, and sends the quote; the manufacturer sees the same configuration when the order arrives, so nothing is re-keyed or re-checked at order entry.</p>
+
+<div class="cta-band">
+  <h2>See the engine quote a lab, room by room.</h2>
+  <p>Watch casework and fume hoods quoted and checked together, or book a call and walk through one of your recent jobs with us, names removed. No deck, no pitch.</p>
+  <div class="cta-row">
+    <a class="btn btn-primary" href="/engine/lab">Watch the lab demo →</a>
+    <a class="btn" style="border-color:var(--border2);color:var(--text);" href="https://calendly.com/n-teli-salesforce/nteli-io?utm_source=nteli.io&amp;utm_medium=website&amp;utm_content=guide-lab" target="_blank" rel="noopener">Book a demo</a>
+  </div>
+</div>
+</main>
+
+<footer>© 2026 Nteli LLC · <a href="/engine/lab">Lab casework &amp; fume hood quoting</a> · <a href="/guides/quote-checked-before-priced">Checked before priced</a> · <a href="/engine">All demos</a> · <a href="/salesforce-manufacturing">Salesforce for manufacturers</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer>
+</body>
+</html>
